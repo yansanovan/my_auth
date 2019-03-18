@@ -102,6 +102,8 @@ class Kejaksaan extends MY_Controller
 	public function simpan()
 	{
 		$this->form_validation->set_rules('deskripsi','Deskripsi','required');
+		$this->form_validation->set_rules('uraian_tuntutan','uraian tuntutan','required');
+		$this->form_validation->set_rules('uraian_dakwaan','uraian dakwaan','required');
 		$this->form_validation->set_rules('file_pelimpahan_berkas', '', 'callback_file_pelimpahan_berkas');
 		$this->form_validation->set_rules('file_tahap_I', '', 'callback_file_tahap_I');
 		$this->form_validation->set_rules('file_tahap_II', '', 'callback_file_tahap_II');
@@ -162,6 +164,8 @@ class Kejaksaan extends MY_Controller
 					$url  = md5(uniqid());
 					$data = array('id_users' 					=> $this->session->userdata('id'),
 								  'deskripsi'					=> $deskripsi,
+								  'uraian_tuntutan'				=> $this->input->post('uraian_tuntutan'),
+								  'uraian_dakwaan'				=> $this->input->post('uraian_dakwaan'),
 								  'pelimpahan_berkas'			=> $this->input->post('pelimpahan_berkas'),
 								  'tahap_I'						=> $this->input->post('tahap_I'),
 								  'tahap_II'					=> $this->input->post('tahap_II'),
@@ -196,6 +200,8 @@ class Kejaksaan extends MY_Controller
 				$url  = md5(uniqid());
 				$data = array('id_users' 					=> $this->session->userdata('id'),
 							  'deskripsi'					=> $deskripsi,
+							  'uraian_tuntutan'				=> $this->input->post('uraian_tuntutan'),
+							  'uraian_dakwaan'				=> $this->input->post('uraian_dakwaan'),
 							  'pelimpahan_berkas'			=> $this->input->post('pelimpahan_berkas'),
 							  'tahap_I'						=> $this->input->post('tahap_I'),
 							  'tahap_II'					=> $this->input->post('tahap_II'),

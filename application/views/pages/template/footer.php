@@ -67,13 +67,40 @@ $(function () {
 
 </script>
 
-
 <script type="text/javascript">
+
+  //modal kepolisian
+  $(document).on("click","#uraian_pasal", function()
+  {
+    var uraian_pasal  = $(this).data('uraian_pasal'); 
+    $("#modal-uraian #uraian_pasal").html(uraian_pasal);
+  });
+
+  $(document).on("click","#cerita", function()
+  {
+    var cerita_singkat  = $(this).data('cerita_singkat'); 
+    $("#modal-cerita #cerita_singkat").html(cerita_singkat);
+  });
+
+   //modal kejaksaan
+  $(document).on("click","#uraian_tuntutan", function()
+  {
+    var uraian_tuntutan  = $(this).data('uraian_tuntutan'); 
+    $("#modal-tuntutan_modal #uraian_tuntutan").html(uraian_tuntutan);
+  });
+
+  $(document).on("click","#uraian_dakwaan", function()
+  {
+    var uraian_dakwaan  = $(this).data('uraian_dakwaan'); 
+    $("#modal-dakwaan_modal #uraian_dakwaan").html(uraian_dakwaan);
+  });
 
   $(document).on("click","#ganti_deskripsi", function()
   {
     var id_data       = $(this).data('id_data');
-    var deskripsi     = $(this).data('deskripsi'); 
+    var deskripsi     = $(this).data('deskripsi');
+    var uraian_pasal  = $(this).data('uraian_pasal'); 
+
 
     $("#modal-edit #id_data").val(id_data);
     $("#modal-edit #deskripsi").val(deskripsi);

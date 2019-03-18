@@ -20,8 +20,8 @@
                       <th>Status Data</th>
                     </tr>
                     </thead>
-                    <tbody> 
-                    <?php 
+                    <tbody>
+                  <?php 
                   $no = 1;
                   foreach ($kejaksaan as $key => $value) 
                   {

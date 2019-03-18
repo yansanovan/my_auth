@@ -75,6 +75,7 @@ class Kepolisian extends MY_Controller
 		$this->load->view('pages/kepolisian/data_jadwal/ubah_jadwal/uraian_pasal/index', $data);
 	}
 
+
 	public function ubah_uraian_pasal($url)
 	{
     	$this->form_validation->set_rules('editor3', 'Uraian Pasal', 'required');
@@ -95,18 +96,46 @@ class Kepolisian extends MY_Controller
 			
 			if ($success == TRUE) 
 			{
-				$this->session->set_flashdata('uraian_pasal_updated', '<div class="alert alert-success" role="alert">Uraian Pasal Updated</div>');	
+				$this->session->set_flashdata('uraian_pasal_updated', '<div class="alert alert-success" role="alert">uraian pasal dirubah</div>');	
 				// $url = $this->input->post('url');
 				$this->uraian_pasal($url);	
 			}
 		}
 	}
 
+
 	public function cerita_singkat($url)
 	{
     	$data['data'] = $this->m_kepolisian->uraian_dan_cerita($url);
 		$this->load->view('pages/kepolisian/data_jadwal/ubah_jadwal/cerita_singkat/index', $data);
 	}
+
+	public function ubah_cerita_singkat($url)
+	{
+    	$this->form_validation->set_rules('editor4', 'Cerita Singkat', 'required');
+
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger"alert-dismissible fade show role="alert">','</div>');
+
+		if ($this->form_validation->run() == FALSE) 
+		{
+			$this->cerita_singkat($url);		
+		}
+		else
+		{
+			$id_data = $this->input->post('id_data');
+			$cerita_singkat = $this->input->post('editor4');
+			$data = array('cerita_singkat' =>  $cerita_singkat);
+			$success = $this->m_kepolisian->ubah_uraian($id_data, $data);
+			
+			if ($success == TRUE) 
+			{
+				$this->session->set_flashdata('cerita_singkat', '<div class="alert alert-success" role="alert">cerita singkat dirubah</div>');	
+				$this->cerita_singkat($url);	
+			}
+		}
+	}
+
+	
 
 	public function tambah_jadwal()
 	{

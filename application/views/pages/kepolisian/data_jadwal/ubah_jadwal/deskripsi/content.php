@@ -16,6 +16,7 @@
           <div class="form-group">
             <label for="exampleInputEmail1">Deskripsi Perkara : </label>
             <input type="text" name="deskripsi" class="form-control" size="60"  id="deskripsi" required="required">
+            <!-- <p id="uraian_pasal"></p> -->
           </div>   
           <br><br>
           <div class="modal-footer">

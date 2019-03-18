@@ -27,51 +27,62 @@
                 <input type="text" name="deskripsi" class="form-control" id="exampleInputEmail1" placeholder="masukan deskripsi">
               </div>
             </div>
-              <section class="content">
-                  <div class="row">
-                    <div class="col-md-12">
+            
+            <section class="content">
+              <div class="row">
+                <div class="col-md-12">
                   <label for="exampleInputEmail1">Uraian Pasal</label>
-                        <div class="box box-info">
-                          <div class="box-header"><br>
-                              <div class="pull-right box-tools">
-                                <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip"title="Collapse">
-                                  <i class="fa fa-minus"></i></button>
-                                <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip"
-                                  title="Remove">
-                                  <i class="fa fa-times"></i></button>
-                            </div>
-                        </div>
-                        <div class="box-body pad">
-                             <textarea name="editor1" class="ckeditor"></textarea>
-                             <script>
-                                  CKEDITOR.replace('editor1');
-                              </script>
-                        </div>
+                  <div class="box box-info">
+                    
+                    <div class="box-header"><br>
+                      <div class="pull-right box-tools">
+                        <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip"title="Collapse">
+                          <i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip"
+                                title="Remove">
+                            <i class="fa fa-times"></i>
+                        </button>
+                      </div>
+                    </div>
+                    
+                    <div class="box-body pad">
+                      <textarea name="editor1" class="ckeditor"></textarea>
+                        <script>
+                          CKEDITOR.replace('editor1');
+                        </script>
+                    </div>
+
                   </div>
+                </div>
               </div>
             </section>
 
-             <section class="content">
-                  <div class="row">
-                    <div class="col-md-12">
+            <section class="content">
+              <div class="row">
+                <div class="col-md-12">
                   <label for="exampleInputEmail1">Cerita Singkat</label>
-                        <div class="box box-info">
-                          <div class="box-header"><br>
-                              <div class="pull-right box-tools">
-                                <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip"title="Collapse">
-                                  <i class="fa fa-minus"></i></button>
-                                <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip"
-                                  title="Remove">
-                                  <i class="fa fa-times"></i></button>
-                            </div>
-                        </div>
-                        <div class="box-body pad">
-                             <textarea name="editor2" class="ckeditor"></textarea>
-                               <script>
-                                  CKEDITOR.replace('editor2');
-                              </script>
-                        </div>
+                  <div class="box box-info">
+                    
+                    <div class="box-header"><br>
+                      <div class="pull-right box-tools">
+                        <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip"title="Collapse">
+                          <i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip"title="Remove">
+                          <i class="fa fa-times"></i></button>
+                      </div>
+                    </div>
+                    
+                    <div class="box-body pad">
+                      <textarea name="editor2" class="ckeditor"></textarea>
+                        <script>
+                          CKEDITOR.replace('editor2');
+                        </script>
+                    </div>
+
                   </div>
+                </div>
               </div>
             </section>
                            

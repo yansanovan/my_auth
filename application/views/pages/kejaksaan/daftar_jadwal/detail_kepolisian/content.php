@@ -37,11 +37,15 @@
               <a href="<?php echo base_url('kejaksaan');?>" class="btn btn-info btn-sm"> 
               <span class="glyphicon glyphicon-arrow-left"></span> Kembali</a>
 
-              <a href="<?php echo base_url('kejaksaan/uraian_pasal_kepolisian/'.$value->url);?>" class="btn btn-success btn-sm"> 
-              <span class="glyphicon glyphicon-file"></span></i>Uraian Pasal</a>
+        <!--       <a href="<?php //echo base_url('kejaksaan/uraian_pasal_kepolisian/'.$value->url);?>" class="btn btn-success btn-sm"> 
+              <span class="glyphicon glyphicon-file"></span></i>Uraian Pasal</a> -->
+              
+              <a id="uraian_pasal" class="btn btn-success btn-sm" data-uraian_pasal="<?= $value->uraian_pasal;?>" data-toggle="modal" data-target="#uraian_modal" data-whatever="@mdo"><span class="glyphicon glyphicon-file"></span></i>Uraian Pasal</a>
 
-              <a href="<?php echo base_url('kejaksaan/cerita_singkat/'.$value->url);?>" class="btn btn-warning btn-sm"> 
-              <span class="glyphicon glyphicon-file"></span></i>Cerita Singkat</a>
+              <a id="cerita" class="btn btn-warning btn-sm" data-cerita_singkat="<?= $value->cerita_singkat;?>" data-toggle="modal" data-target="#cerita_singkat_modal" data-whatever="@mdo"><span class="glyphicon glyphicon-file"></span></i>Cerita Singkat</a>
+
+              <!-- <a href="<?php //echo base_url('kejaksaan/cerita_singkat/'.$value->url);?>" class="btn btn-warning btn-sm"> 
+              <span class="glyphicon glyphicon-file"></span></i>Cerita Singkat</a> -->
             <?php 
             } 
             ?>
@@ -397,3 +401,41 @@
   </div>
 </div>
 
+
+<div class="modal fade" id="uraian_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog"  role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 align="center" class="modal-title" id="exampleModalLabel">Uraian Pasal</h2>
+      </div>
+      <div class="modal-body" id="modal-uraian">
+          <div class="form-group">
+            <p id="uraian_pasal"></p>
+          </div>   
+          <br><br>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Tutup</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="cerita_singkat_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog"  role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 align="center" class="modal-title" id="exampleModalLabel">Cerita Singkat</h2>
+      </div>
+      <div class="modal-body" id="modal-cerita">
+          <div class="form-group">
+            <p id="cerita_singkat"></p>
+          </div>   
+          <br><br>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Tutup</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

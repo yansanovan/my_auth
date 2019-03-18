@@ -11,7 +11,7 @@
               <?= $this->session->flashdata('terhapus');?>
               <?= $this->session->flashdata('tanggal_berhasil_diubah');?>
       
-              <h1 align="center"> Detail Data Jadwal Kepolisian </h1>
+              <h1 align="center"> Detail Data Jadwal Kejaksaan </h1>
                <table  width="300px">
              <?php 
               $no = 1;

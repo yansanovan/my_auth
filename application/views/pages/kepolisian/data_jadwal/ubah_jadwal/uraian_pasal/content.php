@@ -16,17 +16,6 @@
                   <div class="row">
                     <div class="col-md-12">
                       <label for="exampleInputEmail1">Uraian Pasal</label>
-                        <div class="box box-info">
-                          <div class="box-header"><br>
-                            <div class="pull-right box-tools">
-                            <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip"title="Collapse">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip"title="Remove">
-                                <i class="fa fa-times"></i>
-                            </button>
-                        </div>
-                      </div>
                       <?= form_open('kepolisian/ubah_uraian_pasal/'.$this->uri->segment(3));?>
                       <input type="hidden" name="url" value="<?= $data->url;?>">
                       <input type="hidden" name="id_data" value="<?= $data->id_data;?>">

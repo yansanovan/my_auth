@@ -67,7 +67,7 @@
 
                         <?php $this->load->view('pages/kepolisian/data_jadwal/ubah_jadwal/deskripsi/content');?>
                          
-                         <a id="ganti_deskripsi" class="btn btn-warning btn-sm" data-id_data="<?= $value->id_data;?>"  data-deskripsi="<?= $value->deskripsi;?>"data-toggle="modal" data-target="#editdata" data-whatever="@mdo"><span class="glyphicon glyphicon-edit"></span></i>Ganti Deskripsi</a>
+                         <a id="ganti_deskripsi" class="btn btn-warning btn-sm" data-id_data="<?= $value->id_data;?>" data-deskripsi="<?= $value->deskripsi;?>"data-toggle="modal" data-target="#editdata" data-whatever="@mdo"><span class="glyphicon glyphicon-edit"></span></i>Ganti Deskripsi</a>
                     </td>
 
                     <td>
