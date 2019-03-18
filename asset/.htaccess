@@ -1,0 +1,7 @@
+SetEnvIf Referer https://aplikasiterpadu.000webhostapp.com internal
+#
+<Files *>
+order Deny,Allow
+Deny from all
+Allow from env=internal
+</Files>
