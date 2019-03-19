@@ -95,6 +95,22 @@ $(function () {
     $("#modal-dakwaan_modal #uraian_dakwaan").html(uraian_dakwaan);
   });
 
+
+  //modal pengadilan 
+  $(document).on("click","#uraian_pokok", function()
+  {
+    var uraian_pokok  = $(this).data('uraian_pokok'); 
+    $("#modal-uraian_pokok_modal #uraian_pokok").html(uraian_pokok);
+  });
+
+  $(document).on("click","#putusan_amar", function()
+  {
+    var putusan_amar  = $(this).data('putusan_amar'); 
+    $("#modal-putusan_amar_modal #putusan_amar").html(putusan_amar);
+  });
+
+
+
   $(document).on("click","#ganti_deskripsi", function()
   {
     var id_data       = $(this).data('id_data');

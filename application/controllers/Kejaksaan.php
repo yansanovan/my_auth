@@ -14,6 +14,8 @@ class Kejaksaan extends MY_Controller
 		$this->load->helper('file');
 		$this->load->model('m_kejaksaan');
 		$this->load->model('m_cek_validasi_data');
+		$this->output->enable_profiler(TRUE);
+		
 	}
 	public function index()
 	{
@@ -56,17 +58,67 @@ class Kejaksaan extends MY_Controller
 		$this->load->view('pages/kejaksaan/data_jadwal/detail_jadwal/index', $data);
     }
 
-    public function uraian_pasal_kepolisian($url)
-    {
-    	$data['data'] = $this->m_cek_validasi_data->uraian_pasal_dan_cerita_singkat($url);
-		$this->load->view('pages/kejaksaan/daftar_jadwal/detail_kepolisian/uraian_pasal/index', $data);
-    }
+    public function uraian_tuntutan($url)
+	{
+    	$data['data'] = $this->m_kejaksaan->ambil_tuntutan_dan_dakwaan($url);
 
-    public function cerita_singkat($url)
-    {
-    	$data['data'] = $this->m_cek_validasi_data->uraian_pasal_dan_cerita_singkat($url);
-		$this->load->view('pages/kejaksaan/daftar_jadwal/detail_kepolisian/cerita_singkat/index', $data);
-    }
+		$this->load->view('pages/kejaksaan/data_jadwal/ubah_jadwal/uraian_tuntutan/index', $data);
+	}
+
+
+	public function ubah_uraian_tuntutan($url)
+	{
+    	$this->form_validation->set_rules('uraian_tuntutan', 'Uraian Pasal', 'required');
+
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger"alert-dismissible fade show role="alert">','</div>');
+
+		if ($this->form_validation->run() == FALSE) 
+		{
+			$this->uraian_tuntutan($url);		
+		}
+		else
+		{
+			$id_data = $this->input->post('id_data');
+			$uraian_tuntutan = $this->input->post('uraian_tuntutan');
+			$data = array('uraian_tuntutan' =>  $uraian_tuntutan);
+			$success = $this->m_kejaksaan->ubah_tuntutan_dan_dakwaan($id_data, $data);
+			
+			$this->session->set_flashdata('uraian_tuntutan', '<div class="alert alert-success" role="alert">uraian tuntutan dirubah</div>');	
+			$this->uraian_tuntutan($url);	
+		}
+	}
+
+
+	public function uraian_dakwaan($url)
+	{
+    	$data['data'] = $this->m_kejaksaan->ambil_tuntutan_dan_dakwaan($url);
+		$this->load->view('pages/kejaksaan/data_jadwal/ubah_jadwal/uraian_dakwaan/index', $data);
+	}
+
+	public function ubah_uraian_dakwaan($url)
+	{
+    	$this->form_validation->set_rules('uraian_dakwaan', 'uraian dakwaan', 'required');
+
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger"alert-dismissible fade show role="alert">','</div>');
+
+		if ($this->form_validation->run() == FALSE) 
+		{
+			$this->uraian_dakwaan($url);		
+		}
+		else
+		{
+			$id_data = $this->input->post('id_data');
+			$uraian_dakwaan = $this->input->post('uraian_dakwaan');
+			$data = array('uraian_dakwaan' =>  $uraian_dakwaan);
+			$success = $this->m_kejaksaan->ubah_tuntutan_dan_dakwaan($id_data, $data);
+			
+			if ($success == TRUE) 
+			{
+				$this->session->set_flashdata('uraian_dakwaan', '<div class="alert alert-success" role="alert">uraian dakwaan dirubah</div>');	
+				$this->uraian_dakwaan($url);	
+			}
+		}
+	}
 
 	public function tambah_jadwal()
 	{

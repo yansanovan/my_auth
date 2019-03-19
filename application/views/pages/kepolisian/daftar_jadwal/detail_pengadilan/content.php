@@ -37,6 +37,10 @@
               <a href="<?php echo base_url('kepolisian');?>" class="btn btn-info btn-sm"> 
                 <span class="glyphicon glyphicon-arrow-left"></span> Kembali
               </a>
+
+              <a id="uraian_pokok" class="btn btn-success btn-sm" data-uraian_pokok="<?= $value->uraian_pokok;?>" data-toggle="modal" data-target="#uraian_pokok_modal" data-whatever="@mdo"><span class="glyphicon glyphicon-file"></span></i>Uraian Pokok</a>
+
+               <a id="putusan_amar" class="btn btn-warning btn-sm" data-putusan_amar="<?= $value->putusan_amar;?>" data-toggle="modal" data-target="#putusan_amar_modal" data-whatever="@mdo"><span class="glyphicon glyphicon-file"></span></i>Putusan amar</a>
             <?php 
             } 
             ?>
@@ -472,3 +476,41 @@
   </div>
 </div>
 
+
+<div class="modal fade" id="uraian_pokok_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog"  role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 align="center" class="modal-title" id="exampleModalLabel">Uraian Pokok</h2>
+      </div>
+      <div class="modal-body" id="modal-uraian_pokok_modal">
+          <div class="form-group">
+            <p id="uraian_pokok"></p>
+          </div>   
+          <br><br>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Tutup</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="putusan_amar_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog"  role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 align="center" class="modal-title" id="exampleModalLabel">Putusan Amar</h2>
+      </div>
+      <div class="modal-body" id="modal-putusan_amar_modal">
+          <div class="form-group">
+            <p id="putusan_amar"></p>
+          </div>   
+          <br><br>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Tutup</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

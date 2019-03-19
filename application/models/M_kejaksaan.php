@@ -66,4 +66,18 @@ class M_kejaksaan extends CI_Model
 		$this->db->where('id_data', $id);
 		return $this->db->get('tbl_kepolisian')->row();
 	}
+
+	public function ambil_tuntutan_dan_dakwaan($url)
+	{
+		$this->db->select('*');
+		$this->db->from('tbl_kejaksaan');
+		$this->db->where(array('tbl_kejaksaan.url' => $url));
+		return $this->db->get()->row();
+	}
+
+	public function ubah_tuntutan_dan_dakwaan($id, $data)
+	{
+		$this->db->where('id_data', $id);
+		return $this->db->update('tbl_kejaksaan', $data);
+	}
 }

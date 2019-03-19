@@ -41,6 +41,13 @@
               <a href="<?php echo base_url('pengadilan/data_jadwal/'.$value->url);?>" class="btn btn-info btn-sm"> 
                 <span class="glyphicon glyphicon-arrow-left"></span> Kembali
               </a>
+
+              <a href="<?= base_url('pengadilan/uraian_pokok/'.$value->url);?>" class="btn btn-success btn-sm">
+                <span class="glyphicon glyphicon-file"></span></i>uraian pokok
+              </a>
+              <a  href="<?= base_url('pengadilan/putusan_amar/'.$value->url);?>" class="btn btn-warning btn-sm">
+                <span class="glyphicon glyphicon-file"></span></i>putusan amar
+              </a>
             <?php 
             } 
             ?>

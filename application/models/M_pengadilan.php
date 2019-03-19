@@ -84,4 +84,18 @@ class M_pengadilan extends CI_Model
 		$this->db->where('id_data', $id);
 		return $this->db->get('tbl_kepolisian')->row();
 	}
+
+	public function ambil_uraian_pokok_dan_putusan_amar($url)
+	{
+		$this->db->select('*');
+		$this->db->from('tbl_pengadilan');
+		$this->db->where(array('tbl_pengadilan.url' => $url));
+		return $this->db->get()->row();
+	}
+
+	public function ubah_uraian_pokok_dan_putusan_amar($id, $data)
+	{
+		$this->db->where('id_data', $id);
+		return $this->db->update('tbl_pengadilan', $data);
+	}
 }

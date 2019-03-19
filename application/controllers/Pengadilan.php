@@ -14,7 +14,8 @@ class Pengadilan extends MY_Controller
 		$this->load->helper('file');
 		$this->load->model('m_pengadilan');
 		$this->load->model('m_cek_validasi_data');
-
+		$this->output->enable_profiler(TRUE);
+		
 	}
 	public function index()
 	{
@@ -54,6 +55,68 @@ class Pengadilan extends MY_Controller
     	$data['data'] = $this->m_pengadilan->lihat_detail_jadwal($url);
 		$this->load->view('pages/pengadilan/data_jadwal/detail_jadwal/index', $data);
     }
+
+    public function uraian_pokok($url)
+	{
+    	$data['data'] = $this->m_pengadilan->ambil_uraian_pokok_dan_putusan_amar($url);
+		$this->load->view('pages/pengadilan/data_jadwal/ubah_jadwal/uraian_pokok/index', $data);
+	}
+
+
+	public function ubah_uraian_pokok($url)
+	{
+    	$this->form_validation->set_rules('uraian_pokok', 'uraian pokok', 'required');
+
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger"alert-dismissible fade show role="alert">','</div>');
+
+		if ($this->form_validation->run() == FALSE) 
+		{
+			$this->uraian_pokok($url);		
+		}
+		else
+		{
+			$id_data = $this->input->post('id_data');
+			$uraian_pokok = $this->input->post('uraian_pokok');
+			$data = array('uraian_pokok' =>  $uraian_pokok);
+			$success = $this->m_pengadilan->ubah_uraian_pokok_dan_putusan_amar($id_data, $data);
+
+			$this->session->set_flashdata('uraian_pokok', '<div class="alert alert-success" role="alert">uraian pokok dirubah</div>');	
+			$this->uraian_pokok($url);	
+		}
+	}
+
+
+	public function putusan_amar($url)
+	{
+    	$data['data'] = $this->m_pengadilan->ambil_uraian_pokok_dan_putusan_amar($url);
+		$this->load->view('pages/pengadilan/data_jadwal/ubah_jadwal/putusan_amar/index', $data);
+	}
+
+	public function ubah_putusan_amar($url)
+	{
+    	$this->form_validation->set_rules('putusan_amar', 'putusan amar', 'required');
+
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger"alert-dismissible fade show role="alert">','</div>');
+
+		if ($this->form_validation->run() == FALSE) 
+		{
+			$this->putusan_amar($url);		
+		}
+		else
+		{
+			$id_data = $this->input->post('id_data');
+			$putusan_amar = $this->input->post('putusan_amar');
+			$data = array('putusan_amar' =>  $putusan_amar);
+			$success = $this->m_pengadilan->ubah_uraian_pokok_dan_putusan_amar($id_data, $data);
+			
+			if ($success == TRUE) 
+			{
+				$this->session->set_flashdata('putusan_amar', '<div class="alert alert-success" role="alert">putuasan amar dirubah</div>');	
+				$this->putusan_amar($url);	
+			}
+		}
+	}
+
 
     public function tambah_jadwal()
 	{

@@ -8,20 +8,20 @@
               <div class="box-body">
                 <section class="content">
                 <?= validation_errors();?>
-                <?= $this->session->flashdata('uraian_dakwaan');?>
-                <a href="<?php echo base_url('kejaksaan/lihat_detail_jadwal/'.$this->uri->segment(3));?>" class="btn btn-info btn-sm"> 
+                <?= $this->session->flashdata('putusan_amar');?>
+                <a href="<?php echo base_url('pengadilan/lihat_detail_jadwal/'.$this->uri->segment(3));?>" class="btn btn-info btn-sm"> 
                   <span class="glyphicon glyphicon-arrow-left"></span> Kembali
                 </a><br><br>
                   <div class="row">
                     <div class="col-md-12">
-                      <label for="exampleInputEmail1">Uraian Dakwaan</label>
-                      <?= form_open('kejaksaan/ubah_uraian_dakwaan/'.$this->uri->segment(3));?>
+                      <label for="exampleInputEmail1">Cerita Singkat</label>
+                      <?= form_open('pengadilan/ubah_putusan_amar/'.$this->uri->segment(3));?>
                       <div class="box-body pad">
                         <input type="hidden" name="url" value="<?= $data->url;?>">
                         <input type="hidden" name="id_data" value="<?= $data->id_data;?>">
-                        <textarea name="uraian_dakwaan" class="ckeditor"> <?= $data->uraian_dakwaan;?></textarea>
+                        <textarea name="putusan_amar" class="ckeditor"> <?= $data->putusan_amar;?></textarea>
                          <script>
-                        CKEDITOR.replace( 'uraian_dakwaan' );
+                        CKEDITOR.replace( 'putusan_amar' );
                         </script>
                       </div>
                     </div>

@@ -73,7 +73,7 @@ class M_kepolisian extends CI_Model
 		return $this->db->get()->row();
 	}
 
-	public function ubah_uraian($id, $data)
+	public function ubah_uraian_pasal_dan_cerita_singkat($id, $data)
 	{
 		$this->db->where('id_data', $id);
 		$this->db->update('tbl_kepolisian', $data);

@@ -14,7 +14,7 @@ class Kepolisian extends MY_Controller
 		$this->load->helper('file');
 		$this->load->model('m_kepolisian');
 		$this->load->model('m_cek_validasi_data');
-		
+		$this->output->enable_profiler(TRUE);
 	}
 	public function index()
 	{
@@ -23,7 +23,7 @@ class Kepolisian extends MY_Controller
 		if (!$data['kejaksaan']  = $this->m_cek_validasi_data->tampil_data_kejaksaan($cachKejaksaan))
 		{
 			$data['kejaksaan']  = $this->m_cek_validasi_data->tampil_data_kejaksaan();
-	        $this->cache->save($cachKejaksaan, $data, 60);
+	        $this->cache->save($cachKejaksaan, $data, 300);
 		}
 		$cachePengadilan = 'pengadilan';
 
@@ -31,13 +31,13 @@ class Kepolisian extends MY_Controller
 		{
 			
 			$data['pengadilan']	= $this->m_cek_validasi_data->tampil_data_pengadilan();
-	        $this->cache->save($cachePengadilan, $data, 60);
+	        $this->cache->save($cachePengadilan, $data, 300);
 		}
 		$cacheLapas = 'lapas';
 		if (!$data['lapas'] = $this->m_cek_validasi_data->tampil_data_lapas($cacheLapas))
 		{
 			$data['lapas'] 		= $this->m_cek_validasi_data->tampil_data_lapas();
-	        $this->cache->save($cacheLapas, $data, 60);
+	        $this->cache->save($cacheLapas, $data, 300);
 		}
 
 		$this->load->view('pages/kepolisian/daftar_jadwal/index', $data);
@@ -92,7 +92,7 @@ class Kepolisian extends MY_Controller
 			$id_data = $this->input->post('id_data');
 			$uraian_pasal = $this->input->post('editor3');
 			$data = array('uraian_pasal' =>  $uraian_pasal);
-			$success = $this->m_kepolisian->ubah_uraian($id_data, $data);
+			$success = $this->m_kepolisian->ubah_uraian_pasal_dan_cerita_singkat($id_data, $data);
 			
 			if ($success == TRUE) 
 			{
@@ -125,7 +125,7 @@ class Kepolisian extends MY_Controller
 			$id_data = $this->input->post('id_data');
 			$cerita_singkat = $this->input->post('editor4');
 			$data = array('cerita_singkat' =>  $cerita_singkat);
-			$success = $this->m_kepolisian->ubah_uraian($id_data, $data);
+			$success = $this->m_kepolisian->ubah_uraian_pasal_dan_cerita_singkat($id_data, $data);
 			
 			if ($success == TRUE) 
 			{
