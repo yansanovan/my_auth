@@ -38,6 +38,7 @@
 								<div class="form-group">
 									<label for="exampleInputEmail1">File Penangkapan</label>
 									<input type="hidden" name="id_data" value="<?= $data->id_data;?>"  class="form-control">
+									<input type="hidden" name="url" value="<?= $data->url;?>"  class="form-control">
 
 									<input type="text" name="file_penangkapan_lama" value="<?= $data->file_penangkapan;?>"  class="form-control">
 								</div>

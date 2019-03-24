@@ -87,7 +87,7 @@ Class Superadmin extends MY_controller
 	    if($result == 0)
 	        $response = true;
 	    else {
-	        $this->form_validation->set_message('check_user_email', 'Email must be unique');
+	        $this->form_validation->set_message('check_user_email', 'Upps! Email ada yang sama, harus unik!');
 	        $response = false;
 	    }
 	    return $response;
@@ -158,13 +158,13 @@ Class Superadmin extends MY_controller
 	
 		// Backup your entire database and assign it to a variable
 		$backup = $this->dbutil->backup($config);
-		$save = FCPATH.'backup/database/backup-database-'.date("ymdHis").'-db.zip';
+		// $save = FCPATH.'backup/database/backup-database-'.date("ymdHis").'-db.zip';
 		// $save = 'backup-database-'.date("ymdHis").'-db.zip';
 
 		// Load the file helper and write the file to your server
 		$this->load->helper('download');
-		$success = write_file($save, $backup);
-		force_download($save, $backup);
+		// $success = write_file($save, $backup);
+		force_download('backup_database-'.date("ymdHis").'-db.zip', $backup);
 
 		if ($success) 
 		{

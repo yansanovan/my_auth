@@ -38,21 +38,21 @@
  $(function () {
     $('#example1').DataTable({
       responsive:true,
-       "lengthMenu": [[12, 25, 50, -1], [12, 25, 50, "All"]]
+       "lengthMenu": [[7, 25, 50, -1], [7, 25, 50, "All"]]
     })
   });
 
 $(function () {
     $('#example2').DataTable({
       responsive:true,
-       "lengthMenu": [[12, 25, 50, -1], [12, 25, 50, "All"]]
+       "lengthMenu": [[7, 25, 50, -1], [7, 25, 50, "All"]]
     })
   });
 
 $(function () {
     $('#example3').DataTable({
       responsive:true,
-       "lengthMenu": [[12, 25, 50, -1], [12, 25, 50, "All"]]
+       "lengthMenu": [[7, 25, 50, -1], [7, 25, 50, "All"]]
     })
   });
 
@@ -114,12 +114,12 @@ $(function () {
   $(document).on("click","#ganti_deskripsi", function()
   {
     var id_data       = $(this).data('id_data');
-    var deskripsi     = $(this).data('deskripsi');
-    var uraian_pasal  = $(this).data('uraian_pasal'); 
-
+    var url           = $(this).data('url');
+    var deskripsi     = $(this).data('deskripsi'); 
 
     $("#modal-edit #id_data").val(id_data);
     $("#modal-edit #deskripsi").val(deskripsi);
+    $("#modal-edit #url").val(url);
   });
 
 </script>  

@@ -26,9 +26,9 @@
 								<div class="form-group">
 									<label for="exampleInputEmail1">Nama Berkas</label>
 									<select name="pembebasan_bersyarat" class="form-control">
-									  <option value="pembebasan bersyarat">Pembebasan Bersyarat</option>
-									  <option value="isi putusan">Isi Putusan</option>
 									  <option value="eksekusi">Eksekusi</option>
+									  <option value="isi putusan">Isi Putusan</option>
+									  <option value="pembebasan bersyarat" selected="selected">Pembebasan Bersyarat</option>
 									  <option value="remisi">Remisi</option>
 									  <option value="bebas">Bebas</option>
 									</select>
@@ -39,7 +39,9 @@
 							<div class="col-md-3"><br>
 								<div class="form-group">
 									<label for="exampleInputEmail1">File </label>
-									<input type="hidden" name="id_data" value="<?= $data->id_data;?>" class="form-control" id="exampleInputEmail1">
+									<input type="hidden" name="id_data" value="<?= $data->id_data;?>" class="form-control">
+									<input type="hidden" name="url" value="<?= $data->url;?>" class="form-control">
+									
 									<input type="text" name="file_pembebasan_bersyarat_lama" value="<?= $data->file_pembebasan_bersyarat;?>" class="form-control" id="exampleInputEmail1" >
 								</div>
 							</div>

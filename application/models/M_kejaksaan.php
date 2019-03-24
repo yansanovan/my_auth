@@ -3,6 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_kejaksaan extends CI_Model 
 {
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->driver('cache', array('adapter' => 'file'));
+	}
+
 	public function tampil($id = NULL)
 	{
 		if ($id != NULL) 
@@ -38,27 +44,58 @@ class M_kejaksaan extends CI_Model
 	public function simpan($data)
 	{
 		$this->db->insert('tbl_kejaksaan', $data);
-		return true;
+		
+		if ($this->db->affected_rows() > 0 ) 
+		{
+			$this->cache->delete('kejaksaan');
+
+			return true;
+		}
+
 	}
 
-	public function ubah($id, $data)
+	public function ubah($id, $data, $url)
 	{
 		$this->db->where('id_data', $id);
 		$this->db->update('tbl_kejaksaan', $data);
-		return true;
+
+		if ($this->db->affected_rows() > 0 ) 
+		{
+			$this->cache->delete('detail_kejaksaan_'.$url);
+			return true;
+		}
 	}
 
-	public function ubah_deskripsi($id_data, $data)
+	public function ubah_deskripsi($id_data, $data, $url)
 	{
+
 		$this->db->where('id_data', $id_data);
 		$this->db->update('tbl_kejaksaan', $data);
-		return true;
+		if ($this->db->affected_rows() > 0 ) 
+		{
+			$this->cache->delete('kejaksaan');
+
+			//delete detail cache kejaksaan
+			$this->cache->delete('detail_kejaksaan_'.$url);
+			return true;
+		}
 	}
 	
-	public function hapus($id)
+	public function hapus($id, $url)
 	{
+		$this->load->driver('cache', array('adapter' => 'file'));
+
 		$this->db->where('id_data', $id);
 		$this->db->delete('tbl_kejaksaan');
+		if ($this->db->affected_rows() > 0) 
+		{
+			$this->cache->delete('kejaksaan');
+
+			//delete detail cache kejaksaan
+			$this->cache->delete('detail_kejaksaan_'.$url);
+
+			return true;
+		}
 	}
 
 	public function unduh($id)
@@ -75,9 +112,16 @@ class M_kejaksaan extends CI_Model
 		return $this->db->get()->row();
 	}
 
-	public function ubah_tuntutan_dan_dakwaan($id, $data)
+	public function ubah_tuntutan_dan_dakwaan($id, $data, $url)
 	{
 		$this->db->where('id_data', $id);
-		return $this->db->update('tbl_kejaksaan', $data);
+		$this->db->update('tbl_kejaksaan', $data);
+		if ($this->db->affected_rows() > 0) 
+		{
+			//delete detail cache kejaksaan
+			$this->cache->delete('detail_kejaksaan_'.$url);
+
+			return true;
+		}
 	}
 }

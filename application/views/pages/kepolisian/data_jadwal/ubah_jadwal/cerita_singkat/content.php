@@ -19,9 +19,9 @@
                       <div class="box-body pad">
                         <input type="hidden" name="url" value="<?= $data->url;?>">
                         <input type="hidden" name="id_data" value="<?= $data->id_data;?>">
-                        <textarea name="editor4" class="ckeditor"> <?= $data->cerita_singkat;?></textarea>
+                        <textarea name="cerita_singkat" class="ckeditor"> <?= $data->cerita_singkat;?></textarea>
                          <script>
-                        CKEDITOR.replace( 'editor4' );
+                        CKEDITOR.replace( 'cerita_singkat' );
                         </script>
                       </div>
                     </div>

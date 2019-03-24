@@ -7,6 +7,15 @@
           <div class="box">
             <div class="box-header">
               <h1 align="center"> Data Dari Kepolisian </h1>
+              <table  width="200px">
+                <tbody>
+                    <tr>
+                        <td><b>Jumlah Data Kepolisian</b></td>
+                        <td width="20px">:</td>
+                        <td><b><?php echo $data_kepolisian;?></b></td>
+                    </tr>
+                </tbody>
+              </table>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -17,6 +26,7 @@
                     <th>No</th>
                     <th>Deskripsi Perkara</th>
                     <th>Dikirim Oleh</th>
+                    <th>Tanggal Posting</th>
                     <th>Lihat Detail Jadwal</th>
                     <th>Status Data</th>
                   </tr>
@@ -36,6 +46,11 @@
                     <td style ="<?php if($value->username == null){echo 'background-color:red'; }else{echo ''; }?>">
                       <?= $value->username;?>
                     </td>
+
+                    <td>
+                      <?php echo date('y F d', strtotime($value->tanggal_posting)); ?>
+                    </td>
+
                     <td>
                         <a href="<?php echo base_url('kejaksaan/detail_kepolisian/'. $value->url);?>" class="btn btn-info btn-sm"> 
                           <span class="glyphicon glyphicon-eye-open"></span> Detail Jadwal
@@ -53,7 +68,7 @@
                         else
                         {
                         ?>
-                          <button class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-file"></span>Data Lengkap</button>
+                          <button class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-file"></span>Data Komplete</button>
                         <?php
                         }
                         ?>
@@ -68,6 +83,7 @@
                     <th>No</th>
                     <th>Deskripsi Perkara</th>
                     <th>Dikirim Oleh</th>
+                    <th>Tanggal Posting</th>
                     <th>Lihat detail Jadwal</th>
                     <th>Status Data</th>
                   </tr>
@@ -80,6 +96,15 @@
           <div class="box">
             <div class="box-header">
               <h1 align="center"> Data Dari Pengadilan </h1>
+               <table  width="200px">
+                <tbody>
+                    <tr>
+                        <td><b>Jumlah Data Pengadilan</b></td>
+                        <td width="20">:</td>
+                        <td><b><?php echo $data_pengadilan;?></b></td>
+                    </tr>
+                </tbody>
+              </table>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -90,6 +115,7 @@
                     <th>No</th>
                     <th>Deskripsi Perkara</th>
                     <th>Dikirim Oleh</th>
+                    <th>Tanggal Posting</th>
                     <th>Lihat Detail Jadwal</th>
                     <th>Status Data</th>
                   </tr>
@@ -109,6 +135,11 @@
                     <td style ="<?php if($value->username == null){echo 'background-color:red'; }else{echo ''; }?>">
                       <?= $value->username;?>
                     </td>
+
+                    <td>
+                      <?php echo date('y F d', strtotime($value->tanggal_posting)); ?>
+                    </td>
+
                     <td>
                         <a href="<?php echo base_url('kejaksaan/detail_pengadilan/'. $value->url);?>" class="btn btn-info btn-sm"> 
                           <span class="glyphicon glyphicon-eye-open"></span> Detail Jadwal
@@ -126,7 +157,7 @@
                         else
                         {
                         ?>
-                          <button class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-file"></span>Data Lengkap</button>
+                          <button class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-file"></span>Data Komplete</button>
                         <?php
                         }
                         ?>
@@ -141,6 +172,7 @@
                     <th>No</th>
                     <th>Deskripsi Perkara</th>
                     <th>Dikirim Oleh</th>
+                    <th>Tanggal Posting</th>
                     <th>Lihat Detail Jadwal</th>
                     <th>Status Data</th>
                   </tr>
@@ -154,6 +186,15 @@
           <div class="box">
             <div class="box-header">
               <h1 align="center"> Data Dari Lapas </h1>
+              <table  width="200px">
+                <tbody>
+                    <tr>
+                        <td><b>Jumlah Data Lapas</b></td>
+                        <td width="20">:</td>
+                        <td><b><?php echo $data_lapas;?></b></td>
+                    </tr>
+                </tbody>
+              </table>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -164,6 +205,7 @@
                     <th>No</th>
                     <th>Deskripsi Perkara</th>
                     <th>Dikirim Oleh</th>
+                    <th>Tanggal Posting</th>
                     <th>Lihat Detail Jadwal</th>
                     <th>Status Data</th>
                   </tr>
@@ -183,6 +225,11 @@
                     <td style ="<?php if($value->username == null){echo 'background-color:red'; }else{echo ''; }?>">
                       <?= $value->username;?>
                     </td>
+
+                    <td>
+                      <?php echo date('y F d', strtotime($value->tanggal_posting)); ?>
+                    </td>
+
                     <td>
                         <a href="<?php echo base_url('kejaksaan/detail_lapas/'. $value->url);?>" class="btn btn-info btn-sm"> 
                           <span class="glyphicon glyphicon-eye-open"></span> Detail Jadwal
@@ -200,7 +247,7 @@
                         else
                         {
                         ?>
-                          <button class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-file"></span>Data Lengkap</button>
+                          <button class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-file"></span>Data Komplete</button>
                         <?php
                         }
                         ?>
@@ -215,6 +262,7 @@
                     <th>No</th>
                     <th>Deskripsi Perkara</th>
                     <th>Dikirim Oleh</th>
+                    <th>Tanggal Posting</th>
                     <th>Lihat Detail Jadwal</th>
                     <th>Status Data</th>
                   </tr>

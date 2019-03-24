@@ -3,6 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_pengadilan extends CI_Model 
 {
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->driver('cache', array('adapter' => 'file'));
+	}
+
 	public function tampil($id = NULL)
 	{
 		if ($id != NULL) 
@@ -44,11 +50,33 @@ class M_pengadilan extends CI_Model
 	}
 
 	public function simpan($data)
-	{
+	{	
 		$this->db->insert('tbl_pengadilan', $data);
-		return true;
+
+		if ($this->db->affected_rows() > 0 ) 
+		{
+			$this->cache->delete('pengadilan');
+			
+			return true;
+		}
 	}
 
+	public function hapus($id, $url)
+	{
+
+		$this->db->where('id_data', $id);
+		$this->db->delete('tbl_pengadilan');
+
+		if ($this->db->affected_rows() > 0 ) 
+		{
+			$this->cache->delete('pengadilan');
+
+			// delete cache detail pengadilan
+			$this->cache->delete('detail_pengadilan_'.$url);
+
+			return true;
+		}
+	}
 
 	public function lihat_detail_jadwal($url)
 	{
@@ -59,25 +87,34 @@ class M_pengadilan extends CI_Model
 		return $this->db->get()->result();
 	}
 
-	public function ubah($id, $data)
+	public function ubah($id, $data, $url)
 	{
 		$this->db->where('id_data', $id);
 		$this->db->update('tbl_pengadilan', $data);
-		return true;
+
+		if ($this->db->affected_rows() > 0 ) 
+		{
+			// delete cache detail pengadilan
+			$this->cache->delete('detail_pengadilan_'.$url);
+			return true;
+		}
 	}
 
-	public function ubah_deskripsi($id_data, $data)
-	{
+	public function ubah_deskripsi($id_data, $data, $url)
+	{	
 		$this->db->where('id_data', $id_data);
 		$this->db->update('tbl_pengadilan', $data);
-		return true;
+		if ($this->db->affected_rows() > 0 ) 
+		{
+			$this->cache->delete('pengadilan');
+
+			$this->cache->delete('detail_pengadilan_'.$url);
+
+			return true;
+		}
 	}
 
-	public function hapus($id)
-	{
-		$this->db->where('id_data', $id);
-		$this->db->delete('tbl_pengadilan');
-	}
+
 
 	public function unduh($id)
 	{
@@ -93,9 +130,15 @@ class M_pengadilan extends CI_Model
 		return $this->db->get()->row();
 	}
 
-	public function ubah_uraian_pokok_dan_putusan_amar($id, $data)
+	public function ubah_uraian_pokok_dan_putusan_amar($id, $data, $url)
 	{
 		$this->db->where('id_data', $id);
-		return $this->db->update('tbl_pengadilan', $data);
+	    $this->db->update('tbl_pengadilan', $data);
+
+		if ($this->db->affected_rows() > 0 ) 
+		{
+			$this->cache->delete('detail_pengadilan_'.$url);
+			return true;
+		}
 	}
 }

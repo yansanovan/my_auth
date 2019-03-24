@@ -14,6 +14,18 @@
 
      <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
+       <!--  <li>
+          <?php //if ($this->session->userdata('level') == 'kepolisian') 
+          {
+          ?>  
+          <a href="<?php// echo base_url('kepolisian');?>">
+            <i class="fa fa-home"></i> <span>Dashboard</span>
+            <span class="pull-right-container">
+            </span>
+          </a> 
+          <?php } ?>
+        </li>
+ -->
         <li>
           <?php if ($this->session->userdata('level') == 'kejaksaan') 
           {

@@ -3,6 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_kepolisian extends CI_Model 
 {
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->driver('cache', array('adapter' => 'file'));
+	}
 	public function tampil($id = NULL)
 	{
 		if ($id != NULL) 
@@ -28,26 +33,56 @@ class M_kepolisian extends CI_Model
 	public function simpan($data)
 	{
 		$this->db->insert('tbl_kepolisian', $data);
+		if ($this->db->affected_rows() > 0 ) 
+		{
+			// cache dari kepolisian yang ditampilan di kejaksaan, dihapus jika kepolisian create data 
+			$this->cache->delete('kepolisian');
+			
+			return true;
+		}
 	}
 
-	public function hapus($id)
+	public function hapus($id, $url)
 	{
 		$this->db->where('id_data', $id);
 		$this->db->delete('tbl_kepolisian');
+
+		if ($this->db->affected_rows() > 0 ) 
+		{
+			$this->cache->delete('kepolisian');
+
+			$this->cache->delete('detail_kepolisian_'.$url);
+			return true;
+		}
 	}
 
-	public function ubah($id, $data)
+	public function ubah($id, $data, $url)
 	{
 		$this->db->where('id_data', $id);
 		$this->db->update('tbl_kepolisian', $data);
-		return true;
+
+
+		if ($this->db->affected_rows() > 0 ) 
+		{
+			$this->cache->delete('detail_kepolisian_'.$url);
+			return true;
+		}
 	}
 
-	public function ubah_deskripsi($id_data, $data)
+	public function ubah_deskripsi($id_data, $data, $url)
 	{
 		$this->db->where('id_data', $id_data);
 		$this->db->update('tbl_kepolisian', $data);
-		return true;
+
+		if ($this->db->affected_rows() > 0 ) 
+		{
+			$this->cache->delete('kepolisian');
+
+			//untuk ganti deskripsi, jika kepolisian update deskripsi, maka hapus cache semua dulu
+			$this->cache->delete('detail_kepolisian_'.$url);
+		
+			return true;
+		}
 	}
 
 	public function unduh($id)
@@ -73,10 +108,14 @@ class M_kepolisian extends CI_Model
 		return $this->db->get()->row();
 	}
 
-	public function ubah_uraian_pasal_dan_cerita_singkat($id, $data)
+	public function ubah_uraian_pasal_dan_cerita_singkat($id, $data, $url)
 	{
 		$this->db->where('id_data', $id);
 		$this->db->update('tbl_kepolisian', $data);
-		return true;
+		if ($this->db->affected_rows() > 0 ) 
+		{
+			$this->cache->delete('detail_kepolisian_'.$url);
+			return true;
+		}
 	}
 }

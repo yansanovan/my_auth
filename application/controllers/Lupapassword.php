@@ -13,7 +13,9 @@ class Lupapassword extends CI_Controller
 	}
 	public function lupa_password()
 	{
-		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
+		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email',  array('required' => 'Email tidak boleh kosong!'));
+
+		// $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger" role="alert">','</div>');
 
 		if($this->form_validation->run() === FALSE)
@@ -84,7 +86,7 @@ class Lupapassword extends CI_Controller
 		{
 			if ($this->input->post('ganti_password', TRUE)) 
 			{
-				$this->m_lupapassword->ganti_password_baru();
+				$this->m_lupapassword->ganti_password_baru($token);
 			}
 			$this->load->view('pages/lupapassword/passwordbaru/index');
 		}

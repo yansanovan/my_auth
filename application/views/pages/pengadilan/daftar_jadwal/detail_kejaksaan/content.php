@@ -25,7 +25,7 @@
                         else
                         {
                         ?>
-                          <b><h5 style="color: green">Data Lengkap</h5></b>
+                          <b><h5 style="color: green">Data Komplete</h5></b>
                         <?php
                         }
                         ?>

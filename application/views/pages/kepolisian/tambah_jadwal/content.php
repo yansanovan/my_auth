@@ -47,9 +47,9 @@
                     </div>
                     
                     <div class="box-body pad">
-                      <textarea name="editor1" class="ckeditor"></textarea>
+                      <textarea name="uraian_pasal" class="ckeditor"></textarea>
                         <script>
-                          CKEDITOR.replace('editor1');
+                          CKEDITOR.replace('uraian_pasal');
                         </script>
                     </div>
 
@@ -75,9 +75,9 @@
                     </div>
                     
                     <div class="box-body pad">
-                      <textarea name="editor2" class="ckeditor"></textarea>
+                      <textarea name="cerita_singkat" class="ckeditor"></textarea>
                         <script>
-                          CKEDITOR.replace('editor2');
+                          CKEDITOR.replace('cerita_singkat');
                         </script>
                     </div>
 
@@ -91,12 +91,12 @@
                 <div class="form-group">
                   <label for="exampleInputEmail1">Nama Berkas</label>
                   <select name="penangkapan" class="form-control">
-                    <option value="Penangkapan">Penangkapan</option>
+                    <option value="Penangkapan" selected="selected">Penangkapan</option>
                     <option value="Ijin Sita">Ijin Sita</option>
                     <option value="Ijin Geledah">Ijin Geledah</option>
                     <option value="Pelimpahan">Pelimpahan</option>
                     <option value="Penahanan">Penahanan</option>
-                    <option value="Perpanjangan Penahanan">Perpanjangan Penahanan</option>
+                    <option value="Perpanjang Penahanan">Perpanjang Penahanan</option>
                   </select>
                   <!-- <input type="text" name="deskripsi" class="form-control" id="exampleInputEmail1" placeholder="masukan deskripsi"> -->
                   <br>
@@ -121,12 +121,12 @@
                 <div class="form-group">
                   <label for="exampleInputEmail1">Nama Berkas</label>
                   <select name="ijin_sita" class="form-control">
-                    <option value="Ijin Sita">Ijin Sita</option>
                     <option value="Penangkapan">Penangkapan</option>
+                    <option value="Ijin Sita" selected="selected">Ijin Sita</option>
                     <option value="Ijin Geledah">Ijin Geledah</option>
                     <option value="Pelimpahan">Pelimpahan</option>
                     <option value="Penahanan">Penahanan</option>
-                    <option value="Perpanjangan Penahanan">Perpanjangan Penahanan</option>
+                    <option value="Perpanjang Penahanan">Perpanjang Penahanan</option>
                   </select>
                   <!-- <input type="text" name="deskripsi" class="form-control" id="exampleInputEmail1" placeholder="masukan deskripsi"> -->
                   <br>
@@ -153,12 +153,12 @@
                 <div class="form-group">
                   <label for="exampleInputEmail1">Nama Berkas</label>
                   <select name="ijin_geledah" class="form-control">
-                    <option value="Ijin Geledah">Ijin Geledah</option>
                     <option value="Penangkapan">Penangkapan</option>
                     <option value="Ijin Sita">Ijin Sita</option>
+                    <option value="Ijin Geledah" selected="selected">Ijin Geledah</option>
                     <option value="Pelimpahan">Pelimpahan</option>
                     <option value="Penahanan">Penahanan</option>
-                    <option value="Perpanjangan Penahanan">Perpanjangan Penahanan</option>
+                    <option value="Perpanjang Penahanan">Perpanjang Penahanan</option>
                   </select>
                   <!-- <input type="text" name="deskripsi" class="form-control" id="exampleInputEmail1" placeholder="masukan deskripsi"> -->
                   <br>
@@ -185,12 +185,12 @@
                 <div class="form-group">
                   <label for="exampleInputEmail1">Nama Berkas</label>
                   <select name="pelimpahan" class="form-control">
-                    <option value="Pelimpahan">Pelimpahan</option>
                     <option value="Penangkapan">Penangkapan</option>
                     <option value="Ijin Sita">Ijin Sita</option>
                     <option value="Ijin Geledah">Ijin Geledah</option>
+                    <option value="Pelimpahan" selected="selected">Pelimpahan</option>
                     <option value="Penahanan">Penahanan</option>
-                    <option value="Perpanjangan Penahanan">Perpanjangan Penahanan</option>
+                    <option value="Perpanjang Penahanan">Perpanjang Penahanan</option>
                   </select>
                   <!-- <input type="text" name="deskripsi" class="form-control" id="exampleInputEmail1" placeholder="masukan deskripsi"> -->
                   <br>
@@ -217,12 +217,12 @@
                 <div class="form-group">
                   <label for="exampleInputEmail1">Nama Berkas</label>
                   <select name="penahanan" class="form-control">
-                    <option value="Penahanan" >Penahanan</option>
                     <option value="Penangkapan">Penangkapan</option>
                     <option value="Ijin Sita">Ijin Sita</option>
                     <option value="Ijin Geledah">Ijin Geledah</option>
                     <option value="Pelimpahan">Pelimpahan</option>
-                    <option value="Perpanjangan Penahanan">Perpanjangan Penahanan</option>
+                    <option value="Penahanan" selected="selected" >Penahanan</option>
+                    <option value="Perpanjang Penahanan">Perpanjang Penahanan</option>
                   </select>
                   <!-- <input type="text" name="deskripsi" class="form-control" id="exampleInputEmail1" placeholder="masukan deskripsi"> -->
                   <br>
@@ -250,12 +250,12 @@
                 <div class="form-group">
                   <label for="exampleInputEmail1">Nama Berkas</label>
                   <select name="perpanjang_penahanan" class="form-control">
-                    <option value="Perpanjangan Penahanan">Perpanjangan Penahanan</option>
                     <option value="Penangkapan">Penangkapan</option>
                     <option value="Ijin Sita">Ijin Sita</option>
                     <option value="Ijin Geledah">Ijin Geledah</option>
                     <option value="Pelimpahan">Pelimpahan</option>
                     <option value="Penahanan">Penahanan</option>
+                    <option value="Perpanjang Penahanan" selected="selected">Perpanjang Penahanan</option>
                   </select>
                   <!-- <input type="text" name="deskripsi" class="form-control" id="exampleInputEmail1" placeholder="masukan deskripsi"> -->
                   <br>

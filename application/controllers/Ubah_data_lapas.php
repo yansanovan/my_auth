@@ -43,7 +43,7 @@ class Ubah_data_lapas extends MY_Controller
 		else
 		{
 			$config['upload_path']          = './uploads/lapas';
-			$config['allowed_types']        = 'pdf';
+			$config['allowed_types']        = 'pdf|doc|docx';
 			$config['max_size']             = 0;
 			$config['max_width']            = 0;
 			$config['max_height']           = 0;
@@ -58,7 +58,9 @@ class Ubah_data_lapas extends MY_Controller
 				}
 				else
 				{
-					$id = $this->input->post('id_data');
+					$id  = $this->input->post('id_data');
+					$url = $this->input->post('url');
+
 					$file_eksekusi = $this->upload->data();
 					$data = array('id_users' 					=> $this->session->userdata('id'),
 								  'eksekusi'					=> $this->input->post('eksekusi'),
@@ -67,7 +69,7 @@ class Ubah_data_lapas extends MY_Controller
 					
 					$file = $this->m_lapas->tampil($id);
 					@unlink('./uploads/lapas/'. $file->file_eksekusi);
-					$this->m_lapas->ubah($id, $data);
+					$this->m_lapas->ubah($id, $data, $url);
 					$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">Berhasi di simpan</div>');
 					return $this->load_eksekusi($id);			
 
@@ -76,11 +78,13 @@ class Ubah_data_lapas extends MY_Controller
 			else
 			{
 				$id = $this->input->post('id_data');
+				$url = $this->input->post('url');
+
 				$data = array('id_users' 					=> $this->session->userdata('id'),
 							  'eksekusi'					=> $this->input->post('eksekusi'),
 						   	  'tanggal_eksekusi'			=> $this->input->post('tanggal_eksekusi'));
 
-				$this->m_lapas->ubah($id, $data);
+				$this->m_lapas->ubah($id, $data, $url);
 				$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">Berhasil di simpan</div>');
 				return $this->load_eksekusi($id);
 			}
@@ -116,7 +120,7 @@ class Ubah_data_lapas extends MY_Controller
 		else
 		{
 			$config['upload_path']          = './uploads/lapas';
-			$config['allowed_types']        = 'pdf';
+			$config['allowed_types']        = 'pdf|doc|docx';
 			$config['max_size']             = 0;
 			$config['max_width']            = 0;
 			$config['max_height']           = 0;
@@ -132,6 +136,8 @@ class Ubah_data_lapas extends MY_Controller
 				else
 				{
 					$id = $this->input->post('id_data');
+					$url = $this->input->post('url');
+
 					$file_isi_putusan = $this->upload->data();
 					$data = array('id_users' 						=> $this->session->userdata('id'),
 								  'isi_putusan'						=> $this->input->post('isi_putusan'),
@@ -140,7 +146,7 @@ class Ubah_data_lapas extends MY_Controller
 					
 					$file = $this->m_lapas->tampil($id);
 					@unlink('./uploads/lapas/'. $file->file_isi_putusan);
-					$this->m_lapas->ubah($id, $data);
+					$this->m_lapas->ubah($id, $data, $url);
 					$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">Berhasi di simpan</div>');
 					return $this->load_isi_putusan($id);			
 
@@ -149,11 +155,13 @@ class Ubah_data_lapas extends MY_Controller
 			else
 			{
 				$id = $this->input->post('id_data');
+				$url = $this->input->post('url');
+
 				$data = array('id_users' 					=> $this->session->userdata('id'),
 							  'isi_putusan'					=> $this->input->post('isi_putusan'),	  
 						   	  'tanggal_isi_putusan'			=> $this->input->post('tanggal_isi_putusan'));
 
-				$this->m_lapas->ubah($id, $data);
+				$this->m_lapas->ubah($id, $data, $url);
 				$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">Berhasil di simpan</div>');
 				return $this->load_isi_putusan($id);
 			}
@@ -190,7 +198,7 @@ class Ubah_data_lapas extends MY_Controller
 		{
 				
 			$config['upload_path']          = './uploads/lapas';
-			$config['allowed_types']        = 'pdf';
+			$config['allowed_types']        = 'pdf|doc|docx';
 			$config['max_size']             = 0;
 			$config['max_width']            = 0;
 			$config['max_height']           = 0;
@@ -207,6 +215,8 @@ class Ubah_data_lapas extends MY_Controller
 				else
 				{
 					$id = $this->input->post('id_data');
+					$url = $this->input->post('url');
+
 					$file_pembebasan_bersyarat = $this->upload->data();
 					$data = array('id_users' 					=> $this->session->userdata('id'),
 								  'pembebasan_bersyarat'		=> $this->input->post('pembebasan_bersyarat'),
@@ -215,7 +225,7 @@ class Ubah_data_lapas extends MY_Controller
 					
 					$file = $this->m_lapas->tampil($id);
 					@unlink('./uploads/lapas/'. $file->file_pembebasan_bersyarat);
-					$this->m_lapas->ubah($id, $data);
+					$this->m_lapas->ubah($id, $data, $url);
 					$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">File di simpan</div>');
 					return $this->load_pembebasan_bersyarat($id);			
 				}
@@ -223,11 +233,13 @@ class Ubah_data_lapas extends MY_Controller
 			else
 			{
 				$id = $this->input->post('id_data');
+				$url = $this->input->post('url');
+
 				$data = array('id_users' 				=> $this->session->userdata('id'),
 							  'pembebasan_bersyarat'		=> $this->input->post('pembebasan_bersyarat'),
 						   	  'tanggal_pembebasan_bersyarat'		=> $this->input->post('tanggal_pembebasan_bersyarat'));
 
-				$this->m_lapas->ubah($id, $data);
+				$this->m_lapas->ubah($id, $data, $url);
 				$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">File di simpan</div>');
 				return $this->load_pembebasan_bersyarat($id);
 			}
@@ -265,7 +277,7 @@ class Ubah_data_lapas extends MY_Controller
 		{
 				
 			$config['upload_path']          = './uploads/lapas';
-			$config['allowed_types']        = 'pdf';
+			$config['allowed_types']        = 'pdf|doc|docx';
 			$config['max_size']             = 0;
 			$config['max_width']            = 0;
 			$config['max_height']           = 0;
@@ -282,6 +294,8 @@ class Ubah_data_lapas extends MY_Controller
 				else
 				{
 					$id = $this->input->post('id_data');
+					$url = $this->input->post('url');
+
 					$file_remisi = $this->upload->data();
 					$data = array('id_users' 		=> $this->session->userdata('id'),
 								  'remisi'			=> $this->input->post('remisi'),
@@ -290,7 +304,7 @@ class Ubah_data_lapas extends MY_Controller
 					
 					$file = $this->m_lapas->tampil($id);
 					@unlink('./uploads/lapas/'. $file->file_remisi);
-					$this->m_lapas->ubah($id, $data);
+					$this->m_lapas->ubah($id, $data, $url);
 					$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">File di simpan</div>');
 					return $this->load_remisi($id);			
 				}
@@ -298,11 +312,13 @@ class Ubah_data_lapas extends MY_Controller
 			else
 			{
 				$id = $this->input->post('id_data');
+				$url = $this->input->post('url');
+
 				$data = array('id_users' 		=> $this->session->userdata('id'),
 							  'remisi'			=> $this->input->post('remisi'),
 							  'tanggal_remisi'	=> $this->input->post('tanggal_remisi'));
 
-				$this->m_lapas->ubah($id, $data);
+				$this->m_lapas->ubah($id, $data, $url);
 				$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">File di simpan</div>');
 				return $this->load_remisi($id);
 			}
@@ -339,7 +355,7 @@ class Ubah_data_lapas extends MY_Controller
 		{
 				
 			$config['upload_path']          = './uploads/lapas';
-			$config['allowed_types']        = 'pdf';
+			$config['allowed_types']        = 'pdf|doc|docx';
 			$config['max_size']             = 0;
 			$config['max_width']            = 0;
 			$config['max_height']           = 0;
@@ -356,6 +372,8 @@ class Ubah_data_lapas extends MY_Controller
 				else
 				{
 					$id = $this->input->post('id_data');
+					$url = $this->input->post('url');
+
 					$file_bebas = $this->upload->data();
 					$data = array('id_users'		=> $this->session->userdata('id'),
 								  'bebas'			=> $this->input->post('bebas'),
@@ -364,7 +382,7 @@ class Ubah_data_lapas extends MY_Controller
 					
 					$file = $this->m_lapas->tampil($id);
 					@unlink('./uploads/lapas/'. $file->file_bebas);
-					$this->m_lapas->ubah($id, $data);
+					$this->m_lapas->ubah($id, $data, $url);
 					$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">File di simpan</div>');
 					return $this->load_bebas($id);			
 				}
@@ -372,11 +390,13 @@ class Ubah_data_lapas extends MY_Controller
 			else
 			{
 				$id = $this->input->post('id_data');
+				$url = $this->input->post('url');
+				
 				$data = array('id_users'		=> $this->session->userdata('id'),
 							  'bebas'			=> $this->input->post('bebas'),
 							  'tanggal_bebas'	=> $this->input->post('tanggal_bebas'));
 
-				$this->m_lapas->ubah($id, $data);
+				$this->m_lapas->ubah($id, $data, $url);
 				$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">File di simpan</div>');
 				return $this->load_bebas($id);
 			}
@@ -387,7 +407,7 @@ class Ubah_data_lapas extends MY_Controller
 
 	public function file_eksekusi($str)
 	{
-        $allowed_mime_type_arr = array('application/pdf');
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
         $mime = get_mime_by_extension($_FILES['file_eksekusi']['name']);
         if($_FILES['file_eksekusi']['name'])
         {
@@ -405,7 +425,7 @@ class Ubah_data_lapas extends MY_Controller
 
 	public function file_isi_putusan($str)
 	{
-        $allowed_mime_type_arr = array('application/pdf');
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
         $mime = get_mime_by_extension($_FILES['file_isi_putusan']['name']);
         if($_FILES['file_isi_putusan']['name'])
         {
@@ -423,7 +443,7 @@ class Ubah_data_lapas extends MY_Controller
 
     public function file_pembebasan_bersyarat($str)
 	{
-        $allowed_mime_type_arr = array('application/pdf');
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
         $mime = get_mime_by_extension($_FILES['file_pembebasan_bersyarat']['name']);
         if($_FILES['file_pembebasan_bersyarat']['name'])
         {
@@ -441,7 +461,7 @@ class Ubah_data_lapas extends MY_Controller
 
 	public function file_remisi($str)
 	{
-        $allowed_mime_type_arr = array('application/pdf');
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
         $mime = get_mime_by_extension($_FILES['file_remisi']['name']);
         if($_FILES['file_remisi']['name'])
         {
@@ -459,7 +479,7 @@ class Ubah_data_lapas extends MY_Controller
 
     public function file_bebas($str)
 	{
-        $allowed_mime_type_arr = array('application/pdf');
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
         $mime = get_mime_by_extension($_FILES['file_bebas']['name']);
         if($_FILES['file_bebas']['name'])
         {

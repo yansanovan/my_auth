@@ -25,7 +25,7 @@ class M_lupapassword extends CI_Model
 		return $query;
 	}
 
-	public function ganti_password_baru()
+	public function ganti_password_baru($token)
 	{
 		$status = true;
 		$pesan  = '<div class="alert alert-success"alert-dismissible fade show role="alert">password baru berhasil dirubah</div>';
@@ -38,15 +38,16 @@ class M_lupapassword extends CI_Model
 		if ($this->form_validation->run() === FALSE) 
 		{
 			$status = false;
-			$pesan = validation_errors();
+			$pesan 	= validation_errors();
 		}
 		if ($status) 
 		{
 			$this->load->model('m_hashed');
-			$password_baru = $this->input->post('password_baru');
+			$password_baru 		= $this->input->post('password_baru');
 			$password_baru_hash = $this->m_hashed->hash_string_password($password_baru);
+			$this->db->where('token', $token);
 			$this->db->update('tbl_users', array('password' => $password_baru_hash,
-												  'token'   => null));
+												 'token'   => null));
 		}
 
 		return $this->session->set_flashdata('flashdata', $pesan);

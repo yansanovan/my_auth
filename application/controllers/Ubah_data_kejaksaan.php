@@ -43,7 +43,7 @@ class Ubah_data_kejaksaan extends MY_Controller
 		else
 		{
 			$config['upload_path']          = './uploads/kejaksaan';
-			$config['allowed_types']        = 'pdf';
+			$config['allowed_types']        = 'pdf|doc|docx';
 			$config['max_size']             = 0;
 			$config['max_width']            = 0;
 			$config['max_height']           = 0;
@@ -59,6 +59,7 @@ class Ubah_data_kejaksaan extends MY_Controller
 				else
 				{
 					$id = $this->input->post('id_data');
+					$url = $this->input->post('url');
 					$file_pelimpahan_berkas = $this->upload->data();
 					$data = array('id_users' 					=> $this->session->userdata('id'),
 								  'file_pelimpahan_berkas'		=> $file_pelimpahan_berkas['file_name'],
@@ -66,7 +67,7 @@ class Ubah_data_kejaksaan extends MY_Controller
 					
 					$file = $this->m_kejaksaan->tampil($id);
 					@unlink('./uploads/kejaksaan/'. $file->file_pelimpahan_berkas);
-					$this->m_kejaksaan->ubah($id, $data);
+					$this->m_kejaksaan->ubah($id, $data, $url);
 					$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">Berhasi di simpan</div>');
 					return $this->load_pelimpahan_berkas($id);			
 
@@ -75,10 +76,11 @@ class Ubah_data_kejaksaan extends MY_Controller
 			else
 			{
 				$id = $this->input->post('id_data');
+				$url = $this->input->post('url');
 				$data = array('id_users' 					=> $this->session->userdata('id'),
 						   	   'tanggal_pelimpahan_berkas'	=> $this->input->post('tanggal_pelimpahan_berkas'));
 
-				$this->m_kejaksaan->ubah($id, $data);
+				$this->m_kejaksaan->ubah($id, $data, $url);
 				$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">Berhasil di simpan</div>');
 				return $this->load_pelimpahan_berkas($id);
 
@@ -116,7 +118,7 @@ class Ubah_data_kejaksaan extends MY_Controller
 		{
 				
 			$config['upload_path']          = './uploads/kejaksaan';
-			$config['allowed_types']        = 'pdf';
+			$config['allowed_types']        = 'pdf|doc|docx';
 			$config['max_size']             = 0;
 			$config['max_width']            = 0;
 			$config['max_height']           = 0;
@@ -133,6 +135,7 @@ class Ubah_data_kejaksaan extends MY_Controller
 				else
 				{
 					$id = $this->input->post('id_data');
+					$url = $this->input->post('url');
 					$file_tahap_I = $this->upload->data();
 					$data = array('id_users' 				=> $this->session->userdata('id'),
 								  'file_tahap_I'			=> $file_tahap_I['file_name'],
@@ -140,7 +143,7 @@ class Ubah_data_kejaksaan extends MY_Controller
 					
 					$file = $this->m_kejaksaan->tampil($id);
 					@unlink('./uploads/kejaksaan/'. $file->file_tahap_I);
-					$this->m_kejaksaan->ubah($id, $data);
+					$this->m_kejaksaan->ubah($id, $data, $url);
 					$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">File di simpan</div>');
 					return $this->load_tahap_I($id);			
 
@@ -149,10 +152,11 @@ class Ubah_data_kejaksaan extends MY_Controller
 			else
 			{
 				$id = $this->input->post('id_data');
+				$url = $this->input->post('url');
 				$data = array('id_users' 					=> $this->session->userdata('id'),
 						   	   'tanggal_tahap_I'			=> $this->input->post('tanggal_tahap_I'));
 
-				$this->m_kejaksaan->ubah($id, $data);
+				$this->m_kejaksaan->ubah($id, $data, $url);
 				$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">File di simpan</div>');
 				return $this->load_tahap_I($id);
 
@@ -190,7 +194,7 @@ class Ubah_data_kejaksaan extends MY_Controller
 		{
 				
 			$config['upload_path']          = './uploads/kejaksaan';
-			$config['allowed_types']        = 'pdf';
+			$config['allowed_types']        = 'pdf|doc|docx';
 			$config['max_size']             = 0;
 			$config['max_width']            = 0;
 			$config['max_height']           = 0;
@@ -207,6 +211,7 @@ class Ubah_data_kejaksaan extends MY_Controller
 				else
 				{
 					$id = $this->input->post('id_data');
+					$url = $this->input->post('url');
 					$file_tahap_II = $this->upload->data();
 					$data = array('id_users' 				=> $this->session->userdata('id'),
 								  'file_tahap_II'			=> $file_tahap_II['file_name'],
@@ -214,7 +219,7 @@ class Ubah_data_kejaksaan extends MY_Controller
 					
 					$file = $this->m_kejaksaan->tampil($id);
 					@unlink('./uploads/kejaksaan/'. $file->file_tahap_II);
-					$this->m_kejaksaan->ubah($id, $data);
+					$this->m_kejaksaan->ubah($id, $data, $url);
 					$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">File di simpan</div>');
 					return $this->load_tahap_II($id);			
 				}
@@ -222,10 +227,11 @@ class Ubah_data_kejaksaan extends MY_Controller
 			else
 			{
 				$id = $this->input->post('id_data');
+				$url = $this->input->post('url');	
 				$data = array('id_users' 				=> $this->session->userdata('id'),
 						   	   'tanggal_tahap_II'		=> $this->input->post('tanggal_tahap_II'));
 
-				$this->m_kejaksaan->ubah($id, $data);
+				$this->m_kejaksaan->ubah($id, $data, $url);
 				$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">File di simpan</div>');
 				return $this->load_tahap_II($id);
 
@@ -263,7 +269,7 @@ class Ubah_data_kejaksaan extends MY_Controller
 		{
 				
 			$config['upload_path']          = './uploads/kejaksaan';
-			$config['allowed_types']        = 'pdf';
+			$config['allowed_types']        = 'pdf|doc|docx';
 			$config['max_size']             = 0;
 			$config['max_width']            = 0;
 			$config['max_height']           = 0;
@@ -280,6 +286,7 @@ class Ubah_data_kejaksaan extends MY_Controller
 				else
 				{
 					$id = $this->input->post('id_data');
+					$url = $this->input->post('url');
 					$file_pelimpahan = $this->upload->data();
 					$data = array('id_users' 					=> $this->session->userdata('id'),
 								  'file_pelimpahan'				=> $file_pelimpahan['file_name'],
@@ -287,7 +294,7 @@ class Ubah_data_kejaksaan extends MY_Controller
 					
 					$file = $this->m_kejaksaan->tampil($id);
 					@unlink('./uploads/kejaksaan/'. $file->file_pelimpahan);
-					$this->m_kejaksaan->ubah($id, $data);
+					$this->m_kejaksaan->ubah($id, $data, $url);
 					$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">File di simpan</div>');
 					return $this->load_pelimpahan($id);			
 				}
@@ -295,10 +302,11 @@ class Ubah_data_kejaksaan extends MY_Controller
 			else
 			{
 				$id = $this->input->post('id_data');
+				$url = $this->input->post('url');
 				$data = array('id_users' 				=> $this->session->userdata('id'),
 						   	  'tanggal_pelimpahan'		=> $this->input->post('tanggal_pelimpahan'));
 
-				$this->m_kejaksaan->ubah($id, $data);
+				$this->m_kejaksaan->ubah($id, $data, $url);
 				$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">File di simpan</div>');
 				return $this->load_pelimpahan($id);
 
@@ -336,7 +344,7 @@ class Ubah_data_kejaksaan extends MY_Controller
 		{
 				
 			$config['upload_path']          = './uploads/kejaksaan';
-			$config['allowed_types']        = 'pdf';
+			$config['allowed_types']        = 'pdf|doc|docx';
 			$config['max_size']             = 0;
 			$config['max_width']            = 0;
 			$config['max_height']           = 0;
@@ -353,6 +361,7 @@ class Ubah_data_kejaksaan extends MY_Controller
 				else
 				{
 					$id = $this->input->post('id_data');
+					$url = $this->input->post('url');
 					$file_penahanan = $this->upload->data();
 					$data = array('id_users' 				=> $this->session->userdata('id'),
 								  'file_penahanan'			=> $file_penahanan['file_name'],
@@ -360,7 +369,7 @@ class Ubah_data_kejaksaan extends MY_Controller
 					
 					$file = $this->m_kejaksaan->tampil($id);
 					@unlink('./uploads/kejaksaan/'. $file->file_penahanan);
-					$this->m_kejaksaan->ubah($id, $data);
+					$this->m_kejaksaan->ubah($id, $data, $url);
 					$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">File di simpan</div>');
 					return $this->load_penahanan($id);			
 				}
@@ -368,10 +377,11 @@ class Ubah_data_kejaksaan extends MY_Controller
 			else
 			{
 				$id = $this->input->post('id_data');
+				$url = $this->input->post('url');
 				$data = array('id_users' 				=> $this->session->userdata('id'),
 						   	  'tanggal_penahanan'		=> $this->input->post('tanggal_penahanan'));
 
-				$this->m_kejaksaan->ubah($id, $data);
+				$this->m_kejaksaan->ubah($id, $data, $url);
 				$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">File di simpan</div>');
 				return $this->load_penahanan($id);
 			}
@@ -409,7 +419,7 @@ class Ubah_data_kejaksaan extends MY_Controller
 		{
 				
 			$config['upload_path']          = './uploads/kejaksaan';
-			$config['allowed_types']        = 'pdf';
+			$config['allowed_types']        = 'pdf|doc|docx';
 			$config['max_size']             = 0;
 			$config['max_width']            = 0;
 			$config['max_height']           = 0;
@@ -426,6 +436,7 @@ class Ubah_data_kejaksaan extends MY_Controller
 				else
 				{
 					$id = $this->input->post('id_data');
+					$url = $this->input->post('url');
 					$file_perpanjang_penahanan = $this->upload->data();
 					$data = array('id_users' 						=> $this->session->userdata('id'),
 								  'file_perpanjang_penahanan'		=> $file_perpanjang_penahanan['file_name'],
@@ -433,7 +444,7 @@ class Ubah_data_kejaksaan extends MY_Controller
 					
 					$file = $this->m_kejaksaan->tampil($id);
 					@unlink('./uploads/kejaksaan/'. $file->file_perpanjang_penahanan);
-					$this->m_kejaksaan->ubah($id, $data);
+					$this->m_kejaksaan->ubah($id, $data, $url);
 					$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">File di simpan</div>');
 					return $this->load_perpanjang_penahanan($id);			
 				}
@@ -441,10 +452,11 @@ class Ubah_data_kejaksaan extends MY_Controller
 			else
 			{
 				$id = $this->input->post('id_data');
+				$url = $this->input->post('url');
 				$data = array('id_users' 						=> $this->session->userdata('id'),
 						   	  'tanggal_perpanjang_penahanan'	=> $this->input->post('tanggal_perpanjang_penahanan'));
 
-				$this->m_kejaksaan->ubah($id, $data);
+				$this->m_kejaksaan->ubah($id, $data, $url);
 				$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">File di simpan</div>');
 				return $this->load_perpanjang_penahanan($id);
 
@@ -482,7 +494,7 @@ class Ubah_data_kejaksaan extends MY_Controller
 		{
 				
 			$config['upload_path']          = './uploads/kejaksaan';
-			$config['allowed_types']        = 'pdf';
+			$config['allowed_types']        = 'pdf|doc|docx';
 			$config['max_size']             = 0;
 			$config['max_width']            = 0;
 			$config['max_height']           = 0;
@@ -499,6 +511,7 @@ class Ubah_data_kejaksaan extends MY_Controller
 				else
 				{
 					$id = $this->input->post('id_data');
+					$url = $this->input->post('url');
 					$file_eksekusi_putusan = $this->upload->data();
 					$data = array('id_users' 				 => $this->session->userdata('id'),
 								  'file_eksekusi_putusan'	 => $file_eksekusi_putusan['file_name'],
@@ -506,7 +519,7 @@ class Ubah_data_kejaksaan extends MY_Controller
 					
 					$file = $this->m_kejaksaan->tampil($id);
 					@unlink('./uploads/kejaksaan/'. $file->file_eksekusi);
-					$this->m_kejaksaan->ubah($id, $data);
+					$this->m_kejaksaan->ubah($id, $data, $url);
 					$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">File di simpan</div>');
 					return $this->load_eksekusi_putusan($id);			
 				}
@@ -514,10 +527,11 @@ class Ubah_data_kejaksaan extends MY_Controller
 			else
 			{
 				$id = $this->input->post('id_data');
+				$url = $this->input->post('url');
 				$data = array('id_users' 					=> $this->session->userdata('id'),
 						   	  'tanggal_eksekusi_putusan'	=> $this->input->post('tanggal_eksekusi_putusan'));
 
-				$this->m_kejaksaan->ubah($id, $data);
+				$this->m_kejaksaan->ubah($id, $data, $url);
 				$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">File di simpan</div>');
 				return $this->load_eksekusi_putusan($id);
 			}
@@ -529,7 +543,7 @@ class Ubah_data_kejaksaan extends MY_Controller
 
 	public function file_pelimpahan_berkas($str)
 	{
-        $allowed_mime_type_arr = array('application/pdf');
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
         $mime = get_mime_by_extension($_FILES['file_pelimpahan_berkas']['name']);
         if($_FILES['file_pelimpahan_berkas']['name'])
         {
@@ -547,7 +561,7 @@ class Ubah_data_kejaksaan extends MY_Controller
 
 	public function file_tahap_I($str)
 	{
-        $allowed_mime_type_arr = array('application/pdf');
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
         $mime = get_mime_by_extension($_FILES['file_tahap_I']['name']);
         if($_FILES['file_tahap_I']['name'])
         {
@@ -565,7 +579,7 @@ class Ubah_data_kejaksaan extends MY_Controller
 
 	public function file_tahap_II($str)
 	{
-        $allowed_mime_type_arr = array('application/pdf');
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
         $mime = get_mime_by_extension($_FILES['file_tahap_II']['name']);
         if($_FILES['file_tahap_II']['name'])
         {
@@ -583,7 +597,7 @@ class Ubah_data_kejaksaan extends MY_Controller
 
     public function file_pelimpahan($str)
 	{
-        $allowed_mime_type_arr = array('application/pdf');
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
         $mime = get_mime_by_extension($_FILES['file_pelimpahan']['name']);
         if($_FILES['file_pelimpahan']['name'])
         {
@@ -601,7 +615,7 @@ class Ubah_data_kejaksaan extends MY_Controller
 
     public function file_penahanan($str)
 	{
-        $allowed_mime_type_arr = array('application/pdf');
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
         $mime = get_mime_by_extension($_FILES['file_penahanan']['name']);
         if($_FILES['file_penahanan']['name'])
         {
@@ -619,7 +633,7 @@ class Ubah_data_kejaksaan extends MY_Controller
 
     public function file_perpanjang_penahanan($str)
 	{
-        $allowed_mime_type_arr = array('application/pdf');
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
         $mime = get_mime_by_extension($_FILES['file_perpanjang_penahanan']['name']);
         if($_FILES['file_perpanjang_penahanan']['name'])
         {
@@ -637,7 +651,7 @@ class Ubah_data_kejaksaan extends MY_Controller
 
     public function file_eksekusi_putusan($str)
 	{
-        $allowed_mime_type_arr = array('application/pdf');
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
         $mime = get_mime_by_extension($_FILES['file_eksekusi_putusan']['name']);
         if($_FILES['file_eksekusi_putusan']['name'])
         {

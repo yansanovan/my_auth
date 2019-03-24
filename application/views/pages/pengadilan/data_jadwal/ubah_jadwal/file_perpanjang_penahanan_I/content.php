@@ -23,12 +23,13 @@
 								<div class="form-group">
 									<label for="exampleInputEmail1">Nama Berkas</label>
 									<select name="perpanjang_penahanan_I" class="form-control">
-									  <option value="Perpanjang Penahanan I">Perpanjang Penahanan I</option>
 									  <option value="Pelimpahan Berkas">Pelimpahan Berkas</option>
 									  <option value="Penetapan Hari Sidang">Penetapan Hari Sidang</option>
 									  <option value="Penahanan">Penahanan</option>
+									  <option value="Perpanjang Penahanan I" selected="selected" >Perpanjang Penahanan I</option>
 									  <option value="Perpanjang Penahanan II">Perpanjang Penahanan II</option>
 									  <option value="Perpanjang Penahanan III">Perpanjang Penahanan III</option>
+									  <option value="Putusan">Putusan</option>
 									</select>
 									<br>
 								</div>
@@ -38,7 +39,8 @@
 								<div class="form-group">
 									<label for="exampleInputEmail1">File</label>
 									<input type="hidden" name="id_data" value="<?= $data->id_data;?>"  class="form-control">
-
+									<input type="hidden" name="url" value="<?= $data->url;?>" class="form-control">
+									
 									<input type="text" name="file_perpanjang_penahanan_I_lama" value="<?= $data->file_perpanjang_penahanan_I;?>"  class="form-control">
 								</div>
 							</div>

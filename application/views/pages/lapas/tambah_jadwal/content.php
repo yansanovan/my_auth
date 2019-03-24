@@ -33,7 +33,7 @@
 								<div class="form-group">
 									<label for="exampleInputEmail1">Nama Berkas</label>
 									<select name="eksekusi" class="form-control">
-									  <option value="eksekusi">Eksekusi</option>
+									  <option value="eksekusi" selected="selected">Eksekusi</option>
 									  <option value="isi putusan">Isi Putusan</option>
 									  <option value="pembebasan bersyarat">Pembebasan Bersyarat</option>
 									  <option value="remisi">Remisi</option>
@@ -63,8 +63,8 @@
 								<div class="form-group">
 									<label for="exampleInputEmail1">Nama Berkas</label>
 									<select name="isi_putusan" class="form-control">
-									  <option value="isi putusan">Isi Putusan</option>
 									  <option value="eksekusi">Eksekusi</option>
+									  <option value="isi putusan" selected="selected">Isi Putusan</option>
 									  <option value="pembebasan bersyarat">Pembebasan Bersyarat</option>
 									  <option value="remisi">Remisi</option>
 									  <option value="bebas">Bebas</option>
@@ -93,9 +93,9 @@
 								<div class="form-group">
 									<label for="exampleInputEmail1">Nama Berkas</label>
 									<select name="pembebasan_bersyarat" class="form-control">
-									  <option value="pembebasan bersyarat">Pembebasan Bersyarat</option>
-									  <option value="eksekusi">Eksekusi</option>
+								   	  <option value="eksekusi">Eksekusi</option>
 									  <option value="isi putusan">Isi Putusan</option>
+									  <option value="pembebasan bersyarat" selected="selected">Pembebasan Bersyarat</option>
 									  <option value="remisi">Remisi</option>
 									  <option value="bebas">Bebas</option>
 									</select>
@@ -123,10 +123,10 @@
 								<div class="form-group">
 									<label for="exampleInputEmail1">Nama Berkas</label>
 									<select name="remisi" class="form-control">
-									  <option value="remisi">Remisi</option>
 									  <option value="eksekusi">Eksekusi</option>
 									  <option value="isi putusan">Isi Putusan</option>
 									  <option value="pembebasan bersyarat">Pembebasan Bersyarat</option>
+									  <option value="remisi" selected="selected">Remisi</option>
 									  <option value="bebas">Bebas</option>
 									</select>
 									<br>
@@ -153,11 +153,11 @@
 								<div class="form-group">
 									<label for="exampleInputEmail1">Nama Berkas</label>
 									<select name="bebas" class="form-control">
-									  <option value="bebas">Bebas</option>
 									  <option value="eksekusi">Eksekusi</option>
 									  <option value="isi putusan">Isi Putusan</option>
 									  <option value="pembebasan bersyarat">Pembebasan Bersyarat</option>
 									  <option value="remisi">Remisi</option>
+									  <option value="bebas" selected="selected">Bebas</option>
 									</select>
 									<br>
 								</div>

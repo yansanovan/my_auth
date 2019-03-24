@@ -20,8 +20,10 @@ class Profile extends MY_Controller
 
 	public function ubah_password()
 	{
-		$this->form_validation->set_rules('password_lama','<b>Password Lama</b>', 'required');
-		$this->form_validation->set_rules('password_baru','<b>Password Baru</b>', 'required|trim|min_length[6]');
+		$this->form_validation->set_rules('password_lama','<b>Password Lama</b>', 'required', 
+											array('required' => 'Masukan Password Lama!'));
+		$this->form_validation->set_rules('password_baru','<b>Password Baru</b>', 'required|trim|min_length[6]', 
+											array('required' => 'Masukan Password Baru!'));
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger"alert-dismissible fade show role="alert">','</div>');
 
 		if ($this->form_validation->run() === FALSE ) 

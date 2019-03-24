@@ -38,7 +38,8 @@
 								<div class="form-group">
 									<label for="exampleInputEmail1"> File Pelimpahan Berkas</label>
 									<input type="hidden" name="id_data" value="<?= $data->id_data;?>"  class="form-control">
-
+									<input type="hidden" name="url" value="<?= $data->url;?>"  class="form-control">
+									
 									<input type="text" name="file_pelimpahan_berkas_lama" value="<?= $data->file_pelimpahan_berkas;?>"  class="form-control">
 								</div>
 							</div>

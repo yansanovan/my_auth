@@ -26,7 +26,7 @@
 								<div class="form-group">
 									<label for="exampleInputEmail1">Nama Berkas</label>
 									<select name="eksekusi" class="form-control">
-									  <option value="eksekusi">Eksekusi</option>
+									  <option value="eksekusi" selected="selected">Eksekusi</option>
 									  <option value="isi putusan">Isi Putusan</option>
 									  <option value="pembebasan bersyarat">Pembebasan Bersyarat</option>
 									  <option value="remisi">Remisi</option>
@@ -39,7 +39,9 @@
 							<div class="col-md-3"><br>
 								<div class="form-group">
 									<label for="exampleInputEmail1">File </label>
-									<input type="hidden" name="id_data" value="<?= $data->id_data;?>" class="form-control" id="exampleInputEmail1">
+									<input type="hidden" name="id_data" value="<?= $data->id_data;?>" class="form-control">
+									<input type="hidden" name="url" value="<?= $data->url;?>" class="form-control">
+									
 									<input type="text" name="file_eksekusi_lama" value="<?= $data->file_eksekusi;?>" class="form-control" id="exampleInputEmail1" placeholder="pilih file">
 								</div>
 							</div>

@@ -8,8 +8,8 @@
           <div class="box">
             <div class="box-header">  
               <h1 align="center"> Detail Data Jadwal Kepolisian </h1>
-               <table  width="300px">
-             <?php 
+              <table  width="300px">
+              <?php 
               $no = 1;
               foreach ($data as $key => $value) 
               {
@@ -25,7 +25,7 @@
                         else
                         {
                         ?>
-                          <b><h5 style="color: green">Data Lengkap</h5></b>
+                          <b><h5 style="color: green">Data Komplete</h5></b>
                         <?php
                         }
                         ?>

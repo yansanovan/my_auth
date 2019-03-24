@@ -29,6 +29,64 @@
 							</div>
 						</div>
 
+			            <section class="content">
+			              <div class="row">
+			                <div class="col-md-12">
+			                  <label for="exampleInputEmail1">Uraian Pokok</label>
+			                  <div class="box box-info">
+			                    
+			                    <div class="box-header"><br>
+			                      <div class="pull-right box-tools">
+			                        <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip"title="Collapse">
+			                          <i class="fa fa-minus"></i>
+			                        </button>
+			                        <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip"
+			                                title="Remove">
+			                            <i class="fa fa-times"></i>
+			                        </button>
+			                      </div>
+			                    </div>
+			                    
+			                    <div class="box-body pad">
+			                      <textarea name="uraian_pokok" class="ckeditor"></textarea>
+			                        <script>
+			                          CKEDITOR.replace('uraian_pokok');
+			                        </script>
+			                    </div>
+
+			                  </div>
+			                </div>
+			              </div>
+			            </section>
+
+			            <section class="content">
+			              <div class="row">
+			                <div class="col-md-12">
+			                  <label for="exampleInputEmail1">Putusan Amar</label>
+			                  <div class="box box-info">
+			                    
+			                    <div class="box-header"><br>
+			                      <div class="pull-right box-tools">
+			                        <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip"title="Collapse">
+			                          <i class="fa fa-minus"></i>
+			                        </button>
+			                        <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip"title="Remove">
+			                          <i class="fa fa-times"></i></button>
+			                      </div>
+			                    </div>
+			                    
+			                    <div class="box-body pad">
+			                      <textarea name="putusan_amar" class="ckeditor"></textarea>
+			                        <script>
+			                          CKEDITOR.replace('putusan_amar');
+			                        </script>
+			                    </div>
+
+			                  </div>
+			                </div>
+			              </div>
+			            </section>
+
 						<!-- Pelimpahan Berkas  -->
 
 						<div class="col-md-12">
@@ -36,12 +94,13 @@
 								<div class="form-group">
 									<label for="exampleInputEmail1">Nama Berkas</label>
 									<select name="pelimpahan_berkas" class="form-control">
-									  <option value="Pelimpahan Berkas">Pelimpahan Berkas</option>
+									  <option value="Pelimpahan Berkas" selected="selected">Pelimpahan Berkas</option>
 									  <option value="Penetapan Hari Sidang">Penetapan Hari Sidang</option>
 									  <option value="Penahanan">Penahanan</option>
 									  <option value="Perpanjang Penahanan I">Perpanjang Penahanan I</option>
 									  <option value="Perpanjang Penahanan II">Perpanjang Penahanan II</option>
 									  <option value="Perpanjang Penahanan III">Perpanjang Penahanan III</option>
+									  <option value="Putusan">Putusan</option>
 									</select>
 									<br>
 								</div>
@@ -67,12 +126,13 @@
 								<div class="form-group">
 									<label for="exampleInputEmail1">Nama Berkas</label>
 									<select name="penetapan_hari_sidang" class="form-control">
-									  <option value="Penetapan Hari Sidang">Penetapan Hari Sidang</option>
 									  <option value="Pelimpahan Berkas" >Pelimpahan Berkas</option>
+									  <option value="Penetapan Hari Sidang" selected="selected">Penetapan Hari Sidang</option>
 									  <option value="Penahanan">Penahanan</option>
 									  <option value="Perpanjang Penahanan I">Perpanjang Penahanan I</option>
 									  <option value="Perpanjang Penahanan II">Perpanjang Penahanan II</option>
 									  <option value="Perpanjang Penahanan III">Perpanjang Penahanan III</option>
+									  <option value="Putusan">Putusan</option>
 									</select>
 									<br>
 								</div>
@@ -98,12 +158,13 @@
 								<div class="form-group">
 									<label for="exampleInputEmail1">Nama Berkas</label>
 									<select name="penahanan" class="form-control">
-									  <option value="Penahanan">Penahanan</option>
 									  <option value="Pelimpahan Berkas" >Pelimpahan Berkas</option>
 									  <option value="Penetapan Hari Sidang">Penetapan Hari Sidang</option>
+									  <option value="Penahanan" selected="selected">Penahanan</option>
 									  <option value="Perpanjang Penahanan I">Perpanjang Penahanan I</option>
 									  <option value="Perpanjang Penahanan II">Perpanjang Penahanan II</option>
 									  <option value="Perpanjang Penahanan III">Perpanjang Penahanan III</option>
+									  <option value="Putusan">Putusan</option>
 									</select>
 									<br>
 								</div>
@@ -129,12 +190,13 @@
 								<div class="form-group">
 									<label for="exampleInputEmail1">Nama Berkas</label>
 									<select name="perpanjang_penahanan_I" class="form-control">
-									  <option value="Perpanjang Penahanan I">Perpanjang Penahanan I</option>
 									  <option value="Pelimpahan Berkas" >Pelimpahan Berkas</option>
 									  <option value="Penetapan Hari Sidang">Penetapan Hari Sidang</option>
 									  <option value="Penahanan">Penahanan</option>
+									  <option value="Perpanjang Penahanan I" selected="selected">Perpanjang Penahanan I</option>
 									  <option value="Perpanjang Penahanan II">Perpanjang Penahanan II</option>
 									  <option value="Perpanjang Penahanan III">Perpanjang Penahanan III</option>
+									  <option value="Putusan">Putusan</option>
 									</select>
 									<br>
 								</div>
@@ -160,12 +222,13 @@
 								<div class="form-group">
 									<label for="exampleInputEmail1">Nama Berkas</label>
 									<select name="perpanjang_penahanan_II" class="form-control">
-									  <option value="Perpanjang Penahanan II">Perpanjang Penahanan II</option>
 									  <option value="Pelimpahan Berkas">Pelimpahan Berkas</option>
 									  <option value="Penetapan Hari Sidang">Penetapan Hari Sidang</option>
 									  <option value="Penahanan">Penahanan</option>
 									  <option value="Perpanjang Penahanan I">Perpanjang Penahanan I</option>
+									  <option value="Perpanjang Penahanan II" selected="selected">Perpanjang Penahanan II</option>
 									  <option value="Perpanjang Penahanan III">Perpanjang Penahanan III</option>
+									  <option value="Putusan">Putusan</option>
 									</select>
 									<br>
 								</div>
@@ -191,12 +254,13 @@
 								<div class="form-group">
 									<label for="exampleInputEmail1">Nama Berkas</label>
 									<select name="perpanjang_penahanan_III" class="form-control">
-									  <option value="Perpanjang Penahanan III">Perpanjang Penahanan III</option>
 									  <option value="Pelimpahan Berkas">Pelimpahan Berkas</option>
 									  <option value="Penetapan Hari Sidang">Penetapan Hari Sidang</option>
 									  <option value="Penahanan">Penahanan</option>
 									  <option value="Perpanjang Penahanan I">Perpanjang Penahanan I</option>
 									  <option value="Perpanjang Penahanan II" >Perpanjang Penahanan II</option>
+									  <option value="Perpanjang Penahanan III" selected="selected">Perpanjang Penahanan III</option>
+									  <option value="Putusan">Putusan</option>
 									</select>
 									<br>
 								</div>
@@ -222,13 +286,13 @@
 								<div class="form-group">
 									<label for="exampleInputEmail1">Nama Berkas</label>
 									<select name="putusan" class="form-control">
-									  <option value="Putusan" >Putusan</option>
-									  <option value="Perpanjang Penahanan III">Perpanjang Penahanan III</option>
 									  <option value="Pelimpahan Berkas">Pelimpahan Berkas</option>
 									  <option value="Penetapan Hari Sidang">Penetapan Hari Sidang</option>
 									  <option value="Penahanan">Penahanan</option>
 									  <option value="Perpanjang Penahanan I">Perpanjang Penahanan I</option>
 									  <option value="Perpanjang Penahanan II" >Perpanjang Penahanan II</option>
+									  <option value="Perpanjang Penahanan III">Perpanjang Penahanan III</option>
+									  <option value="Putusan" selected="selected" >Putusan</option>
 									</select>
 									<br>
 								</div>

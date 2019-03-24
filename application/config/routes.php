@@ -50,9 +50,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'auth';
-// $route['lupapassword/lupa_password'] = 'lupapassword/lupa_password';
-// $route['lupapassword/lupa_password'] = 'lupapassword/lupa_password';
-
-
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

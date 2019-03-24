@@ -88,4 +88,14 @@ class M_cek_validasi_data extends CI_Model
 		return $this->db->get()->result();
 	}
 
+	public function status_data()
+	{
+		$this->db->select('*');
+		$this->db->from('tbl_kejaksaan');
+		$this->db->join('tbl_users', 'tbl_users.id = tbl_kejaksaan.id_users');
+		// $this->db->order_by("id_data", "desc");	
+		return $this->db->get()->row();
+	}
+
+
 }

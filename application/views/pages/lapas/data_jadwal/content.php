@@ -26,6 +26,7 @@
                     <center><th>No</th></center>
                     <th>Deskripsi Perkara</th>
                     <th>Dikirim Oleh</th>
+                    <th>Tanggal Posting</th>
                     <th>Lihat Detail Jadwal</th>
                     <th>Aksi</th>
                     <th>Status Data</th>
@@ -46,6 +47,9 @@
                     <td style ="<?php if($value->username == null){echo 'background-color:red'; }else{echo ''; }?>">
                       <?= $value->username;?>
                     </td>
+                     <td>
+                       <?php echo date('y F d', strtotime($value->tanggal_posting)); ?>
+                    </td>
                     <td>
                         <a href="<?php echo base_url('lapas/lihat_detail_jadwal/'. $value->url);?>" class="btn btn-info btn-sm"> 
                           <span class="glyphicon glyphicon-eye-open"></span> Detail Jadwal
@@ -53,12 +57,12 @@
                     </td>
 
                      <td>
-                        <a href="<?php echo base_url('lapas/hapus_jadwal/'. $value->id_data);?>" class="btn btn-warning btn-sm" onclick="return confirm('Yakin Mau Hapus Jadwal Ini')"> <span class="glyphicon glyphicon-trash"></span> Hapus
+                        <a href="<?php echo base_url('lapas/hapus_jadwal/'.$value->id_data.'/'.$value->url);?>" class="btn btn-warning btn-sm" onclick="return confirm('Yakin Mau Hapus Jadwal Ini')"> <span class="glyphicon glyphicon-trash"></span> Hapus
                         </a>
 
                          <?php $this->load->view('pages/lapas/data_jadwal/ubah_jadwal/deskripsi/content');?>
                          
-                         <a id="ganti_deskripsi" class="btn btn-warning btn-sm" data-id_data="<?= $value->id_data;?>"  data-deskripsi="<?= $value->deskripsi;?>"data-toggle="modal" data-target="#editdata" data-whatever="@mdo"><span class="glyphicon glyphicon-edit"></span></i>Ganti Deskripsi</a>
+                         <a id="ganti_deskripsi" class="btn btn-warning btn-sm" data-id_data="<?= $value->id_data;?>" data-url="<?= $value->url;?>"  data-deskripsi="<?= $value->deskripsi;?>"data-toggle="modal" data-target="#editdata" data-whatever="@mdo"><span class="glyphicon glyphicon-edit"></span></i>Ganti Deskripsi</a>
                     </td>
 
                      <td>
@@ -72,7 +76,7 @@
                         else
                         {
                         ?>
-                          <button class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-file"></span>Data Lengkap</button>
+                          <button class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-file"></span>Data Komplete</button>
                         <?php
                         }
                         ?>
@@ -87,6 +91,7 @@
                     <th>No</th>
                     <th>Deskripsi Perkara</th>
                     <th>Dikirim Oleh</th>
+                    <th>Tanggal Posting</th>
                     <th>Lihat detail Jadwal</th>
                     <th>Aksi</th>
                     <th>Status Data</th>

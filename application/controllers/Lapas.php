@@ -14,30 +14,71 @@ class Lapas extends MY_Controller
 		$this->load->helper('file');
 		$this->load->model('m_lapas');
 		$this->load->model('m_cek_validasi_data');
+		$this->output->enable_profiler(TRUE);
+		
 	}
 	public function index()
 	{
-		$data['kepolisian'] = $this->m_cek_validasi_data->tampil_data_kepolisian();
-		$data['kejaksaan']  = $this->m_cek_validasi_data->tampil_data_kejaksaan();
-		$data['pengadilan']	= $this->m_cek_validasi_data->tampil_data_pengadilan();
+		$cacheKepolisian = 'kepolisian';
+
+		if (!$data['kepolisian']  = $this->cache->get($cacheKepolisian))
+		{
+			$data['kepolisian'] = $this->m_cek_validasi_data->tampil_data_kepolisian();
+	        $this->cache->save($cacheKepolisian, $data['kepolisian'], 300);
+		}
+
+		$cachePengadilan = 'pengadilan';
+
+		if (!$data['pengadilan']  = $this->cache->get($cachePengadilan))
+		{
+			$data['pengadilan']	= $this->m_cek_validasi_data->tampil_data_pengadilan();
+	        $this->cache->save($cachePengadilan, $data['pengadilan'], 300);
+		}
+
+		$cacheKejaksaan = 'kejaksaan'; 
+		
+		if (!$data['kejaksaan']  = $this->cache->get($cacheKejaksaan))
+		{
+			$data['kejaksaan']  = $this->m_cek_validasi_data->tampil_data_kejaksaan();
+	        $this->cache->save($cacheKejaksaan, $data['kejaksaan'], 300);
+		}
+
+		$data['data_kepolisian'] = count($data['kepolisian']);
+		$data['data_kejaksaan']  = count($data['kejaksaan']);
+		$data['data_pengadilan'] = count($data['pengadilan']);
 		$this->load->view('pages/lapas/daftar_jadwal/index', $data);
 	}
 
 	public function detail_kepolisian($url)
 	{
-		$data['data'] 	= $this->m_cek_validasi_data->tampil_data_kepolisian($url);	
+		$detail_kepolisian = 'detail_kepolisian_'.$url;
+		if (!$data['data'] 	= $this->cache->get($detail_kepolisian)) 
+		{
+			$data['data'] 	= $this->m_cek_validasi_data->tampil_data_kepolisian($url);	
+			$this->cache->save($detail_kepolisian, $data['data'], 300);	
+		}
 		$this->load->view('pages/lapas/daftar_jadwal/detail_kepolisian/index', $data);
 	}
 
 	public function detail_kejaksaan($url)
 	{
-		$data['data'] 	= $this->m_cek_validasi_data->tampil_data_kejaksaan($url);	
+		$detail_kejaksaan = 'detail_kejaksaan_'.$url;
+		if (!$data['data'] 	= $this->cache->get($detail_kejaksaan)) 
+		{
+			$data['data'] 	= $this->m_cek_validasi_data->tampil_data_kejaksaan($url);	
+			$this->cache->save($detail_kejaksaan, $data['data'], 300);	
+		}
 		$this->load->view('pages/lapas/daftar_jadwal/detail_kejaksaan/index', $data);
 	}
 
 	public function detail_pengadilan($url)
 	{
-		$data['data'] 	= $this->m_cek_validasi_data->tampil_data_pengadilan($url);	
+		$detail_pengadilan = 'detail_pengadilan_'.$url;
+		if (!$data['data'] 	= $this->cache->get($detail_pengadilan)) 
+		{
+			$data['data'] 	= $this->m_cek_validasi_data->tampil_data_pengadilan($url);	
+			$this->cache->save($detail_pengadilan, $data['data'], 300);	
+		}
 		$this->load->view('pages/lapas/daftar_jadwal/detail_pengadilan/index', $data);
 	}
 
@@ -127,7 +168,7 @@ class Lapas extends MY_Controller
 		else
 		{
 			$config['upload_path']          = './uploads/lapas';
-			$config['allowed_types']        = 'pdf';
+			$config['allowed_types']        = 'pdf|doc|docx';
 			$config['max_size']             = 0;
 			$config['max_width']            = 0;
 			$config['max_height']           = 0;
@@ -158,8 +199,10 @@ class Lapas extends MY_Controller
 				}
 
 					$deskripsi 	= $this->input->post('deskripsi', TRUE);
+					$tanggal_posting = date('d/m/y');
 					$url  = md5(uniqid());
 					$data = array('id_users' 						=> $this->session->userdata('id'),
+								  'tanggal_posting'					=> $tanggal_posting,
 								  'deskripsi'						=> $deskripsi,
 								  'eksekusi'						=> $this->input->post('eksekusi'),
 								  'isi_putusan'						=> $this->input->post('isi_putusan'),
@@ -186,20 +229,23 @@ class Lapas extends MY_Controller
 			else
 			{
 				$deskripsi 	= $this->input->post('deskripsi', TRUE);
+				$tanggal_posting = date('d/m/y');
+
 				$url  = md5(uniqid());
 				$data = array('id_users' 						=> $this->session->userdata('id'),
-								  'deskripsi'						=> $deskripsi,
-								  'eksekusi'						=> $this->input->post('eksekusi'),
-								  'isi_putusan'						=> $this->input->post('isi_putusan'),
-								  'pembebasan_bersyarat'			=> $this->input->post('pembebasan_bersyarat'),
-								  'remisi'							=> $this->input->post('remisi'),
-								  'bebas'							=> $this->input->post('bebas'),
-								  'tanggal_eksekusi'				=> $this->input->post('tanggal_eksekusi'),
-								  'tanggal_isi_putusan'				=> $this->input->post('tanggal_isi_putusan'),
-								  'tanggal_pembebasan_bersyarat'	=> $this->input->post('tanggal_pembebasan_bersyarat'),
-								  'tanggal_remisi'					=> $this->input->post('tanggal_remisi'),
-								  'tanggal_bebas'					=> $this->input->post('tanggal_bebas'),
-								  'url'								=> $url );
+							  'tanggal_posting'					=> $tanggal_posting,
+							  'deskripsi'						=> $deskripsi,
+							  'eksekusi'						=> $this->input->post('eksekusi'),
+							  'isi_putusan'						=> $this->input->post('isi_putusan'),
+							  'pembebasan_bersyarat'			=> $this->input->post('pembebasan_bersyarat'),
+							  'remisi'							=> $this->input->post('remisi'),
+							  'bebas'							=> $this->input->post('bebas'),
+							  'tanggal_eksekusi'				=> $this->input->post('tanggal_eksekusi'),
+							  'tanggal_isi_putusan'				=> $this->input->post('tanggal_isi_putusan'),
+							  'tanggal_pembebasan_bersyarat'	=> $this->input->post('tanggal_pembebasan_bersyarat'),
+							  'tanggal_remisi'					=> $this->input->post('tanggal_remisi'),
+							  'tanggal_bebas'					=> $this->input->post('tanggal_bebas'),
+							  'url'								=> $url );
 					
 					$this->m_lapas->simpan($data);	
 					$this->session->set_flashdata('berhasil', '<div class="alert alert-success" role="alert">berhasil di simpan</div>');
@@ -208,103 +254,13 @@ class Lapas extends MY_Controller
 		}
 	}
 
-	public function file_eksekusi($str)
-	{
-        $allowed_mime_type_arr = array('application/pdf');
-        $mime = get_mime_by_extension($_FILES['file_eksekusi']['name']);
-        if($_FILES['file_eksekusi']['name'])
-        {
-            if(in_array($mime, $allowed_mime_type_arr))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('file_eksekusi', 'Pilih file eksekusi hanya pdf.');
-                return false;
-            }
-        }
-    }
-
-	public function file_isi_putusan($str)
-	{
-        $allowed_mime_type_arr = array('application/pdf');
-        $mime = get_mime_by_extension($_FILES['file_isi_putusan']['name']);
-        if($_FILES['file_isi_putusan']['name'])
-        {
-            if(in_array($mime, $allowed_mime_type_arr))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('file_isi_putusan', 'Pilih file isi putusan hanya pdf.');
-                return false;
-            }
-        }
-    }
-
-    public function file_pembebasan_bersyarat($str)
-	{
-        $allowed_mime_type_arr = array('application/pdf');
-        $mime = get_mime_by_extension($_FILES['file_pembebasan_bersyarat']['name']);
-        if($_FILES['file_pembebasan_bersyarat']['name'])
-        {
-            if(in_array($mime, $allowed_mime_type_arr))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('file_pembebasan_bersyarat', 'Pilih file pembebasan bersyarat hanya pdf.');
-                return false;
-            }
-        }
-    }
-
-	public function file_remisi($str)
-	{
-        $allowed_mime_type_arr = array('application/pdf');
-        $mime = get_mime_by_extension($_FILES['file_remisi']['name']);
-        if($_FILES['file_remisi']['name'])
-        {
-            if(in_array($mime, $allowed_mime_type_arr))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('file_remisi', 'Pilih file remisi hanya pdf.');
-                return false;
-            }
-        }
-    }
-
-    public function file_bebas($str)
-	{
-        $allowed_mime_type_arr = array('application/pdf');
-        $mime = get_mime_by_extension($_FILES['file_bebas']['name']);
-        if($_FILES['file_bebas']['name'])
-        {
-            if(in_array($mime, $allowed_mime_type_arr))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('file_bebas', 'Pilih file bebas hanya pdf.');
-                return false;
-            }
-        }
-    }
-
 	public function lihat_detail_jadwal($url)
     {
     	$data['data'] = $this->m_lapas->lihat_detail_jadwal($url);
 		$this->load->view('pages/lapas/data_jadwal/detail_jadwal/index', $data);
     }
 
-    public function hapus_jadwal($id)
+    public function hapus_jadwal($id, $url)
     {	
 		$file = $this->m_lapas->tampil($id);
 		@unlink('./uploads/lapas/'. $file->file_eksekusi);
@@ -314,7 +270,7 @@ class Lapas extends MY_Controller
 		@unlink('./uploads/lapas/'. $file->file_bebas);
 
 
-		$hapus = $this->m_lapas->hapus($id);
+		$hapus = $this->m_lapas->hapus($id, $url);
 		if ($hapus = TRUE) 
 		{
 			$this->session->set_flashdata('terhapus', '<div class="alert alert-success" role="alert">Jadwal terhapus</div>');
@@ -325,8 +281,9 @@ class Lapas extends MY_Controller
     public function ubah_deskripsi()
     {
     	$id_data 	= $this->input->post('id_data');
-    	$data = array('deskripsi' => $this->input->post('deskripsi'));
-    	$this->m_lapas->ubah_deskripsi($id_data, $data);
+    	$url 		= $this->input->post('url');
+    	$data 		= array('deskripsi' => $this->input->post('deskripsi'));
+    	$this->m_lapas->ubah_deskripsi($id_data, $data, $url);
     	$this->session->set_flashdata('deskripsi_diganti', '<div class="alert alert-success" role="alert">Deskripsi berhasil diganti</div>');
 		redirect(base_url('lapas/data_jadwal'));
     }
@@ -386,5 +343,95 @@ class Lapas extends MY_Controller
 			show_404();
 		}
 		force_download($data, null);
+    }
+
+	public function file_eksekusi($str)
+	{
+        $allowed_mime_type_arr = array('application/pdf', 'application/msword');
+        $mime = get_mime_by_extension($_FILES['file_eksekusi']['name']);
+        if($_FILES['file_eksekusi']['name'])
+        {
+            if(in_array($mime, $allowed_mime_type_arr))
+            {
+                return true;
+            }
+            else
+            {
+                $this->form_validation->set_message('file_eksekusi', 'Pilih file eksekusi hanya word atau pdf.');
+                return false;
+            }
+        }
+    }
+
+	public function file_isi_putusan($str)
+	{
+        $allowed_mime_type_arr = array('application/pdf', 'application/msword');
+        $mime = get_mime_by_extension($_FILES['file_isi_putusan']['name']);
+        if($_FILES['file_isi_putusan']['name'])
+        {
+            if(in_array($mime, $allowed_mime_type_arr))
+            {
+                return true;
+            }
+            else
+            {
+                $this->form_validation->set_message('file_isi_putusan', 'Pilih file isi putusan hanya word atau pdf.');
+                return false;
+            }
+        }
+    }
+
+    public function file_pembebasan_bersyarat($str)
+	{
+        $allowed_mime_type_arr = array('application/pdf', 'application/msword');
+        $mime = get_mime_by_extension($_FILES['file_pembebasan_bersyarat']['name']);
+        if($_FILES['file_pembebasan_bersyarat']['name'])
+        {
+            if(in_array($mime, $allowed_mime_type_arr))
+            {
+                return true;
+            }
+            else
+            {
+                $this->form_validation->set_message('file_pembebasan_bersyarat', 'Pilih file pembebasan bersyarat hanya word atau pdf.');
+                return false;
+            }
+        }
+    }
+
+	public function file_remisi($str)
+	{
+        $allowed_mime_type_arr = array('application/pdf', 'application/msword');
+        $mime = get_mime_by_extension($_FILES['file_remisi']['name']);
+        if($_FILES['file_remisi']['name'])
+        {
+            if(in_array($mime, $allowed_mime_type_arr))
+            {
+                return true;
+            }
+            else
+            {
+                $this->form_validation->set_message('file_remisi', 'Pilih file remisi hanya word atau pdf.');
+                return false;
+            }
+        }
+    }
+
+    public function file_bebas($str)
+	{
+        $allowed_mime_type_arr = array('application/pdf', 'application/msword');
+        $mime = get_mime_by_extension($_FILES['file_bebas']['name']);
+        if($_FILES['file_bebas']['name'])
+        {
+            if(in_array($mime, $allowed_mime_type_arr))
+            {
+                return true;
+            }
+            else
+            {
+                $this->form_validation->set_message('file_bebas', 'Pilih file bebas hanya word atau pdf.');
+                return false;
+            }
+        }
     }
 }

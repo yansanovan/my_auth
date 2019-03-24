@@ -11,6 +11,7 @@
 						<?= $this->session->flashdata('gagal');?>
 						<?=  form_open_multipart('superadmin/update');?>
 						<div class="col-md-12">
+						<a href="<?= base_url('superadmin');?>" class="btn btn-primary btn">Kembali</a><br><br>
 							<div class="form-group">
 								<label for="exampleInputEmail1">Username</label>
 								<input type="hidden" name="id" value="<?= $data->id;?>" class="form-control" id="exampleInputEmail1">
@@ -29,13 +30,29 @@
 							</div>
 
 							<div class="form-group">
-								<label for="exampleInputEmail1">Pilih level baru</label>
+								<label for="exampleInputEmail1">Level</label>
+								<input type="text" name="level_lama" class="form-control" value="<?= $data->level;?>" readonly="readonly">
+							</div>
+
+							<div class="form-group">
+								<label for="exampleInputEmail1">level baru</label>
 								<div class="form-group">
 									<select class="form-control" name="level">
-									  <option value="kepolisian">Kepolisian</option>
-									  <option value="kejaksaan">Kejaksaan</option>
-									  <option value="pengadilan">Pengadilan</option>
-									  <option value="lapas">Lapas</option>
+										<option 
+											<?php if( $data->level =='kepolisian'){echo "selected"; } ?> value="kepolisian">Kepolisian
+										</option>
+									
+										<option 
+											<?php if( $data->level =='kejaksaan'){echo "selected"; } ?> value="kejaksaan">Kejaksaan
+										</option>
+									
+										<option 
+											<?php if( $data->level =='pengadilan'){echo "selected"; } ?> value="pengadilan">Pengadilan
+										</option>
+									
+										<option 
+											<?php if( $data->level =='lapas'){echo "selected"; } ?> value="lapas">lapas
+										</option>
 									</select>
 									<br>
 								</div>

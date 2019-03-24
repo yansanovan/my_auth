@@ -22,10 +22,10 @@
 							<div class="col-md-3"><br>
 								<div class="form-group">
 									<label for="exampleInputEmail1">Nama Berkas</label>
-									<select name="penangkapan" class="form-control">
-									  <option value="Penangkapan" selected="selected">Penangkapan</option>
-									  <option value="Ijin Sita">Ijin Sita</option>
+									<select name="ijin_geledah" class="form-control">
 									  <option value="Ijin Geledah">Ijin Geledah</option>
+									  <option value="Penangkapan">Penangkapan</option>
+									  <option value="Ijin Sita">Ijin Sita</option>
 									  <option value="Pelimpahan">Pelimpahan</option>
 									  <option value="Penahanan">Penahanan</option>
 									  <option value="Perpanjangan Penahanan">Perpanjangan Penahanan</option>
@@ -38,6 +38,7 @@
 								<div class="form-group">
 									<label for="exampleInputEmail1">File</label>
 									<input type="hidden" name="id_data" value="<?= $data->id_data;?>"  class="form-control">
+									<input type="hidden" name="url" value="<?= $data->url;?>"  class="form-control">
 
 									<input type="text" name="file_penangkapan_lama" value="<?= $data->file_ijin_sita;?>"  class="form-control">
 								</div>

@@ -12,6 +12,7 @@
           <div class="form-group">
             <label for="recipient-name" class="col-form-label"></label>
             <input type="hidden" name="id_data" class="form-control" id="id_data">
+            <input type="hidden" name="url" class="form-control" id="url">
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">Deskripsi Perkara : </label>

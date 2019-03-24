@@ -42,7 +42,7 @@ class Ubah_data_kepolisian extends MY_Controller
 		else
 		{
 			$config['upload_path']          = './uploads/kepolisian';
-			$config['allowed_types']        = 'pdf';
+			$config['allowed_types']        = 'pdf|doc|docx';
 			$config['max_size']             = 0;
 			$config['max_width']            = 0;
 			$config['max_height']           = 0;
@@ -58,6 +58,8 @@ class Ubah_data_kepolisian extends MY_Controller
 				else
 				{
 					$id = $this->input->post('id_data');
+					$url = $this->input->post('url');
+
 					$file_penangkapan = $this->upload->data();
 					$data = array('id_users' 					=> $this->session->userdata('id'),
 								  'file_penangkapan'			=> $file_penangkapan['file_name'],
@@ -65,7 +67,7 @@ class Ubah_data_kepolisian extends MY_Controller
 					
 					$file = $this->m_kepolisian->tampil($id);
 					@unlink('./uploads/kepolisian/'. $file->file_penangkapan);
-					$this->m_kepolisian->ubah($id, $data);
+					$this->m_kepolisian->ubah($id, $data, $url);
 					$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">Berhasi di simpan</div>');
 					return $this->index($id);			
 
@@ -74,10 +76,12 @@ class Ubah_data_kepolisian extends MY_Controller
 			else
 			{
 					$id = $this->input->post('id_data');
+					$url = $this->input->post('url');
+					
 					$data = array('id_users' 					=> $this->session->userdata('id'),
 							   	   'tanggal_penangkapan'			=> $this->input->post('tanggal_penangkapan'));
 
-					$this->m_kepolisian->ubah($id, $data);
+					$this->m_kepolisian->ubah($id, $data, $url);
 					$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">Berhasil di simpan</div>');
 					return $this->index($id);
 
@@ -115,7 +119,7 @@ class Ubah_data_kepolisian extends MY_Controller
 		{
 				
 			$config['upload_path']          = './uploads/kepolisian';
-			$config['allowed_types']        = 'pdf';
+			$config['allowed_types']        = 'pdf|doc|docx';
 			$config['max_size']             = 0;
 			$config['max_width']            = 0;
 			$config['max_height']           = 0;
@@ -131,6 +135,7 @@ class Ubah_data_kepolisian extends MY_Controller
 				}
 				else
 				{
+					$url = $this->input->post('url');
 					$id = $this->input->post('id_data');
 					$file_ijin_sita = $this->upload->data();
 					$data = array('id_users' 					=> $this->session->userdata('id'),
@@ -139,7 +144,7 @@ class Ubah_data_kepolisian extends MY_Controller
 					
 					$file = $this->m_kepolisian->tampil($id);
 					@unlink('./uploads/kepolisian/'. $file->file_ijin_sita);
-					$this->m_kepolisian->ubah($id, $data);
+					$this->m_kepolisian->ubah($id, $data, $url);
 					$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">File di simpan</div>');
 					return $this->load_ijin_sita($id);			
 
@@ -147,11 +152,12 @@ class Ubah_data_kepolisian extends MY_Controller
 			}
 			else
 			{
+				$url = $this->input->post('url');
 				$id = $this->input->post('id_data');
 				$data = array('id_users' 					=> $this->session->userdata('id'),
 						   	   'tanggal_ijin_sita'			=> $this->input->post('tanggal_ijin_sita'));
 
-				$this->m_kepolisian->ubah($id, $data);
+				$this->m_kepolisian->ubah($id, $data, $url);
 				$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">File di simpan</div>');
 				return $this->load_ijin_sita($id);
 
@@ -189,7 +195,7 @@ class Ubah_data_kepolisian extends MY_Controller
 		{
 				
 			$config['upload_path']          = './uploads/kepolisian';
-			$config['allowed_types']        = 'pdf';
+			$config['allowed_types']        = 'pdf|doc|docx';
 			$config['max_size']             = 0;
 			$config['max_width']            = 0;
 			$config['max_height']           = 0;
@@ -205,6 +211,7 @@ class Ubah_data_kepolisian extends MY_Controller
 				}
 				else
 				{
+					$url = $this->input->post('url');
 					$id = $this->input->post('id_data');
 					$file_ijin_geledah = $this->upload->data();
 					$data = array('id_users' 					=> $this->session->userdata('id'),
@@ -213,18 +220,19 @@ class Ubah_data_kepolisian extends MY_Controller
 					
 					$file = $this->m_kepolisian->tampil($id);
 					@unlink('./uploads/kepolisian/'. $file->file_ijin_geledah);
-					$this->m_kepolisian->ubah($id, $data);
+					$this->m_kepolisian->ubah($id, $data, $url);
 					$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">File di simpan</div>');
 					return $this->load_ijin_geledah($id);			
 				}
 			}
 			else
 			{
+				$url = $this->input->post('url');
 				$id = $this->input->post('id_data');
 				$data = array('id_users' 					=> $this->session->userdata('id'),
 						   	   'tanggal_ijin_geledah'		=> $this->input->post('tanggal_ijin_geledah'));
 
-				$this->m_kepolisian->ubah($id, $data);
+				$this->m_kepolisian->ubah($id, $data, $url);
 				$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">File di simpan</div>');
 				return $this->load_ijin_geledah($id);
 
@@ -262,7 +270,7 @@ class Ubah_data_kepolisian extends MY_Controller
 		{
 				
 			$config['upload_path']          = './uploads/kepolisian';
-			$config['allowed_types']        = 'pdf';
+			$config['allowed_types']        = 'pdf|doc|docx';
 			$config['max_size']             = 0;
 			$config['max_width']            = 0;
 			$config['max_height']           = 0;
@@ -278,6 +286,7 @@ class Ubah_data_kepolisian extends MY_Controller
 				}
 				else
 				{
+					$url = $this->input->post('url');
 					$id = $this->input->post('id_data');
 					$file_pelimpahan = $this->upload->data();
 					$data = array('id_users' 					=> $this->session->userdata('id'),
@@ -286,18 +295,19 @@ class Ubah_data_kepolisian extends MY_Controller
 					
 					$file = $this->m_kepolisian->tampil($id);
 					@unlink('./uploads/kepolisian/'. $file->file_pelimpahan);
-					$this->m_kepolisian->ubah($id, $data);
+					$this->m_kepolisian->ubah($id, $data, $url);
 					$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">File di simpan</div>');
 					return $this->load_pelimpahan($id);			
 				}
 			}
 			else
 			{
+				$url = $this->input->post('url');
 				$id = $this->input->post('id_data');
 				$data = array('id_users' 				=> $this->session->userdata('id'),
 						   	  'tanggal_pelimpahan'		=> $this->input->post('tanggal_pelimpahan'));
 
-				$this->m_kepolisian->ubah($id, $data);
+				$this->m_kepolisian->ubah($id, $data, $url);
 				$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">File di simpan</div>');
 				return $this->load_pelimpahan($id);
 
@@ -335,7 +345,7 @@ class Ubah_data_kepolisian extends MY_Controller
 		{
 				
 			$config['upload_path']          = './uploads/kepolisian';
-			$config['allowed_types']        = 'pdf';
+			$config['allowed_types']        = 'pdf|doc|docx';
 			$config['max_size']             = 0;
 			$config['max_width']            = 0;
 			$config['max_height']           = 0;
@@ -351,6 +361,7 @@ class Ubah_data_kepolisian extends MY_Controller
 				}
 				else
 				{
+					$url = $this->input->post('url');
 					$id = $this->input->post('id_data');
 					$file_penahanan = $this->upload->data();
 					$data = array('id_users' 					=> $this->session->userdata('id'),
@@ -359,18 +370,19 @@ class Ubah_data_kepolisian extends MY_Controller
 					
 					$file = $this->m_kepolisian->tampil($id);
 					@unlink('./uploads/kepolisian/'. $file->file_penahanan);
-					$this->m_kepolisian->ubah($id, $data);
+					$this->m_kepolisian->ubah($id, $data, $url);
 					$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">File di simpan</div>');
 					return $this->load_penahanan($id);			
 				}
 			}
 			else
 			{
+				$url = $this->input->post('url');
 				$id = $this->input->post('id_data');
 				$data = array('id_users' 				=> $this->session->userdata('id'),
 						   	  'tanggal_penahanan'		=> $this->input->post('tanggal_penahanan'));
 
-				$this->m_kepolisian->ubah($id, $data);
+				$this->m_kepolisian->ubah($id, $data, $url);
 				$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">File di simpan</div>');
 				return $this->load_penahanan($id);
 
@@ -409,7 +421,7 @@ class Ubah_data_kepolisian extends MY_Controller
 		{
 				
 			$config['upload_path']          = './uploads/kepolisian';
-			$config['allowed_types']        = 'pdf';
+			$config['allowed_types']        = 'pdf|doc|docx';
 			$config['max_size']             = 0;
 			$config['max_width']            = 0;
 			$config['max_height']           = 0;
@@ -425,6 +437,7 @@ class Ubah_data_kepolisian extends MY_Controller
 				}
 				else
 				{
+					$url = $this->input->post('url');
 					$id = $this->input->post('id_data');
 					$file_perpanjang_penahanan = $this->upload->data();
 					$data = array('id_users' 						=> $this->session->userdata('id'),
@@ -433,18 +446,19 @@ class Ubah_data_kepolisian extends MY_Controller
 					
 					$file = $this->m_kepolisian->tampil($id);
 					@unlink('./uploads/kepolisian/'. $file->file_perpanjang_penahanan);
-					$this->m_kepolisian->ubah($id, $data);
+					$this->m_kepolisian->ubah($id, $data, $url);
 					$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">File di simpan</div>');
 					return $this->load_perpanjang_penahanan($id);			
 				}
 			}
 			else
 			{
+				$url = $this->input->post('url');
 				$id = $this->input->post('id_data');
 				$data = array('id_users' 						=> $this->session->userdata('id'),
 						   	  'tanggal_perpanjang_penahanan'	=> $this->input->post('tanggal_perpanjang_penahanan'));
 
-				$this->m_kepolisian->ubah($id, $data);
+				$this->m_kepolisian->ubah($id, $data, $url);
 				$this->session->set_flashdata('berhasil_diubah', '<div class="alert alert-success" role="alert">File di simpan</div>');
 				return $this->load_perpanjang_penahanan($id);
 
@@ -454,7 +468,7 @@ class Ubah_data_kepolisian extends MY_Controller
 
 	public function file_penangkapan($str)
 	{
-        $allowed_mime_type_arr = array('application/pdf');
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
         $mime = get_mime_by_extension($_FILES['file_penangkapan']['name']);
         if($_FILES['file_penangkapan']['name'])
         {
@@ -472,7 +486,7 @@ class Ubah_data_kepolisian extends MY_Controller
 
 	public function file_ijin_sita($str)
 	{
-        $allowed_mime_type_arr = array('application/pdf');
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
         $mime = get_mime_by_extension($_FILES['file_ijin_sita']['name']);
         if($_FILES['file_ijin_sita']['name'])
         {
@@ -495,7 +509,7 @@ class Ubah_data_kepolisian extends MY_Controller
 
 	public function file_ijin_geledah($str)
 	{
-        $allowed_mime_type_arr = array('application/pdf');
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
         $mime = get_mime_by_extension($_FILES['file_ijin_geledah']['name']);
         if($_FILES['file_ijin_geledah']['name'])
         {
@@ -513,7 +527,7 @@ class Ubah_data_kepolisian extends MY_Controller
 
     public function file_pelimpahan($str)
 	{
-        $allowed_mime_type_arr = array('application/pdf');
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
         $mime = get_mime_by_extension($_FILES['file_pelimpahan']['name']);
         if($_FILES['file_pelimpahan']['name'])
         {
@@ -531,7 +545,7 @@ class Ubah_data_kepolisian extends MY_Controller
 
     public function file_penahanan($str)
 	{
-        $allowed_mime_type_arr = array('application/pdf');
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
         $mime = get_mime_by_extension($_FILES['file_penahanan']['name']);
         if($_FILES['file_penahanan']['name'])
         {
@@ -549,7 +563,7 @@ class Ubah_data_kepolisian extends MY_Controller
 
     public function file_perpanjang_penahanan($str)
 	{
-        $allowed_mime_type_arr = array('application/pdf');
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
         $mime = get_mime_by_extension($_FILES['file_perpanjang_penahanan']['name']);
         if($_FILES['file_perpanjang_penahanan']['name'])
         {
@@ -569,7 +583,7 @@ class Ubah_data_kepolisian extends MY_Controller
     // public function simpan()
 	// {
 	// 	$config['upload_path']          = './uploads/kepolisian';
-	// 	$config['allowed_types']        = 'pdf';
+	// 	$config['allowed_types']        = 'pdf|doc|docx';
 	// 	$config['max_size']             = 0;
 	// 	$config['max_width']            = 0;
 	// 	$config['max_height']           = 0;

@@ -3,6 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_lapas extends CI_Model 
 {
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->driver('cache', array('adapter' => 'file'));
+	}
+
 	public function tampil($id = NULL)
 	{
 		if ($id != NULL) 
@@ -35,28 +41,55 @@ class M_lapas extends CI_Model
 
 	public function simpan($data)
 	{
+
 		$this->db->insert('tbl_lapas', $data);
-		return true;
+		if ($this->db->affected_rows() > 0 ) 
+		{
+			$this->cache->delete('lapas');
+
+			return true;
+		}
 	}
 
-	public function hapus($id)
+	public function hapus($id, $url)
 	{
 		$this->db->where('id_data', $id);
 		$this->db->delete('tbl_lapas');
+		if ($this->db->affected_rows() > 0 ) 
+		{
+			$this->cache->delete('lapas');
+			// delete cache lapas
+			$this->cache->delete('detail_lapas_'.$url);
+			
+			return true;
+		}
 	}
 
-	public function ubah($id, $data)
+	public function ubah($id, $data, $url)
 	{
 		$this->db->where('id_data', $id);
 		$this->db->update('tbl_lapas', $data);
-		return true;
+		if ($this->db->affected_rows() > 0 ) 
+		{
+			$this->cache->delete('detail_lapas_'.$url);
+			return true;
+		}
 	}
 
-	public function ubah_deskripsi($id_data, $data)
+	public function ubah_deskripsi($id_data, $data, $url)
 	{
+		$this->load->driver('cache', array('adapter' => 'file'));
+		
 		$this->db->where('id_data', $id_data);
 		$this->db->update('tbl_lapas', $data);
-		return true;
+		if ($this->db->affected_rows() > 0 ) 
+		{
+			$this->cache->delete('lapas');
+
+			$this->cache->delete('detail_lapas_'.$url);
+
+			return true;
+		}
 	}
 
 	public function lihat_detail_jadwal($url)
