@@ -1,5 +1,8 @@
-<div class="wrapper">
+<!-- <div class="wrapper">
   <div class="content-wrapper">
+  </div>
+</div> -->
+
     <section class="content">
       <div class="row">
         <div class="col-xs-12">
@@ -51,6 +54,3 @@
         </div><!-- /.col -->
       </div><!-- /.row -->
     </section>
-  </div>
-</div>
-

@@ -214,7 +214,7 @@ $('#file_path11').click(function(){
  $(function () {
     $('#example1').DataTable({
       responsive:true,
-       "lengthMenu": [[7, 25, 50, -1], [7, 25, 50, "All"]]
+       "lengthMenu": [[10, 25, 50, -1], [7, 25, 50, "All"]]
     })
   });
 
@@ -232,25 +232,25 @@ $(function () {
     })
   });
 
+$(function () {
+    $('#bon').DataTable({
+      responsive:true,
+       "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]]
+    })
+  });
+
+
   window.setTimeout(function() {
       $(".alert").fadeTo(500, 0).slideUp(400, function(){
           $(this).remove(); 
       });
   }, 3000);
 
-
- $(function () {
-    $('#bon').DataTable({
-      responsive:true,
-       "lengthMenu": [[2, 10, 20, -1], [2, 10, 20, "All"]]
-    })
-  });
-
-  // window.setTimeout(function() {
-  //     $(".span").fadeTo(500, 0).slideUp(400, function(){
-  //         $(this).remove(); 
-  //     });
-  // }, 3000);
+  window.setTimeout(function() {
+      $(".validate").fadeTo(500, 0).slideUp(700, function(){
+          $(this).remove(); 
+      });
+  }, 3000);
   
   //modal kepolisian
   $(document).on("click","#uraian_pasal", function()

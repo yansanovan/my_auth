@@ -13,7 +13,7 @@
               <?= $this->session->flashdata('deskripsi_diganti');?>
         
               <h1 align="center"> Riwayat Surat </h1>
-              <a href="<?php echo base_url('kepolisian/form');?>" class="btn btn-success btn-sm"> 
+              <a href="<?php echo base_url('kepolisian/form');?>" class="btn btn-success btn-xs"> 
               <span class="glyphicon glyphicon-edit"></span> Entry Data</a>
             </div>
             <!-- /.box-header -->
@@ -49,15 +49,15 @@
                       <?php echo date('d M Y h:i:a', strtotime($value->tanggal_posting)); ?>
                     </td>
                     <td>
-                        <a href="<?php echo base_url('kepolisian/detail/'.$value->url);?>" class="btn btn-info btn-sm"> 
+                        <a href="<?php echo base_url('kepolisian/detail/'.$value->url);?>" class="btn btn-info btn-xs"> 
                           <span class="glyphicon glyphicon-eye-open"></span> Detail
                         </a>
                     </td>
                     
                     <td>
-                        <a href="<?php echo base_url('kepolisian/hapus/'.$value->id_data);?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin Mau Hapus Jadwal Ini')"> <span class="glyphicon glyphicon-trash"></span> Hapus
+                        <a href="<?php echo base_url('kepolisian/hapus/'.$value->id_data);?>" class="btn btn-danger btn-xs" onclick="return confirm('Yakin Mau Hapus Jadwal Ini')"> <span class="glyphicon glyphicon-trash"></span> Hapus
                         </a>
-                        <a href="<?php echo base_url('kepolisian/edit/'.$value->id_data);?>" class="btn btn-warning btn-sm"> 
+                        <a href="<?php echo base_url('kepolisian/edit/'.$value->id_data);?>" class="btn btn-warning btn-xs"> 
                           <span class="glyphicon glyphicon-edit"></span> Edit
                         </a>
                     </td>

@@ -23,7 +23,7 @@
                     <td>
                       <div class="form-group">
                       <input type="text" name="nama_tersangka" class="form-control" placeholder="nama tersangka" id="nama_tersangka">
-                      <?php echo form_error('nama_tersangka','<span class="span" style="color:red;">','</span>'); ?>
+                      <?php echo form_error('nama_tersangka','<p class="validate" style="color:red;">','</p>'); ?>
                       </div>
                     </td>
                     <td>
@@ -36,7 +36,7 @@
                             </span>
                         </div>
                         <input type="file" class="hidden" id="file" name="file_pengajuan_bon" value="<?php echo set_value('file_pengajuan_bon'); ?>">
-                      <?php echo form_error('file_pengajuan_bon','<span class="span" style="color:red;">','</span>'); ?>
+                      <?php echo form_error('file_pengajuan_bon','<p class="validate" style="color:red;">','</p>'); ?>
                       </div>
                     </td>
                     <td>
@@ -77,6 +77,7 @@
                   <th>File Pengajuan</th>
                   <th>Tanggal Posting</th>
                   <th>Keterangan</th>
+                  <th>Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -86,7 +87,8 @@
                   <td><?= $value->nama_tersangka;?></td>
                   <td><?= $value->file_pengajuan_bon;?></td>  
                   <td><?= $value->tanggal_posting;?></td>
-                  <td><?= $value->keterangan;?></td>      
+                  <td><?= $value->keterangan;?></td>
+                  <td><a href="" class="btn btn-warning btn-xs"> <span class="glyphicon glyphicon-edit"></span> Edit</a></td>      
                 </tr>
                 <?php } ?> 
                 </tbody>

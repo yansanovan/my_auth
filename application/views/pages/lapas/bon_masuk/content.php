@@ -29,7 +29,7 @@
                   <tbody>
                   <?php 
                   $no = 1;
-                  foreach ($data as $key => $value) { ?>
+                  foreach ($data as $key => $value) : ?>
                   <tr>
                     <td><?= $no++;?></td>
                     <td><?= $value->nama_tersangka;?></td>
@@ -40,34 +40,34 @@
                     </td>
                     <td><?= $value->username;?></td>
                     <td><?= $value->level;?></td>
-                    <td><?php if ($value->status_balas == 0) {?><span class="label label-danger">Invalid</span>
-                      <?php } else {?><span class="label label-success">Valid </span> <?php } ?> </td>
+                    <td>
+                        <?php if ($value->status_balas == 0) {?><span class="label label-danger">Invalid</span>
+                        <?php } else {?><span class="label label-success">Valid </span> <?php } ?>
+                    </td>
                     <td><?= date('d M Y h:i:a', strtotime($value->tanggal_posting)); ?></td>
                     <td><?= $value->keterangan;?></td>
                     <td>
-                    <?php 
-                    if ($value->status_balas == 1) 
-                    {
-                    ?>
-                        <a href="<?php echo base_url('lapas/form_balas/'.$value->id_bon);?>" class="btn btn-success btn-sm"> 
-                          <i class="fa fa-lock" aria-hidden="true"></i> Balas
-                        </a>
-                    <?php 
-                    }
-                    else
-                    {
-                    ?>
-                        <a href="<?php echo base_url('lapas/form_balas/'.$value->id_bon);?>" class="btn btn-danger btn-sm"> 
-                         <i class="fa fa-paper-plane" aria-hidden="true"></i> Balas
-                        </a>
-                    <?php  
-                    }
-                    ?>
-                    </td>
-
-                  
+                        <?php 
+                        if ($value->status_balas == 1) 
+                        {
+                        ?>
+                          <a href="<?php echo base_url('lapas/form_balas/'.$value->id_bon);?>" class="btn btn-success btn-sm"> 
+                            <i class="fa fa-lock" aria-hidden="true"></i> Balas
+                          </a>
+                        <?php 
+                        }
+                        else
+                        {
+                        ?>
+                          <a href="<?php echo base_url('lapas/form_balas/'.$value->id_bon);?>" class="btn btn-danger btn-sm"> 
+                            <i class="fa fa-paper-plane" aria-hidden="true"></i> Balas
+                          </a>
+                        <?php  
+                        }
+                        ?>
+                    </td>   
                   </tr>
-                  <?php } ?> 
+                  <?php endforeach;?> 
                   </tbody>
                 </table>
               </div>

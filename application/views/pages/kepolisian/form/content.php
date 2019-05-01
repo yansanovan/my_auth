@@ -25,7 +25,7 @@
                     <td>Nama Tersangka</td>
                     <td>
                       <input type="text" name="nama_tersangka" value="<?php echo set_value('nama_tersangka'); ?>" class="form-control" id="exampleInputEmail1" placeholder="nama tersangka">
-                      <?php echo form_error('nama_tersangka','<span class="span" style="color:red;">','</span>'); ?>
+                      <?php echo form_error('nama_tersangka','<p class="validate" style="color:red;">','</p>'); ?>
                     </td>
                   </tr>
                   
@@ -33,7 +33,7 @@
                     <td>Pasal</td>
                     <td> 
                       <input type="text" name="pasal" value="<?php echo set_value('pasal'); ?>" class="form-control" id="exampleInputEmail1" placeholder="Pasal">
-                      <?php echo form_error('pasal','<span class="span" style="color:red;">','</span>'); ?>
+                      <?php echo form_error('pasal','<p class="validate" style="color:red;">','</p>'); ?>
                     </td>
                   </tr>
 
@@ -42,7 +42,7 @@
                     <td>
                       <div class="form-group">
                         <input type="text" name="no_sprindik" value="<?php echo set_value('no_sprindik'); ?>" class="form-control" id="exampleInputEmail1" placeholder="no sprindik">
-                        <?php echo form_error('no_sprindik','<span class="span" style="color:red;">','</span>'); ?>
+                        <?php echo form_error('no_sprindik','<p class="validate" style="color:red;">','</p>'); ?>
                       </div>
                     </td>
                   </tr>
@@ -60,7 +60,7 @@
                             </span>
                         </div>
                         <input type="file" class="hidden" id="file" name="spdp" value="<?php echo set_value('spdp'); ?>">
-                        <?php echo form_error('spdp','<span class="span" style="color:red;">','</span>'); ?>
+                        <?php echo form_error('spdp','<p class="validate" style="color:red;">','</p>'); ?>
                       </div>
                     </td>
                   </tr>
@@ -78,7 +78,7 @@
                             </span>
                         </div>
                         <input type="file" class="hidden" id="file2" name="ijin_geledah" value="<?php echo set_value('ijin_geledah'); ?>">
-                        <?php echo form_error('ijin_geledah','<span class="span" style="color:red;">','</span>'); ?>
+                        <?php echo form_error('ijin_geledah','<p class="validate" style="color:red;">','</p>'); ?>
                       </div>
 
                       <div class="form-group">
@@ -91,7 +91,7 @@
                             </span>
                         </div>
                         <input type="file" class="hidden" id="file3" name="setuju_geledah" value="<?php echo set_value('setuju_geledah'); ?>">
-                        <?php echo form_error('setuju_geledah','<span class="span" style="color:red;">','</span>'); ?>
+                        <?php echo form_error('setuju_geledah','<p class="validate" style="color:red;">','</p>'); ?>
                       </div>
                     </td>
                   </tr>
@@ -109,7 +109,7 @@
                             </span>
                         </div>
                         <input type="file" class="hidden" id="file4" name="khusus" value="<?php echo set_value('khusus');?>">
-                        <?php echo form_error('khusus','<span class="span" style="color:red;">','</span>'); ?>
+                        <?php echo form_error('khusus','<p class="validate" style="color:red;">','</p>'); ?>
                       </div>
 
                       <div class="form-group">
@@ -122,7 +122,7 @@
                             </span>
                         </div>
                         <input type="file" class="hidden" id="file5" name="biasa" value="<?php echo set_value('biasa');?>">
-                        <?php echo form_error('biasa','<span class="span" style="color:red;">','</span>'); ?>
+                        <?php echo form_error('biasa','<p class="validate" style="color:red;">','</p>'); ?>
                       </div>
 
                       <div class="form-group">
@@ -135,7 +135,7 @@
                             </span>
                         </div>
                         <input type="file" class="hidden" id="file6" name="narkotika" value="<?php echo set_value('narkotika');?>">
-                        <?php echo form_error('narkotika','<span class="span" style="color:red;">','</span>'); ?>
+                        <?php echo form_error('narkotika','<p class="validate" style="color:red;">','</p>'); ?>
                       </div>
                     </td>
                   </tr>
@@ -153,7 +153,7 @@
                             </span>
                         </div>
                         <input type="file" class="hidden" id="file7" name="kejaksaan" value="<?php echo set_value('kejaksaan');?>">
-                        <?php echo form_error('kejaksaan','<span class="span" style="color:red;">','</span>'); ?>
+                        <?php echo form_error('kejaksaan','<p class="validate" style="color:red;">','</p>'); ?>
                       </div>
 
                       <div class="form-group">
@@ -166,7 +166,7 @@
                             </span>
                         </div>
                         <input type="file" class="hidden" id="file8" name="pengadilan" value="<?php echo set_value('pengadilan');?>">
-                        <?php echo form_error('pengadilan','<span class="span" style="color:red;">','</span>'); ?>
+                        <?php echo form_error('pengadilan','<p class="validate" style="color:red;">','</p>'); ?>
                       </div>
                     </td>
                   </tr>
@@ -184,7 +184,7 @@
                             </span>
                         </div>
                         <input type="file" class="hidden" id="file9" name="p_18" value="<?php echo set_value('p_18');?>">
-                        <?php echo form_error('p_18','<span class="span" style="color:red;">','</span>'); ?>
+                        <?php echo form_error('p_18','<p class="validate" style="color:red;">','</p>'); ?>
                       </div>
 
                       <div class="form-group">
@@ -197,7 +197,7 @@
                             </span>
                         </div>
                         <input type="file" class="hidden" id="file10" name="p_21" value="<?php echo set_value('p_21');?>">
-                        <?php echo form_error('p_21','<span class="span" style="color:red;">','</span>'); ?>
+                        <?php echo form_error('p_21','<p class="validate" style="color:red;">','</p>'); ?>
                       </div>
                     </td>
                   </tr>
@@ -214,7 +214,7 @@
                             </span>
                         </div>
                         <input type="file" class="hidden" id="file11" name="pelimpahan" value="<?php echo set_value('pelimpahan');?>">
-                        <?php echo form_error('pelimpahan','<span class="span" style="color:red;">','</span>'); ?>
+                        <?php echo form_error('pelimpahan','<p class="validate" style="color:red;">','</p>'); ?>
                       </div>
                     </td>
                   </tr>

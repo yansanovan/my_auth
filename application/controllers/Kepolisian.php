@@ -19,8 +19,10 @@ class Kepolisian extends MY_Controller
 	public function index()
 	{	
 		$data['data']  = $this->m_surat->get_balasan();
-		$this->load->view('pages/kepolisian/balasan/index', $data);
-	}
+		// $this->load->view('pages/kepolisian/balasan/index', $data);
+        $this->template->load('pages/template/template','pages/kepolisian/balasan/content', $data);
+	
+    }
 
 	public function riwayat_surat()
 	{
