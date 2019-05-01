@@ -19,35 +19,32 @@ class Kepolisian extends MY_Controller
 	public function index()
 	{	
 		$data['data']  = $this->m_surat->get_balasan();
-		// $this->load->view('pages/kepolisian/balasan/index', $data);
         $this->template->load('pages/template/template','pages/kepolisian/balasan/content', $data);
-	
     }
 
 	public function riwayat_surat()
 	{
 		$data['data'] = $this->m_kepolisian->tampil();
-		$this->load->view('pages/kepolisian/riwayat_surat/index', $data);
+        $this->template->load('pages/template/template','pages/kepolisian/riwayat_surat/content', $data);
 	}
     
     public function detail($url)
     {
         $data['data'] = $this->m_kepolisian->detail($url);
-        $this->load->view('pages/kepolisian/riwayat_surat/detail/index', $data);
+        $this->template->load('pages/template/template','pages/kepolisian/riwayat_surat/detail/content', $data);
     }
 
     public function detail_balas($id)
     {
         $data['username_kj']  = $this->m_surat->get_username($id);
         $data['username_pn']  = $this->m_surat->get_username_pn($id);
-
         $data['data'] = $this->m_surat->get_balasan($id);
-        $this->load->view('pages/kepolisian/balasan/detail/index', $data);
+        $this->template->load('pages/template/template','pages/kepolisian/balasan/detail/content', $data);
     }
 
 	public function form()
 	{
-		$this->load->view('pages/kepolisian/form/index');
+        $this->template->load('pages/template/template','pages/kepolisian/form/content');
 	}
 
 	public function simpan()
@@ -207,7 +204,7 @@ class Kepolisian extends MY_Controller
             else
             {
                 $data['data'] = $this->m_kepolisian->cek_id($id)->result();
-                $this->load->view('pages/kepolisian/edit/index', $data);
+                $this->template->load('pages/template/template','pages/kepolisian/edit/content', $data);
             }
         }
         else

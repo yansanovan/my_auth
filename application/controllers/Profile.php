@@ -15,7 +15,7 @@ class Profile extends MY_Controller
 	{
 		$session_id	   = $this->session->userdata('id');
 		$data['users'] = $this->m_profile->ambil_users($session_id);
-		$this->load->view('pages/profile/index', $data);
+        $this->template->load('pages/template/template','pages/profile/content', $data);
 	}
 
 	public function ubah_password()
