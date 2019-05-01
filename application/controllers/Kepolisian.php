@@ -13,172 +13,62 @@ class Kepolisian extends MY_Controller
 		$this->superadmin_cobamasuk_kepolisian();
 		$this->load->helper('file');
 		$this->load->model('m_kepolisian');
-		$this->load->model('m_cek_validasi_data');
-		$this->load->driver('cache', array('adapter' => 'file'));
-		$this->output->enable_profiler(TRUE);
+		$this->load->model('m_surat');
+		$this->load->helper('date');
 	}
 	public function index()
 	{	
-		$cacheKejaksaan = 'kejaksaan'; 
-		
-		if (!$data['kejaksaan']  = $this->cache->get($cacheKejaksaan))
-		{
-			$data['kejaksaan']  = $this->m_cek_validasi_data->tampil_data_kejaksaan();
-	        $this->cache->save($cacheKejaksaan, $data['kejaksaan'], 300);
-		}
-		
-		$cachePengadilan = 'pengadilan';
-
-		if (!$data['pengadilan']	= $this->cache->get($cachePengadilan))
-		{
-			$data['pengadilan']	= $this->m_cek_validasi_data->tampil_data_pengadilan();
-	        $this->cache->save($cachePengadilan, $data['pengadilan'], 300);
-		}
-
-		$cacheLapas = 'lapas';
-		
-		if (!$data['lapas'] = $this->cache->get($cacheLapas))
-		{
-			$data['lapas'] 		= $this->m_cek_validasi_data->tampil_data_lapas();
-	        $this->cache->save($cacheLapas, $data['lapas'], 300);
-		}
-
-		$data['data_kejaksaan']  = count($data['kejaksaan']);
-		$data['data_pengadilan'] = count($data['pengadilan']);
-		$data['data_lapas'] 	 = count($data['lapas']);
-
-		$this->load->view('pages/kepolisian/daftar_jadwal/index', $data);
+		$data['data']  = $this->m_surat->get_balasan();
+		$this->load->view('pages/kepolisian/balasan/index', $data);
 	}
 
-	public function detail_kejaksaan($url)
-	{
-		$detail_kejaksaan = 'detail_kejaksaan_'.$url;
-		if (!$data['data'] 	= $this->cache->get($detail_kejaksaan)) 
-		{
-			$data['data'] 	= $this->m_cek_validasi_data->tampil_data_kejaksaan($url);	
-			$this->cache->save($detail_kejaksaan, $data['data'], 300);	
-		}
-		$this->load->view('pages/kepolisian/daftar_jadwal/detail_kejaksaan/index', $data);
-	}
-
-	public function detail_pengadilan($url)
-	{
-		$detail_pengadilan = 'detail_pengadilan_'.$url;
-		if (!$data['data'] 	= $this->cache->get($detail_pengadilan)) 
-		{
-			$data['data'] 	= $this->m_cek_validasi_data->tampil_data_pengadilan($url);	
-			$this->cache->save($detail_pengadilan, $data['data'], 300);	
-		}
-		$this->load->view('pages/kepolisian/daftar_jadwal/detail_pengadilan/index', $data);
-	}
-
-	public function detail_lapas($url)
-	{
-		$detail_lapas = 'detail_lapas_'.$url;
-		if (!$data['data'] 	= $this->cache->get($detail_lapas)) 
-		{
-			$data['data'] 	= $this->m_cek_validasi_data->tampil_data_lapas($url);	
-			$this->cache->save($detail_lapas, $data['data'], 300);	
-		}
-		$this->load->view('pages/kepolisian/daftar_jadwal/detail_lapas/index', $data);
-	}
-
-	
-	public function data_jadwal()
+	public function riwayat_surat()
 	{
 		$data['data'] = $this->m_kepolisian->tampil();
-		$this->load->view('pages/kepolisian/data_jadwal/index', $data);
+		$this->load->view('pages/kepolisian/riwayat_surat/index', $data);
 	}
+    
+    public function detail($url)
+    {
+        $data['data'] = $this->m_kepolisian->detail($url);
+        $this->load->view('pages/kepolisian/riwayat_surat/detail/index', $data);
+    }
 
-	public function uraian_pasal($url)
+    public function detail_balas($id)
+    {
+        $data['username_kj']  = $this->m_surat->get_username($id);
+        $data['username_pn']  = $this->m_surat->get_username_pn($id);
+
+        $data['data'] = $this->m_surat->get_balasan($id);
+        $this->load->view('pages/kepolisian/balasan/detail/index', $data);
+    }
+
+	public function form()
 	{
-    	$data['data'] = $this->m_kepolisian->uraian_dan_cerita($url);
-
-		$this->load->view('pages/kepolisian/data_jadwal/ubah_jadwal/uraian_pasal/index', $data);
-	}
-
-
-	public function ubah_uraian_pasal($url)
-	{
-    	$this->form_validation->set_rules('editor3', 'Uraian Pasal', 'required');
-
-		$this->form_validation->set_error_delimiters('<div class="alert alert-danger"alert-dismissible fade show role="alert">','</div>');
-
-		if ($this->form_validation->run() == FALSE) 
-		{
-			// $url = $this->input->post('url');
-			$this->uraian_pasal($url);		
-		}
-		else
-		{
-			$id_data = $this->input->post('id_data');
-			$uraian_pasal = $this->input->post('editor3');
-			$data = array('uraian_pasal' =>  $uraian_pasal);
-			$success = $this->m_kepolisian->ubah_uraian_pasal_dan_cerita_singkat($id_data, $data, $url);
-			
-			$this->session->set_flashdata('uraian_pasal_updated', '<div class="alert alert-success" role="alert">uraian pasal dirubah</div>');	
-			$this->uraian_pasal($url);	
-			
-		}
-	}
-
-
-	public function cerita_singkat($url)
-	{
-    	$data['data'] = $this->m_kepolisian->uraian_dan_cerita($url);
-		$this->load->view('pages/kepolisian/data_jadwal/ubah_jadwal/cerita_singkat/index', $data);
-	}
-
-	public function ubah_cerita_singkat($url)
-	{
-    	$this->form_validation->set_rules('cerita_singkat', 'Cerita Singkat', 'required');
-
-		$this->form_validation->set_error_delimiters('<div class="alert alert-danger"alert-dismissible fade show role="alert">','</div>');
-
-		if ($this->form_validation->run() == FALSE) 
-		{
-			$this->cerita_singkat($url);		
-		}
-		else
-		{
-			$id_data = $this->input->post('id_data');
-			$cerita_singkat = $this->input->post('cerita_singkat');
-			$data = array('cerita_singkat' =>  $cerita_singkat);
-			$success = $this->m_kepolisian->ubah_uraian_pasal_dan_cerita_singkat($id_data, $data, $url);
-			
-		
-				$this->session->set_flashdata('cerita_singkat', '<div class="alert alert-success" role="alert">cerita singkat dirubah</div>');	
-				$this->cerita_singkat($url);	
-		}
-	}
-
-	
-
-	public function tambah_jadwal()
-	{
-		$this->load->view('pages/kepolisian/tambah_jadwal/index');
+		$this->load->view('pages/kepolisian/form/index');
 	}
 
 	public function simpan()
 	{
 
-		$this->form_validation->set_rules('deskripsi','Deskripsi','required', array('required' => 'Deskripsi tidak Boleh Kosong!'));
-		$this->form_validation->set_rules('uraian_pasal','Uraian Pasal','required', array('required' => 'Uraian pasal tidak boleh kosong!'));
-		$this->form_validation->set_rules('cerita_singkat','Cerita Singkat','required', array('required' => 'Cerita singkat tidak boleh kosong!'));
-		$this->form_validation->set_rules('file_penangkapan', '', 'callback_file_penangkapan');
-		$this->form_validation->set_rules('file_ijin_sita', '', 'callback_file_ijin_sita');
-		$this->form_validation->set_rules('file_ijin_geledah', '', 'callback_file_ijin_geledah');
-		$this->form_validation->set_rules('file_pelimpahan', '', 'callback_file_pelimpahan');
-		$this->form_validation->set_rules('file_penahanan', '', 'callback_file_penahanan');
-		$this->form_validation->set_rules('file_perpanjang_penahanan', '', 'callback_file_perpanjang_penahanan');
-
-
-		$this->form_validation->set_error_delimiters('<div class="alert alert-danger"alert-dismissible fade show role="alert">','</div>');
+		$this->form_validation->set_rules('nama_tersangka','Nama tersangka','required', array('required' => 'Nama tersangka tidak Boleh Kosong!'));
+		$this->form_validation->set_rules('pasal','Pasal','required', array('required' => 'pasal tidak boleh kosong!'));
+		$this->form_validation->set_rules('no_sprindik','No Sprindik','required', array('required' => 'No Sprindik tidak boleh kosong!'));
+		$this->form_validation->set_rules('spdp', '', 'callback_spdp');
+		$this->form_validation->set_rules('ijin_geledah', '', 'callback_ijin_geledah');
+		$this->form_validation->set_rules('setuju_geledah', '', 'callback_setuju_geledah');
+		$this->form_validation->set_rules('khusus', '', 'callback_khusus');
+		$this->form_validation->set_rules('biasa', '', 'callback_biasa');
+		$this->form_validation->set_rules('narkotika', '', 'callback_narkotika');
+		$this->form_validation->set_rules('kejaksaan', '', 'callback_kejaksaan');
+		$this->form_validation->set_rules('pengadilan', '', 'callback_pengadilan');
+		$this->form_validation->set_rules('p_18', '', 'callback_p_18');
+		$this->form_validation->set_rules('p_21', '', 'callback_p_21');
+		$this->form_validation->set_rules('pelimpahan', '', 'callback_pelimpahan');
 
 		if ($this->form_validation->run() == FALSE) 
 		{
-			return $this->tambah_jadwal();
-			$this->session->set_flashdata('gagal_simpan', '<div class="alert alert-danger" role="alert">Gagal di simpan!</div>');
+			$this->form();
 		}
 		else
 		{
@@ -189,107 +79,600 @@ class Kepolisian extends MY_Controller
 			$config['max_height']           = 0;
 
 			$this->load->library('upload', $config);
-			if ($_FILES['file_penangkapan']['error'] <> 4 || $_FILES['file_ijin_sita']['error'] <> 4 || $_FILES['file_ijin_geledah']['error'] <> 4 || $_FILES['file_pelimpahan']['error'] <> 4 || $_FILES['file_penahanan']['error'] <> 4 || $_FILES['file_perpanjang_penahanan']['error'] <> 4) 
+	
+			if (!empty($this->upload->do_upload('spdp')))
 			{
-				if (!empty($this->upload->do_upload('file_penangkapan')))
-				{
-					$file_penangkapan = $this->upload->data();
-				}
-				if (!empty($this->upload->do_upload('file_ijin_sita'))) 
-				{
-					$file_ijin_sita = $this->upload->data(); 
-				}
-				if (!empty($this->upload->do_upload('file_ijin_geledah'))) 
-				{
-					$file_ijin_geledah 			= $this->upload->data(); 
-				}
-				if (!empty($this->upload->do_upload('file_pelimpahan'))) 
-				{
-					$file_pelimpahan 			= $this->upload->data(); 
-				}
-				if (!empty($this->upload->do_upload('file_penahanan')))
-				{
-					$file_penahanan 			= $this->upload->data(); 
-				}
-				if (!empty($this->upload->do_upload('file_perpanjang_penahanan')))
-				{
-					$file_perpanjang_penahanan 	= $this->upload->data(); 
-				}
-
-					$deskripsi 		= $this->input->post('deskripsi', TRUE);
-					$uraian_pasal 	= $this->input->post('uraian_pasal', TRUE);
-					$cerita_singkat = $this->input->post('cerita_singkat', TRUE);
-					$tanggal_posting = date('d/m/y');
-					$url  = md5(uniqid());
-					$data = array('id_users' 					=> $this->session->userdata('id'),
-								  'tanggal_posting'				=> $tanggal_posting,
-								  'deskripsi'					=> $deskripsi,
-								  'uraian_pasal'				=> $uraian_pasal,
-								  'cerita_singkat'				=> $cerita_singkat,
-								  'penangkapan'					=> $this->input->post('penangkapan'),
-								  'ijin_sita'					=> $this->input->post('ijin_sita'),
-								  'ijin_geledah'				=> $this->input->post('ijin_geledah'),
-								  'pelimpahan'					=> $this->input->post('pelimpahan'),
-								  'penahanan'					=> $this->input->post('penahanan'),
-								  'perpanjang_penahanan'		=> $this->input->post('perpanjang_penahanan'),
-								  'file_penangkapan'			=> $file_penangkapan['file_name'],
-								  'file_ijin_sita'				=> $file_ijin_sita['file_name'], 
-								  'file_ijin_geledah'			=> $file_ijin_geledah['file_name'], 
-								  'file_pelimpahan'				=> $file_pelimpahan['file_name'], 
-								  'file_penahanan'				=> $file_penahanan['file_name'], 
-								  'file_perpanjang_penahanan'	=> $file_perpanjang_penahanan['file_name'],  
-								  'tanggal_penangkapan'			=> $this->input->post('tanggal_penangkapan'),
-								  'tanggal_ijin_sita'			=> $this->input->post('tanggal_ijin_sita'),
-								  'tanggal_ijin_geledah'		=> $this->input->post('tanggal_ijin_geledah'),
-								  'tanggal_pelimpahan'			=> $this->input->post('tanggal_pelimpahan'),
-								  'tanggal_penahanan'			=> $this->input->post('tanggal_penahanan'),
-								  'tanggal_perpanjang_penahanan'=> $this->input->post('tanggal_perpanjang_penahanan'),
-								  'url'							=> $url );
-				$this->m_kepolisian->simpan($data);	
-				$this->session->set_flashdata('berhasil', '<div class="alert alert-success" role="alert">berhasil di simpan</div>');
-				redirect(base_url('kepolisian/tambah_jadwal'));			
-					
-					
+				$spdp = $this->upload->data();
 			}
-			else
+			if (!empty($this->upload->do_upload('ijin_geledah'))) 
 			{
-				$deskripsi 	= $this->input->post('deskripsi', TRUE);
-				$uraian_pasal 	= $this->input->post('editor1', TRUE);
-				$cerita_singkat = $this->input->post('editor2', TRUE);
-				$tanggal_posting = date('d/m/y');
+				$ijin_geledah = $this->upload->data(); 
+			}
+			if (!empty($this->upload->do_upload('setuju_geledah'))) 
+			{
+				$setuju_geledah = $this->upload->data(); 
+			}
+			if (!empty($this->upload->do_upload('khusus'))) 
+			{
+				$khusus = $this->upload->data(); 
+			}
+			if (!empty($this->upload->do_upload('biasa')))
+			{
+				$biasa 	= $this->upload->data(); 
+			}
+			if (!empty($this->upload->do_upload('biasa')))
+			{
+				$biasa 	= $this->upload->data(); 
+			}
+			if (!empty($this->upload->do_upload('narkotika')))
+			{
+				$narkotika 	= $this->upload->data(); 
+			}
+			if (!empty($this->upload->do_upload('kejaksaan')))
+			{
+				$kejaksaan 	= $this->upload->data(); 
+			}
+			if (!empty($this->upload->do_upload('pengadilan')))
+			{
+				$pengadilan 	= $this->upload->data(); 
+			}
+			if (!empty($this->upload->do_upload('p_18')))
+			{
+				$p_18 	= $this->upload->data(); 
+			}
+			if (!empty($this->upload->do_upload('p_21')))
+			{
+				$p_21 	= $this->upload->data(); 
+			}
+			if (!empty($this->upload->do_upload('pelimpahan')))
+			{
+				$pelimpahan 	= $this->upload->data(); 
+			}
+				$post = $this->input->post(NULL, TRUE);
 				$url  = md5(uniqid());
-				$data = array('id_users' 					=> $this->session->userdata('id'),							   
-							  'tanggal_posting'				=> $tanggal_posting,
-							  'deskripsi'					=> $deskripsi,
-							  'uraian_pasal'				=> $uraian_pasal,
-							  'cerita_singkat'				=> $cerita_singkat,
-							  'penangkapan'					=> $this->input->post('penangkapan'),
-							  'ijin_sita'					=> $this->input->post('ijin_sita'),
-							  'ijin_geledah'				=> $this->input->post('ijin_geledah'),
-							  'pelimpahan'					=> $this->input->post('pelimpahan'),
-							  'penahanan'					=> $this->input->post('penahanan'),
-							  'perpanjang_penahanan'		=> $this->input->post('perpanjang_penahanan'),
-							  'tanggal_penangkapan'			=> $this->input->post('tanggal_penangkapan'),
-							  'tanggal_ijin_sita'			=> $this->input->post('tanggal_ijin_sita'),
-							  'tanggal_ijin_geledah'		=> $this->input->post('tanggal_ijin_geledah'),
-							  'tanggal_pelimpahan'			=> $this->input->post('tanggal_pelimpahan'),
-							  'tanggal_penahanan'			=> $this->input->post('tanggal_penahanan'),
-							  'tanggal_perpanjang_penahanan'=> $this->input->post('tanggal_perpanjang_penahanan'),
-							  'url'							=> $url
-							);
+				$data = array('id_users' 			=> $this->session->userdata('id'),
+							  'nama_tersangka'		=> $post['nama_tersangka'],
+							  'pasal'				=> $post['pasal'],
+							  'no_sprindik'			=> $post['no_sprindik'],
+							  'spdp'				=> $spdp['file_name'],
+							  'ijin_geledah'		=> $ijin_geledah['file_name'],
+							  'setuju_geledah'		=> $setuju_geledah['file_name'],
+							  'khusus'				=> $khusus['file_name'],
+							  'biasa'				=> $biasa['file_name'],
+							  'narkotika'			=> $narkotika['file_name'], 
+							  'kejaksaan'			=> $kejaksaan['file_name'], 
+							  'pengadilan'			=> $pengadilan['file_name'], 
+							  'p_18'				=> $p_18['file_name'], 
+							  'p_21'				=> $p_21['file_name'],  
+							  'pelimpahan'			=> $pelimpahan['file_name'],
+							  'url'					=> $url );
+
 			$this->m_kepolisian->simpan($data);	
-			$this->session->set_flashdata('berhasil', '<div class="alert alert-success" role="alert">berhasil di simpan</div>');	
-			redirect(base_url('kepolisian/tambah_jadwal'));	
-				
-			}
+			$this->session->set_flashdata('berhasil', '<div class="alert alert-success" role="alert">Surat berhasil di simpan dan terkirim!</div>');
+			redirect(base_url('kepolisian/form'));			
 		}
 	}
 
-	public function file_penangkapan($str)
+    public function hapus($id)
+    {   
+        $file = $this->m_kepolisian->tampil($id);
+        @unlink('./uploads/kepolisian/'. $file->spdp);
+        @unlink('./uploads/kepolisian/'. $file->ijin_geledah);
+        @unlink('./uploads/kepolisian/'. $file->setuju_geledah);
+        @unlink('./uploads/kepolisian/'. $file->khusus);
+        @unlink('./uploads/kepolisian/'. $file->biasa);
+        @unlink('./uploads/kepolisian/'. $file->narkotika);
+        @unlink('./uploads/kepolisian/'. $file->narkotika);
+        @unlink('./uploads/kepolisian/'. $file->kejaksaan);
+        @unlink('./uploads/kepolisian/'. $file->pengadilan);
+        @unlink('./uploads/kepolisian/'. $file->p_18);
+        @unlink('./uploads/kepolisian/'. $file->p_21);
+        @unlink('./uploads/kepolisian/'. $file->pelimpahan);
+
+        $hapus = $this->m_kepolisian->hapus($id);
+        if ($hapus = TRUE) 
+        {
+            $this->session->set_flashdata('terhapus', '<div class="alert alert-success" role="alert">Surat terhapus</div>');
+            redirect(base_url('kepolisian/riwayat_surat'));
+        }
+    }
+
+    public function edit($id)
+    {
+        $this->form_validation->set_rules('nama_tersangka','Nama tersangka','required', 
+                                          array('required' => 'Nama tersangka tidak Boleh Kosong!'));
+        $this->form_validation->set_rules('pasal','Pasal','required', array('required' => 'pasal tidak boleh kosong!'));
+        $this->form_validation->set_rules('no_sprindik','No Sprindik','required', array('required' => 'No Sprindik tidak boleh kosong!'));
+        $this->form_validation->set_rules('ganti_spdp', '', 'callback_ganti_spdp');
+        $this->form_validation->set_rules('ganti_ijin_geledah', '', 'callback_ganti_ijin_geledah');
+        $this->form_validation->set_rules('ganti_setuju_geledah', '', 'callback_ganti_setuju_geledah');
+        $this->form_validation->set_rules('ganti_khusus', '', 'callback_ganti_khusus');
+        $this->form_validation->set_rules('ganti_biasa', '', 'callback_ganti_biasa');
+        $this->form_validation->set_rules('ganti_narkotika', '', 'callback_ganti_narkotika');
+        $this->form_validation->set_rules('ganti_kejaksaan', '', 'callback_ganti_kejaksaan');
+        $this->form_validation->set_rules('ganti_pengadilan', '', 'callback_ganti_pengadilan');
+        $this->form_validation->set_rules('ganti_p_18', '', 'callback_ganti_p_18');
+        $this->form_validation->set_rules('ganti_p_21', '', 'callback_ganti_p_21');
+        $this->form_validation->set_rules('ganti_pelimpahan', '', 'callback_ganti_pelimpahan');
+
+        if ($this->form_validation->run() == FALSE) 
+        {
+            $cek = $this->m_kepolisian->cek_id($id);
+            if ($cek->num_rows() == 0) 
+            {
+                show_404();
+            }
+            else
+            {
+                $data['data'] = $this->m_kepolisian->cek_id($id)->result();
+                $this->load->view('pages/kepolisian/edit/index', $data);
+            }
+        }
+        else
+        {
+            $post                 = $this->input->post(NULL, TRUE);
+            $ganti_spdp           = $_FILES['ganti_spdp']['name'];
+            $ganti_ijin_geledah   = $_FILES['ganti_ijin_geledah']['name'];
+            $ganti_setuju_geledah = $_FILES['ganti_setuju_geledah']['name'];
+            $ganti_khusus         = $_FILES['ganti_khusus']['name'];
+            $ganti_biasa          = $_FILES['ganti_biasa']['name'];
+            $ganti_narkotika      = $_FILES['ganti_narkotika']['name'];
+            $ganti_kejaksaan      = $_FILES['ganti_kejaksaan']['name'];
+            $ganti_pengadilan     = $_FILES['ganti_pengadilan']['name'];
+            $ganti_p_18           = $_FILES['ganti_p_18']['name'];
+            $ganti_p_21           = $_FILES['ganti_p_21']['name'];
+            $ganti_pelimpahan     = $_FILES['ganti_pelimpahan']['name'];
+
+            $config['upload_path']          = './uploads/kepolisian';
+            $config['allowed_types']        = 'pdf|doc|docx';
+            $config['max_size']             = 0;
+            $config['max_width']            = 0;
+            $config['max_height']           = 0;
+
+            $this->load->library('upload', $config);
+
+            if ($ganti_spdp) 
+            {
+                if ($this->upload->do_upload('ganti_spdp'))
+                {
+                    $ganti_spdp = $this->upload->data('file_name');
+                    $this->db->set('spdp', $ganti_spdp);
+                    unlink(FCPATH.'/uploads/kepolisian/'.$post['old_spdp']);
+                }
+                else
+                {
+                    $error = array('error' => $this->upload->display_errors());      
+                    $this->load->view('pages/kepolisian/riwayat_surat', $error);
+                }
+            }
+
+            if ($ganti_ijin_geledah) 
+            {
+                if ($this->upload->do_upload('ganti_ijin_geledah'))
+                {
+                    $ganti_ijin_geledah     = $this->upload->data('file_name');
+                    $this->db->set('ijin_geledah', $ganti_ijin_geledah);
+                    unlink(FCPATH.'/uploads/kepolisian/'.$post['old_ijin_geledah']);
+                }
+                else
+                {
+
+                    $error = array('error' => $this->upload->display_errors());      
+                    $this->load->view('pages/kepolisian/riwayat_surat', $error);
+                }
+            }
+
+            if ($ganti_setuju_geledah) 
+            {
+                if ($this->upload->do_upload('ganti_setuju_geledah'))
+                {
+                    $ganti_setuju_geledah = $this->upload->data('file_name');
+                    $this->db->set('setuju_geledah', $ganti_setuju_geledah);
+                    unlink(FCPATH.'/uploads/kepolisian/'.$post['old_setuju_geledah']);   
+                }
+                else
+                {
+
+                    $error = array('error' => $this->upload->display_errors());      
+                    $this->load->view('pages/kepolisian/riwayat_surat', $error);
+                }
+            }
+
+            if ($ganti_khusus) 
+            {
+                if ($this->upload->do_upload('ganti_khusus'))
+                {
+                    $ganti_khusus = $this->upload->data('file_name');
+                    $this->db->set('khusus', $ganti_khusus);
+                    unlink(FCPATH.'/uploads/kepolisian/'.$post['old_khusus']);   
+                }
+                else
+                {
+
+                    $error = array('error' => $this->upload->display_errors());      
+                    $this->load->view('pages/kepolisian/riwayat_surat', $error);
+                }
+            }
+
+            if ($ganti_biasa) 
+            {
+                if ($this->upload->do_upload('ganti_biasa'))
+                {
+                    $ganti_biasa = $this->upload->data('file_name');
+                    $this->db->set('biasa', $ganti_biasa);
+                    unlink(FCPATH.'/uploads/kepolisian/'.$post['old_biasa']);   
+                }
+                else
+                {
+
+                    $error = array('error' => $this->upload->display_errors());      
+                    $this->load->view('pages/kepolisian/riwayat_surat', $error);
+                }
+            }
+
+            if ($ganti_narkotika) 
+            {
+                if ($this->upload->do_upload('ganti_narkotika'))
+                {
+                    $ganti_setuju_geledah = $this->upload->data('file_name');
+                    $this->db->set('narkotika', $ganti_narkotika);
+                    unlink(FCPATH.'/uploads/kepolisian/'.$post['old_narkotika']);   
+                }
+                else
+                {
+                    $error = array('error' => $this->upload->display_errors());      
+                    $this->load->view('pages/kepolisian/riwayat_surat', $error);
+                }
+            }
+
+            if ($ganti_kejaksaan) 
+            {
+                if ($this->upload->do_upload('ganti_kejaksaan'))
+                {
+                    $ganti_kejaksaan = $this->upload->data('file_name');
+                    $this->db->set('kejaksaan', $ganti_kejaksaan);
+                    unlink(FCPATH.'/uploads/kepolisian/'.$post['old_kejaksaan']);   
+                }
+                else
+                {
+
+                    $error = array('error' => $this->upload->display_errors());      
+                    $this->load->view('pages/kepolisian/riwayat_surat', $error);
+                }
+            }
+
+            if ($ganti_pengadilan) 
+            {
+                if ($this->upload->do_upload('ganti_pengadilan'))
+                {
+                    $ganti_pengadilan = $this->upload->data('file_name');
+                    $this->db->set('pengadilan', $ganti_pengadilan);
+                    unlink(FCPATH.'/uploads/kepolisian/'.$post['old_pengadilan']);   
+                }
+                else
+                {
+
+                    $error = array('error' => $this->upload->display_errors());      
+                    $this->load->view('pages/kepolisian/riwayat_surat', $error);
+                }
+            }
+
+            if ($ganti_p_18) 
+            {
+                if ($this->upload->do_upload('ganti_p_18'))
+                {
+                    $ganti_p_18 = $this->upload->data('file_name');
+                    $this->db->set('p_18', $ganti_p_18);
+                    unlink(FCPATH.'/uploads/kepolisian/'.$post['old_p18']);   
+                }
+                else
+                {
+
+                    $error = array('error' => $this->upload->display_errors());      
+                    $this->load->view('pages/kepolisian/riwayat_surat', $error);
+                }
+            }
+
+            if ($ganti_p_21) 
+            {
+                if ($this->upload->do_upload('ganti_p_21'))
+                {
+                    $ganti_p_21 = $this->upload->data('file_name');
+                    $this->db->set('p_21', $ganti_p_21);
+                    unlink(FCPATH.'/uploads/kepolisian/'.$post['old_p_21']);   
+                }
+                else
+                {
+
+                    $error = array('error' => $this->upload->display_errors());      
+                    $this->load->view('pages/kepolisian/riwayat_surat', $error);
+                }
+            }
+
+            if ($ganti_pelimpahan) 
+            {
+                if ($this->upload->do_upload('ganti_pelimpahan'))
+                {
+                    $ganti_pelimpahan = $this->upload->data('file_name');
+                    $this->db->set('pelimpahan', $ganti_pelimpahan);
+                    unlink(FCPATH.'/uploads/kepolisian/'.$post['old_pelimpahan']);   
+                }
+                else
+                {
+
+                    $error = array('error' => $this->upload->display_errors());      
+                    $this->load->view('pages/kepolisian/riwayat_surat', $error);
+                }
+            }
+
+            $this->db->set('nama_tersangka', $post['nama_tersangka']);
+            $this->db->set('pasal', $post['pasal']);
+            $this->db->set('no_sprindik', $post['no_sprindik']);
+            $this->db->where('id_data', $id);
+            $this->db->update('tbl_kepolisian', $data);
+            $this->session->set_flashdata('berhasil','<div class="alert alert-success" role="alert">Surat Berhasil di edit</div>');
+
+            $url = base_url('kepolisian/edit/'.$id);
+            redirect($url);          
+            
+        }
+    }
+
+    // callback edit file
+    public function ganti_spdp($str)
+    {
+        $allowed_mime_type_arr = array('application/pdf', 'application/msword');
+        $mime = get_mime_by_extension($_FILES['ganti_spdp']['name']);
+        if($_FILES['ganti_spdp']['name'])
+        {
+            if(in_array($mime, $allowed_mime_type_arr))
+            {
+                return true;
+            }
+            else
+            {
+                $this->form_validation->set_message('ganti_spdp', 'Pilih file spdp hanya word atau pdf.');
+                return false;
+            }
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    public function ganti_ijin_geledah($str)
+    {
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
+        $mime = get_mime_by_extension($_FILES['ganti_ijin_geledah']['name']);
+        if($_FILES['ganti_ijin_geledah']['name'])
+        {
+            if(in_array($mime, $allowed_mime_type_arr))
+            {
+                return true;
+            }
+            else
+            {
+                $this->form_validation->set_message('ganti_ijin_geledah', 'Pilih file ijin geledah hanya word atau pdf.');
+                return false;
+            }
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    public function ganti_setuju_geledah($str)
+    {
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
+        $mime = get_mime_by_extension($_FILES['ganti_setuju_geledah']['name']);
+        if($_FILES['ganti_setuju_geledah']['name'])
+        {
+            if(in_array($mime, $allowed_mime_type_arr))
+            {
+                return true;
+            }
+            else
+            {
+                $this->form_validation->set_message('ganti_setuju_geledah', 'Pilih file setuju geledah hanya word atau pdf.');
+                return false;
+            }
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+
+    public function ganti_khusus($str)
+    {
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
+        $mime = get_mime_by_extension($_FILES['ganti_khusus']['name']);
+        if($_FILES['ganti_khusus']['name'])
+        {
+            if(in_array($mime, $allowed_mime_type_arr))
+            {
+                return true;
+            }
+            else
+            {
+                $this->form_validation->set_message('ganti_khusus', 'Pilih file khusus hanya word atau pdf.');
+                return false;
+            }
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+
+    public function ganti_biasa($str)
+    {
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
+        $mime = get_mime_by_extension($_FILES['ganti_biasa']['name']);
+        if($_FILES['ganti_biasa']['name'])
+        {
+            if(in_array($mime, $allowed_mime_type_arr))
+            {
+                return true;
+            }
+            else
+            {
+                $this->form_validation->set_message('ganti_biasa', 'Pilih file biasa hanya word atau pdf.');
+                return false;
+            }
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+
+    public function ganti_narkotika($str)
+    {
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
+        $mime = get_mime_by_extension($_FILES['ganti_narkotika']['name']);
+        if($_FILES['ganti_narkotika']['name'])
+        {
+            if(in_array($mime, $allowed_mime_type_arr))
+            {
+                return true;
+            }
+            else
+            {
+                $this->form_validation->set_message('ganti_narkotika', 'Pilih file narkotika hanya word atau pdf.');
+                return false;
+            }
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    public function ganti_kejaksaan($str)
+    {
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
+        $mime = get_mime_by_extension($_FILES['ganti_kejaksaan']['name']);
+        if($_FILES['ganti_kejaksaan']['name'])
+        {
+            if(in_array($mime, $allowed_mime_type_arr))
+            {
+                return true;
+            }
+            else
+            {
+                $this->form_validation->set_message('ganti_kejaksaan', 'Pilih file kejaksaan hanya word atau pdf.');
+                return false;
+            }
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    public function ganti_pengadilan($str)
+    {
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
+        $mime = get_mime_by_extension($_FILES['ganti_pengadilan']['name']);
+        if($_FILES['ganti_pengadilan']['name'])
+        {
+            if(in_array($mime, $allowed_mime_type_arr))
+            {
+                return true;
+            }
+            else
+            {
+                $this->form_validation->set_message('ganti_pengadilan', 'Pilih file pengadilan hanya word atau pdf.');
+                return false;
+            }
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    public function ganti_p_18($str)
+    {
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
+        $mime = get_mime_by_extension($_FILES['ganti_p_18']['name']);
+        if($_FILES['ganti_p_18']['name'])
+        {
+            if(in_array($mime, $allowed_mime_type_arr))
+            {
+                return true;
+            }
+            else
+            {
+                $this->form_validation->set_message('ganti_p_18', 'Pilih file P-18 hanya word atau pdf.');
+                return false;
+            }
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    public function ganti_p_21($str)
+    {
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
+        $mime = get_mime_by_extension($_FILES['ganti_p_21']['name']);
+        if($_FILES['ganti_p_21']['name'])
+        {
+            if(in_array($mime, $allowed_mime_type_arr))
+            {
+                return true;
+            }
+            else
+            {
+                $this->form_validation->set_message('ganti_p_21', 'Pilih file P-21 hanya word atau pdf.');
+                return false;
+            }
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    public function ganti_pelimpahan($str)
+    {
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
+        $mime = get_mime_by_extension($_FILES['ganti_pelimpahan']['name']);
+        if($_FILES['ganti_pelimpahan']['name'])
+        {
+            if(in_array($mime, $allowed_mime_type_arr))
+            {
+                return true;
+            }
+            else
+            {
+                $this->form_validation->set_message('ganti_pelimpahan', 'Pilih file pelimpahan hanya word atau pdf.');
+                return false;
+            }
+        }
+        else
+        {
+            return true;
+        }
+    }
+    // end callback edit
+
+
+
+    // callback save file
+	public function spdp($str)
 	{
         $allowed_mime_type_arr = array('application/pdf', 'application/msword');
-        $mime = get_mime_by_extension($_FILES['file_penangkapan']['name']);
-        if($_FILES['file_penangkapan']['name'])
+        $mime = get_mime_by_extension($_FILES['spdp']['name']);
+        if($_FILES['spdp']['name'])
         {
             if(in_array($mime, $allowed_mime_type_arr))
             {
@@ -297,17 +680,22 @@ class Kepolisian extends MY_Controller
             }
             else
             {
-                $this->form_validation->set_message('file_penangkapan', 'Pilih file penangkapan hanya word atau pdf.');
+                $this->form_validation->set_message('spdp', 'Pilih file spdp hanya word atau pdf.');
                 return false;
             }
         }
+        else
+        {
+        	$this->form_validation->set_message('spdp', 'file SPDP tidak boleh kosong!');
+            return false;
+        }
     }
 
-	public function file_ijin_sita($str)
+	public function ijin_geledah($str)
 	{
         $allowed_mime_type_arr = array('application/pdf','application/msword');
-        $mime = get_mime_by_extension($_FILES['file_ijin_sita']['name']);
-        if($_FILES['file_ijin_sita']['name'])
+        $mime = get_mime_by_extension($_FILES['ijin_geledah']['name']);
+        if($_FILES['ijin_geledah']['name'])
         {
             if(in_array($mime, $allowed_mime_type_arr))
             {
@@ -315,17 +703,22 @@ class Kepolisian extends MY_Controller
             }
             else
             {
-                $this->form_validation->set_message('file_ijin_sita', 'Pilih file ijin sita hanya word atau pdf.');
+                $this->form_validation->set_message('ijin_geledah', 'Pilih file ijin geledah hanya word atau pdf.');
                 return false;
             }
         }
+        else
+        {
+        	$this->form_validation->set_message('ijin_geledah', 'file ijin geledah tidak boleh kosong!');
+            return false;
+        }
     }
 
-	public function file_ijin_geledah($str)
+	public function setuju_geledah($str)
 	{
         $allowed_mime_type_arr = array('application/pdf','application/msword');
-        $mime = get_mime_by_extension($_FILES['file_ijin_geledah']['name']);
-        if($_FILES['file_ijin_geledah']['name'])
+        $mime = get_mime_by_extension($_FILES['setuju_geledah']['name']);
+        if($_FILES['setuju_geledah']['name'])
         {
             if(in_array($mime, $allowed_mime_type_arr))
             {
@@ -333,17 +726,23 @@ class Kepolisian extends MY_Controller
             }
             else
             {
-                $this->form_validation->set_message('file_ijin_geledah', 'Pilih file ijin geledah hanya word atau pdf.');
+                $this->form_validation->set_message('setuju_geledah', 'Pilih file setuju geledah hanya word atau pdf.');
                 return false;
             }
         }
+        else
+        {
+            $this->form_validation->set_message('setuju_geledah', 'file Setuju geledah tidak boleh kosong!');
+            return false;
+        }
+
     }
 
-    public function file_pelimpahan($str)
+    public function khusus($str)
 	{
         $allowed_mime_type_arr = array('application/pdf','application/msword');
-        $mime = get_mime_by_extension($_FILES['file_pelimpahan']['name']);
-        if($_FILES['file_pelimpahan']['name'])
+        $mime = get_mime_by_extension($_FILES['khusus']['name']);
+        if($_FILES['khusus']['name'])
         {
             if(in_array($mime, $allowed_mime_type_arr))
             {
@@ -351,17 +750,22 @@ class Kepolisian extends MY_Controller
             }
             else
             {
-                $this->form_validation->set_message('file_pelimpahan', 'Pilih file pelimpahan hanya word atau pdf.');
+                $this->form_validation->set_message('khusus', 'Pilih file khusus hanya word atau pdf.');
                 return false;
             }
         }
+        else
+        {
+        	$this->form_validation->set_message('khusus', 'file khusus tidak boleh kosong!');
+            return false;
+        }
     }
 
-    public function file_penahanan($str)
+    public function biasa($str)
 	{
         $allowed_mime_type_arr = array('application/pdf','application/msword');
-        $mime = get_mime_by_extension($_FILES['file_penahanan']['name']);
-        if($_FILES['file_penahanan']['name'])
+        $mime = get_mime_by_extension($_FILES['biasa']['name']);
+        if($_FILES['biasa']['name'])
         {
             if(in_array($mime, $allowed_mime_type_arr))
             {
@@ -369,17 +773,22 @@ class Kepolisian extends MY_Controller
             }
             else
             {
-                $this->form_validation->set_message('file_penahanan', 'Pilih penahanan hanya word atau pdf.');
+                $this->form_validation->set_message('biasa', 'Pilih biasa hanya word atau pdf.');
                 return false;
             }
         }
+        else
+        {
+        	$this->form_validation->set_message('biasa', 'file biasa tidak boleh kosong!');
+            return false;
+        }
     }
 
-    public function file_perpanjang_penahanan($str)
+    public function narkotika($str)
 	{
         $allowed_mime_type_arr = array('application/pdf','application/msword');
-        $mime = get_mime_by_extension($_FILES['file_perpanjang_penahanan']['name']);
-        if($_FILES['file_perpanjang_penahanan']['name'])
+        $mime = get_mime_by_extension($_FILES['narkotika']['name']);
+        if($_FILES['narkotika']['name'])
         {
             if(in_array($mime, $allowed_mime_type_arr))
             {
@@ -387,92 +796,132 @@ class Kepolisian extends MY_Controller
             }
             else
             {
-                $this->form_validation->set_message('file_perpanjang_penahanan', 'Pilih perpanjang penahanan hanya word atau pdf.');
+                $this->form_validation->set_message('narkotika', 'Pilih narkotika hanya word atau pdf.');
                 return false;
             }
         }
+        else
+        {
+        	$this->form_validation->set_message('narkotika', 'file narkotika tidak boleh kosong!');
+            return false;
+        }
     }
 
-
-    public function lihat_detail_jadwal($url)
-    {
-    	$data['data'] = $this->m_kepolisian->lihat_detail_jadwal($url);
-		$this->load->view('pages/kepolisian/data_jadwal/detail_jadwal/index', $data);
+    public function kejaksaan($str)
+	{
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
+        $mime = get_mime_by_extension($_FILES['kejaksaan']['name']);
+        if($_FILES['kejaksaan']['name'])
+        {
+            if(in_array($mime, $allowed_mime_type_arr))
+            {
+                return true;
+            }
+            else
+            {
+                $this->form_validation->set_message('kejaksaan', 'Pilih kejaksaan hanya word atau pdf.');
+                return false;
+            }
+        }
+        else
+        {
+        	$this->form_validation->set_message('kejaksaan', 'file kejaksaan tidak boleh kosong!');
+            return false;
+        }
     }
 
-    public function hapus_jadwal($id, $url)
-    {	
-		$file = $this->m_kepolisian->tampil($id);
-		@unlink('./uploads/kepolisian/'. $file->file_penangkapan);
-		@unlink('./uploads/kepolisian/'. $file->file_ijin_sita);
-		@unlink('./uploads/kepolisian/'. $file->file_ijin_geledah);
-		@unlink('./uploads/kepolisian/'. $file->file_pelimpahan);
-		@unlink('./uploads/kepolisian/'. $file->file_penahanan);
-		@unlink('./uploads/kepolisian/'. $file->file_perpanjang_penahanan);
-
-
-		$hapus = $this->m_kepolisian->hapus($id, $url);
-		if ($hapus = TRUE) 
-		{
-			$this->session->set_flashdata('terhapus', '<div class="alert alert-success" role="alert">Jadwal terhapus</div>');
-			redirect(base_url('kepolisian/data_jadwal'));
-		}
+     public function pengadilan($str)
+	{
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
+        $mime = get_mime_by_extension($_FILES['pengadilan']['name']);
+        if($_FILES['pengadilan']['name'])
+        {
+            if(in_array($mime, $allowed_mime_type_arr))
+            {
+                return true;
+            }
+            else
+            {
+                $this->form_validation->set_message('pengadilan', 'Pilih pengadilan hanya word atau pdf.');
+                return false;
+            }
+        }
+        else
+        {
+        	$this->form_validation->set_message('pengadilan', 'file pengadilan tidak boleh kosong!');
+            return false;
+        }
     }
 
-    public function ubah_deskripsi()
-    {
-    	$id_data 	= $this->input->post('id_data');
-    	$url 		= $this->input->post('url');
-
-    	$data = array('deskripsi' => $this->input->post('deskripsi'));
-    	$this->m_kepolisian->ubah_deskripsi($id_data, $data, $url);
-    	$this->session->set_flashdata('deskripsi_diganti', '<div class="alert alert-success" role="alert">Deskripsi berhasil diganti</div>');
-		redirect(base_url('kepolisian/data_jadwal'));
+    public function p_18($str)
+	{
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
+        $mime = get_mime_by_extension($_FILES['p_18']['name']);
+        if($_FILES['p_18']['name'])
+        {
+            if(in_array($mime, $allowed_mime_type_arr))
+            {
+                return true;
+            }
+            else
+            {
+                $this->form_validation->set_message('p_18', 'Pilih P-18 hanya word atau pdf.');
+                return false;
+            }
+        }
+        else
+        {
+        	$this->form_validation->set_message('p_18', 'file P-18 tidak boleh kosong!');
+            return false;
+        }
     }
 
-    public function unduh_kejaksaan()
-    {
-    	$this->load->helper('download');
-		if($this->uri->segment(3))
-		{
-    		$data = 'uploads/kejaksaan/'.$this->uri->segment(3); 
-		}
-		else
-		{
-			show_404();
-		}
-		force_download($data, null);
+    public function p_21($str)
+	{
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
+        $mime = get_mime_by_extension($_FILES['p_21']['name']);
+        if($_FILES['p_21']['name'])
+        {
+            if(in_array($mime, $allowed_mime_type_arr))
+            {
+                return true;
+            }
+            else
+            {
+                $this->form_validation->set_message('p_21', 'Pilih P-21 hanya word atau pdf.');
+                return false;
+            }
+        }
+        else
+        {
+        	$this->form_validation->set_message('p_21', 'file P-21 tidak boleh kosong!');
+            return false;
+        }
     }
 
-    public function unduh_pengadilan()
-    {
-    	$this->load->helper('download');
-		if($this->uri->segment(3))
-		{
-    		$data = 'uploads/pengadilan/'.$this->uri->segment(3); 
-		}
-		else
-		{
-			show_404();
-		}
-		force_download($data, null);
+    public function pelimpahan($str)
+	{
+        $allowed_mime_type_arr = array('application/pdf','application/msword');
+        $mime = get_mime_by_extension($_FILES['pelimpahan']['name']);
+        if($_FILES['pelimpahan']['name'])
+        {
+            if(in_array($mime, $allowed_mime_type_arr))
+            {
+                return true;
+            }
+            else
+            {
+                $this->form_validation->set_message('pelimpahan', 'Pilih pelimpahan hanya word atau pdf.');
+                return false;
+            }
+        }
+        else
+        {
+        	$this->form_validation->set_message('pelimpahan', 'file pelimpahan tidak boleh kosong!');
+            return false;
+        }
     }
-
-    public function unduh_lapas()
-    {
-    	$this->load->helper('download');
-		if($this->uri->segment(3))
-		{
-    		$data = 'uploads/lapas/'.$this->uri->segment(3); 
-		}
-		else
-		{
-			show_404();
-		}
-		force_download($data, null);
-    }
-
-
+  
     public function unduh()
     {
     	$this->load->helper('download');

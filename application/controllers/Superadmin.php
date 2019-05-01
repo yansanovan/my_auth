@@ -47,8 +47,7 @@ Class Superadmin extends MY_controller
 			$data = array('username' => $username,
 						  'email' => $email,
 						  'password' => $this->m_hashed->hash_string_password($password),
-						  'level'	 => $level, 
-						  'role'	=> 'users');
+						  'level'	 => $level);
 			$this->m_superadmin->simpan($data);
 			$this->session->set_flashdata('berhasil', '<div class="alert alert-success" role="alert">Users di simpan</div>');
 			redirect('superadmin/tambah_users');
@@ -58,6 +57,7 @@ Class Superadmin extends MY_controller
 
 	public function edit($id)
 	{
+
 		$cek_id = $this->m_superadmin->cek_id($id);
 
 		if ($cek_id->num_rows() == 0) 

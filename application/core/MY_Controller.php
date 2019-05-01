@@ -268,42 +268,4 @@ class MY_Controller extends CI_Controller
 			redirect(base_url('superadmin'));
 		}
 	}
-
-
-
-
-	//lapas coba masuk edit data & tambah kepolisian
-
-	public function lapas_cobamasuk_ubah_data_kepolisian()
-	{
-		if ($this->session->userdata('level') == 'lapas' AND $this->session->userdata('status') == 'logged') 
-		{
-			$this->session->set_flashdata('harus_keluar','<div class="alert alert-danger" role="alert">Harus Logout</div>');
-			redirect(base_url('lapas'));
-		}
-	}
-
-	//pengadilan coba masuk edit & tambah data kepolisian
-
-	public function pengadilan_cobamasuk_ubah_datakepolisian()
-	{
-		if ($this->session->userdata('level') == 'pengadilan' AND $this->session->userdata('status') == 'logged') 
-		{
-			$this->session->set_flashdata('harus_keluar','<div class="alert alert-danger" role="alert">Harus Logout</div>');
-			redirect(base_url('pengadilan'));
-		}
-	}
-
-	//kejaksaan coba masuk edit & tambah data kepolisian
-
-	public function kejaksaan_cobamasuk_ubah_data_kepolisian()
-	{
-		if ($this->session->userdata('level') == 'kejaksaan' AND $this->session->userdata('status') == 'logged') 
-		{
-			$this->session->set_flashdata('harus_keluar','<div class="alert alert-danger" role="alert">Harus Logout</div>');
-			redirect(base_url('kejaksaan'));
-		}
-	}
-
-
 }

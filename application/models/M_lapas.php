@@ -9,101 +9,40 @@ class M_lapas extends CI_Model
 		$this->load->driver('cache', array('adapter' => 'file'));
 	}
 
-	public function tampil($id = NULL)
+	public function bon()
 	{
-		if ($id != NULL) 
-		{
-			$this->db->where('id_data', $id);
-			return $this->db->get('tbl_lapas')->row();
-		}
 		$this->db->select('*');
-		$this->db->from('tbl_lapas');
-		$this->db->join('tbl_users', 'tbl_users.id = tbl_lapas.id_users');
-		$this->db->where(array('tbl_lapas.id_users' => $this->session->userdata('id')));
-		$this->db->order_by("id_data", "desc");		
+		$this->db->from('tbl_bon');
+		$this->db->join('tbl_users', 'tbl_users.id = tbl_bon.id_users_pemohon');
+		$this->db->order_by("id_bon", "desc");	
 		return $this->db->get()->result();
 	}
 
+	public function balas_bon($data, $id)
+	{
+		$this->db->set('tanggal_balas_bon', 'NOW()', FALSE);
+		$balas = $this->db->insert('tbl_balas_bon', $data);
+
+		if ($balas) 
+		{
+			$this->db->where('id_bon', $id);
+			$this->db->update('tbl_bon', array('status_balas' => 1));
+		}
+		return true;
+	}
+
+	public function cek_balas($id)
+	{
+		$this->db->where('id_bon', $id);
+		$query = $this->db->get('tbl_balas_bon');
+		return $query;
+	}
+	
 	public function cek_id($id)
 	{
-		$this->db->where('id_data', $id);
-		$query = $this->db->get('tbl_lapas');
+		$this->db->where('id_bon', $id);
+		$query = $this->db->get('tbl_bon');
 		return $query;
 	}
 
-	public function tampil_data_kepolisian()
-	{
-		$this->db->select('*');
-		$this->db->from('tbl_kepolisian');
-		$this->db->join('tbl_users', 'tbl_users.id = tbl_kepolisian.id_users');
-		return $this->db->get()->result();
-	}
-
-	public function simpan($data)
-	{
-
-		$this->db->insert('tbl_lapas', $data);
-		if ($this->db->affected_rows() > 0 ) 
-		{
-			$this->cache->delete('lapas');
-
-			return true;
-		}
-	}
-
-	public function hapus($id, $url)
-	{
-		$this->db->where('id_data', $id);
-		$this->db->delete('tbl_lapas');
-		if ($this->db->affected_rows() > 0 ) 
-		{
-			$this->cache->delete('lapas');
-			// delete cache lapas
-			$this->cache->delete('detail_lapas_'.$url);
-			
-			return true;
-		}
-	}
-
-	public function ubah($id, $data, $url)
-	{
-		$this->db->where('id_data', $id);
-		$this->db->update('tbl_lapas', $data);
-		if ($this->db->affected_rows() > 0 ) 
-		{
-			$this->cache->delete('detail_lapas_'.$url);
-			return true;
-		}
-	}
-
-	public function ubah_deskripsi($id_data, $data, $url)
-	{
-		$this->load->driver('cache', array('adapter' => 'file'));
-		
-		$this->db->where('id_data', $id_data);
-		$this->db->update('tbl_lapas', $data);
-		if ($this->db->affected_rows() > 0 ) 
-		{
-			$this->cache->delete('lapas');
-
-			$this->cache->delete('detail_lapas_'.$url);
-
-			return true;
-		}
-	}
-
-	public function lihat_detail_jadwal($url)
-	{
-		$this->db->select('*');
-		$this->db->from('tbl_lapas');
-		$this->db->join('tbl_users', 'tbl_users.id = tbl_lapas.id_users');
-		$this->db->where(array('tbl_lapas.url' => $url));
-		return $this->db->get()->result();
-	}
-
-	public function unduh($id)
-	{
-		$this->db->where('id_data', $id);
-		return $this->db->get('tbl_kepolisian')->row();
-	}
 }

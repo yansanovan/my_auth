@@ -56,18 +56,15 @@ p {
 }
 </style>
 </head>
-<?php
-$ci = new CI_Controller();
-$ci =& get_instance();
-$ci->load->helper('url');
-?>
+
 
 <body>
 	<div id="container">
 		<center>
 			<h1><?php echo $heading; ?></h1>
-			<img src="<?= base_url('asset/img/404.png');?>">
-			<?php echo $message; ?>
+			<h1>Opps Sorry!</h1>
+			<br>
+			<?php //echo $message; ?>
 		</center>
 	</div>
 </body>

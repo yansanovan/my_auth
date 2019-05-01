@@ -1,5 +1,5 @@
 <?php
-class Lupapassword extends CI_Controller
+class Lupapassword extends MY_Controller
 {
 	function __construct()
 	{
@@ -9,13 +9,16 @@ class Lupapassword extends CI_Controller
 	}
 	public function index()
 	{
+		$this->cek_coba_logout_kejaksaan();
+		$this->cek_coba_logout_kepolisian();
+		$this->cek_coba_logout_pengadilan();
+		$this->cek_coba_logout_lapas();
+		$this->cek_coba_logout_superadmin();
 		$this->load->view('pages/lupapassword/index');
 	}
 	public function lupa_password()
 	{
 		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email',  array('required' => 'Email tidak boleh kosong!'));
-
-		// $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger" role="alert">','</div>');
 
 		if($this->form_validation->run() === FALSE)
@@ -52,10 +55,7 @@ class Lupapassword extends CI_Controller
 
 				if($this->email->send())
 				{
-					$this->session->set_flashdata('link_reset_password_terkirim','<div class="alert alert-success" role="alert"> 
-												Link reset password sudah dikirim ke E-mail anda, Silahkan cek!
-											</div>'
-										 );
+					$this->session->set_flashdata('link_reset_password_terkirim','<div class="alert alert-success" role="alert"> Link reset password sudah dikirim ke E-mail anda, Silahkan cek!</div>');
 					redirect(base_url('lupapassword'));
 				}
 				else 

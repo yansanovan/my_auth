@@ -24,13 +24,6 @@ class M_kejaksaan extends CI_Model
 		return $this->db->get()->result();
 	}
 
-	public function cek_id($id)
-	{
-		$this->db->where('id_data', $id);
-		$query = $this->db->get('tbl_kejaksaan');
-		return $query;
-	}
-
 	public function lihat_detail_jadwal($url)
 	{
 		$this->db->select('*');
@@ -43,6 +36,7 @@ class M_kejaksaan extends CI_Model
 	
 	public function simpan($data)
 	{
+		$this->db->set('tanggal_posting', 'NOW()', FALSE);
 		$this->db->insert('tbl_kejaksaan', $data);
 		
 		if ($this->db->affected_rows() > 0 ) 
@@ -51,6 +45,14 @@ class M_kejaksaan extends CI_Model
 
 			return true;
 		}
+
+	}
+
+	public function save($data)
+	{
+		// $this->db->set('tanggal_posting', 'NOW()', FALSE);
+		$this->db->insert('tbl_balas', $data);
+		return true;
 
 	}
 

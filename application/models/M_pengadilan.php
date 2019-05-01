@@ -51,6 +51,7 @@ class M_pengadilan extends CI_Model
 
 	public function simpan($data)
 	{	
+		$this->db->set('tanggal_posting', 'NOW()', FALSE);
 		$this->db->insert('tbl_pengadilan', $data);
 
 		if ($this->db->affected_rows() > 0 ) 

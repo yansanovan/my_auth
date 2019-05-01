@@ -8,6 +8,10 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="<?php echo base_url('asset/bower_components/bootstrap/dist/css/bootstrap.min.css');?>">
+
+    <!-- jquery ui-->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  
   <!-- Ionicons -->
   <link rel="stylesheet" href="<?= base_url('asset/bower_components/Ionicons/css/ionicons.min.css');?>">
   <!-- Font Awesome -->
@@ -23,8 +27,26 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
   <script src="https://cdn.ckeditor.com/4.11.3/standard/ckeditor.js"></script>
-
+  <style type="text/css">
+    .fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+  </style>
 </head>
+
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -34,25 +56,34 @@
     <span class="logo-lg">
       <?php if($this->session->userdata('level') =='kejaksaan')
       {
-        echo "<b> Kejaksaan </b>";
+      ?>
+      <b> Kejaksaan </b>
+      <?php
       }
       else if ($this->session->userdata('level') =='kepolisian') 
       {
-        echo "<b> Kepolisian </b>";
+      ?>
+      <b> Polisi </b>
+      <?php
       }
       else if ($this->session->userdata('level') =='pengadilan') 
       {
-        echo "<b> Pengadilan </b>";
+      ?> 
+      <b> Pengadilan </b>
+      <?php
       }
       else if ($this->session->userdata('level') =='lapas') 
       {
-        echo "<b> Lapas </b>";
+      ?>
+      <b> Lapas </b>
+      <?php
       }
       else if ($this->session->userdata('level') =='superadmin') 
       {
-        echo "<b> Superadmin </b>";
+      ?> <b> Superadmin </b>;
+      <?php
       }
-      ;?>
+      ?>
     </span>
   </a>
   <nav class="navbar navbar-static-top">
@@ -64,13 +95,28 @@
       <ul class="nav navbar-nav">
         <li class="dropdown user user-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <span class="hidden-xs"></span>
+            <img src="<?= base_url('asset/img/avatar.png');?>" class="user-image" alt="User Image">
+            <span class="hidden-xs"><?= $this->session->userdata('username');?></span>
           </a>
-          <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <?php echo $this->session->userdata('email');?>
-            </a>
-          </li>
+          <ul class="dropdown-menu">
+            <!-- User image -->
+            <li class="user-header">
+              <p>
+                <?= $this->session->userdata('email');?>
+                <small>Level : <?= $this->session->userdata('level');?></small>
+              </p>
+            </li>
+            <!-- Menu Footer-->
+            <li class="user-footer">
+              <div class="pull-left">
+                <a href="<?= base_url('profile');?>" class="btn btn-default btn-flat"> <i class="fa fa-user"></i> Profile</a>
+              </div>
+              <div class="pull-right">
+                <a href="<?= base_url('auth/sign_out');?>" class="btn btn-default btn-flat"  onclick="return confirm('Mau Logout?')"> 
+                  <i class="fa fa-sign-out"></i>Logout</a>
+              </div>
+            </li>
+          </ul>
         </li>
       </ul>
     </div>

@@ -64,6 +64,7 @@ class Auth extends MY_Controller
 						elseif ($users->level == 'kepolisian') 
 						{
 							$data = array('id'		 =>  $users->id,
+										  'username' =>  $users->username,
 										  'email'	 =>  $users->email,
 										  'level'	 =>  $users->level,
 										  'status'	 =>  'logged',
@@ -76,6 +77,7 @@ class Auth extends MY_Controller
 						elseif ($users->level == 'pengadilan') 
 						{
 							$data = array('id'		 =>  $users->id,
+										  'username' =>  $users->username,
 										  'email'	 =>  $users->email,
 										  'level'	 =>  $users->level,
 										  'status'	 =>  'logged',
@@ -88,6 +90,7 @@ class Auth extends MY_Controller
 						elseif ($users->level == 'lapas') 
 						{
 							$data = array('id'		 =>  $users->id,
+										  'username' =>  $users->username,
 										  'email'	 =>  $users->email,
 										  'level'	 =>  $users->level,
 										  'status'	 =>  'logged',
@@ -100,6 +103,7 @@ class Auth extends MY_Controller
 						elseif ($users->level == 'superadmin') 
 						{
 							$data = array('id'		 =>  $users->id,
+										  'username' =>  $users->username,
 										  'email'	 =>  $users->email,
 										  'level'	 =>  $users->level,
 										  'status'	 =>  'logged',

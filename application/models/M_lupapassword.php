@@ -29,8 +29,11 @@ class M_lupapassword extends CI_Model
 	{
 		$status = true;
 		$pesan  = '<div class="alert alert-success"alert-dismissible fade show role="alert">password baru berhasil dirubah</div>';
-		$this->form_validation->set_rules('password_baru', 'Password','trim|required|min_length[8]');
-		$this->form_validation->set_rules('konfirmasi_password_baru', 'Konfirmasi Password Baru', 'trim|required|matches[password_baru]');
+		$this->form_validation->set_rules('password_baru', 'Password','trim|required|min_length[8]', 
+											array('required' => 'Password baru tidak boleh kosong!', 
+												  'min_length' => 'Panjang password harus 8 karakter atau lebih!'));
+		$this->form_validation->set_rules('konfirmasi_password_baru', 'Konfirmasi Password Baru', 'trim|required|matches[password_baru]', array('required' => 'Konfirmasi password baru tidak boleh kosong!', 
+					 'matches' => 'Konfirmasi password tidak sama!'));
 
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger"alert-dismissible fade show role="alert">','</div>');
 

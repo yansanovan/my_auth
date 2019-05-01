@@ -1,4 +1,3 @@
-
 SetEnvIf Referer http://localhost/aplikasi_terpadu internal
 #
 <Files *>
