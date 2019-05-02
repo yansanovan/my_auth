@@ -20,32 +20,30 @@
                   <th>Detail</th>
                 </tr>
               </thead>
-            <tbody>
-            <?php 
-            $no = 1;
-            foreach ($data as $key => $value) { ?>
-            <tr>
-              <td><?= $no++;?></td>
-              <td><?= $value->nama_tersangka;?></td>
-              <td><?= $value->pasal;?></td>
-              <td><?= $value->no_sprindik;?></td>                    
-              <td><?php if ($value->status_kj == 0) {?><span class="label label-danger">Invalid</span>
-                  <?php } else {?><span class="label label-success">Valid </span> <?php } ?> </td>
-              <td><?php if ($value->status_pn == 0) {?><span class="label label-danger"> Invalid</span> 
-                  <?php } else {?> <span class="label label-success">Valid </span> <?php } ?> 
-              </td>
-              <td>
-                  <a href="<?php echo base_url('kepolisian/detail_balas/'.$value->id_data);?>" class="btn btn-info btn-sm"> 
-                    <span class="glyphicon glyphicon-eye-open"></span> Detail
-                  </a>
-              </td>
-            </tr>           
-            <?php }?>
-            </tbody>
+              <tbody>
+                <?php $no = 1; foreach ($data as $key => $value) : ?>
+                  <tr>
+                    <td><?= $no++;?></td>
+                    <td><?= $value['nama_tersangka'];?></td>
+                    <td><?= $value['pasal'];?></td>
+                    <td><?= $value['no_sprindik'];?></td>                    
+                    <td><?php if ($value['status_kj'] == 0) {?><span class="label label-danger">Invalid</span>
+                        <?php } else {?><span class="label label-success">Valid </span> <?php } ?> </td>
+                    <td><?php if ($value['status_pn'] == 0) {?><span class="label label-danger"> Invalid</span> 
+                        <?php } else {?> <span class="label label-success">Valid </span> <?php } ?> 
+                    </td>
+                    <td>
+                        <a href="<?php echo base_url('kepolisian/detail_balas/'.$value['id_data']);?>" class="btn btn-info btn-sm"> 
+                          <span class="glyphicon glyphicon-eye-open"></span> Detail
+                        </a>
+                    </td>
+                  </tr>           
+                <?php endforeach ?>
+              </tbody>
             </table>
           </div>
         </div>
-      </div><!-- /.box -->
-    </div><!-- /.col -->
-  </div><!-- /.row -->
+      </div>
+    </div>
+  </div>
 </section>

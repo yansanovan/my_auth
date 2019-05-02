@@ -18,13 +18,13 @@ class Bon extends MY_Controller
 	public function index()
 	{
 		$data['data'] = $this->m_bon->ambil_bon();
-		$this->load->view('pages/bon/bon_balasan/index', $data);
+        $this->template->load('pages/template/template','pages/bon/bon_balasan/content', $data);
 	}
 
 	public function form_bon()
 	{
 		$data['data'] = $this->m_bon->riwayat_bon();
-		$this->load->view('pages/bon/form_bon/index', $data);
+        $this->template->load('pages/template/template','pages/bon/form_bon/content', $data);
 	}
 
 	public function simpan()

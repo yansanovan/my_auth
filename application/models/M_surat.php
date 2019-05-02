@@ -37,8 +37,11 @@ class M_surat extends CI_Model
 		$this->db->from('tbl_kepolisian');
 		$this->db->join('tbl_balas_kejaksaan','tbl_balas_kejaksaan.id_surat_kj = tbl_kepolisian.id_data', 'LEFT');
 		$this->db->join('tbl_balas_pengadilan','tbl_balas_pengadilan.id_surat_pn = tbl_kepolisian.id_data', 'LEFT');
-		$this->db->order_by("id_data", "desc");	
-		return $this->db->get()->result();	
+		$this->db->order_by("id_data", "desc");
+		$this->db->where("status_kj", 1);
+		$this->db->or_where("status_pn", 1);		
+		$query	= $this->db->get();        
+	    return $query->result_array();	
 	}
 
 	public function get_username($id = NULL)
