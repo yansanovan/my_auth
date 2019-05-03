@@ -10,7 +10,7 @@
           <h1 align="center"> Form Surat Polisi </h1><br>
           <div class="col-md-12">
             <a href="<?php echo base_url('kepolisian/riwayat_surat');?>" class="btn btn-success btn-sm"> 
-              <i class="fa fa-envelope-o"></i> Riwayat Surat
+              <i class="fa fa-history"></i> Riwayat Surat
             </a><br><br>
             <table class="table table-bordered" >
               <thead>

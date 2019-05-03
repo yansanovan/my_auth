@@ -23,8 +23,22 @@ class Bon extends MY_Controller
 
 	public function form_bon()
 	{
-		$data['data'] = $this->m_bon->riwayat_bon();
+		$data['page'] = 'Entry';
+		$data['action'] = 'add';
         $this->template->load('pages/template/template','pages/bon/form_bon/content', $data);
+	}
+
+	public function edit()
+	{
+		$data['page'] = 'Edit';
+		$data['action'] = 'edit';
+        $this->template->load('pages/template/template','pages/bon/form_bon/content', $data);
+	}
+
+	public function riwayat_bon()
+	{
+		$data['data'] = $this->m_bon->riwayat_bon();
+        $this->template->load('pages/template/template','pages/bon/riwayat_bon/content', $data);
 	}
 
 	public function simpan()
@@ -39,7 +53,7 @@ class Bon extends MY_Controller
 		}
 		else
 		{
-			$config['upload_path']          = './uploads/kepolisian/bon';
+			$config['upload_path']          = './uploads/bon';
 			$config['allowed_types']        = 'pdf|doc|docx';
 			$config['max_size']             = 0;
 			$config['max_width']            = 0;
@@ -103,4 +117,17 @@ class Bon extends MY_Controller
 		   	}
 		}
 	}	
+
+	public function hapus($id)
+    {   
+        $file = $this->m_bon->ambil_bon($id);
+        @unlink('./uploads/kepolisian/bon/'. $file->file_pengajuan_bon);
+
+        $hapus = $this->m_bon->hapus($id);
+        if ($hapus = TRUE) 
+        {
+            $this->session->set_flashdata('terhapus', '<div class="alert alert-success" role="alert">Bon terhapus</div>');
+            redirect('bon/form_bon');
+        }
+    }
 }

@@ -5,17 +5,19 @@
         <div class="box-header"><br>
           <?php if(!empty($error)){ echo '<div class="alert alert-danger" role="alert">'.$error.'</div>';}?>
           <?= $this->session->flashdata('berhasil');?>
-          <?= $this->session->flashdata('gagal_simpan');?>            
+          <?= $this->session->flashdata('terhapus');?>            
           <?= form_open_multipart('bon/simpan');?>
-          <h1 align="center"> Form Bon </h1><br>
+          <h1 align="center"> Form <?= $page ;?> Bon </h1><br>
           <div class="col-md-12">
+            <a href="<?= base_url('bon/riwayat_bon');?>" class="btn btn-success btn-sm"> 
+              <i class="fa fa-history"></i> Riwayat Bon
+            </a><br><br><br>
             <table class="table table-bordered">
               <thead>
                 <tr>
                   <th class="col-sm-4">Nama Tersangka</th>
-                  <th class="col-sm-3">File Pengajuan</th>
-                  <th class="col-sm-3">Keterangan</th>
-                  <th class="col-sm-2">Aksi</th>
+                  <th class="col-sm-4">File Pengajuan</th>
+                  <th class="col-sm-4">Keterangan</th>
                 </tr>
               </thead>
               <tbody>
@@ -48,50 +50,14 @@
                       </select>
                     </div>
                   </td>
-                  <td>
-                    <center>
-                      <button class="btn btn-primary">Submit</button>
-                    </center><br>
-                  </td>
                 </tr>
               </tbody>
             </table>
-            </div>
-        
-          <?= form_close();?>
-        </div>
-  
-        <div class="box-header">
-          <h1 align="center"> Riwayat Bon </h1>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          <div class="table-responsive">
-            <table id="bon" class="table table-bordered table-striped">
-              <thead>
-              <tr>
-                <th>No</th>
-                <th>Nama Tersangka</th>
-                <th>File Pengajuan</th>
-                <th>Tanggal Posting</th>
-                <th>Keterangan</th>
-                <th>Aksi</th>
-              </tr>
-              </thead>
-              <tbody>
-              <?php $no = 1; foreach ($data as $key => $value) { ?>
-              <tr>
-                <td><?= $no++;?></td>
-                <td><?= $value->nama_tersangka;?></td>
-                <td><?= $value->file_pengajuan_bon;?></td>  
-                <td><?= $value->tanggal_posting;?></td>
-                <td><?= $value->keterangan;?></td>
-                <td><a href="" class="btn btn-warning btn-xs"> <span class="glyphicon glyphicon-edit"></span> Edit</a></td>      
-              </tr>
-              <?php } ?> 
-              </tbody>
-            </table>
+            <center>
+              <button class="btn btn-primary btn-sm">Submit</button>
+            </center><br><br><br>
           </div>
+          <?= form_close();?>
         </div>
       </div>
     </div>

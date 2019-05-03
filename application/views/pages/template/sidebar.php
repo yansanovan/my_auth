@@ -43,127 +43,167 @@
 
      <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li>
           <!-- session polisi -->
-          <?php if ($this->session->userdata('level') == 'kepolisian') {?>
-            <a href="<?php echo base_url('kepolisian');?>">
-              <i class="fa fa-envelope-open-o" aria-hidden="true"></i> <span> Surat Balasan </span>
-            </a>
+        <?php if ($this->session->userdata('level') == 'kepolisian') {?>
+        
+        <li>
+          <a href="<?php echo base_url('kepolisian');?>">
+            <i class="fa fa-envelope-open-o" aria-hidden="true"></i> <span> Surat Balasan </span>
+          </a>
+        </li>
 
-            <a href="<?php echo base_url('bon');?>">
-              <i class="fa fa-inbox" aria-hidden="true"></i> <span> Bon Balasan </span>
-            </a>
+        <li>
+          <a href="<?php echo base_url('bon');?>">
+            <i class="fa fa-inbox" aria-hidden="true"></i> <span> Bon Masuk </span>
+          </a>            
+        </li>
 
-            <a href="<?php echo base_url('kepolisian/form');?>">
-              <i class="fa fa-edit"></i> <span> Entry Surat </span>
-            </a>
+        <li>
+          <a href="<?php echo base_url('kepolisian/form');?>">
+            <i class="fa fa-edit"></i> <span> Entry Surat </span>
+          </a>
+        </li>
 
-            <a href="<?php echo base_url('bon/form_bon');?>">
-              <i class="fa fa-plus-square" aria-hidden="true"></i> <span> Entry Bon </span>
-            </a>
+        <li>
+          <a href="<?php echo base_url('bon/form_bon');?>">
+            <i class="fa fa-pencil" aria-hidden="true"></i> <span> Entry Bon </span>
+          </a>
+        </li>
 
-            <a href="<?php echo base_url('kepolisian/riwayat_surat');?>">
-              <i class="fa fa-history" aria-hidden="true"></i> <span> Riwayat Surat </span>
-            </a>
+        <li>
+          <a href="<?php echo base_url('kepolisian/riwayat_surat');?>">
+            <i class="fa fa-history" aria-hidden="true"></i> <span> Riwayat Surat </span>
+          </a>
+        </li>
 
-            <a href="<?php echo base_url('profile');?>">
-              <i class="fa fa-user"></i> <span> Profile </span>
-            </a>
-          <!-- akhir session polisi -->
+        <li>
+          <a href="<?php echo base_url('bon/riwayat_bon');?>">
+            <i class="fa fa-history" aria-hidden="true"></i> <span> Riwayat Bon </span>
+          </a>
+        </li>
+        <!-- akhir session polisi -->
 
-          <!-- session kejaksaan -->
-          <?php } else if ($this->session->userdata('level') == 'kejaksaan') { ?>  
+        <!-- session kejaksaan -->
+        <?php } else if ($this->session->userdata('level') == 'kejaksaan') { ?>  
           
-            <a href="<?php echo base_url('kejaksaan');?>">
-              <i class="fa fa-envelope-open-o" aria-hidden="true"></i> <span> Surat Polisi </span>
-            </a> 
+        <li>
+          <a href="<?php echo base_url('kejaksaan');?>">
+            <i class="fa fa-envelope-open-o" aria-hidden="true"></i> <span> Surat Polisi </span>
+          </a> 
+        </li>
 
-            <a href="<?php echo base_url('bon');?>">
-              <i class="fa fa-envelope-open-o" aria-hidden="true"></i> <span> Bon Balasan </span>
-            </a>
+        <li>
+          <a href="<?php echo base_url('bon');?>">
+            <i class="fa fa-envelope-open-o" aria-hidden="true"></i> <span> Bon Masuk </span>
+          </a>
+        </li>
+         
+        <li>
+          <a href="<?php echo base_url('bon/form_bon');?>">
+            <i class="fa fa-plus-square" aria-hidden="true"></i> <span> Bon </span>
+          </a>
+        </li>
 
-            <a href="<?php echo base_url('kejaksaan/riwayat_balas');?>">
-              <i class="fa fa-history" aria-hidden="true"></i> <span> Riwayat Balas </span>
-            </a> 
+        <li>
+          <a href="<?php echo base_url('kejaksaan/riwayat_balas');?>">
+            <i class="fa fa-history" aria-hidden="true"></i> <span> Riwayat Balas </span>
+          </a> 
+        </li>
 
-            <a href="<?php echo base_url('kejaksaan/riwayat_surat');?>">
-              <i class="fa fa-envelope-o"></i> <span> Riwayat Surat </span>
-            </a>
+        <li>
+          <a href="<?php echo base_url('kejaksaan/riwayat_surat');?>">
+            <i class="fa fa-envelope-o"></i> <span> Riwayat Surat </span>
+          </a>
+        </li>
 
-            <a href="<?php echo base_url('kejaksaan/form_entry');?>">
-              <i class="fa fa-edit"></i> <span> Entry Surat </span>
-            </a>
+        <li>
+          <a href="<?php echo base_url('kejaksaan/form_entry');?>">
+            <i class="fa fa-edit"></i> <span> Entry Surat </span>
+          </a>
+        </li>
+        <!-- akhir session kejaksaan -->
 
-            <a href="<?php echo base_url('bon/form_bon');?>">
-              <i class="fa fa-plus-square" aria-hidden="true"></i> <span> Entry Bon </span>
-            </a>
+        <!-- session pengadilan -->
+        <?php } else if ($this->session->userdata('level') == 'pengadilan') { ?>
+        <li>
+          <a href="<?php echo base_url('pengadilan');?>">
+            <i class="fa fa-envelope-open-o" aria-hidden="true"></i> <span> Surat Polisi </span>
+          </a>
+        </li>
 
-            <a href="<?php echo base_url('profile');?>">
-              <i class="fa fa-user"></i> <span> Profile </span>
-            </a>
-          <!-- akhir session kejaksaan -->
+        <li>
+          <a href="<?php echo base_url('bon');?>">
+            <i class="fa fa-envelope-open-o" aria-hidden="true"></i> <span> Bon Masuk <span>
+          </a>
+        </li>
+        
+        <li>
+          <a href="<?php echo base_url('bon/form_bon');?>">
+            <i class="fa fa-plus-square" aria-hidden="true"></i> <span> Bon </span>
+          </a>
+        </li> 
 
-          <!-- session pengadilan -->
-          <?php } else if ($this->session->userdata('level') == 'pengadilan') { ?>
-            <a href="<?php echo base_url('pengadilan');?>">
-              <i class="fa fa-envelope-open-o" aria-hidden="true"></i> <span> Surat Polisi </span>
-            </a>
+        <li>
+          <a href="<?php echo base_url('pengadilan/riwayat_balas');?>">
+            <i class="fa fa-history" aria-hidden="true"></i> <span> Riwayat Balas </span>
+          </a> 
+        </li>
 
-            <a href="<?php echo base_url('bon');?>">
-              <i class="fa fa-envelope-open-o" aria-hidden="true"></i> <span> Bon Balasan <span>
-            </a>
+        <li>
+          <a href="<?php echo base_url('pengadilan/data_surat');?>">
+            <i class="fa fa-envelope-o"></i> <span> Riwayat Surat </span>
+          </a>   
+        </li>
 
-            <a href="<?php echo base_url('pengadilan/riwayat_balas');?>">
-              <i class="fa fa-history" aria-hidden="true"></i> <span> Riwayat Balas </span>
-            </a> 
+        <li>
+          <a href="<?php echo base_url('pengadilan/form');?>">
+            <i class="fa fa-edit"></i> <span> Entry Surat </span>
+          </a>
+        </li>
+        <!-- akhir session pengadilan -->
+        
+        <!-- session lapas -->
+        <?php } else if ($this->session->userdata('level') == 'lapas') { ?>
+        <li>
+          <a href="<?php echo base_url('lapas');?>">
+            <i class="fa fa-envelope-open-o" aria-hidden="true"></i> <span> Bon Masuk </span>
+          </a>
+        </li>
 
-            <a href="<?php echo base_url('pengadilan/data_surat');?>">
-              <i class="fa fa-envelope-o"></i> <span> Riwayat Surat </span>
-            </a>   
+        <li>
+          <a href="<?php echo base_url('lapas/data_surat');?>">
+            <i class="fa fa-envelope-o"></i> <span> Riwayat Surat </span>
+          </a>
+        </li>
 
-            <a href="<?php echo base_url('pengadilan/form');?>">
-              <i class="fa fa-edit"></i> <span> Entry Surat </span>
-            </a>
-
-            <a href="<?php echo base_url('bon/form_bon');?>">
-              <i class="fa fa-plus-square" aria-hidden="true"></i> <span> Entry Bon </span>
-            </a>
-            
-            <a href="<?php echo base_url('profile');?>">
-              <i class="fa fa-user"></i> <span> Profile </span>
-            </a>
-          <!-- akhir session pengadilan -->
-
-          <!-- session lapas -->
-          <?php } else if ($this->session->userdata('level') == 'lapas') { ?>
-            <a href="<?php echo base_url('lapas');?>">
-              <i class="fa fa-envelope-open-o" aria-hidden="true"></i> <span> Bon Masuk </span>
-            </a>
-
-            <a href="<?php echo base_url('lapas/data_surat');?>">
-              <i class="fa fa-envelope-o"></i> <span> Riwayat Surat </span>
-            </a>
-
-            <a href="<?php echo base_url('lapas/form');?>">
-              <i class="fa fa-edit"></i> <span> Entry Surat </span>
-            </a>
-
-            <a href="<?php echo base_url('profile');?>">
-              <i class="fa fa-user"></i> <span> Profile </span>
-            </a>   
-          <!-- akhir session lapas -->
-
-          <!-- session superadmin -->
-          <?php } else if ($this->session->userdata('level') == 'superadmin') {?>
+        <li>
+          <a href="<?php echo base_url('lapas/form');?>">
+            <i class="fa fa-edit"></i> <span> Entry Surat </span>
+          </a>
+        </li>
+        <!-- akhir session lapas -->
+        
+        <!-- session superadmin -->
+        <?php } else if ($this->session->userdata('level') == 'superadmin') {?>
+        <li>
             <a href="<?php echo base_url('superadmin');?>">
               <i class="fa fa-envelope-open-o" aria-hidden="true"></i> Data Users
             </a>   
+        </li>
+
+        <li>
             <a href="<?php echo base_url('profile');?>">
               <i class="fa fa-user"></i> Profile
             </a>
-          <?php } ?>
-          <!-- akhir session superadmin -->
         </li>
+        <?php } ?>
+
+        <li>
+           <a href="<?php echo base_url('profile');?>">
+              <i class="fa fa-user"></i> <span> Profile </span>
+            </a>
+        </li>
+          <!-- akhir session superadmin -->
         <li>
           <a href="<?php echo base_url('auth/sign_out');?>" onclick="return confirm('Mau Logout?')">
             <i class="fa fa-sign-out"></i> <span> Logout </span>

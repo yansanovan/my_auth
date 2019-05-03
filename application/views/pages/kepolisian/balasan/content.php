@@ -27,9 +27,12 @@
                     <td><?= $value['nama_tersangka'];?></td>
                     <td><?= $value['pasal'];?></td>
                     <td><?= $value['no_sprindik'];?></td>                    
-                    <td><?php if ($value['status_kj'] == 0) {?><span class="label label-danger">Invalid</span>
-                        <?php } else {?><span class="label label-success">Valid </span> <?php } ?> </td>
-                    <td><?php if ($value['status_pn'] == 0) {?><span class="label label-danger"> Invalid</span> 
+                    <td>
+                        <?php if ($value['status_kj'] == 0) {?><span class="label label-danger">Invalid</span>
+                        <?php } else {?><span class="label label-success">Valid </span> <?php } ?> 
+                    </td>
+                    <td>
+                        <?php if ($value['status_pn'] == 0) {?><span class="label label-danger"> Invalid</span> 
                         <?php } else {?> <span class="label label-success">Valid </span> <?php } ?> 
                     </td>
                     <td>

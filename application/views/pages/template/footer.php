@@ -292,17 +292,15 @@ $(function () {
     $("#modal-putusan_amar_modal #putusan_amar").html(putusan_amar);
   });
 
-
-
-  $(document).on("click","#ganti_deskripsi", function()
+  $(document).on("click","#bon", function()
   {
-    var id_data       = $(this).data('id_data');
-    var url           = $(this).data('url');
-    var deskripsi     = $(this).data('deskripsi'); 
+    var id_bon            = $(this).data('id_bon');
+    var nama_tersangka    = $(this).data('nama_tersangka'); 
 
-    $("#modal-edit #id_data").val(id_data);
-    $("#modal-edit #deskripsi").val(deskripsi);
-    $("#modal-edit #url").val(url);
+    $("#modal-edit #id_bon").val(id_bon);
+    $("#modal-edit #nama_tersangka").val(nama_tersangka);
+
+
   });
 
 </script>  

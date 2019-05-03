@@ -4,8 +4,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_bon extends CI_Model 
 {
-	public function ambil_bon()
+	public function ambil_bon($id = NULL)
 	{
+		if ($id != NULL) 
+		{
+			$this->db->select('*');
+			$this->db->from('tbl_bon');
+			$this->db->where('id_bon', $id);		
+			return $this->db->get()->row();
+		}
 		$this->db->select('*');
 		$this->db->from('tbl_balas_bon');
 		$this->db->join('tbl_users', 'tbl_users.id = tbl_balas_bon.id_users_lapas');
@@ -23,6 +30,13 @@ class M_bon extends CI_Model
 	{
 		$this->db->set('tanggal_posting', 'NOW()', FALSE);
 		$this->db->insert('tbl_bon', $data);
+		return true;
+	}
+
+	public function hapus($id)
+	{
+		$this->db->where('id_bon', $id);
+		$this->db->delete('tbl_bon');
 		return true;
 	}
 

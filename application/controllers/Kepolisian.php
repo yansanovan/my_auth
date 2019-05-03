@@ -921,17 +921,31 @@ class Kepolisian extends MY_Controller
         }
     }
   
-    public function unduh()
+    public function unduh_kj()
     {
     	$this->load->helper('download');
 		if($this->uri->segment(3))
 		{
-    		$data = 'uploads/kepolisian/'.$this->uri->segment(3); 
+    		$data = 'uploads/kepolisian/kejaksaan/'.$this->uri->segment(3); 
 		}
 		else
 		{
 			show_404();
 		}
 		force_download($data, null);
+    }
+
+    public function unduh_pn()
+    {
+        $this->load->helper('download');
+        if($this->uri->segment(3))
+        {
+            $data = 'uploads/kepolisian/pengadilan/'.$this->uri->segment(3); 
+        }
+        else
+        {
+            show_404();
+        }
+        force_download($data, null);
     }
 }
