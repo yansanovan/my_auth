@@ -29,7 +29,7 @@
                   <td>
                     <a href="<?= base_url('bon/hapus/'. $value->id_bon);?>" class="btn btn-danger btn-xs" onclick="return confirm('Mau hapus bon ini ?')"> <span class="glyphicon glyphicon-trash" ></span> Hapus</a>      
                            
-                    <a href="<?= base_url('bon/edit/'. $value->id_bon);?>" class="btn btn-warning btn-xs"> 
+                    <a href="<?= base_url('bon/edit/'.$value->id_bon);?>" class="btn btn-warning btn-xs"> 
                       <span class="glyphicon glyphicon-edit" ></span></i>Edit
                     </a>
                   </td>      

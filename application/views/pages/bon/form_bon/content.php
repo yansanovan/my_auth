@@ -1,3 +1,20 @@
+<?php 
+
+$id_bon             = "";
+$nama_tersangka     = "";
+$file_pengajuan_bon = "";
+
+if ($action == "edit") 
+{
+  foreach ($data as $key => $value)  
+  {
+    $id_bon             = $value->id_bon;
+    $nama_tersangka     = $value->nama_tersangka;
+    $file_pengajuan_bon = $value->file_pengajuan_bon;
+  }
+}
+?>
+
 <section class="content">
   <div class="row">
     <div class="col-lg-12">
@@ -15,19 +32,30 @@
             <table class="table table-bordered">
               <thead>
                 <tr>
-                  <th class="col-sm-4">Nama Tersangka</th>
-                  <th class="col-sm-4">File Pengajuan</th>
-                  <th class="col-sm-4">Keterangan</th>
+                  <th class="col-sm-3">Nama Tersangka</th>
+                  <?php if ($action == "edit") {?>
+                  <th class="col-sm-3">File Lama</th>
+                  <?php } ?>
+                  <th class="col-sm-3">File Pengajuan</th>
+                  <th class="col-sm-3">Keterangan</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>
                     <div class="form-group">
-                    <input type="text" name="nama_tersangka" class="form-control" placeholder="nama tersangka" id="nama_tersangka">
+                    <input type="hidden" name="id_bon" class="form-control"  value="<?= $id_bon;?>">
+                    <input type="text" name="nama_tersangka" id="nama_tersangka" class="form-control" placeholder="nama tersangka" value="<?= $nama_tersangka;?>">
                     <?php echo form_error('nama_tersangka','<p class="validate" style="color:red;">','</p>'); ?>
                     </div>
                   </td>
+                  <?php if ($action == "edit") { ?>
+                  <td>
+                    <div class="form-group">
+                        <input type="text" name="file_lama" class="form-control" value="<?= $file_pengajuan_bon;?>" readonly>
+                    </div>
+                  </td>
+                  <?php } ?>
                   <td>
                     <div class="form-group">
                       <div class="input-group">
@@ -37,7 +65,7 @@
                               <i class="fa fa-search"></i> Browse</button>
                           </span>
                       </div>
-                      <input type="file" class="hidden" id="file" name="file_pengajuan_bon" value="<?php echo set_value('file_pengajuan_bon'); ?>">
+                      <input type="file" class="hidden" id="file" name="file_pengajuan_bon" value="<?= $file_pengajuan_bon;?>">
                     <?php echo form_error('file_pengajuan_bon','<p class="validate" style="color:red;">','</p>'); ?>
                     </div>
                   </td>
@@ -54,7 +82,7 @@
               </tbody>
             </table>
             <center>
-              <button class="btn btn-primary btn-sm">Submit</button>
+              <button class="btn btn-primary btn-sm" name="<?=$action;?>" value="true">Submit</button>
             </center><br><br><br>
           </div>
           <?= form_close();?>

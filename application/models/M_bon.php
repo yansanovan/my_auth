@@ -20,8 +20,13 @@ class M_bon extends CI_Model
 		return $this->db->get()->result();
 	}
 
-	public function riwayat_bon()
+	public function riwayat_bon($id = NULL)
 	{
+		if ($id != null) 
+		{
+			$this->db->where('id_bon', $id);
+			return $this->db->get('tbl_bon')->result();
+		}
 		$this->db->where('id_users_pemohon', $this->session->userdata('id'));
 		return $this->db->get('tbl_bon')->result();
 	}
@@ -30,6 +35,14 @@ class M_bon extends CI_Model
 	{
 		$this->db->set('tanggal_posting', 'NOW()', FALSE);
 		$this->db->insert('tbl_bon', $data);
+		return true;
+	}
+
+	public function ubah($data)
+	{
+		// $this->db->set('tanggal_posting', 'NOW()', FALSE);
+		$this->db->where('id_bon', $this->input->post('id_bon'));
+		$this->db->update('tbl_bon', $data);
 		return true;
 	}
 
