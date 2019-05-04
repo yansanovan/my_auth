@@ -22,7 +22,7 @@
                     <td>
                       <input type="hidden" name="id_bon" value="<?= $data->id_bon; ?>"  class="form-control" >
                       <input type="hidden" name="id_users_pemohon" value="<?= $data->id_users_pemohon; ?>"  class="form-control" >
-                      <input type="text" name="nama_tersangka" value="<?= $data->nama_tersangka; ?>"  class="form-control" >
+                      <input type="text" name="nama_tersangka" value="<?= $data->nama_tersangka; ?>"  class="form-control" readonly>
                       <?php echo form_error('nama_tersangka','<span class="span" style="color:red;">','</span>'); ?>
                     </td>
                     <td>
@@ -41,17 +41,10 @@
                     <td>
                       <div class="form-group">
                         <div class="form-group">
-                          <select class="form-control" name="keterangan">
-                            <option 
-                              <?php if( $data->keterangan =='Bon'){echo "selected"; } ?> >Bon
-                            </option>
-                          
-                            <option 
-                              <?php if( $data->keterangan =='Ijin Besuk'){echo "selected"; } ?>>Ijin Besuk
-                            </option>
-                          
-                            <option 
-                              <?php if( $data->keterangan =='Bon Hari Sidang (P-38)'){echo "selected"; } ?> value="Bon Hari Sidang (P-38)">Bon Hari Sidang (P-38)
+                          <select class="form-control" name="keterangan" disabled="disabled">
+                            <option <?php if( $data->keterangan =='Bon'){echo "selected"; } ?>>Bon</option>
+                            <option <?php if( $data->keterangan =='Ijin Besuk'){echo "selected"; } ?>>Ijin Besuk</option>
+                            <option <?php if( $data->keterangan =='Bon Hari Sidang (P-38)'){echo "selected"; } ?> value="Bon Hari Sidang (P-38)">Bon Hari Sidang (P-38)
                             </option>
                           </select>
                           <br>

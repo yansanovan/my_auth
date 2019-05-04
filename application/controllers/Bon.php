@@ -188,4 +188,19 @@ class Bon extends MY_Controller
             redirect('bon/riwayat_bon');
         }
     }
+    
+    public function unduh()
+    {
+        $this->load->helper('download');
+        if($this->uri->segment(3))
+        {
+            $data = 'uploads/lapas/bon/'.$this->uri->segment(3); 
+        }
+        else
+        {
+            show_404();
+        }
+        force_download($data, null);
+    }
+
 }

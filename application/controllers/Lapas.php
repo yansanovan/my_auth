@@ -20,10 +20,8 @@ class Lapas extends MY_Controller
 	public function index()
 	{
 		$data['data'] = $this->m_lapas->bon();
-		$this->load->view('pages/lapas/bon_masuk/index', $data);
+        $this->template->load('pages/template/template','pages/lapas/bon_masuk/content', $data);
 	}
-
-
 
     public function form_balas($id)
 	{
@@ -50,7 +48,7 @@ class Lapas extends MY_Controller
                 if ($value->num_rows() > 0) 
                 {
                     $data['data'] = $value->row();
-	                $this->load->view('pages/lapas/form_balas/index', $data);
+                    $this->template->load('pages/template/template','pages/lapas/form_balas/content', $data);
                 }   
                 else
                 {
@@ -115,7 +113,7 @@ class Lapas extends MY_Controller
     	$this->load->helper('download');
 		if($this->uri->segment(3))
 		{
-    		$data = 'uploads/kepolisian/bon/'.$this->uri->segment(3); 
+    		$data = 'uploads/bon/'.$this->uri->segment(3); 
 		}
 		else
 		{

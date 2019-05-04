@@ -93,6 +93,12 @@
 
     <div class="navbar-custom-menu">
       <ul class="nav navbar-nav">
+
+        <li class="dropdown notifications-menu">
+            <a class="dropdown-toggle" data-toggle="dropdown">
+              <?php echo date('l, d F Y');?>
+            </a>
+        </li>
         <li class="dropdown user user-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <img src="<?= base_url('asset/img/avatar.png');?>" class="user-image" alt="User Image">

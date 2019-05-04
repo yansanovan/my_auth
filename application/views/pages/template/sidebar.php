@@ -94,13 +94,13 @@
 
         <li>
           <a href="<?php echo base_url('bon');?>">
-            <i class="fa fa-envelope-open-o" aria-hidden="true"></i> <span> Bon Masuk </span>
+            <i class="fa fa-inbox" aria-hidden="true"></i> <span> Bon Masuk </span>
           </a>
         </li>
          
         <li>
           <a href="<?php echo base_url('bon/form_bon');?>">
-            <i class="fa fa-plus-square" aria-hidden="true"></i> <span> Bon </span>
+            <i class="fa fa-pencil" aria-hidden="true"></i> <span> Entry Bon </span>
           </a>
         </li>
 
@@ -133,7 +133,7 @@
 
         <li>
           <a href="<?php echo base_url('bon');?>">
-            <i class="fa fa-envelope-open-o" aria-hidden="true"></i> <span> Bon Masuk <span>
+            <i class="fa fa-inbox" aria-hidden="true"></i> <span> Bon Masuk <span>
           </a>
         </li>
         

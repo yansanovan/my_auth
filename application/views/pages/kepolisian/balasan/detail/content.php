@@ -11,27 +11,39 @@
           
           <br><br>
           <div class="col-md-12">
+          <a href="<?= base_url('kepolisian');?>" class="btn btn-success btn-sm">
+            <i class="fa fa-undo" aria-hidden="true"></i>  Kembali
+          </a>
+          <br><br>
           <table  width="350px">
             <tbody>
               <tr>
                   <td><i class="fa fa-user" aria-hidden="true"></i> Username Kejaksaan</td>
                   <td width="10px">:</td>
                   <td width="150px"><?php echo @$username_kj->username;?></td>
+
               </tr>
               <tr>
                   <td ><i class="fa fa-user" aria-hidden="true"></i> Username Pengadilan</td>
                   <td width="10px">:</td>
                   <td width="100px"> <?php echo @$username_pn->username;?></td>
               </tr>
+          
+              <?php foreach ($data as $key => $value) { ?>
+              <tr>
+                  <td ><i class="fa fa-calendar" aria-hidden="true"></i> Tanggal Balas Kejaksaan</td>
+                  <td width="10px">:</td>
+                  <td width="100px"> <?=  date('d M Y h:i:a', strtotime($value->tanggal_balas_kj));?></td>
+              </tr>
+              <tr>
+                  <td ><i class="fa fa-calendar" aria-hidden="true"></i> Tanggal Balas Pengadilan</td>
+                  <td width="10px">:</td>
+                  <td width="100px"> <?=  date('d M Y h:i:a', strtotime($value->tanggal_balas_pn));?></td>
+              </tr>
             </tbody>
           </table>
           <br><br>
 
-          <?php foreach ($data as $key => $value) { ?>
-          <a href="<?= base_url('kepolisian');?>" class="btn btn-success btn-sm">
-            <i class="fa fa-undo" aria-hidden="true"></i>  Kembali
-          </a>
-          <br><br>
           <table class="table table-bordered">
             <thead>
               <tr>
@@ -62,7 +74,7 @@
                     <label for="exampleInputEmail1">Spdp</label>
                     <?php if ($value->spdp_kj == NULL) { ?>
                     <p>
-                      <a href="" class="btn btn-danger btn-sm" disabled>
+                      <a  class="btn btn-danger btn-sm" disabled>
                       <i class="glyphicon glyphicon-download-alt"></i></a> 
                     </p>
                     <?php } else { ?>
@@ -82,7 +94,7 @@
                     <label for="exampleInputEmail1">Ijin Geledah</label>
                     <?php if ($value->ijin_geledah_pn == NULL) { ?>
                     <p>
-                      <a href="" class="btn btn-danger btn-sm" disabled>
+                      <a  class="btn btn-danger btn-sm" disabled>
                       <i class="glyphicon glyphicon-download-alt"></i></a> 
                     </p>
                     <?php } else { ?>
@@ -96,7 +108,7 @@
                     <label for="exampleInputEmail1">Setuju Geledah</label>
                     <?php if ($value->setuju_geledah_pn == NULL) { ?>
                     <p>
-                      <a href="" class="btn btn-danger btn-sm" disabled>
+                      <a  class="btn btn-danger btn-sm" disabled>
                       <i class="glyphicon glyphicon-download-alt"></i></a> 
                     </p>
                     <?php } else { ?>
@@ -116,7 +128,7 @@
                     <label for="exampleInputEmail1">Khusus</label>
                     <?php if ($value->khusus_pn == NULL) { ?>
                     <p>
-                      <a href="" class="btn btn-danger btn-sm" disabled>
+                      <a  class="btn btn-danger btn-sm" disabled>
                       <i class="glyphicon glyphicon-download-alt"></i></a> 
                     </p>
                     <?php } else { ?>
@@ -131,7 +143,7 @@
                     <label for="exampleInputEmail1">Biasa</label>
                     <?php if ($value->biasa_pn == NULL) { ?>
                     <p>
-                      <a href="" class="btn btn-danger btn-sm" disabled>
+                      <a  class="btn btn-danger btn-sm" disabled>
                       <i class="glyphicon glyphicon-download-alt"></i></a> 
                     </p>
                     <?php } else { ?>
@@ -146,7 +158,7 @@
                     <label for="exampleInputEmail1">Narkotika</label>
                     <?php if ($value->narkotika_kj == NULL) { ?>
                     <p>
-                      <a href="" class="btn btn-danger btn-sm" disabled>
+                      <a  class="btn btn-danger btn-sm" disabled>
                       <i class="glyphicon glyphicon-download-alt"></i></a> 
                     </p>
                     <?php } else { ?>
@@ -166,7 +178,7 @@
                     <label for="exampleInputEmail1">Kejaksaan</label>
                     <?php if ($value->kejaksaan_kj == NULL) { ?>
                     <p>
-                      <a href="" class="btn btn-danger btn-sm" disabled>
+                      <a  class="btn btn-danger btn-sm" disabled>
                       <i class="glyphicon glyphicon-download-alt"></i></a> 
                     </p>
                     <?php } else { ?>
@@ -181,7 +193,7 @@
                     <label for="exampleInputEmail1">Pengadilan</label>
                     <?php if ($value->pengadilan_pn == NULL) { ?>
                     <p>
-                      <a href="" class="btn btn-danger btn-sm" disabled>
+                      <a  class="btn btn-danger btn-sm" disabled>
                       <i class="glyphicon glyphicon-download-alt"></i></a> 
                     </p>
                     <?php } else { ?>
@@ -201,7 +213,7 @@
                     <label for="exampleInputEmail1">P-18</label>
                     <?php if ($value->p_18_kj == NULL) { ?>
                     <p>
-                      <a href="" class="btn btn-danger btn-sm" disabled>
+                      <a  class="btn btn-danger btn-sm" disabled>
                       <i class="glyphicon glyphicon-download-alt"></i></a> 
                     </p>
                     <?php } else { ?>
@@ -216,7 +228,7 @@
                     <label for="exampleInputEmail1">P-21</label>
                     <?php if ($value->p_21_kj == NULL) { ?>
                     <p>
-                      <a href="" class="btn btn-danger btn-sm" disabled>
+                      <a  class="btn btn-danger btn-sm" disabled>
                       <i class="glyphicon glyphicon-download-alt"></i></a> 
                     </p>
                     <?php } else { ?>
@@ -236,7 +248,7 @@
                     <label for="exampleInputEmail1">Pelimpahan</label>
                     <?php if ($value->pelimpahan_kj == NULL) { ?>
                     <p>
-                      <a href="" class="btn btn-danger btn-sm" disabled>
+                      <a  class="btn btn-danger btn-sm" disabled>
                       <i class="glyphicon glyphicon-download-alt"></i></a> 
                     </p>
                     <?php } else { ?>
@@ -256,7 +268,7 @@
                     <label for="exampleInputEmail1">P-17</label>
                     <?php if ($value->p_17_kj == NULL) { ?>
                     <p>
-                      <a href="" class="btn btn-danger btn-sm" disabled>
+                      <a  class="btn btn-danger btn-sm" disabled>
                       <i class="glyphicon glyphicon-download-alt"></i></a> 
                     </p>
                     <?php } else { ?>

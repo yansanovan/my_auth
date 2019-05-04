@@ -29,7 +29,7 @@
                 <td><?= $no++;?></td>
                 <td><?= $value->nama_tersangka;?></td>
                 <td>
-                  <a href="<?= base_url('lapas/unduh/'.$value->file_pengajuan_bon);?>" class="btn btn-primary btn-sm">
+                  <a href="<?= base_url('bon/unduh/'.$value->file_pengajuan_bon);?>" onclick="return confirm('mau download?')" class="btn btn-primary btn-sm">
                     <i class="glyphicon glyphicon-download-alt"></i> 
                   </a> <?= $value->file_pengajuan_bon;?>
                 </td>

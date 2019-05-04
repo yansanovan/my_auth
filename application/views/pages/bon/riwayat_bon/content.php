@@ -4,6 +4,9 @@
       <div class="box">
         <div class="box-header">
           <h1 align="center"> Riwayat Bon </h1>
+          <a href="<?php echo base_url('bon/form_bon');?>" class="btn btn-success btn-xs"> 
+            <span class="glyphicon glyphicon-edit"></span> Entry Bon 
+          </a><br>
         </div>
         <div class="box-body">
           <div class="table-responsive">
