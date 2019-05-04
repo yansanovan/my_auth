@@ -9,7 +9,7 @@
           <?= form_open_multipart('kepolisian/simpan',  array('id' => 'insert_form' ));?>
           <h1 align="center"> Form Surat Polisi </h1><br>
           <div class="col-md-12">
-            <a href="<?php echo base_url('kepolisian/riwayat_surat');?>" class="btn btn-success btn-sm"> 
+            <a href="<?php echo base_url('kepolisian/riwayat_surat');?>" class="btn btn-success btn-xs"> 
               <i class="fa fa-history"></i> Riwayat Surat
             </a><br><br>
             <table class="table table-bordered" >

@@ -3,6 +3,7 @@
 $id_bon             = "";
 $nama_tersangka     = "";
 $file_pengajuan_bon = "";
+$keterangan         = "";
 
 if ($action == "edit") 
 {
@@ -11,6 +12,7 @@ if ($action == "edit")
     $id_bon             = $value->id_bon;
     $nama_tersangka     = $value->nama_tersangka;
     $file_pengajuan_bon = $value->file_pengajuan_bon;
+    $keterangan = $value->keterangan;
   }
 }
 ?>
@@ -26,7 +28,7 @@ if ($action == "edit")
           <?= form_open_multipart('bon/simpan');?>
           <h1 align="center"> Form <?= $page ;?> Bon </h1><br>
           <div class="col-md-12">
-            <a href="<?= base_url('bon/riwayat_bon');?>" class="btn btn-success btn-sm"> 
+            <a href="<?= base_url('bon/riwayat_bon');?>" class="btn btn-success btn-xs"> 
               <i class="fa fa-history"></i> Riwayat Bon
             </a><br><br><br>
             <table class="table table-bordered">
@@ -72,9 +74,21 @@ if ($action == "edit")
                   <td>
                     <div class="form-group">
                       <select class="form-control" name="keterangan">
-                        <option>Bon</option>
+                        <option 
+                          <?php if( $keterangan->keterangan =='Bon'){echo "selected"; } ?> value="<?= $keterangan;?>">Kepolisian
+                          </option>
+                        
+                          <option 
+                          <?php if( $keterangan->keterangan =='Ijin Besuk'){echo "selected"; } ?> value="<?= $keterangan;?>">Ijin Besuk
+                          </option>
+                        
+                          <option 
+                            <?php if( $keterangan->keterangan =='Bon Hari Sidang'){echo "selected"; } ?> value="pengadilan">Bon Hari Sidang
+                          </option>
+                        
+                        <!-- <option>Bon</option>
                         <option>Ijin Besuk</option>
-                        <option>Bon Hari Sidang (P-38)</option>
+                        <option>Bon Hari Sidang (P-38)</option> -->
                       </select>
                     </div>
                   </td>
