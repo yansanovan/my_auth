@@ -12,7 +12,7 @@ if ($action == "edit")
     $id_bon             = $value->id_bon;
     $nama_tersangka     = $value->nama_tersangka;
     $file_pengajuan_bon = $value->file_pengajuan_bon;
-    $keterangan = $value->keterangan;
+    $keterangan         = $value->keterangan;
   }
 }
 ?>
@@ -72,24 +72,32 @@ if ($action == "edit")
                     </div>
                   </td>
                   <td>
+
                     <div class="form-group">
-                      <select class="form-control" name="keterangan">
+                      <?php if ($action == "edit") {?>
+                      <select class="form-control" name="keterangan" disabled="disabled">
                         <option 
-                          <?php if( $keterangan->keterangan =='Bon'){echo "selected"; } ?> value="<?= $keterangan;?>">Kepolisian
-                          </option>
+                          <?php if( $value->keterangan =='Bon'){echo "selected"; } ?> value="Bon">Bon
+                        </option>
                         
-                          <option 
-                          <?php if( $keterangan->keterangan =='Ijin Besuk'){echo "selected"; } ?> value="<?= $keterangan;?>">Ijin Besuk
-                          </option>
-                        
-                          <option 
-                            <?php if( $keterangan->keterangan =='Bon Hari Sidang'){echo "selected"; } ?> value="pengadilan">Bon Hari Sidang
-                          </option>
-                        
-                        <!-- <option>Bon</option>
-                        <option>Ijin Besuk</option>
-                        <option>Bon Hari Sidang (P-38)</option> -->
+                        <option 
+                          <?php if( $value->keterangan =='Ijin Besuk'){echo "selected"; } ?> value="Ijin Besuk">Ijin Besuk</option>
+                        <option 
+                          <?php if( $value->keterangan =='Bon Hari Sidang (P-38)'){echo "selected"; } ?> value="Bon Hari Sidang (P-38)">Bon Hari Sidang (P-38)
+                        </option>
                       </select>
+                      <?php 
+                      }
+                      else 
+                      {?>
+                      <select class="form-control" name="keterangan">
+                        <option value="Bon">Bon</option>
+                        <option value="Ijin Besuk">Ijin Besuk</option>
+                        <option value="Bon Hari Sidang (P-38)">Bon Hari Sidang (P-38)</option>
+                      </select>
+                      <?php
+                      } 
+                      ?>
                     </div>
                   </td>
                 </tr>
