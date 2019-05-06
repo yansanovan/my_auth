@@ -8,6 +8,44 @@ class M_kepolisian extends CI_Model
 		parent::__construct();
 		$this->load->driver('cache', array('adapter' => 'file'));
 	}
+
+	function fetch()
+	{
+		$this->db->select('*');
+		$this->db->from('tbl_kepolisian');
+		$this->db->join('tbl_balas_kejaksaan','tbl_balas_kejaksaan.id_surat_kj =  tbl_kepolisian.id_data', 'LEFT');
+		$this->db->join('tbl_balas_pengadilan','tbl_balas_pengadilan.id_surat_pn =  tbl_kepolisian.id_data','LEFT');
+		$this->db->where("status_kj", 1);
+		$this->db->or_where("status_pn", 1);
+		$this->db->order_by("id_data", "desc");		
+		$this->db->limit(5);		
+		return $this->db->get();
+	}
+
+	function update_notif()
+	{
+		$notif = 1;
+		$this->db->where('notif_balas_kj', 0);
+		$this->db->update('tbl_balas_kejaksaan', array('notif_balas_kj' => $notif));
+
+		$this->db->where('notif_balas_pn', 0);
+		$this->db->update('tbl_balas_pengadilan', array('notif_balas_pn' => $notif));
+		return true;
+	}
+
+	function fetch_2()
+	{
+		$this->db->select('*');
+		$this->db->from('tbl_kepolisian');
+		$this->db->join('tbl_balas_kejaksaan','tbl_balas_kejaksaan.id_surat_kj =  tbl_kepolisian.id_data', 'LEFT');
+		$this->db->join('tbl_balas_pengadilan','tbl_balas_pengadilan.id_surat_pn =  tbl_kepolisian.id_data','LEFT');
+		$this->db->where("notif_balas_kj", 0);
+		$this->db->or_where("notif_balas_pn", 0);
+		$this->db->order_by("id_data", "desc");		
+		$this->db->limit(5);
+		return $this->db->get()->result();
+	}
+
 	public function tampil($id = NULL)
 	{
 		if ($id != NULL) 

@@ -214,7 +214,7 @@ $('#file_path11').click(function(){
  $(function () {
     $('#example1').DataTable({
       responsive:true,
-       "lengthMenu": [[10, 25, 50, -1], [7, 25, 50, "All"]]
+       "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]]
     })
   });
 
@@ -302,6 +302,111 @@ $(function () {
 
 
   });
+
+// notification balasan ke polisi
+
+$(document).ready(function(){
+ 
+load_unseen_notification_balasan();
+
+function load_unseen_notification_balasan(view = '')
+{
+  $.ajax({
+   url:"<?php echo site_url('kepolisian/notif');?>",
+   method:"POST",
+   data:{view:view},
+   dataType:"json",
+   success:function(data){
+    $('.dropdown-menu').html(data.notification);
+      if(data.unseen_notification > 0){
+       $('.count').html(data.unseen_notification);
+      }
+   }
+  });
+}
+ 
+ 
+ $(document).on('click', '.dropdown-toggle', function(){
+  $('.count').html('');
+  load_unseen_notification_balasan('yes');
+ });
+ 
+ setInterval(function(){ 
+  load_unseen_notification_balasan();; 
+ }, 2000);
+ 
+});
+
+//notification kejaksaan
+
+$(document).ready(function(){
+ 
+load_unseen_notification();
+
+function load_unseen_notification(view = '')
+{
+  $.ajax({
+   url:"<?php echo site_url('kejaksaan/fetch');?>",
+   method:"POST",
+   data:{view:view},
+   dataType:"json",
+   success:function(data){
+    $('.dropdown-menu').html(data.notification);
+      if(data.unseen_notification > 0){
+       $('.count').html(data.unseen_notification);
+      }
+   }
+  });
+}
+ 
+ 
+ $(document).on('click', '.dropdown-toggle', function(){
+  $('.count').html('');
+  load_unseen_notification('yes');
+ });
+ 
+ setInterval(function(){ 
+  load_unseen_notification();; 
+ }, 5000);
+ 
+});
+
+
+//  notif pengadilan
+$(document).ready(function(){
+ 
+load_unseen_notification_pn();
+
+function load_unseen_notification_pn(view = '')
+{
+  $.ajax({
+   url:"<?php echo site_url('pengadilan/fetch');?>",
+   method:"POST",
+   data:{view:view},
+   dataType:"json",
+   success:function(data){
+    $('.dropdown-menu').html(data.notification);
+      if(data.unseen_notification > 0){
+       $('.count').html(data.unseen_notification);
+      }
+   }
+  });
+}
+ 
+ 
+ $(document).on('click', '.dropdown-toggle', function(){
+  $('.count').html('');
+  load_unseen_notification_pn('yes');
+ });
+ 
+ setInterval(function(){ 
+  load_unseen_notification_pn();; 
+ }, 2000);
+ 
+});
+
+
+
 
 </script>  
 

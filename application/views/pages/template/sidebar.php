@@ -43,6 +43,8 @@
 
      <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
+
+
           <!-- session polisi -->
         <?php if ($this->session->userdata('level') == 'kepolisian') {?>
         
@@ -65,14 +67,14 @@
         </li>
 
         <li>
-          <a href="<?php echo base_url('bon/form_bon');?>">
-            <i class="fa fa-pencil" aria-hidden="true"></i> <span> Entry Bon </span>
+          <a href="<?php echo base_url('kepolisian/riwayat_surat');?>">
+            <i class="fa fa-history" aria-hidden="true"></i> <span> Riwayat Surat </span>
           </a>
         </li>
 
         <li>
-          <a href="<?php echo base_url('kepolisian/riwayat_surat');?>">
-            <i class="fa fa-history" aria-hidden="true"></i> <span> Riwayat Surat </span>
+          <a href="<?php echo base_url('bon/form_bon');?>">
+            <i class="fa fa-pencil" aria-hidden="true"></i> <span> Entry Bon </span>
           </a>
         </li>
 
@@ -85,9 +87,15 @@
 
         <!-- session kejaksaan -->
         <?php } else if ($this->session->userdata('level') == 'kejaksaan') { ?>  
-          
+        
         <li>
-          <a href="<?php echo base_url('kejaksaan');?>">
+           <a href="<?php echo base_url('kejaksaan');?>">
+              <i class="fa fa-dashboard"></i> <span> Dashboard </span>
+            </a>
+        </li>
+
+        <li>
+          <a href="<?php echo base_url('kejaksaan/surat_polisi');?>">
             <i class="fa fa-envelope-open-o" aria-hidden="true"></i> <span> Surat Polisi </span>
           </a> 
         </li>

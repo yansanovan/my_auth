@@ -28,7 +28,7 @@
   <!-- /.login-logo -->
   <div class="login-box-body">
     <p class="login-box-msg">Masukan Password Baru Anda</p>
-    <?php echo $this->session->flashdata('flashdata');?>
+    <?= $this->session->flashdata('flashdata');?>
     <?= form_open();?>
       <div class="form-group has-feedback">
         <input type="password"  name="password_baru" class="form-control" placeholder="Password Baru">

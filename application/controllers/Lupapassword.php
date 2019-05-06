@@ -72,8 +72,9 @@ class Lupapassword extends MY_Controller
 			}
 		}		
 	}
-	public function ubah_password($token)
+	public function ubah_password()
 	{
+		$token = $this->uri->segment(3);
 		$cek_users = $this->m_lupapassword->cek_token_users($token);
 		if ($cek_users->num_rows() == 0) 
 		{

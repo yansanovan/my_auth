@@ -109,7 +109,7 @@ class Bon extends MY_Controller
 	                }
 	            }
 	      
-				$data = array('nama_tersangka' => $post['nama_tersangka']);
+				$data = array('nama_tersangka' => $post['nama_tersangka'], 'keterangan' => $post['keterangan']);
 				$this->m_bon->ubah($data);	
 				$this->session->set_flashdata('berhasil', '<div class="alert alert-success" role="alert">Bon berhasil di edit!</div>');
 				redirect(base_url('bon/edit/'.$post['id_bon']));			

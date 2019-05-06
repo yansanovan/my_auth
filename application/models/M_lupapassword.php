@@ -51,6 +51,10 @@ class M_lupapassword extends CI_Model
 			$this->db->where('token', $token);
 			$this->db->update('tbl_users', array('password' => $password_baru_hash,
 												 'token'   => null));
+
+			$this->session->set_flashdata('flashdata', $pesan);
+
+			redirect('auth');
 		}
 
 		return $this->session->set_flashdata('flashdata', $pesan);

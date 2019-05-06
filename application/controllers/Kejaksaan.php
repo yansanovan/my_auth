@@ -16,28 +16,79 @@ class Kejaksaan extends MY_Controller
 		$this->load->model('m_kejaksaan');
 		$this->load->model('m_surat');		
 	}
+
 	public function index()
 	{
-		$data['kepolisian'] = $this->m_surat->surat_polisi();
-		$this->load->view('pages/kejaksaan/surat_polisi/index', $data);
+        $this->template->load('pages/template/template','pages/dashboard');
 	}
+
+    public function fetch()
+    {
+        if(isset($_POST["view"]))
+        {
+            if($_POST["view"] != '')
+            {
+                $this->m_kejaksaan->update_notif();
+            }
+            $result = $this->m_kejaksaan->fetch();
+            
+            $output = '';
+
+            if($result->num_rows() > 0)
+            {
+                foreach($result->result() as $value)
+                {
+                    $output .= '
+                      <li>
+                        <ul class="menu">
+                          <li>
+                            <a href="'.base_url('kejaksaan/surat_polisi').'">
+                              <i class="fa fa-file text-aqua"></i> 
+                                  <strong>'.$value->nama_tersangka.'</strong><br />
+                                <small><em>'.$value->pasal.'</em></small>
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                    ';
+                }
+            }
+            else
+            {
+                $output .= '<li><a href="#" class="text-bold text-italic">No Notification Found</a></li>';
+            }
+            $result = $this->m_kejaksaan->fetch_2();
+            $count = count($result);
+            $data  = array(
+                'notification'   => $output,
+                'unseen_notification' => $count
+            );
+            echo json_encode($data);
+        }
+    }
+
+    public function surat_polisi()
+    {
+        $data['kepolisian'] = $this->m_surat->surat_polisi();
+        $this->template->load('pages/template/template','pages/kejaksaan/surat_polisi/content', $data);
+    }
 
     public function riwayat_balas()
     {
         $data['data'] = $this->m_surat->riwayat_balas_kj();
-        $this->load->view('pages/kejaksaan/riwayat_balas/index', $data);
+        $this->template->load('pages/template/template','pages/kejaksaan/riwayat_balas/content', $data);
     }
 
 	public function riwayat_surat()
 	{
 		$data['data'] = $this->m_surat->surat_polisi();
-		$this->load->view('pages/kejaksaan/riwayat_surat/index', $data);
+        $this->template->load('pages/template/template','riwayat_surat/content', $data);
 	}
 
 	public function detail($url)
 	{
 		$data['data'] 	= $this->m_surat->surat_polisi($url);	
-		$this->load->view('pages/kejaksaan/surat_polisi/detail/index', $data);
+        $this->template->load('pages/template/template','pages/kejaksaan/surat_polisi/detail/content', $data);
 	}
 
     public function detail_balas($id)
@@ -67,7 +118,7 @@ class Kejaksaan extends MY_Controller
             if ($cek_balas->num_rows() > 0) 
             {
             $this->session->set_flashdata('cek', '<div class="alert alert-danger" role="alert">Opps! Surat sudah dibalas!</div>');
-                redirect('kejaksaan');
+                redirect('kejaksaan/surat_polisi');
             }
             else
             {
@@ -75,11 +126,11 @@ class Kejaksaan extends MY_Controller
                 if ($data->num_rows() > 0) 
                 {
                     $value['value'] = $data->row();
-                    $this->load->view('pages/kejaksaan/form_balas/index', $value);
+                    $this->template->load('pages/template/template','pages/kejaksaan/form_balas/content', $value);
                 }   
                 else
                 {
-                    redirect('kejaksaan');
+                    redirect('kejaksaan/surat_polisi');
                 }
             }
         }

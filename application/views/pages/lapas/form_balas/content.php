@@ -42,15 +42,8 @@
                   </td>
                   <td>
                     <div class="form-group">
-                      <div class="form-group">
-                        <select class="form-control" name="keterangan" disabled="disabled">
-                          <option <?php if( $data->keterangan =='Bon'){echo "selected"; } ?>>Bon</option>
-                          <option <?php if( $data->keterangan =='Ijin Besuk'){echo "selected"; } ?>>Ijin Besuk</option>
-                          <option <?php if( $data->keterangan =='Bon Hari Sidang (P-38)'){echo "selected"; } ?> value="Bon Hari Sidang (P-38)">Bon Hari Sidang (P-38)
-                          </option>
-                        </select>
-                        <br>
-                      </div>
+                      <input type="text" name="keterangan" value="<?= $data->keterangan;?>" class="form-control" readonly="readonly">
+                      <br>
                     </div>
                   </td>
                 </tr>

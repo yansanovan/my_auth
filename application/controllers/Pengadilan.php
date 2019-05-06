@@ -18,16 +18,62 @@ class Pengadilan extends MY_Controller
 		// $this->output->enable_profiler(TRUE);
 		
 	}
+
+     public function fetch()
+    {
+        if(isset($_POST["view"]))
+        {
+            if($_POST["view"] != '')
+            {
+                $this->m_pengadilan->update_notif();
+            }
+            $result = $this->m_pengadilan->fetch();
+            
+            $output = '';
+
+            if($result->num_rows() > 0)
+            {
+                foreach($result->result() as $value)
+                {
+                    $output .= '
+                      <li>
+                        <ul class="menu">
+                          <li>
+                            <a href="'.base_url('kejaksaan/surat_polisi').'">
+                              <i class="fa fa-file text-aqua"></i> 
+                                  <strong>'.$value->nama_tersangka.'</strong><br />
+                                <small><em>'.$value->pasal.'</em></small>
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                    ';
+                }
+            }
+            else
+            {
+                $output .= '<li><a href="#" class="text-bold text-italic">No Notification Found</a></li>';
+            }
+            $result = $this->m_pengadilan->fetch_2();
+            $count = count($result);
+            $data  = array(
+                'notification'   => $output,
+                'unseen_notification' => $count
+            );
+            echo json_encode($data);
+        }
+    }
+
 	public function index()
 	{
 		$data['pengadilan'] = $this->m_surat->surat_polisi();
-		$this->load->view('pages/pengadilan/surat_polisi/index', $data);
+        $this->template->load('pages/template/template','pages/pengadilan/surat_polisi/content', $data);
 	}
 
 	public function detail($url)
 	{
 		$data['data'] 	= $this->m_surat->surat_polisi($url);	
-		$this->load->view('pages/pengadilan/surat_polisi/detail/index', $data);
+        $this->template->load('pages/template/template','pages/pengadilan/surat_polisi/detail/content', $data);
 	}
 
     public function detail_balas($id)
@@ -69,7 +115,7 @@ class Pengadilan extends MY_Controller
                 if ($data->num_rows() > 0) 
                 {
                     $value['value'] = $data->row();
-                    $this->load->view('pages/pengadilan/form_balas/index', $value);
+                    $this->template->load('pages/template/template','pages/pengadilan/form_balas/content', $value);
                 }   
                 else
                 {

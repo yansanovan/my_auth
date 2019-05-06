@@ -51,6 +51,7 @@ class Auth extends MY_Controller
 					{
 						if ($users->level == 'kejaksaan') 
 						{
+							
 							$data = array('id'		 =>  $users->id,
 										  'username' =>  $users->username,
 										  'email'	 =>  $users->email,
@@ -60,6 +61,7 @@ class Auth extends MY_Controller
 							
 							$this->session->set_userdata($data);
 							redirect(base_url('kejaksaan'));
+
 						}
 						elseif ($users->level == 'kepolisian') 
 						{
@@ -119,7 +121,8 @@ class Auth extends MY_Controller
 			{	
 				$this->session->set_flashdata('invalid','<div class="alert alert-danger" role="alert"> Email / password anda tidak ditemukan!</div>');
 
-				redirect(base_url('auth'));		
+				redirect(base_url('auth'));				
+			
 			}
 		}
 	}

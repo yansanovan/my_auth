@@ -28,6 +28,8 @@
   <!-- /.login-logo -->
   <div class="login-box-body">
     <p class="login-box-msg">Silahkan Login</p>
+    <?= $this->session->flashdata('flashdata');?>
+    
     <?= $this->session->flashdata('gagal');?>
     <?= $this->session->flashdata('akses_dilarang');?>
     <?= $this->session->flashdata('invalid');?>
@@ -48,7 +50,7 @@
       </div>
     <?= form_close();?>
     <br>
-    <i class="fa fa-key"></i><a href="<?= base_url('Lupapassword');?> "> Lupa Password</a><br>
+    <i class="fa fa-key"></i><a href="<?= base_url('lupapassword');?> "> Lupa Password</a><br>
   </div>
   <!-- /.login-box-body -->
 </div>

@@ -44,6 +44,7 @@ if ($action == "edit")
               </thead>
               <tbody>
                 <tr>
+                  
                   <td>
                     <div class="form-group">
                     <input type="hidden" name="id_bon" class="form-control"  value="<?= $id_bon;?>">
@@ -51,6 +52,7 @@ if ($action == "edit")
                     <?php echo form_error('nama_tersangka','<p class="validate" style="color:red;">','</p>'); ?>
                     </div>
                   </td>
+                  
                   <?php if ($action == "edit") { ?>
                   <td>
                     <div class="form-group">
@@ -58,6 +60,7 @@ if ($action == "edit")
                     </div>
                   </td>
                   <?php } ?>
+
                   <td>
                     <div class="form-group">
                       <div class="input-group">
@@ -71,11 +74,11 @@ if ($action == "edit")
                     <?php echo form_error('file_pengajuan_bon','<p class="validate" style="color:red;">','</p>'); ?>
                     </div>
                   </td>
-                  <td>
 
+                  <td>
                     <div class="form-group">
                       <?php if ($action == "edit") {?>
-                      <select class="form-control" name="keterangan" disabled="disabled">
+                      <select class="form-control" name="keterangan">
                         <option 
                           <?php if( $value->keterangan =='Bon'){echo "selected"; } ?> value="Bon">Bon
                         </option>
@@ -100,6 +103,7 @@ if ($action == "edit")
                       ?>
                     </div>
                   </td>
+
                 </tr>
               </tbody>
             </table>

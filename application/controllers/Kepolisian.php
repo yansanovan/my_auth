@@ -22,6 +22,51 @@ class Kepolisian extends MY_Controller
         $this->template->load('pages/template/template','pages/kepolisian/balasan/content', $data);
     }
 
+    public function notif()
+    {
+        if(isset($_POST["view"]))
+        {
+            if($_POST["view"] != '')
+            {
+                $this->m_kepolisian->update_notif();
+            }
+            $result = $this->m_kepolisian->fetch();
+            
+            $output = '';
+
+            if($result->num_rows() > 0)
+            {
+                foreach($result->result() as $value)
+                {
+                    $output .= '
+                      <li>
+                        <ul class="menu">
+                          <li>
+                            <a href="'.base_url('kejaksaan/surat_polisi').'">
+                              <i class="fa fa-file text-aqua"></i> 
+                                  <strong>'.$value->nama_tersangka.'</strong><br />
+                                <small><em>'.$value->pasal.'</em></small>
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                    ';
+                }
+            }
+            else
+            {
+                $output .= '<li><a href="#" class="text-bold text-italic">No Notification Found</a></li>';
+            }
+            $result = $this->m_kepolisian->fetch_2();
+            $count = count($result);
+            $data  = array(
+                'notification'   => $output,
+                'unseen_notification' => $count
+            );
+            echo json_encode($data);
+        }
+    }
+
 	public function riwayat_surat()
 	{
 		$data['data'] = $this->m_kepolisian->tampil();

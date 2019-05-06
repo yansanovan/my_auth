@@ -93,37 +93,37 @@
 
     <div class="navbar-custom-menu">
       <ul class="nav navbar-nav">
-
+        <?php if ($this->session->userdata("level") == "kepolisian") {?>
         <li class="dropdown notifications-menu">
-            <a class="dropdown-toggle" data-toggle="dropdown">
-              <?php echo date('l, d F Y');?>
-            </a>
-        </li>
-        <li class="dropdown user user-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            Notification <i class="fa fa-bell-o"></i><span class="label label-danger count"></span> 
+          </a>
+          <ul class="dropdown-menu"></ul>
+        </li>
+        <?php } elseif ($this->session->userdata("level") == "kejaksaan"){ ?>
+        <li class="dropdown notifications-menu">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            Notification <i class="fa fa-bell-o"></i><span class="label label-danger count"></span> 
+          </a>
+          <ul class="dropdown-menu"></ul>
+        </li>
+
+        <?php } elseif ($this->session->userdata("level") == "pengadilan"){ ?>
+        <li class="dropdown notifications-menu">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            Notification <i class="fa fa-bell-o"></i><span class="label label-danger count"></span> 
+          </a>
+          <ul class="dropdown-menu"></ul>
+        </li>
+        <?php }?>
+        
+        <li class="dropdown user user-menu">
+          <a href="#" class="dropdown-toggle">
             <img src="<?= base_url('asset/img/avatar.png');?>" class="user-image" alt="User Image">
             <span class="hidden-xs"><?= $this->session->userdata('username');?></span>
           </a>
-          <ul class="dropdown-menu">
-            <!-- User image -->
-            <li class="user-header">
-              <p>
-                <?= $this->session->userdata('email');?>
-                <small>Level : <?= $this->session->userdata('level');?></small>
-              </p>
-            </li>
-            <!-- Menu Footer-->
-            <li class="user-footer">
-              <div class="pull-left">
-                <a href="<?= base_url('profile');?>" class="btn btn-default btn-flat"> <i class="fa fa-user"></i> Profile</a>
-              </div>
-              <div class="pull-right">
-                <a href="<?= base_url('auth/sign_out');?>" class="btn btn-default btn-flat"  onclick="return confirm('Mau Logout?')"> 
-                  <i class="fa fa-sign-out"></i>Logout</a>
-              </div>
-            </li>
-          </ul>
         </li>
+        
       </ul>
     </div>
   </nav>
