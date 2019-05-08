@@ -19,7 +19,7 @@ class Pengadilan extends MY_Controller
 		
 	}
 
-     public function fetch()
+    public function fetch()
     {
         if(isset($_POST["view"]))
         {
@@ -35,11 +35,11 @@ class Pengadilan extends MY_Controller
             {
                 foreach($result->result() as $value)
                 {
-                    $output .= '
+                   $output .= '
                       <li>
                         <ul class="menu">
                           <li>
-                            <a href="'.base_url('kejaksaan/surat_polisi').'">
+                            <a href="'.base_url('pengadilan').'">
                               <i class="fa fa-file text-aqua"></i> 
                                   <strong>'.$value->nama_tersangka.'</strong><br />
                                 <small><em>'.$value->pasal.'</em></small>
@@ -54,8 +54,8 @@ class Pengadilan extends MY_Controller
             {
                 $output .= '<li><a href="#" class="text-bold text-italic">No Notification Found</a></li>';
             }
-            $result = $this->m_pengadilan->fetch_2();
-            $count = count($result);
+            $result2 = $this->m_pengadilan->fetch_2();
+            $count = count($result2);
             $data  = array(
                 'notification'   => $output,
                 'unseen_notification' => $count
@@ -79,14 +79,14 @@ class Pengadilan extends MY_Controller
     public function detail_balas($id)
     {
         $data['value'] = $this->m_surat->riwayat_balas_pn($id);
-        $this->load->view('pages/pengadilan/riwayat_balas/detail/index', $data);
+        $this->template->load('pages/template/template','pages/pengadilan/riwayat_balas/detail/content', $data);
     }
 
 
 	public function riwayat_balas()
     {
         $data['data'] = $this->m_surat->riwayat_balas_pn();
-        $this->load->view('pages/pengadilan/riwayat_balas/index', $data);
+        $this->template->load('pages/template/template','pages/pengadilan/riwayat_balas/content', $data);
     }
 
 
@@ -157,7 +157,8 @@ class Pengadilan extends MY_Controller
             }
 
             $post = $this->input->post(NULL, TRUE);    
-            $data = array( 'id_surat_pn'            => $post['id_surat'],
+            $data = array( 'id_polisi_pn'           => $post['id_polisi'],
+                           'id_surat_pn'            => $post['id_surat'],
                            'id_users_pn'            => $this->session->userdata('id'),
                            'ijin_geledah_pn'        => $ijin_geledah['file_name'],
                            'setuju_geledah_pn'      => $setuju_geledah['file_name'],
@@ -165,7 +166,14 @@ class Pengadilan extends MY_Controller
                            'biasa_pn'               => $biasa['file_name'],
                            'pengadilan_pn'          => $pengadilan['file_name']);
 
-            $this->m_surat->pengadilan_balas($data, $id);  
+            $now = date('Y-m-d H:i:s');
+            $notification = array('id_polisi'           => $post['id_polisi'],
+                                   'id_surat_balasan'    => $post['id_surat'],
+                                   'id_users_pembalas'   => $this->session->userdata('id'),
+                                   'notif_balasan'       => 0,
+                                   'tanggal_balas'       => $now);
+
+            $this->m_surat->pengadilan_balas($data, $notification, $id);  
             $this->session->set_flashdata('berhasil', '<div class="alert alert-success" role="alert">berhasil di balas</div>');
             redirect(base_url('pengadilan'));         
         }
@@ -288,35 +296,23 @@ class Pengadilan extends MY_Controller
         }
     }
 
+    public function hapus_balasan($id)
+    {   
+        $file = $this->m_surat->riwayat_balas_pn($id);
 
-	
-    public function hapus_jadwal($id, $url)
-    {	
-		$file = $this->m_pengadilan->tampil($id);
-		@unlink('./uploads/pengadilan/'. $file->file_pelimpahan_berkas);
-		@unlink('./uploads/pengadilan/'. $file->file_penetapan_hari_sidang);
-		@unlink('./uploads/pengadilan/'. $file->file_penahanan);
-		@unlink('./uploads/pengadilan/'. $file->file_perpanjang_penahanan_I);
-		@unlink('./uploads/pengadilan/'. $file->file_perpanjang_penahanan_II);
-		@unlink('./uploads/pengadilan/'. $file->file_perpanjang_penahanan_III);
-		@unlink('./uploads/pengadilan/'. $file->file_putusan);
+        @unlink('./uploads/kepolisian/pengadilan/'. $file->ijin_geledah_pn);
+        @unlink('./uploads/kepolisian/pengadilan/'. $file->setuju_geledah_pn);
+        @unlink('./uploads/kepolisian/pengadilan/'. $file->khusus_pn);
+        @unlink('./uploads/kepolisian/pengadilan/'. $file->biasa_pn);
+        @unlink('./uploads/kepolisian/pengadilan/'. $file->pengadilan_pn);
 
-		$hapus = $this->m_pengadilan->hapus($id, $url);
-		if ($hapus = TRUE) 
-		{
-			$this->session->set_flashdata('terhapus', '<div class="alert alert-success" role="alert">Jadwal terhapus</div>');
-			redirect(base_url('pengadilan/data_jadwal'));
-		}
-    }
+        $hapus = $this->m_surat->hapus_balasan_pn($id);
 
-    public function ubah_deskripsi()
-    {
-    	$id_data 	= $this->input->post('id_data');
-    	$url 	= $this->input->post('url');
-    	$data = array('deskripsi' => $this->input->post('deskripsi'));
-    	$this->m_pengadilan->ubah_deskripsi($id_data, $data, $url);
-    	$this->session->set_flashdata('deskripsi_diganti', '<div class="alert alert-success" role="alert">Deskripsi berhasil diganti</div>');
-		redirect(base_url('pengadilan/data_jadwal'));
+        if ($hapus = TRUE) 
+        {
+            $this->session->set_flashdata('terhapus', '<div class="alert alert-success" role="alert">Jadwal terhapus</div>');
+            redirect('pengadilan/riwayat_balas');
+        }
     }
     
     public function unduh_kepolisian()
@@ -409,99 +405,6 @@ class Pengadilan extends MY_Controller
             else
             {
                 $this->form_validation->set_message('file_penetapan_hari_sidang', 'Pilih file Penetapan hari sidang hanya word atau pdf.');
-                return false;
-            }
-        }
-    }
-
-    public function file_penahanan($str)
-	{
-         $allowed_mime_type_arr = array('application/pdf', 'application/msword');
-        $mime = get_mime_by_extension($_FILES['file_penahanan']['name']);
-        if($_FILES['file_penahanan']['name'])
-        {
-            if(in_array($mime, $allowed_mime_type_arr))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('file_penahanan', 'Pilih penahanan hanya word atau pdf.');
-                return false;
-            }
-        }
-    }
-
-	public function file_perpanjang_penahanan_I($str)
-	{
-         $allowed_mime_type_arr = array('application/pdf', 'application/msword');
-        $mime = get_mime_by_extension($_FILES['file_perpanjang_penahanan_I']['name']);
-        if($_FILES['file_perpanjang_penahanan_I']['name'])
-        {
-            if(in_array($mime, $allowed_mime_type_arr))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('file_perpanjang_penahanan_I', 'Pilih file Perpanjang Penahanan I hanya word atau pdf.');
-                return false;
-            }
-        }
-    }
-
-    public function file_perpanjang_penahanan_II($str)
-	{
-         $allowed_mime_type_arr = array('application/pdf', 'application/msword');
-        $mime = get_mime_by_extension($_FILES['file_perpanjang_penahanan_II']['name']);
-        if($_FILES['file_perpanjang_penahanan_II']['name'])
-        {
-            if(in_array($mime, $allowed_mime_type_arr))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('file_perpanjang_penahanan_II', 'Pilih file Perpanjang Penahanan II hanya word atau pdf.');
-                return false;
-            }
-        }
-    }
-
-   
-
-    public function file_perpanjang_penahanan_III($str)
-	{
-         $allowed_mime_type_arr = array('application/pdf', 'application/msword');
-        $mime = get_mime_by_extension($_FILES['file_perpanjang_penahanan_III']['name']);
-        if($_FILES['file_perpanjang_penahanan_III']['name'])
-        {
-            if(in_array($mime, $allowed_mime_type_arr))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('file_perpanjang_penahanan_III', 'Pilih Perpanjang Penahanan III hanya word atau pdf.');
-                return false;
-            }
-        }
-    }
-
-
-    public function file_putusan($str)
-	{
-         $allowed_mime_type_arr = array('application/pdf', 'application/msword');
-        $mime = get_mime_by_extension($_FILES['file_putusan']['name']);
-        if($_FILES['file_putusan']['name'])
-        {
-            if(in_array($mime, $allowed_mime_type_arr))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('file_putusan', 'Pilih file putusan hanya word atau pdf.');
                 return false;
             }
         }

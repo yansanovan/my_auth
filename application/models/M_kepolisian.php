@@ -13,39 +13,32 @@ class M_kepolisian extends CI_Model
 	{
 		$this->db->select('*');
 		$this->db->from('tbl_kepolisian');
-		$this->db->join('tbl_balas_kejaksaan','tbl_balas_kejaksaan.id_surat_kj =  tbl_kepolisian.id_data', 'LEFT');
-		$this->db->join('tbl_balas_pengadilan','tbl_balas_pengadilan.id_surat_pn =  tbl_kepolisian.id_data','LEFT');
-		$this->db->where("status_kj", 1);
-		$this->db->or_where("status_pn", 1);
-		$this->db->order_by("id_data", "desc");		
-		$this->db->limit(5);		
+		$this->db->join('tbl_notification','tbl_notification.id_surat_balasan =  tbl_kepolisian.id_data', 'LEFT');
+		$this->db->join('tbl_users','tbl_users.id = tbl_notification.id_users_pembalas', 'LEFT');
+		$this->db->where("id_polisi", $this->session->userdata('id'));
+		$this->db->limit(3);
+		$this->db->order_by("id_data", "desc");	
 		return $this->db->get();
 	}
 
 	function update_notif()
 	{
-		$notif = 1;
-		$this->db->where('notif_balas_kj', 0);
-		$this->db->update('tbl_balas_kejaksaan', array('notif_balas_kj' => $notif));
 
-		$this->db->where('notif_balas_pn', 0);
-		$this->db->update('tbl_balas_pengadilan', array('notif_balas_pn' => $notif));
+		$this->db->where('id_polisi', $this->session->userdata('id'));
+		$this->db->update('tbl_notification', array('notif_balasan' => 1));
 		return true;
 	}
 
-	function fetch_2()
+	function fetch_count()
 	{
 		$this->db->select('*');
-		$this->db->from('tbl_kepolisian');
-		$this->db->join('tbl_balas_kejaksaan','tbl_balas_kejaksaan.id_surat_kj =  tbl_kepolisian.id_data', 'LEFT');
-		$this->db->join('tbl_balas_pengadilan','tbl_balas_pengadilan.id_surat_pn =  tbl_kepolisian.id_data','LEFT');
-		$this->db->where("notif_balas_kj", 0);
-		$this->db->or_where("notif_balas_pn", 0);
-		$this->db->order_by("id_data", "desc");		
-		$this->db->limit(5);
+		$this->db->from('tbl_notification');
+		$this->db->where("notif_balasan", 0);	
+		$this->db->where(array('id_polisi' => $this->session->userdata('id')));	
 		return $this->db->get()->result();
 	}
 
+	
 	public function tampil($id = NULL)
 	{
 		if ($id != NULL) 

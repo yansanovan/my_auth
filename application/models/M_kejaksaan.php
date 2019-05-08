@@ -32,7 +32,7 @@ class M_kejaksaan extends CI_Model
 		$this->db->select('*');
 		$this->db->from('tbl_kepolisian');
 		$this->db->where("notif_kj", 0);		
-		// $this->db->order_by("id_data", "desc");		
+		$this->db->order_by("id_data", "desc");		
 		return $this->db->get()->result();
 	}
 

@@ -47,6 +47,7 @@
   });
 
 
+
 // spdp
 $('#file_browser').click(function(e){
     e.preventDefault();
@@ -55,6 +56,7 @@ $('#file_browser').click(function(e){
 
 $('#file').change(function(){
     $('#file_path').val($(this).val());
+    // $('#file_path').text($this.get(0).files.item(0).name);
 });
 
 $('#file_path').click(function(){
@@ -204,6 +206,7 @@ $('#file_browser11').click(function(e){
 
 $('#file11').change(function(){
     $('#file_path11').val($(this).val());
+
 });
 
 $('#file_path11').click(function(){
@@ -303,7 +306,7 @@ $(function () {
 
   });
 
-// notification balasan ke polisi
+// notification balasan ke polisi jenis surat
 
 $(document).ready(function(){
  
@@ -317,7 +320,7 @@ function load_unseen_notification_balasan(view = '')
    data:{view:view},
    dataType:"json",
    success:function(data){
-    $('.dropdown-menu').html(data.notification);
+    $('#kejaksaan').html(data.notification);
       if(data.unseen_notification > 0){
        $('.count').html(data.unseen_notification);
       }
@@ -337,7 +340,10 @@ function load_unseen_notification_balasan(view = '')
  
 });
 
-//notification kejaksaan
+
+
+
+//notification di kejaksaan
 
 $(document).ready(function(){
  
@@ -372,7 +378,7 @@ function load_unseen_notification(view = '')
 });
 
 
-//  notif pengadilan
+//  notif di pengadilan
 $(document).ready(function(){
  
 load_unseen_notification_pn();

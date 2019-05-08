@@ -44,8 +44,9 @@ class Kepolisian extends MY_Controller
                           <li>
                             <a href="'.base_url('kejaksaan/surat_polisi').'">
                               <i class="fa fa-file text-aqua"></i> 
-                                  <strong>'.$value->nama_tersangka.'</strong><br />
-                                <small><em>'.$value->pasal.'</em></small>
+                                <strong>File Tersangka : '.$value->nama_tersangka.'</strong><br>
+                                <small>Dibalas oleh : '.$value->username.' ( '.$value->level.' )</small><br />
+                                <small>Tanggal balas : '.$value->tanggal_balas.'</small><br />
                             </a>
                           </li>
                         </ul>
@@ -57,8 +58,8 @@ class Kepolisian extends MY_Controller
             {
                 $output .= '<li><a href="#" class="text-bold text-italic">No Notification Found</a></li>';
             }
-            $result = $this->m_kepolisian->fetch_2();
-            $count = count($result);
+            $notif = $this->m_kepolisian->fetch_count();
+            $count = count($notif);
             $data  = array(
                 'notification'   => $output,
                 'unseen_notification' => $count

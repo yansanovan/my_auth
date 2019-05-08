@@ -22,6 +22,7 @@
                 <tr>
                   <td>Nama Tersangka</td>
                   <td>
+                    <input type="hidden" name="id_polisi" value="<?= $value->id_users;?>">
                     <input type="hidden" name="id_surat" value="<?= $value->id_data;?>">
                     <input type="text" name="nama_tersangka" value="<?= $value->nama_tersangka; ?>" class="form-control" readonly>
                   </td>
@@ -47,15 +48,29 @@
                   <td>Penggeledahan</td>
                   <td>
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Ijin Geledah</label>
-                      <input type="file" name="ijin_geledah" value="<?= set_value('ijin_geledah'); ?>" class="form-control" id="exampleInputEmail1" placeholder="ijin_geledah">
-                      <?= form_error('ijin_geledah'); ?>
+                      <label for="file_path">ijin geledah</label>
+                      <div class="input-group">
+                          <input type="text" id="file_path2" class="form-control" placeholder="Pilih Ijin geledah">
+                          <span class="input-group-btn">
+                              <button class="btn btn-success" type="button" id="file_browser2">
+                              <i class="fa fa-search"></i> Browse</button>
+                          </span>
+                      </div>
+                      <input type="file" class="hidden" id="file2" name="ijin_geledah" value="<?php echo set_value('ijin_geledah'); ?>">
+                      <?php echo form_error('ijin_geledah','<p class="validate" style="color:red;">','</p>'); ?>
                     </div>
 
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Setuju Geledah</label>
-                      <input type="file" name="setuju_geledah" value="<?= set_value('setuju_geledah'); ?>" class="form-control" id="exampleInputEmail1" placeholder="setuju_geledah">
-                      <?= form_error('setuju_geledah'); ?>
+                      <label for="exampleInputEmail1">Setuju geledah</label>
+                      <div class="input-group">
+                          <input type="text" id="file_path3" class="form-control" placeholder="Pilih setuju geledah">
+                          <span class="input-group-btn">
+                              <button class="btn btn-success" type="button" id="file_browser3">
+                              <i class="fa fa-search"></i> Browse</button>
+                          </span>
+                      </div>
+                      <input type="file" class="hidden" id="file3" name="setuju_geledah" value="<?php echo set_value('setuju_geledah'); ?>">
+                      <?php echo form_error('setuju_geledah','<p class="validate" style="color:red;">','</p>'); ?>
                     </div>
                   </td>
                 </tr>
@@ -65,26 +80,43 @@
                   <td>
                     <div class="form-group">
                       <label for="exampleInputEmail1">Khusus</label>
-                      <input type="file" name="khusus" value="<?= set_value('khusus'); ?>" class="form-control" id="exampleInputEmail1" placeholder="khusus">
-                      <?= form_error('khusus'); ?>
+                      <div class="input-group">
+                          <input type="text" id="file_path4" class="form-control" placeholder="Pilih Khusus">
+                          <span class="input-group-btn">
+                              <button class="btn btn-success" type="button" id="file_browser4">
+                              <i class="fa fa-search"></i> Browse</button>
+                          </span>
+                      </div>
+                      <input type="file" class="hidden" id="file4" name="khusus" value="<?php echo set_value('khusus');?>">
+                      <?php echo form_error('khusus','<p class="validate" style="color:red;">','</p>'); ?>
                     </div>
 
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Biasa</label>
-                      <input type="file" name="biasa" value="<?= set_value('biasa'); ?>" class="form-control" id="exampleInputEmail1" placeholder="biasa">
-                      <?= form_error('biasa'); ?>
+                    <label for="exampleInputEmail1">Biasa</label>
+                    <div class="input-group">
+                        <input type="text" id="file_path5" class="form-control" placeholder="Pilih Biasa">
+                        <span class="input-group-btn">
+                            <button class="btn btn-success" type="button" id="file_browser5">
+                            <i class="fa fa-search"></i> Browse</button>
+                        </span>
                     </div>
+                    <input type="file" class="hidden" id="file5" name="biasa" value="<?php echo set_value('biasa');?>">
+                    <?php echo form_error('biasa','<p class="validate" style="color:red;">','</p>'); ?>
                   </td>
                 </tr>
               
                 <tr>
                   <td>Perpangjangan</td>
                   <td>
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Pengadilan</label>
-                      <input type="file" name="pengadilan" value="<?= set_value('pengadilan'); ?>" class="form-control" id="exampleInputEmail1" placeholder="pengadilan">
-                      <?= form_error('pengadilan'); ?>
-                    </div>
+                    <label for="exampleInputEmail1">Pengadilan</label>
+                      <div class="input-group">
+                          <input type="text" id="file_path8" class="form-control" placeholder="Pilih Pengadilan">
+                          <span class="input-group-btn">
+                              <button class="btn btn-success" type="button" id="file_browser8">
+                              <i class="fa fa-search"></i> Browse</button>
+                          </span>
+                      </div>
+                      <input type="file" class="hidden" id="file8" name="pengadilan" value="<?php echo set_value('pengadilan');?>">
+                      <?php echo form_error('pengadilan','<p class="validate" style="color:red;">','</p>'); ?>
                   </td>
                 </tr>
 

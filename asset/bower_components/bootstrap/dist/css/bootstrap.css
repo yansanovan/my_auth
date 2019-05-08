@@ -3511,6 +3511,7 @@ tbody.collapse.in {
   border-left: 4px solid transparent;
 }
 .dropup,
+
 .dropdown {
   position: relative;
 }
@@ -3539,6 +3540,7 @@ tbody.collapse.in {
   -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
           box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
 }
+
 .dropdown-menu.pull-right {
   right: 0;
   left: auto;

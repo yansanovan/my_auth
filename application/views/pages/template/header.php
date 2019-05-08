@@ -44,6 +44,8 @@
     opacity: 0;
     filter: alpha(opacity=0);
 }
+
+}
   </style>
 </head>
 
@@ -96,29 +98,42 @@
         <?php if ($this->session->userdata("level") == "kepolisian") {?>
         <li class="dropdown notifications-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            Notification <i class="fa fa-bell-o"></i><span class="label label-danger count"></span> 
+            Notification Surat <i class="fa fa-bell-o"></i><span class="label label-danger count"></span> 
           </a>
-          <ul class="dropdown-menu"></ul>
-        </li>
-        <?php } elseif ($this->session->userdata("level") == "kejaksaan"){ ?>
-        <li class="dropdown notifications-menu">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            Notification <i class="fa fa-bell-o"></i><span class="label label-danger count"></span> 
-          </a>
-          <ul class="dropdown-menu"></ul>
+          <ul class="dropdown-menu" id="kejaksaan"></ul>
         </li>
 
-        <?php } elseif ($this->session->userdata("level") == "pengadilan"){ ?>
-        <li class="dropdown notifications-menu">
+         <li class="dropdown notifications-menu">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            Notification Bon <i class="fa fa-bell-o"></i><span class="label label-danger"></span> 
+          </a>
+          <ul class="dropdown-menu" id="pengadilan">
+            <li>hi</li>
+          </ul>
+        </li>
+        <?php } ?>
+        
+        <?php  if ($this->session->userdata("level") == "kejaksaan"){ ?>
+         <li class="dropdown notifications-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             Notification <i class="fa fa-bell-o"></i><span class="label label-danger count"></span> 
           </a>
           <ul class="dropdown-menu"></ul>
         </li>
-        <?php }?>
+        <?php } ?>
+
+        <?php if ($this->session->userdata("level") == "pengadilan"){ ?>
+        <li class="dropdown notifications-menu">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            Notification Surat <i class="fa fa-bell-o"></i><span class="label label-danger count"></span> 
+          </a>
+          <ul class="dropdown-menu"></ul>
+        </li>
+       
+        <?php } ?>
         
         <li class="dropdown user user-menu">
-          <a href="#" class="dropdown-toggle">
+          <a >
             <img src="<?= base_url('asset/img/avatar.png');?>" class="user-image" alt="User Image">
             <span class="hidden-xs"><?= $this->session->userdata('username');?></span>
           </a>

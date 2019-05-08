@@ -175,7 +175,8 @@ class Kejaksaan extends MY_Controller
             }
 
             $post = $this->input->post(NULL, TRUE);    
-            $data = array( 'id_surat_kj'         => $post['id_surat'],
+            $data = array( 'id_polisi_kj'        => $post['id_polisi'],
+                           'id_surat_kj'         => $post['id_surat'],
                            'id_users_kj'         => $this->session->userdata('id'),
                            'spdp_kj'             => $spdp['file_name'],
                            'narkotika_kj'        => $narkotika['file_name'], 
@@ -185,7 +186,14 @@ class Kejaksaan extends MY_Controller
                            'pelimpahan_kj'       => $pelimpahan['file_name'],
                            'p_17_kj'             => $p_17['file_name']);
 
-            $this->m_surat->kejaksaan_balas($data, $id);  
+            $now = date('Y-m-d H:i:s');
+            $notification = array('id_polisi'           => $post['id_polisi'],
+                                   'id_surat_balasan'    => $post['id_surat'],
+                                   'id_users_pembalas'   => $this->session->userdata('id'),
+                                   'notif_balasan'       => 0,
+                                   'tanggal_balas'       => $now);
+
+            $this->m_surat->kejaksaan_balas($data, $notification, $id);  
             $this->session->set_flashdata('berhasil','<div class="alert alert-success" role="alert">Berhasil dibalas</div>');
             redirect(base_url('kejaksaan'));         
         }

@@ -31,8 +31,7 @@ class M_pengadilan extends CI_Model
 	{
 		$this->db->select('*');
 		$this->db->from('tbl_kepolisian');
-		$this->db->where("notif_pn", 0);		
-		// $this->db->order_by("id_data", "desc");		
+		$this->db->where("notif_pn", 0);			
 		return $this->db->get()->result();
 	}
 
@@ -128,21 +127,7 @@ class M_pengadilan extends CI_Model
 		}
 	}
 
-	public function ubah_deskripsi($id_data, $data, $url)
-	{	
-		$this->db->where('id_data', $id_data);
-		$this->db->update('tbl_pengadilan', $data);
-		if ($this->db->affected_rows() > 0 ) 
-		{
-			$this->cache->delete('pengadilan');
-
-			$this->cache->delete('detail_pengadilan_'.$url);
-
-			return true;
-		}
-	}
-
-
+	
 
 	public function unduh($id)
 	{
@@ -150,23 +135,4 @@ class M_pengadilan extends CI_Model
 		return $this->db->get('tbl_kepolisian')->row();
 	}
 
-	public function ambil_uraian_pokok_dan_putusan_amar($url)
-	{
-		$this->db->select('*');
-		$this->db->from('tbl_pengadilan');
-		$this->db->where(array('tbl_pengadilan.url' => $url));
-		return $this->db->get()->row();
-	}
-
-	public function ubah_uraian_pokok_dan_putusan_amar($id, $data, $url)
-	{
-		$this->db->where('id_data', $id);
-	    $this->db->update('tbl_pengadilan', $data);
-
-		if ($this->db->affected_rows() > 0 ) 
-		{
-			$this->cache->delete('detail_pengadilan_'.$url);
-			return true;
-		}
-	}
 }

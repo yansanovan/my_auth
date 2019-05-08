@@ -38,12 +38,10 @@ class M_surat extends CI_Model
 		$this->db->join('tbl_balas_kejaksaan','tbl_balas_kejaksaan.id_surat_kj = tbl_kepolisian.id_data', 'LEFT');
 		$this->db->join('tbl_balas_pengadilan','tbl_balas_pengadilan.id_surat_pn = tbl_kepolisian.id_data', 'LEFT');
 		
-		// $this->db->join('tbl_users','tbl_users.id = tbl_balas_kejaksaan.id_users_kj', 'LEFT');
-		// $this->db->join('tbl_users','tbl_users.id = tbl_balas_pengadilan.id_users_pn', 'INNER');
-		
+		$this->db->where("id_polisi_kj", $this->session->userdata('id'));
+		$this->db->or_where("id_polisi_pn", $this->session->userdata('id'));
+		// $this->db->or_where("id_users", $this->session->userdata('id'));
 		$this->db->order_by("id_data", "desc");
-		$this->db->where("status_kj", 1);
-		$this->db->or_where("status_pn", 1);
 		$query	= $this->db->get();        
 	    return $query->result_array();	
 	}
@@ -97,22 +95,26 @@ class M_surat extends CI_Model
 		$this->db->select('*');
 		$this->db->from('tbl_balas_pengadilan');
 		$this->db->join('tbl_kepolisian','tbl_kepolisian.id_data = tbl_balas_pengadilan.id_surat_pn');
-		$this->db->where("id_users_pn", $this->session->userdata('id'));		
+		$this->db->where("id_users_pn", $this->session->userdata('id'));	
+		$this->db->order_by('id_surat_pn','desc');	
 		return $this->db->get()->result();
 	}
 
-	public function kejaksaan_balas($data, $id)
+	public function kejaksaan_balas($data, $notification, $id)
 	{
 		$this->db->set('tanggal_balas_kj', 'NOW()', FALSE);
 		$this->db->insert('tbl_balas_kejaksaan', $data);
+		$this->db->insert('tbl_notification', $notification);
+
 		$this->db->where('id_data', $id);
 		$this->db->update('tbl_kepolisian', array('status_kj' => 1));
 	}
 
-	public function pengadilan_balas($data, $id)
+	public function pengadilan_balas($data, $notification, $id)
 	{
 		$this->db->set('tanggal_balas_pn', 'NOW()', FALSE);
 		$this->db->insert('tbl_balas_pengadilan', $data);
+		$this->db->insert('tbl_notification', $notification);
 		$this->db->where('id_data', $id);
 		$this->db->update('tbl_kepolisian', array('status_pn' => 1));
 	}
@@ -122,16 +124,18 @@ class M_surat extends CI_Model
 	{
 		$this->db->where('id_surat_kj', $id);
 		$this->db->delete('tbl_balas_kejaksaan');
+		
 		$this->db->where('id_data', $id);
 		$this->db->update('tbl_kepolisian', array('status_kj' => 0));
 	}
 
 	public function hapus_balasan_pn($id)
 	{
-		$this->db->where('id_surat_kj', $id);
-		$this->db->delete('tbl_balas_kejaksaan');
+		$this->db->where('id_surat_pn', $id);
+		$this->db->delete('tbl_balas_pengadilan');
+
 		$this->db->where('id_data', $id);
-		$this->db->update('tbl_kepolisian', array('status_kj' => 0));
+		$this->db->update('tbl_kepolisian', array('status_pn' => 0));
 	}
 
 	public function cek_balas_kejaksaan($id_surat)
