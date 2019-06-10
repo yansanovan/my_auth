@@ -40,7 +40,6 @@ class M_surat extends CI_Model
 		
 		$this->db->where("id_polisi_kj", $this->session->userdata('id'));
 		$this->db->or_where("id_polisi_pn", $this->session->userdata('id'));
-		// $this->db->or_where("id_users", $this->session->userdata('id'));
 		$this->db->order_by("id_data", "desc");
 		$query	= $this->db->get();        
 	    return $query->result_array();	
@@ -105,8 +104,7 @@ class M_surat extends CI_Model
 		$this->db->set('tanggal_balas_kj', 'NOW()', FALSE);
 		$this->db->insert('tbl_balas_kejaksaan', $data);
 		$this->db->insert('tbl_notification', $notification);
-
-		$this->db->where('id_data', $id);
+		$this->db->where('id_data', base64_decode($id));
 		$this->db->update('tbl_kepolisian', array('status_kj' => 1));
 	}
 
@@ -115,7 +113,7 @@ class M_surat extends CI_Model
 		$this->db->set('tanggal_balas_pn', 'NOW()', FALSE);
 		$this->db->insert('tbl_balas_pengadilan', $data);
 		$this->db->insert('tbl_notification', $notification);
-		$this->db->where('id_data', $id);
+		$this->db->where('id_data', base64_decode($id));
 		$this->db->update('tbl_kepolisian', array('status_pn' => 1));
 	}
 

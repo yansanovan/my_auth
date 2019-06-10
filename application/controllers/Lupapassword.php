@@ -1,5 +1,5 @@
 <?php
-class Lupapassword extends MY_Controller
+class Lupapassword extends CI_Controller
 {
 	function __construct()
 	{
@@ -9,16 +9,16 @@ class Lupapassword extends MY_Controller
 	}
 	public function index()
 	{
-		$this->cek_coba_logout_kejaksaan();
-		$this->cek_coba_logout_kepolisian();
-		$this->cek_coba_logout_pengadilan();
-		$this->cek_coba_logout_lapas();
-		$this->cek_coba_logout_superadmin();
+		cek_coba_logout_kejaksaan();
+		cek_coba_logout_kepolisian();
+		cek_coba_logout_pengadilan();
+		cek_coba_logout_lapas();
+		cek_coba_logout_superadmin();
 		$this->load->view('pages/lupapassword/index');
 	}
 	public function lupa_password()
 	{
-		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email',  array('required' => 'Email tidak boleh kosong!'));
+		$this->form_validation->set_rules('email','Email','required|trim|valid_email', array('required' =>'Email tidak boleh kosong!'));
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger" role="alert">','</div>');
 
 		if($this->form_validation->run() === FALSE)
@@ -79,8 +79,8 @@ class Lupapassword extends MY_Controller
 		if ($cek_users->num_rows() == 0) 
 		{
 			$this->session->set_flashdata('token_invalid','<div class="alert alert-danger" role="alert">
-																	Token anda invalid!
-															</div>');
+														    Token anda invalid!
+														   </div>');
 			redirect(base_url('lupapassword'));
 		}
 		else

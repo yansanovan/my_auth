@@ -29,12 +29,7 @@
 <!-- Datatables -->
 <script src="<?php echo base_url('asset/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js');?>"></script>
 
-<!-- <script src="<?php //echo base_url('asset/bower_components/jquery/dist/jquery.min.js');?>"></script> -->
-<!-- jQuery UI 1.11.4 -->
-<!-- <script src="<?php //echo base_url('asset/bower_components/jquery-ui/jquery-ui.min.js');?>"></script> -->
-
 <script type="text/javascript">
-
 
  $(document).ready(function(){
     $('#nama_tersangka').autocomplete({
@@ -255,72 +250,23 @@ $(function () {
       });
   }, 3000);
   
-  //modal kepolisian
-  $(document).on("click","#uraian_pasal", function()
-  {
-    var uraian_pasal  = $(this).data('uraian_pasal'); 
-    $("#modal-uraian #uraian_pasal").html(uraian_pasal);
-  });
-
-  $(document).on("click","#cerita", function()
-  {
-    var cerita_singkat  = $(this).data('cerita_singkat'); 
-    $("#modal-cerita #cerita_singkat").html(cerita_singkat);
-  });
-
-   //modal kejaksaan
-  $(document).on("click","#uraian_tuntutan", function()
-  {
-    var uraian_tuntutan  = $(this).data('uraian_tuntutan'); 
-    $("#modal-tuntutan_modal #uraian_tuntutan").html(uraian_tuntutan);
-  });
-
-  $(document).on("click","#uraian_dakwaan", function()
-  {
-    var uraian_dakwaan  = $(this).data('uraian_dakwaan'); 
-    $("#modal-dakwaan_modal #uraian_dakwaan").html(uraian_dakwaan);
-  });
-
-
-  //modal pengadilan 
-  $(document).on("click","#uraian_pokok", function()
-  {
-    var uraian_pokok  = $(this).data('uraian_pokok'); 
-    $("#modal-uraian_pokok_modal #uraian_pokok").html(uraian_pokok);
-  });
-
-  $(document).on("click","#putusan_amar", function()
-  {
-    var putusan_amar  = $(this).data('putusan_amar'); 
-    $("#modal-putusan_amar_modal #putusan_amar").html(putusan_amar);
-  });
-
-  $(document).on("click","#bon", function()
-  {
-    var id_bon            = $(this).data('id_bon');
-    var nama_tersangka    = $(this).data('nama_tersangka'); 
-
-    $("#modal-edit #id_bon").val(id_bon);
-    $("#modal-edit #nama_tersangka").val(nama_tersangka);
-
-
-  });
-
 // notification balasan ke polisi jenis surat
 
 $(document).ready(function(){
  
-load_unseen_notification_balasan();
 
-function load_unseen_notification_balasan(view = '')
+load_notification_balasan();
+
+
+function load_notification_balasan(view = '')
 {
   $.ajax({
-   url:"<?php echo site_url('kepolisian/notif');?>",
+   url:"<?php echo site_url('notifikasi/kepolisian');?>",
    method:"POST",
    data:{view:view},
    dataType:"json",
    success:function(data){
-    $('#kejaksaan').html(data.notification);
+    $('#notifikasi').html(data.notification);
       if(data.unseen_notification > 0){
        $('.count').html(data.unseen_notification);
       }
@@ -331,49 +277,47 @@ function load_unseen_notification_balasan(view = '')
  
  $(document).on('click', '.dropdown-toggle', function(){
   $('.count').html('');
-  load_unseen_notification_balasan('yes');
+  load_notification_balasan('yes');
  });
  
- setInterval(function(){ 
-  load_unseen_notification_balasan();; 
- }, 2000);
+ // setInterval(function(){ 
+ //  load_notification_balasan(); 
+ // }, 5000);
  
 });
 
-
-
-
-//notification di kejaksaan
+// notification di kejaksaan
 
 $(document).ready(function(){
- 
+  
 load_unseen_notification();
+
 
 function load_unseen_notification(view = '')
 {
   $.ajax({
-   url:"<?php echo site_url('kejaksaan/fetch');?>",
+   url:"<?php echo site_url('notifikasi/kejaksaan');?>",
    method:"POST",
    data:{view:view},
    dataType:"json",
    success:function(data){
-    $('.dropdown-menu').html(data.notification);
+    $('#kepolisian_kj').html(data.notification);
       if(data.unseen_notification > 0){
        $('.count').html(data.unseen_notification);
       }
    }
   });
 }
- 
  
  $(document).on('click', '.dropdown-toggle', function(){
   $('.count').html('');
   load_unseen_notification('yes');
  });
  
- setInterval(function(){ 
-  load_unseen_notification();; 
- }, 5000);
+ // setInterval(function(){ 
+ //  load_unseen_notification();
+
+ // }, 5000);
  
 });
 
@@ -381,17 +325,16 @@ function load_unseen_notification(view = '')
 //  notif di pengadilan
 $(document).ready(function(){
  
-load_unseen_notification_pn();
 
 function load_unseen_notification_pn(view = '')
 {
   $.ajax({
-   url:"<?php echo site_url('pengadilan/fetch');?>",
+   url:"<?php echo site_url('notifikasi/pengadilan');?>",
    method:"POST",
    data:{view:view},
    dataType:"json",
    success:function(data){
-    $('.dropdown-menu').html(data.notification);
+    $('#kepolisian_pn').html(data.notification);
       if(data.unseen_notification > 0){
        $('.count').html(data.unseen_notification);
       }
@@ -399,15 +342,16 @@ function load_unseen_notification_pn(view = '')
   });
 }
  
- 
+ load_unseen_notification_pn();
+
  $(document).on('click', '.dropdown-toggle', function(){
   $('.count').html('');
   load_unseen_notification_pn('yes');
  });
  
- setInterval(function(){ 
-  load_unseen_notification_pn();; 
- }, 2000);
+ // setTimeout(function(){ 
+ //  load_unseen_notification_pn();; 
+ // }, 5000);
  
 });
 

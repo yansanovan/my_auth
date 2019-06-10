@@ -3,7 +3,7 @@
     <div class="col-xs-12">
       <div class="box">
         <div class="box-header">
-          <h1 align="center"> Surat Balasan </h1>
+          <h1 align="center"><i class="fa fa-envelope-open"></i> Surat Balasan </h1>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -11,18 +11,18 @@
             <table id="example1" class="table table-bordered table-striped">
               <thead>
                 <tr>
-                  <th>No</th>
-                  <th>Nama Tersangka</th>
-                  <th>Pasal</th>
-                  <th>No Sprindik</th>
-                  <th>Status Balas (Kejaksaan)</th>
-                  <th>Status Balas (Pengadilan)</th>
-                  <th>Detail</th>
+                  <th><center>No</center></th>
+                  <th><center>Nama Tersangka</center></th>
+                  <th><center>Pasal</center></th>
+                  <th><center>No Sprindik</center></th>
+                  <th><center>Status Balas (Kejaksaan)</center></th>
+                  <th><center>Status Balas (Pengadilan)</center></th>
+                  <th><center>Detail</center></th>
                 </tr>
               </thead>
               <tbody>
                 <?php $no = 1; foreach ($data as $key => $value) : ?>
-                  <tr>
+                  <tr align="center">
                     <td><?= $no++;?></td>
                     <td><?= $value['nama_tersangka'];?></td>
                     <td><?= $value['pasal'];?></td>
@@ -36,7 +36,7 @@
                         <?php } else {?> <span class="label label-success">Valid </span> <?php } ?> 
                     </td>
                     <td>
-                        <a href="<?php echo base_url('kepolisian/detail_balas/'.$value['id_data']);?>" class="btn btn-info btn-sm"> 
+                        <a href="<?php echo base_url('kepolisian/detail_balas/'.$value['id_data']);?>" class="btn btn-info btn-xs"> 
                           <span class="glyphicon glyphicon-eye-open"></span> Detail
                         </a>
                     </td>

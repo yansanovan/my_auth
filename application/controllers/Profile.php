@@ -1,12 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Profile extends MY_Controller
+class Profile extends CI_Controller
 {
 	function __construct()
 	{
 		parent::__construct();
-		$this->cek_coba_loggin();	
+		cek_coba_loggin();	
 		$this->load->model('m_hashed');
 		$this->load->model('m_profile');
 	}

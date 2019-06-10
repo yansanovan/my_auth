@@ -26,7 +26,7 @@ if ($action == "edit")
           <?= $this->session->flashdata('berhasil');?>
           <?= $this->session->flashdata('terhapus');?>            
           <?= form_open_multipart('bon/simpan');?>
-          <h1 align="center"> Form <?= $page ;?> Bon </h1><br>
+          <h1 align="center"> <i class="fa fa-pencil-square" aria-hidden="true"></i> Form <?= $page ;?> Bon </h1><br>
           <div class="col-md-12">
             <a href="<?= base_url('bon/riwayat_bon');?>" class="btn btn-success btn-xs"> 
               <i class="fa fa-history"></i> Riwayat Bon
@@ -36,10 +36,10 @@ if ($action == "edit")
                 <tr>
                   <th class="col-sm-3">Nama Tersangka</th>
                   <?php if ($action == "edit") {?>
-                  <th class="col-sm-3">File Lama</th>
+                  <th class="col-sm-4">File Lama</th>
                   <?php } ?>
                   <th class="col-sm-3">File Pengajuan</th>
-                  <th class="col-sm-3">Keterangan</th>
+                  <th class="col-sm-2">Keterangan</th>
                 </tr>
               </thead>
               <tbody>
@@ -49,14 +49,14 @@ if ($action == "edit")
                     <div class="form-group">
                     <input type="hidden" name="id_bon" class="form-control"  value="<?= $id_bon;?>">
                     <input type="text" name="nama_tersangka" id="nama_tersangka" class="form-control" placeholder="nama tersangka" value="<?= $nama_tersangka;?>">
-                    <?php echo form_error('nama_tersangka','<p class="validate" style="color:red;">','</p>'); ?>
+                    <?php echo form_error('nama_tersangka'); ?>
                     </div>
                   </td>
                   
                   <?php if ($action == "edit") { ?>
                   <td>
                     <div class="form-group">
-                        <input type="text" name="file_lama" class="form-control" value="<?= $file_pengajuan_bon;?>" readonly>
+                      <p class="form-control"><i class="fa fa-file-text-o" aria-hidden="true"></i> <?= $file_pengajuan_bon;?> </p>
                     </div>
                   </td>
                   <?php } ?>
@@ -71,7 +71,7 @@ if ($action == "edit")
                           </span>
                       </div>
                       <input type="file" class="hidden" id="file" name="file_pengajuan_bon" value="<?= $file_pengajuan_bon;?>">
-                    <?php echo form_error('file_pengajuan_bon','<p class="validate" style="color:red;">','</p>'); ?>
+                    <?php echo form_error('file_pengajuan_bon'); ?>
                     </div>
                   </td>
 

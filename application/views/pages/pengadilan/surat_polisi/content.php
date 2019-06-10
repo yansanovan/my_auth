@@ -5,9 +5,8 @@
         <div class="box-header">
           <?= $this->session->flashdata('berhasil');?>
           <?= $this->session->flashdata('cek');?>
-          <h1 align="center"> Surat Polisi </h1>
+          <h1 align="center"> <i class="fa fa-envelope-open" aria-hidden="true"></i> SURAT POLISI </h1>
         </div>
-        <!-- /.box-header -->
         <div class="box-body">
           <div class="table-responsive">
             <table id="example1" class="table table-bordered table-striped">
@@ -56,18 +55,19 @@
                 </td>
 
                 <td>
-                    <a href="<?php echo base_url('pengadilan/detail/'. $value->url);?>" class="btn btn-info btn-sm"> 
+                    <a href="<?php echo base_url('pengadilan/detail/'. $value->url);?>" class="btn btn-info btn-xs"> 
                       <span class="glyphicon glyphicon-eye-open"></span> Detail
                     </a>
                 </td>
 
                 <td>
                   <?php if ($value->status_pn == 1) { ?>
-                    <a href="<?php echo base_url('pengadilan/form_balas/'.$value->id_data);?>" class="btn btn-success btn-sm"> <i class="fa fa-lock" aria-hidden="true"></i> Balas
+                    <a href="<?php echo base_url('pengadilan/form_balas/'.base64_encode($value->id_data));?>" class="btn btn-success btn-xs"> 
+                      <i class="fa fa-lock" aria-hidden="true"></i> Balas
                     </a>
                   <?php } else { ?>
-                    <a href="<?php echo base_url('pengadilan/form_balas/'.$value->id_data);?>" class="btn btn-danger btn-sm"> 
-                      <i class="fa fa-paper-plane" aria-hidden="true"></i> Balas
+                    <a href="<?php echo base_url('pengadilan/form_balas/'.base64_encode($value->id_data));?>" class="btn btn-danger btn-xs"> 
+                      <i class="fa fa-unlock" aria-hidden="true"></i> Balas
                     </a>
                   <?php } ?>
                 </td>

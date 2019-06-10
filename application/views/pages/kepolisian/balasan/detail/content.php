@@ -7,12 +7,12 @@
           <?= $this->session->flashdata('terhapus');?>
           <?= $this->session->flashdata('tanggal_berhasil_diubah');?>
   
-          <h1 align="center"> Surat Balasan Kejaksaan & Pengadilan </h1>
+          <h1 align="center"> <i class="fa fa-envelope-open"></i> Detail Surat Balasan </h1>
           
-          <br><br>
+          <br>
           <div class="col-md-12">
-          <a href="<?= base_url('kepolisian');?>" class="btn btn-success btn-sm">
-            <i class="fa fa-undo" aria-hidden="true"></i>  Kembali
+          <a href="<?= base_url('kepolisian');?>" class="btn btn-success btn-xs">
+            <i class="fa fa-long-arrow-left" aria-hidden="true"></i>  Kembali
           </a>
           <br><br>
           <table  width="350px">
@@ -74,12 +74,12 @@
                     <label for="exampleInputEmail1">Spdp</label>
                     <?php if ($value->spdp_kj == NULL) { ?>
                     <p>
-                      <a  class="btn btn-danger btn-sm" disabled>
+                      <a  class="btn btn-danger btn-xs" disabled>
                       <i class="glyphicon glyphicon-download-alt"></i></a> 
                     </p>
                     <?php } else { ?>
                     <p>
-                      <a href="<?= base_url('kepolisian/unduh_kj/'.$value->spdp_kj);?>" class="btn btn-primary btn-sm"  onclick="return confirm('Download file ini ?')">
+                      <a href="<?= base_url('kepolisian/unduh_kj/'.$value->spdp_kj);?>" class="btn btn-primary btn-xs"  onclick="return confirm('Download file ini ?')">
                       <i class="glyphicon glyphicon-download-alt"></i></a> <?= $value->spdp_kj;?>
                     </p>
                    <?php } ?>
@@ -94,12 +94,12 @@
                     <label for="exampleInputEmail1">Ijin Geledah</label>
                     <?php if ($value->ijin_geledah_pn == NULL) { ?>
                     <p>
-                      <a  class="btn btn-danger btn-sm" disabled>
+                      <a  class="btn btn-danger btn-xs" disabled>
                       <i class="glyphicon glyphicon-download-alt"></i></a> 
                     </p>
                     <?php } else { ?>
                     <p>
-                      <a href="<?= base_url('kepolisian/unduh_pn/'.$value->ijin_geledah_pn);?>" class="btn btn-primary btn-sm" onclick="return confirm('Download file ini ?')">
+                      <a href="<?= base_url('kepolisian/unduh_pn/'.$value->ijin_geledah_pn);?>" class="btn btn-primary btn-xs" onclick="return confirm('Download file ini ?')">
                       <i class="glyphicon glyphicon-download-alt"></i></a> <?= $value->ijin_geledah_pn;?>
                     </p>
                    <?php } ?>
@@ -108,12 +108,12 @@
                     <label for="exampleInputEmail1">Setuju Geledah</label>
                     <?php if ($value->setuju_geledah_pn == NULL) { ?>
                     <p>
-                      <a  class="btn btn-danger btn-sm" disabled>
+                      <a class="btn btn-danger btn-xs" disabled>
                       <i class="glyphicon glyphicon-download-alt"></i></a> 
                     </p>
                     <?php } else { ?>
                     <p>
-                      <a href="<?= base_url('kepolisian/unduh_pn/'.$value->setuju_geledah_pn);?>" class="btn btn-primary btn-sm" onclick="return confirm('Download file ini ?')">
+                      <a href="<?= base_url('kepolisian/unduh_pn/'.$value->setuju_geledah_pn);?>" class="btn btn-primary btn-xs" onclick="return confirm('Download file ini ?')">
                       <i class="glyphicon glyphicon-download-alt"></i></a> <?= $value->setuju_geledah_pn;?>
                     </p>
                    <?php } ?>
@@ -128,12 +128,12 @@
                     <label for="exampleInputEmail1">Khusus</label>
                     <?php if ($value->khusus_pn == NULL) { ?>
                     <p>
-                      <a  class="btn btn-danger btn-sm" disabled>
+                      <a  class="btn btn-danger btn-xs" disabled>
                       <i class="glyphicon glyphicon-download-alt"></i></a> 
                     </p>
                     <?php } else { ?>
                     <p>
-                      <a href="<?= base_url('kepolisian/unduh_pn/'.$value->khusus_pn);?>" class="btn btn-primary btn-sm" onclick="return confirm('Download file ini ?')">
+                      <a href="<?= base_url('kepolisian/unduh_pn/'.$value->khusus_pn);?>" class="btn btn-primary btn-xs" onclick="return confirm('Download file ini ?')">
                       <i class="glyphicon glyphicon-download-alt"></i></a> <?= $value->khusus_pn;?>
                     </p>
                    <?php } ?>
@@ -143,12 +143,12 @@
                     <label for="exampleInputEmail1">Biasa</label>
                     <?php if ($value->biasa_pn == NULL) { ?>
                     <p>
-                      <a  class="btn btn-danger btn-sm" disabled>
+                      <a  class="btn btn-danger btn-xs" disabled>
                       <i class="glyphicon glyphicon-download-alt"></i></a> 
                     </p>
                     <?php } else { ?>
                     <p>
-                      <a href="<?= base_url('kepolisian/unduh_pn/'.$value->biasa_pn);?>" class="btn btn-primary btn-sm" onclick="return confirm('Download file ini ?')">
+                      <a href="<?= base_url('kepolisian/unduh_pn/'.$value->biasa_pn);?>" class="btn btn-primary btn-xs" onclick="return confirm('Download file ini ?')">
                       <i class="glyphicon glyphicon-download-alt"></i></a> <?= $value->biasa_pn;?>
                     </p>
                    <?php } ?>
@@ -158,12 +158,12 @@
                     <label for="exampleInputEmail1">Narkotika</label>
                     <?php if ($value->narkotika_kj == NULL) { ?>
                     <p>
-                      <a  class="btn btn-danger btn-sm" disabled>
+                      <a  class="btn btn-danger btn-xs" disabled>
                       <i class="glyphicon glyphicon-download-alt"></i></a> 
                     </p>
                     <?php } else { ?>
                     <p>
-                      <a href="<?= base_url('kepolisian/unduh_kj/'.$value->narkotika_kj);?>" class="btn btn-primary btn-sm" onclick="return confirm('Download file ini ?')">
+                      <a href="<?= base_url('kepolisian/unduh_kj/'.$value->narkotika_kj);?>" class="btn btn-primary btn-xs" onclick="return confirm('Download file ini ?')">
                       <i class="glyphicon glyphicon-download-alt"></i></a> <?= $value->narkotika_kj;?>
                     </p>
                    <?php } ?>
@@ -178,12 +178,12 @@
                     <label for="exampleInputEmail1">Kejaksaan</label>
                     <?php if ($value->kejaksaan_kj == NULL) { ?>
                     <p>
-                      <a  class="btn btn-danger btn-sm" disabled>
+                      <a  class="btn btn-danger btn-xs" disabled>
                       <i class="glyphicon glyphicon-download-alt"></i></a> 
                     </p>
                     <?php } else { ?>
                     <p>
-                      <a href="<?= base_url('kepolisian/unduh_kj/'.$value->kejaksaan_kj);?>" class="btn btn-primary btn-sm" onclick="return confirm('Download file ini ?')">
+                      <a href="<?= base_url('kepolisian/unduh_kj/'.$value->kejaksaan_kj);?>" class="btn btn-primary btn-xs" onclick="return confirm('Download file ini ?')">
                       <i class="glyphicon glyphicon-download-alt"></i></a> <?= $value->kejaksaan_kj;?>
                     </p>
                    <?php } ?>
@@ -193,12 +193,12 @@
                     <label for="exampleInputEmail1">Pengadilan</label>
                     <?php if ($value->pengadilan_pn == NULL) { ?>
                     <p>
-                      <a  class="btn btn-danger btn-sm" disabled>
+                      <a  class="btn btn-danger btn-xs" disabled>
                       <i class="glyphicon glyphicon-download-alt"></i></a> 
                     </p>
                     <?php } else { ?>
                     <p>
-                      <a href="<?= base_url('kepolisian/unduh_pn/'.$value->pengadilan_pn);?>" class="btn btn-primary btn-sm" onclick="return confirm('Download file ini ?')">
+                      <a href="<?= base_url('kepolisian/unduh_pn/'.$value->pengadilan_pn);?>" class="btn btn-primary btn-xs" onclick="return confirm('Download file ini ?')">
                       <i class="glyphicon glyphicon-download-alt"></i></a> <?= $value->pengadilan_pn;?>
                     </p>
                    <?php } ?>
@@ -213,12 +213,12 @@
                     <label for="exampleInputEmail1">P-18</label>
                     <?php if ($value->p_18_kj == NULL) { ?>
                     <p>
-                      <a  class="btn btn-danger btn-sm" disabled>
+                      <a  class="btn btn-danger btn-xs" disabled>
                       <i class="glyphicon glyphicon-download-alt"></i></a> 
                     </p>
                     <?php } else { ?>
                     <p>
-                      <a href="<?= base_url('kepolisian/unduh_kj/'.$value->p_18_kj);?>" class="btn btn-primary btn-sm" onclick="return confirm('Download file ini ?')">
+                      <a href="<?= base_url('kepolisian/unduh_kj/'.$value->p_18_kj);?>" class="btn btn-primary btn-xs" onclick="return confirm('Download file ini ?')">
                       <i class="glyphicon glyphicon-download-alt"></i></a> <?= $value->p_18_kj;?>
                     </p>
                    <?php } ?>
@@ -228,12 +228,12 @@
                     <label for="exampleInputEmail1">P-21</label>
                     <?php if ($value->p_21_kj == NULL) { ?>
                     <p>
-                      <a  class="btn btn-danger btn-sm" disabled>
+                      <a  class="btn btn-danger btn-xs" disabled>
                       <i class="glyphicon glyphicon-download-alt"></i></a> 
                     </p>
                     <?php } else { ?>
                     <p>
-                      <a href="<?= base_url('kepolisian/unduh_kj/'.$value->p_21_kj);?>" class="btn btn-primary btn-sm" onclick="return confirm('Download file ini ?')">
+                      <a href="<?= base_url('kepolisian/unduh_kj/'.$value->p_21_kj);?>" class="btn btn-primary btn-xs" onclick="return confirm('Download file ini ?')">
                       <i class="glyphicon glyphicon-download-alt"></i></a> <?= $value->p_21_kj;?>
                     </p>
                    <?php } ?>
@@ -248,12 +248,12 @@
                     <label for="exampleInputEmail1">Pelimpahan</label>
                     <?php if ($value->pelimpahan_kj == NULL) { ?>
                     <p>
-                      <a  class="btn btn-danger btn-sm" disabled>
+                      <a  class="btn btn-danger btn-xs" disabled>
                       <i class="glyphicon glyphicon-download-alt"></i></a> 
                     </p>
                     <?php } else { ?>
                     <p>
-                      <a href="<?= base_url('kepolisian/unduh_kj/'.$value->pelimpahan_kj);?>" class="btn btn-primary btn-sm" onclick="return confirm('Download file ini ?')">
+                      <a href="<?= base_url('kepolisian/unduh_kj/'.$value->pelimpahan_kj);?>" class="btn btn-primary btn-xs" onclick="return confirm('Download file ini ?')">
                       <i class="glyphicon glyphicon-download-alt"></i></a> <?= $value->pelimpahan_kj;?>
                     </p>
                    <?php } ?>
@@ -268,12 +268,12 @@
                     <label for="exampleInputEmail1">P-17</label>
                     <?php if ($value->p_17_kj == NULL) { ?>
                     <p>
-                      <a  class="btn btn-danger btn-sm" disabled>
+                      <a  class="btn btn-danger btn-xs" disabled>
                       <i class="glyphicon glyphicon-download-alt"></i></a> 
                     </p>
                     <?php } else { ?>
                     <p>
-                      <a href="<?= base_url('kepolisian/unduh_kj/'.$value->p_17_kj);?>" class="btn btn-primary btn-sm" onclick="return confirm('Download file ini ?')">
+                      <a href="<?= base_url('kepolisian/unduh_kj/'.$value->p_17_kj);?>" class="btn btn-primary btn-xs" onclick="return confirm('Download file ini ?')">
                       <i class="glyphicon glyphicon-download-alt"></i></a> <?= $value->p_17_kj;?>
                     </p>
                    <?php } ?>

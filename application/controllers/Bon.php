@@ -1,15 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Bon extends MY_Controller
+class Bon extends CI_Controller
 {
 	function __construct()
 	{
 		parent::__construct();
-		$this->cek_coba_loggin();
-		$this->lapas_cobamasuk_kepolisian();
-		$this->superadmin_cobamasuk_kepolisian();
-		$this->load->helper('file');
+		cek_coba_loggin();
+		superadmin_cobamasuk_bon();
+		
 		$this->load->model('m_bon');
 		$this->load->model('m_surat');
 		$this->load->helper('date');
@@ -48,9 +47,13 @@ class Bon extends MY_Controller
 			
 		$this->form_validation->set_rules('nama_tersangka','Nama tersangka','required', array('required' => 'Nama tersangka tidak Boleh Kosong!'));
 		$this->form_validation->set_rules('file_pengajuan_bon', '', 'callback_file_pengajuan_bon');
+        $this->form_validation->set_error_delimiters('<p class="validate" style="color:red;"><i class="fa fa-exclamation-circle"></i> ','</p>');
 
 			if ($this->form_validation->run() == FALSE) 
 			{
+				// $data['page'] = 'Entry';
+				// $data['action'] = 'add';
+				// $this->template->load('pages/template/template','pages/bon/form_bon/content', $data);
 				$this->form_bon();
 			}
 			else
@@ -80,8 +83,9 @@ class Bon extends MY_Controller
 			}
 		}
 		if ($this->input->post('edit')) {
-			$this->form_validation->set_rules('nama_tersangka','Nama tersangka','required', array('required' => 'Nama tersangka tidak Boleh Kosong!'));
+			$this->form_validation->set_rules('nama_tersangka','Nama tersangka','required', array('required' => 'Nama tersangka tidak Boleh kosong.'));
 			$this->form_validation->set_rules('file_pengajuan_bon', '', 'callback_file_pengajuan_bon');
+	        $this->form_validation->set_error_delimiters('<p class="validate" style="color:red;"><i class="fa fa-exclamation-circle"></i> ','</p>');
 
 			if ($this->form_validation->run() == FALSE) 
 			{
@@ -133,7 +137,7 @@ class Bon extends MY_Controller
 	            }
 	            else
 	            {
-	                $this->form_validation->set_message('file_pengajuan_bon', 'Pilih file pengajuan bon hanya word atau pdf.');
+	                $this->form_validation->set_message('file_pengajuan_bon', 'Pilih file bon hanya word atau pdf.');
 	                return false;
 	            }
 	        }
@@ -154,7 +158,7 @@ class Bon extends MY_Controller
 	                return false;
 	            }
 	        }
-        	$this->form_validation->set_message('file_pengajuan_bon', 'file pengajuan bon tidak boleh kosong!');
+        	$this->form_validation->set_message('file_pengajuan_bon', 'file pengajuan bon tidak boleh kosong.');
             return false;
         }
     }
@@ -189,18 +193,19 @@ class Bon extends MY_Controller
         }
     }
     
-    public function unduh()
+  	public function unduh()
     {
-        $this->load->helper('download');
-        if($this->uri->segment(3))
-        {
-            $data = 'uploads/lapas/bon/'.$this->uri->segment(3); 
-        }
-        else
-        {
-            show_404();
-        }
-        force_download($data, null);
+    	$this->load->helper('download');
+		if($this->uri->segment(3))
+		{
+    		$data = 'uploads/lapas/bon/'.$this->uri->segment(3); 
+		}
+		else
+		{
+			show_404();
+		}
+	
+		force_download($data, null);
     }
 
 }

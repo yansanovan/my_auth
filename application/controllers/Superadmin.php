@@ -1,17 +1,17 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-Class Superadmin extends MY_controller
+Class Superadmin extends CI_Controller
 {
 
 	function __construct()
 	{
 		parent::__construct();
-		$this->cek_coba_loggin();
-		$this->kepolisian_cobamasuk_superadmin();
-		$this->kejaksaan_cobamasuk_superadmin();
-		$this->pengadilan_cobamasuk_superadmin();
-		$this->lapas_cobamasuk_superadmin();
+		cek_coba_loggin();
+		kepolisian_cobamasuk_superadmin();
+		kejaksaan_cobamasuk_superadmin();
+		pengadilan_cobamasuk_superadmin();
+		lapas_cobamasuk_superadmin();
 		$this->load->model('m_superadmin');
 		$this->load->model('m_hashed');
 	}

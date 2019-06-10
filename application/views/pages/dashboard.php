@@ -8,20 +8,26 @@
     <li class="active">Dashboard</li>
   </ol>
 </section>
+<!-- Main content -->
 
-    <!-- Main content -->
 <section class="content">
+    <div class="jumbotron">
+      <center>
+        <h1 class="display-4">Selamat Datang!</h1>
+        <p class="lead">Anda berhasil Login di Aplikasi Terpadu, Terima kasih!</p>
+      </center>
+    </div>
   <div class="row">
     <div class="col-lg-3 col-xs-6">
       <!-- small box -->
       <div class="small-box bg-aqua">
         <div class="inner">
-          <h3>150</h3>
+          <h3>Surat : <?= $data1;?></h3>
 
-          <p>Surat Polisi</p>
+          <p><?= $title1;?></p>
         </div>
         <div class="icon">
-          <i class="ion ion-bag"></i>
+          <i class="ion ion-stats-bars"></i>
         </div>
         <a href="#" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
       </div>
@@ -31,39 +37,39 @@
       <!-- small box -->
       <div class="small-box bg-green">
         <div class="inner">
-          <h3>53<sup style="font-size: 20px">%</sup></h3>
+          <h3>Total : <?= $data2;?></h3>
 
-          <p>Bon Masuk</p>
+          <p><?= $title2;?></p>
         </div>
         <div class="icon">
           <i class="ion ion-stats-bars"></i>
         </div>
-        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        <a href="#" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
       </div>
     </div>
     <!-- ./col -->
+    <?php if($this->session->userdata('level') !='lapas'){?>
     <div class="col-lg-3 col-xs-6">
       <!-- small box -->
       <div class="small-box bg-yellow">
         <div class="inner">
-          <h3>44</h3>
+        <h3>Bon : <?= $bon;?></h3>
 
-          <p>User Registrations</p>
+        <p><?= $title_bon;?></p>
         </div>
         <div class="icon">
-          <i class="ion ion-person-add"></i>
+        <i class="ion ion-ios-pricetag-outline"></i>
         </div>
-        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-      </div>
+        <a href="#" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
     </div>
     <!-- ./col -->
     <div class="col-lg-3 col-xs-6">
       <!-- small box -->
       <div class="small-box bg-red">
         <div class="inner">
-          <h3>65</h3>
-
-          <p>Unique Visitors</p>
+          <h3>APL : <?= $apl;?></h3>
+          <p><?= $title_apl;?></p>
         </div>
         <div class="icon">
           <i class="ion ion-pie-graph"></i>
@@ -71,6 +77,8 @@
         <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
       </div>
     </div>
-    <!-- ./col -->
+  <?php } ?>
   </div>
+
 </section>
+  

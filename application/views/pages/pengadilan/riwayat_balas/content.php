@@ -14,51 +14,38 @@
             <table id="example1" class="table table-bordered table-striped">
               <thead>
               <tr>
-                <center><th>No</th></center>
+                <th>No</th>
                 <th>Nama Tersangka</th>
-                <th>Tanggal Posting</th>
-                <th>Detail</th>
+                <th>Pasal</th>
+                <th>No.Sprindik</th>
+                <th>Tanggal Balas</th>
                 <th>Aksi</th>
               </tr>
               </thead>
               <tbody> 
               <?php 
               $no = 1;
-              foreach ($data as $key => $value) 
-              {
-              ?>
+              foreach ($data as $key => $value) { ?>
               <tr>
                 <td><?= $no++;?></td>
-                 <td style ="<?= $value->nama_tersangka;?>">
-                  <?= $value->nama_tersangka;?>
-                </td>
+                <td><?= $value->nama_tersangka;?></td>
+                <td><?= $value->pasal;?></td>
+                <td><?= $value->no_sprindik;?></td>
+                <td><?php echo date('d M Y h:i:a', strtotime($value->tanggal_balas_pn)); ?></td>
                 <td>
-                  <?php echo date('d M Y h:i:a', strtotime($value->tanggal_balas_pn)); ?>
-                </td>
-                <td>
-                    <a href="<?php echo base_url('pengadilan/detail_balas/'.$value->id_surat_pn);?>" class="btn btn-info btn-sm"> 
-                      <span class="glyphicon glyphicon-eye-open"></span> Detail
-                    </a>
-                </td>
-                
-                <td>
-                    <a href="<?php echo base_url('pengadilan/hapus_balasan/'.$value->id_surat_pn);?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin Mau Hapus Jadwal Ini')"> <span class="glyphicon glyphicon-trash"></span> Hapus
-                    </a>
-                    <a href="<?php echo base_url('pengadilan/edit/'.$value->id_surat_pn);?>" class="btn btn-warning btn-sm"> 
-                      <span class="glyphicon glyphicon-edit"></span> Edit
-                    </a>
+                  <a href="<?php echo base_url('pengadilan/hapus_balasan/'.$value->id_surat_pn);?>" class="btn btn-danger btn-xs" onclick="return confirm('Yakin Mau Hapus Jadwal Ini')"> <span class="glyphicon glyphicon-trash"></span> Hapus</a>
+                  <a href="<?php echo base_url('pengadilan/edit_balas/'.base64_encode($value->id_surat_pn));?>" class="btn btn-warning btn-xs"> <span class="glyphicon glyphicon-edit"></span> Edit</a>
                 </td>
               </tr>           
-              <?php 
-              } 
-              ?>
+              <?php } ?>
               </tbody>
               <tfoot>
               <tr>
                 <th>No</th>
                 <th>Nama Tersangka</th>
-                <th>Tanggal Posting</th>
-                <th>Detail</th>
+                <th>Pasal</th>
+                <th>No.Sprindik</th>
+                <th>Tanggal Balas</th>
                 <th>Aksi</th>
               </tr>
               </tfoot>

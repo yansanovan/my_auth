@@ -6,9 +6,9 @@
           <?php echo form_open_multipart();?>
 
           <div class="col-md-12">
-            <h1 align="center">Form Balas</h1><br>
-            <a href="<?= base_url('pengadilan');?>" class="btn btn-success btn-sm">
-              <i class="fa fa-undo" aria-hidden="true"></i>  Kembali
+            <h1 align="center"><i class="fa fa-pencil-square" aria-hidden="true"></i> Form Balas</h1><br>
+            <a href="<?= base_url('pengadilan');?>" class="btn btn-success btn-xs">
+              <i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali
             </a><br><br>
             <table class="table table-bordered">
               <thead>
@@ -24,14 +24,14 @@
                   <td>
                     <input type="hidden" name="id_polisi" value="<?= $value->id_users;?>">
                     <input type="hidden" name="id_surat" value="<?= $value->id_data;?>">
-                    <input type="text" name="nama_tersangka" value="<?= $value->nama_tersangka; ?>" class="form-control" readonly>
+                    <p><?= $value->nama_tersangka; ?></p>
                   </td>
                 </tr>
                 
                 <tr>
                   <td>Pasal</td>
                   <td> 
-                    <input type="text" name="pasal" value="<?= $value->pasal; ?>" class="form-control" readonly >
+                    <p><?= $value->pasal; ?></p>
                   </td>
                 </tr>
 
@@ -39,7 +39,7 @@
                   <td>No Sprindik</td>
                   <td>
                     <div class="form-group">
-                      <input type="text" name="no_sprindik" value="<?= $value->no_sprindik; ?>" class="form-control" readonly >
+                      <p><?= $value->no_sprindik; ?></p>
                     </div>
                   </td>
                 </tr>
@@ -57,7 +57,7 @@
                           </span>
                       </div>
                       <input type="file" class="hidden" id="file2" name="ijin_geledah" value="<?php echo set_value('ijin_geledah'); ?>">
-                      <?php echo form_error('ijin_geledah','<p class="validate" style="color:red;">','</p>'); ?>
+                      <?php echo form_error('ijin_geledah'); ?>
                     </div>
 
                     <div class="form-group">
@@ -70,7 +70,7 @@
                           </span>
                       </div>
                       <input type="file" class="hidden" id="file3" name="setuju_geledah" value="<?php echo set_value('setuju_geledah'); ?>">
-                      <?php echo form_error('setuju_geledah','<p class="validate" style="color:red;">','</p>'); ?>
+                      <?php echo form_error('setuju_geledah'); ?>
                     </div>
                   </td>
                 </tr>
@@ -88,7 +88,7 @@
                           </span>
                       </div>
                       <input type="file" class="hidden" id="file4" name="khusus" value="<?php echo set_value('khusus');?>">
-                      <?php echo form_error('khusus','<p class="validate" style="color:red;">','</p>'); ?>
+                      <?php echo form_error('khusus'); ?>
                     </div>
 
                     <label for="exampleInputEmail1">Biasa</label>
@@ -100,7 +100,7 @@
                         </span>
                     </div>
                     <input type="file" class="hidden" id="file5" name="biasa" value="<?php echo set_value('biasa');?>">
-                    <?php echo form_error('biasa','<p class="validate" style="color:red;">','</p>'); ?>
+                    <?php echo form_error('biasa'); ?>
                   </td>
                 </tr>
               
@@ -116,7 +116,7 @@
                           </span>
                       </div>
                       <input type="file" class="hidden" id="file8" name="pengadilan" value="<?php echo set_value('pengadilan');?>">
-                      <?php echo form_error('pengadilan','<p class="validate" style="color:red;">','</p>'); ?>
+                      <?php echo form_error('pengadilan'); ?>
                   </td>
                 </tr>
 

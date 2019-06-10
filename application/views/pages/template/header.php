@@ -28,24 +28,28 @@
 
   <script src="https://cdn.ckeditor.com/4.11.3/standard/ckeditor.js"></script>
   <style type="text/css">
+
+   
+  .jumbotron{
+    color: white;
+    background-color:rgb(71, 163, 254);
+  }
     .fileUpload {
     position: relative;
     overflow: hidden;
     margin: 10px;
-}
-.fileUpload input.upload {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 0;
-    padding: 0;
-    font-size: 20px;
-    cursor: pointer;
-    opacity: 0;
-    filter: alpha(opacity=0);
-}
-
-}
+  }
+  .fileUpload input.upload {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 0;
+      padding: 0;
+      font-size: 20px;
+      cursor: pointer;
+      opacity: 0;
+      filter: alpha(opacity=0);
+  }
   </style>
 </head>
 
@@ -55,38 +59,7 @@
 <header class="main-header">
   <a href="" class="logo">
     <span class="logo-mini"><b>A</b>LT</span>
-    <span class="logo-lg">
-      <?php if($this->session->userdata('level') =='kejaksaan')
-      {
-      ?>
-      <b> Kejaksaan </b>
-      <?php
-      }
-      else if ($this->session->userdata('level') =='kepolisian') 
-      {
-      ?>
-      <b> Polisi </b>
-      <?php
-      }
-      else if ($this->session->userdata('level') =='pengadilan') 
-      {
-      ?> 
-      <b> Pengadilan </b>
-      <?php
-      }
-      else if ($this->session->userdata('level') =='lapas') 
-      {
-      ?>
-      <b> Lapas </b>
-      <?php
-      }
-      else if ($this->session->userdata('level') =='superadmin') 
-      {
-      ?> <b> Superadmin </b>;
-      <?php
-      }
-      ?>
-    </span>
+    <span class="logo-lg"><b>APLIKASI TERPADU</b> </span>
   </a>
   <nav class="navbar navbar-static-top">
     <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
@@ -100,7 +73,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             Notification Surat <i class="fa fa-bell-o"></i><span class="label label-danger count"></span> 
           </a>
-          <ul class="dropdown-menu" id="kejaksaan"></ul>
+          <ul class="dropdown-menu" id="notifikasi"></ul>
         </li>
 
          <li class="dropdown notifications-menu">
@@ -118,7 +91,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             Notification <i class="fa fa-bell-o"></i><span class="label label-danger count"></span> 
           </a>
-          <ul class="dropdown-menu"></ul>
+          <ul class="dropdown-menu" id="kepolisian_kj"></ul>
         </li>
         <?php } ?>
 
@@ -127,18 +100,37 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             Notification Surat <i class="fa fa-bell-o"></i><span class="label label-danger count"></span> 
           </a>
-          <ul class="dropdown-menu"></ul>
+          <ul class="dropdown-menu" id="kepolisian_pn"></ul>
         </li>
        
         <?php } ?>
         
         <li class="dropdown user user-menu">
-          <a >
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <img src="<?= base_url('asset/img/avatar.png');?>" class="user-image" alt="User Image">
             <span class="hidden-xs"><?= $this->session->userdata('username');?></span>
           </a>
+          <ul class="dropdown-menu" id="profile">
+            <!-- User image -->
+            <li class="user-header">
+              <img  src="<?= base_url('asset/img/avatar.png');?>" class="img-circle" alt="User Image">
+
+              <p>
+                <?= $this->session->userdata('email');?>
+                <small>level : <?= $this->session->userdata('email');?></small>
+              </p>
+            </li>
+            <!-- Menu Footer-->
+            <li class="user-footer">
+              <div class="pull-left">
+                <a href="<?= base_url('profile');?>" class="btn btn-default btn-flat">Profile</a>
+              </div>
+              <div class="pull-right">
+                <a href="<?= base_url('auth/sign_out');?>" class="btn btn-default btn-flat">Sign out</a>
+              </div>
+            </li>
+          </ul>
         </li>
-        
       </ul>
     </div>
   </nav>

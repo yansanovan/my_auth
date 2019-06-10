@@ -5,7 +5,7 @@
         <div class="box-header">
           <?= $this->session->flashdata('berhasil');?>
           <?= $this->session->flashdata('cek');?>
-          <h1 align="center"> Surat Polisi </h1>
+          <h1 align="center"><i class="fa fa-envelope-open"></i> Surat Polisi </h1>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -54,26 +54,28 @@
                 </td>
 
                 <td>
-                    <a href="<?php echo base_url('kejaksaan/detail/'. $value->url);?>" class="btn btn-info btn-sm"> 
-                      <span class="glyphicon glyphicon-eye-open"></span> Detail
-                    </a>
+                  <a href="<?php echo base_url('kejaksaan/detail/'. base64_encode($value->url));?>" class="btn btn-info btn-xs"> 
+                    <span class="glyphicon glyphicon-eye-open"></span> Detail
+                  </a>
                 </td>
                 <td>
-                <?php 
+                <?php
+
                 if ($value->status_kj == 1) 
                 {
                 ?>
-                    <a href="<?php echo base_url('kejaksaan/form_balas/'.$value->id_data);?>" class="btn btn-success btn-sm"> 
-                      <i class="fa fa-lock" aria-hidden="true"></i> Balas
-                    </a>
+                  <a href="<?php echo base_url('kejaksaan/form_balas/'.base64_encode($value->id_data));?>" class="btn btn-success btn-xs"> 
+                    <i class="fa fa-lock" aria-hidden="true"></i> Balas
+                  </a>
                 <?php 
                 }
                 else
                 {
                 ?>
-                    <a href="<?php echo base_url('kejaksaan/form_balas/'.$value->id_data);?>" class="btn btn-danger btn-sm"> 
-                     <i class="fa fa-unlock" aria-hidden="true"></i> Balas
-                    </a>
+      
+                  <a href="<?php echo base_url('kejaksaan/form_balas/'.base64_encode($value->id_data));?>" class="btn btn-danger btn-xs"> 
+                    <i class="fa fa-unlock" aria-hidden="true"></i> Balas
+                  </a>
                 <?php  
                 }
                 ?>

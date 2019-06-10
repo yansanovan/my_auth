@@ -5,7 +5,7 @@
         <div class="box-header">
           <?= $this->session->flashdata('cek');?>
           <?= $this->session->flashdata('berhasil');?>
-          <h1 align="center"> Bon Balasan Lapas </h1>
+          <h1 align="center"><i class="fa fa-inbox" aria-hidden="true"></i> Bon Balasan </h1>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -29,7 +29,7 @@
                 <td><?= $no++;?></td>
                 <td><?= $value->nama_tersangka;?></td>
                 <td>
-                  <a href="<?= base_url('bon/unduh/'.$value->file_pengajuan_bon);?>" onclick="return confirm('mau download?')" class="btn btn-primary btn-sm">
+                  <a href="<?= base_url('bon/unduh/'.$value->file_pengajuan_bon);?>" onclick="return confirm('mau download?')" class="btn btn-primary btn-xs">
                     <i class="glyphicon glyphicon-download-alt"></i> 
                   </a> <?= $value->file_pengajuan_bon;?>
                 </td>

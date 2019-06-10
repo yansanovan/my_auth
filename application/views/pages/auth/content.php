@@ -29,10 +29,10 @@
   <div class="login-box-body">
     <p class="login-box-msg">Silahkan Login</p>
     <?= $this->session->flashdata('flashdata');?>
-    
     <?= $this->session->flashdata('gagal');?>
     <?= $this->session->flashdata('akses_dilarang');?>
     <?= $this->session->flashdata('invalid');?>
+    <?= $this->session->flashdata('blokir');?>
     <?= validation_errors();?>    
     <?= form_open('auth/sign_in');?>
       <div class="form-group has-feedback">

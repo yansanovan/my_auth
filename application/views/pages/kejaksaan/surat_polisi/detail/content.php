@@ -7,18 +7,31 @@
           <?= $this->session->flashdata('terhapus');?>
           <?= $this->session->flashdata('tanggal_berhasil_diubah');?>
   
-          <h1 align="center"> Detail Surat Polisi </h1>
+          <h1 align="center"> <i class="fa fa-file-text" aria-hidden="true"></i> Detail Surat Polisi </h1>
           <br>
-
           <div class="col-md-12">
-          <?php foreach ($data as $key => $value) { ?>
-          <a href="<?= base_url('kejaksaan/surat_polisi');?>" class="btn btn-success btn-sm">
-             <i class="fa fa-undo" aria-hidden="true"></i>  Kembali
+          <a href="<?= base_url('kejaksaan');?>" class="btn btn-success btn-xs">
+             <i class="fa fa-long-arrow-left" aria-hidden="true"></i>  Kembali
           </a>
           <br><br>
+          <?php foreach ($data as $key => $value) { ?>
+          <table  width="450px">
+            <tbody>
+              <tr>
+                  <td><i class="fa fa-user-o" aria-hidden="true"></i><strong> Dikirim Oleh</strong></td>
+                  <td width="10px">:</td>
+                  <td width="250px"><?= $value->username?></td>
+              </tr>
+              <tr>
+                  <td> <i class="fa fa-calendar" aria-hidden="true"></i> <strong> Tanggal Posting </strong></td>
+                  <td width="10px">:</td>
+                  <td width="250px"><?= date('d M Y h:i:a', strtotime($value->tanggal_posting)); ?></td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
           <table class="table table-bordered">
-           <!-- <table id="example1" class="table table-bordered table-striped"> -->
-            <thead>
+            <thead class="thead-dark">
               <tr>
                 <th class="col-sm-5">Nama File</th>
                 <th class="col-sm-7">Lampiran</th>

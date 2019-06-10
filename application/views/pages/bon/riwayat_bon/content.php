@@ -3,7 +3,7 @@
     <div class="col-lg-12">
       <div class="box">
         <div class="box-header">
-          <h1 align="center"> Riwayat Bon </h1>
+          <h1 align="center"><i class="fa fa-file-text" aria-hidden="true"></i> Riwayat Bon </h1>
           <a href="<?php echo base_url('bon/form_bon');?>" class="btn btn-success btn-xs"> 
             <span class="glyphicon glyphicon-edit"></span> Entry Bon 
           </a><br>
@@ -16,7 +16,7 @@
                   <th>No</th>
                   <th>Nama Tersangka</th>
                   <th>File Pengajuan</th>
-                  <th>Tanggal Posting</th>
+                  <th>Tanggal Permintaan</th>
                   <th>Keterangan</th>
                   <th>Aksi</th>
                 </tr>
@@ -26,12 +26,17 @@
                 <tr>
                   <td><?= $no++;?></td>
                   <td><?= $value->nama_tersangka;?></td>
-                  <td><?= $value->file_pengajuan_bon;?></td>  
+                  <td>
+                    <a href="<?= base_url('kejaksaan/unduh/'.$value->file_pengajuan_bon);?>" class="btn btn-primary btn-xs">
+                      <i class="glyphicon glyphicon-download-alt"></i> 
+                    </a> <?= $value->file_pengajuan_bon;?>
+                  </td>  
                   <td><?= $value->tanggal_posting;?></td>
                   <td><?= $value->keterangan;?></td>
                   <td>
-                    <a href="<?= base_url('bon/hapus/'. $value->id_bon);?>" class="btn btn-danger btn-xs" onclick="return confirm('Mau hapus bon ini ?')"> <span class="glyphicon glyphicon-trash" ></span> Hapus</a>      
-                           
+                    <a href="<?= base_url('bon/hapus/'. $value->id_bon);?>" class="btn btn-danger btn-xs" onclick="return confirm('Mau hapus bon ini ?')"> 
+                      <span class="glyphicon glyphicon-trash" ></span> Hapus
+                    </a>             
                     <a href="<?= base_url('bon/edit/'.$value->id_bon);?>" class="btn btn-warning btn-xs"> 
                       <span class="glyphicon glyphicon-edit" ></span></i>Edit
                     </a>

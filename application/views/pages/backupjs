@@ -1,4 +1,4 @@
-backupjs<!-- <script type="text/javascript">
+<!-- <script type="text/javascript">
   $(document).ready(function(){
     $(document).on('click','.add', function(){
     var html = '';

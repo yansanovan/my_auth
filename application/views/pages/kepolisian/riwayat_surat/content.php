@@ -8,7 +8,7 @@
           <?= $this->session->flashdata('berhasil');?>
           <?= $this->session->flashdata('deskripsi_diganti');?>
     
-          <h1 align="center"> Riwayat Surat </h1>
+          <h1 align="center"> <i class="fa fa-file-text" aria-hidden="true"></i> Riwayat Surat </h1>
           <a href="<?php echo base_url('kepolisian/form');?>" class="btn btn-success btn-xs"> 
           <span class="glyphicon glyphicon-edit"></span> Entry Data</a>
         </div>
@@ -18,11 +18,10 @@
             <table id="example1" class="table table-bordered table-striped">
               <thead>
               <tr>
-                <center><th>No</th></center>
+                <th>No</th>
                 <th>Nama Tersangka</th>
-                <th>Dikirim Oleh</th>
+                <th>Diposting Oleh</th>
                 <th>Tanggal Posting</th>
-                <th>Detail</th>
                 <th>Aksi</th>
               </tr>
               </thead>
@@ -45,17 +44,12 @@
                   <?php echo date('d M Y h:i:a', strtotime($value->tanggal_posting)); ?>
                 </td>
                 <td>
-                    <a href="<?php echo base_url('kepolisian/detail/'.$value->url);?>" class="btn btn-info btn-xs"> 
-                      <span class="glyphicon glyphicon-eye-open"></span> Detail
-                    </a>
-                </td>
-                
-                <td>
-                    <a href="<?php echo base_url('kepolisian/hapus/'.$value->id_data);?>" class="btn btn-danger btn-xs" onclick="return confirm('Yakin Mau Hapus Jadwal Ini')"> <span class="glyphicon glyphicon-trash"></span> Hapus
-                    </a>
-                    <a href="<?php echo base_url('kepolisian/edit/'.$value->id_data);?>" class="btn btn-warning btn-xs"> 
-                      <span class="glyphicon glyphicon-edit"></span> Edit
-                    </a>
+                  <a href="<?php echo base_url('kepolisian/hapus/'.$value->id_data);?>" class="btn btn-danger btn-xs" onclick="return confirm('Yakin Mau Hapus Jadwal Ini')"> 
+                    <span class="glyphicon glyphicon-trash"></span> Hapus
+                  </a>
+                  <a href="<?php echo base_url('kepolisian/edit/'.$value->id_data);?>" class="btn btn-warning btn-xs"> 
+                    <span class="glyphicon glyphicon-edit"></span> Edit
+                  </a>
                 </td>
               </tr>           
               <?php 
