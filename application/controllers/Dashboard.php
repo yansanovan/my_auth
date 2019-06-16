@@ -7,6 +7,7 @@ class Dashboard extends CI_Controller
 	{
 		parent::__construct();
 		cek_coba_loggin();
+		superadmin_cobamasuk_dashboard();
 		$this->load->model('m_dashboard');	
 		$this->load->model('m_bon');	
 	}
@@ -40,8 +41,8 @@ class Dashboard extends CI_Controller
 		}
 
 		if ($this->session->userdata('level') == 'lapas') {
-			$data['title1'] = 'Permintaan Bon';
-			$data['title2'] = 'Permintaan APL';
+			$data['title1'] = 'Bon Masuk';
+			$data['title2'] = 'APL Masuk';
 			$data['data1'] 	= count($this->m_bon->ambil_bon());
 			$data['data2'] 	= count($this->m_bon->ambil_bon());
 		}

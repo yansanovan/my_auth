@@ -2,21 +2,36 @@
   <div class="row">
     <div class="col-lg-12">
       <div class="box">
-        <div class="box-header"><br>         
+        <div class="box-header"><br> 
+          <?php if(!empty($error)){ echo $error;}?>        
           <?php echo form_open_multipart();?>
           <div class="col-md-12">
             <h1 align="center"><i class="fa fa-pencil-square" aria-hidden="true"></i> Form Balas</h1><br>
-            <a href="<?= base_url('kejaksaan');?>" class="btn btn-success btn-xs">
-              <i class="fa fa-long-arrow-left" aria-hidden="true"></i>  Kembali
+            <a href="<?= base_url('kejaksaan');?>" class="btn btn-warning btn-xs">
+              <i class="fa fa-long-arrow-left" aria-hidden="true"></i> Kembali
             </a><br><br>
+            <table  width="380px">
+              <tbody>
+                <tr>
+                    <td><i class="fa fa-user-o" aria-hidden="true"></i> Balas Kepada</td>
+                    <td width="10px">:</td>
+                    <td width="250px"><?= $value->username;?></td>
+                </tr>
+                <tr>
+                    <td><i class="fa fa-address-book-o" aria-hidden="true"></i> Level </td>
+                    <td width="10px">:</td>
+                    <td width="250px"><?= $value->level;?></td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
             <table class="table table-bordered">
               <thead>
-                <tr>
-                  <th class="col-sm-5">Nama File</th>
-                  <th class="col-sm-7">Form </th>
+                <tr bgcolor="#8e8d8d">
+                  <th class="col-sm-5" style="color: white"><i class="fa fa-file-text" aria-hidden="true"></i> Nama File</th>
+                  <th class="col-sm-7" style="color: white"><i class="fa fa-edit" aria-hidden="true"></i> Form</th>
                 </tr>
               </thead>
-              
               <tbody>
                 <tr>
                   <td>Nama Tersangka</td>
@@ -37,9 +52,7 @@
                 <tr>
                   <td>No Sprindik</td>
                   <td>
-                    <div class="form-group">
-                      <p><?= $value->no_sprindik; ?></p>
-                    </div>
+                    <p><?= $value->no_sprindik; ?></p>
                   </td>
                 </tr>
 
@@ -163,13 +176,11 @@
                     </div>
                   </td>
                 </tr>
-
               </tbody>
             </table>
             </div>
-        
             <center>
-              <button name="submit" class="btn btn-primary">Submit</button>
+              <button class="btn btn-primary" value="true"><i class="fa fa-paper-plane" aria-hidden="true"></i> Submit</button>
             </center><br>
           <?= form_close();?>
         </div>

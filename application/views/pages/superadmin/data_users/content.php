@@ -12,18 +12,13 @@
               <?= $this->session->flashdata('Backup_db');?>
               <?= $this->session->flashdata('Backup_files');?>
 
-              <h1 align="center"> Data Users</h1>
+              <h1 align="center"><i class="fa fa-users" aria-hidden="true"></i> Managament Users</h1><br>
               <a href="<?php echo base_url('superadmin/tambah_users');?>" class="btn btn-success btn-sm"> 
                 <span class="glyphicon glyphicon-edit"></span> Tambah Users
               </a>
-              <br>
-              <br>
-
               <a href="<?php echo base_url('superadmin/db_backup');?>" class="btn btn-info btn-sm" onclick="return confirm('Mau Backup databas ini?')"> 
                 <span class="glyphicon glyphicon-save"></span> Backup Database
               </a>
-              <br>
-              <br>
               <a href="<?php echo base_url('superadmin/project_backup');?>" onclick="return confirm('Yakin Mau Backup files ini?')" class="btn btn-warning btn-sm"> 
                 <span class="glyphicon glyphicon-save"></span> Backup Project
               </a>

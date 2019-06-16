@@ -15,8 +15,6 @@ class Kejaksaan extends CI_Controller
         $this->load->model('m_kepolisian');
 		$this->load->model('m_kejaksaan');
 		$this->load->model('m_surat');		
-        $this->load->library('encryption');
-
 	}
 
 	public function index()

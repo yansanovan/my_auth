@@ -8,15 +8,31 @@
           <?= form_open_multipart();?>
           <h1 align="center"><i class="fa fa-pencil-square" aria-hidden="true"></i> Form Balas</h1><br>
           <div class="col-md-12">
-            <a href="<?= base_url('lapas');?>" class="btn btn-success btn-xs"> 
-              <i class="fa fa-history"></i> Kembali
+            <a href="<?= base_url('lapas');?>" class="btn btn-warning btn-xs"> 
+              <i class="fa fa-long-arrow-left" aria-hidden="true"></i> Kembali
             </a><br><br>
+
+            <table  width="380px">
+              <tbody>
+                <tr>
+                    <td><i class="fa fa-user-circle" aria-hidden="true"></i> Balas Kepada</td>
+                    <td width="10px">:</td>
+                    <td width="250px"><?= $data->username;?></td>
+                </tr>
+                <tr>
+                    <td><i class="fa fa-user-plus" aria-hidden="true"></i> Level </td>
+                    <td width="10px">:</td>
+                    <td width="250px"><?= $data->level;?></td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
             <table class="table table-bordered">
               <thead>
-                <tr>
-                  <th class="col-sm-4">Nama Tersangka</th>
-                  <th class="col-sm-4">File Pengajuan</th>
-                  <th class="col-sm-4">Keterangan</th>
+                <tr bgcolor="#8e8d8d">
+                  <th class="col-sm-4" style="color: white"><i class="fa fa-file-text" aria-hidden="true"></i> Nama Tersangka</th>
+                  <th class="col-sm-4" style="color: white"><i class="fa fa-edit" aria-hidden="true"></i> Form</th>
+                  <th class="col-sm-4" style="color: white"><i class="fa fa-info-circle" aria-hidden="true"></i> Keterangan</th>
                 </tr>
               </thead>
               <tbody>
@@ -50,7 +66,7 @@
             </table>
             </div>
             <center>
-              <button class="btn btn-primary" value="true">Submit</button>
+              <button class="btn btn-primary" value="true"><i class="fa fa-paper-plane" aria-hidden="true"></i> Submit</button>
             </center><br>
           <?= form_close();?>
         </div>

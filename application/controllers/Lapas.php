@@ -31,17 +31,13 @@ class Lapas extends CI_Controller
         if ($this->form_validation->run() == FALSE) 
         {
             // cek apakah data berdasarkan id sudah dibalas di table balas bon
-            $cek_balas = $this->m_lapas->cek_balas($id);
+            $cek_balas = $this->m_lapas->cek_balas(base64_decode($id));
             
-            $value = $this->m_lapas->cek_id($id);
+            $value = $this->m_lapas->cek_id(base64_decode($id));
 
             if ($cek_balas->num_rows() > 0) 
             {
-                 $this->session->set_flashdata('cek', '<div class="alert alert-warning alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <h4><i class="icon fa fa-warning"></i>Opps, Maaf!</h4>
-                Bon ini Sudah dibalas!
-                </div>');
+                $this->m_pesan->generatePesan('cek', 'Maaf! Bon ini sudah di balas!');
                 redirect('lapas');
             }
             else
@@ -77,11 +73,10 @@ class Lapas extends CI_Controller
             $data = array( 'id_bon_balasan'        		 => $post['id_bon'],
                            'id_users_pemohon_balasan'    => $post['id_users_pemohon'],
                            'id_users_lapas'              => $this->session->userdata('id'),
-                           'file_pengajuan_bon'	         => $file_pengajuan_bon['file_name'], 
-                           'keterangan'                  => $post['keterangan']);
+                           'file_pengajuan_bon'	         => $file_pengajuan_bon['file_name']);
 
             $this->m_lapas->balas_bon($data, $id);  
-            $this->session->set_flashdata('berhasil','<div class="alert alert-success" role="alert">Bon berhasil dibalas</div>');
+            $this->m_pesan->generatePesan('berhasil', 'Bon telah dibalas!');
             redirect('lapas');         
         }
 	}
@@ -92,6 +87,55 @@ class Lapas extends CI_Controller
         $this->template->load('pages/template/template','pages/lapas/riwayat_balas_bon/content', $data);
     }
 
+    public function edit($id)
+    {
+        
+        $this->form_validation->set_rules('file_edit_balas_bon', '', 'callback_file_edit_balas_bon');
+        $this->form_validation->set_error_delimiters('<p class="validate" style="color:red;"><i class="fa fa-exclamation-circle"></i> ','</p>');
+        
+        if ($this->form_validation->run() == FALSE) 
+        {
+            // cek apakah data berdasarkan id sudah dibalas di table balas bon
+            $cek_balas = $this->m_lapas->cek_balas(base64_decode($id));
+
+            if ($cek_balas->num_rows() > 0) 
+            {
+                $data['data'] = $cek_balas->row();
+                $data['action'] = "edit";
+                $this->template->load('pages/template/template','pages/lapas/form_edit/content', $data);
+            }
+            else
+            {
+                redirect(current_url());
+            }
+        }
+        else
+        {
+          
+            $config['upload_path']          = './uploads/lapas/bon';
+            $config['allowed_types']        = 'pdf|doc|docx';
+            $config['max_size']             = 0;
+            $config['max_width']            = 0;
+            $config['max_height']           = 0;
+
+            $this->load->library('upload', $config);
+
+            $post = $this->input->post(NULL, TRUE);    
+            
+            if (!empty($this->upload->do_upload('file_edit_balas_bon')))
+            {
+                $file_pengajuan_bon = $this->upload->data('file_name');
+                $this->db->set('file_pengajuan_bon', $file_pengajuan_bon);
+                @unlink('./uploads/lapas/bon/'. $post['old_bon_balasan']);
+            }
+            $data = array('tanggal_balas_bon' => $post['tanggal_balas_bon']);
+            $this->db->where('id_bon_balasan', base64_decode($id));
+            $this->db->update('tbl_balas_bon', $data);
+            $this->m_pesan->generatePesan('berhasil', 'Bon ini telah di update!');
+            redirect(current_url());
+        }
+    }
+
     public function hapus_bon_balas($id)
     {   
         $file = $this->m_lapas->bon($id);
@@ -100,13 +144,32 @@ class Lapas extends CI_Controller
         $hapus = $this->m_lapas->hapus_bon_balas($id);
         if ($hapus = TRUE) 
         {
-            $this->session->set_flashdata('berhasil', '<div class="alert alert-success" role="alert">Bon terhapus</div>');
+            $this->m_pesan->generatePesan('berhasil', 'Bon telah dihapus!');
             redirect('lapas/riwayat_balas_bon');
         }
     }
 
+    public function file_edit_balas_bon($str)
+    {         
+        $allowed_mime_type_arr = array('application/pdf', 'application/msword');
+        $mime = get_mime_by_extension($_FILES['file_edit_balas_bon']['name']);
+        if($_FILES['file_edit_balas_bon']['name'])
+        {
+            if(in_array($mime, $allowed_mime_type_arr))
+            {
+                return true;
+            }
+            else
+            {
+                $this->form_validation->set_message('file_edit_balas_bon', 'Pilih file balas bon hanya word atau pdf.');
+                return false;
+            }
+        }
+    }
+
+
 	public function file_pengajuan_bon($str)
-	{
+	{         
         $allowed_mime_type_arr = array('application/pdf', 'application/msword');
         $mime = get_mime_by_extension($_FILES['file_pengajuan_bon']['name']);
         if($_FILES['file_pengajuan_bon']['name'])

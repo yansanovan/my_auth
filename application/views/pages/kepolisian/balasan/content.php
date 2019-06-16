@@ -3,7 +3,7 @@
     <div class="col-xs-12">
       <div class="box">
         <div class="box-header">
-          <h1 align="center"><i class="fa fa-envelope-open"></i> Surat Balasan </h1>
+          <h1 align="center"><i class="fa fa-envelope-open-o"></i> Surat Balasan </h1>
         </div>
         <!-- /.box-header -->
         <div class="box-body">

@@ -13,10 +13,23 @@ class M_apl extends CI_Model
 			$this->db->where('id', $id);		
 			return $this->db->get()->row();
 		}
+		// jika login sebagai polisi kejaksaan dan pengadilan tampilkan balasan apl
 		$this->db->select('*');
 		$this->db->from('tbl_apl');
+		if ($this->session->userdata('level') !='lapas') {
+			$this->db->join('tbl_balas_apl', 'tbl_balas_apl.id_apl = tbl_apl.id');	
+		}
+		$this->db->join('tbl_users', 'tbl_users.id = tbl_apl.id_users_apl');	
+		return $this->db->get()->result();
+	}
+
+
+	public function apl_balasan()
+	{
+		$this->db->select('*');
+		$this->db->from('tbl_balas_apl');
+		$this->db->join('tbl_apl', 'tbl_apl.id = tbl_balas_apl.id_apl_balasan');
 		$this->db->join('tbl_users', 'tbl_users.id = tbl_apl.id_users_apl');
-		// $this->db->where("id_pemohon_apl", $this->session->userdata('id'));		
 		return $this->db->get()->result();
 	}
 

@@ -3,9 +3,8 @@
     <div class="col-lg-12">
      <div class="box">
         <div class="box-header">
-          <?= $this->session->flashdata('cek');?>
-          <?= $this->session->flashdata('berhasil');?>
-          <h1 align="center"><i class="fa fa-file-text" aria-hidden="true"></i> Riwayat Balas Bon </h1>
+          <?= $this->session->flashdata('msgbox');?>
+          <h1 align="center"><i class="fa fa-file-text-o" aria-hidden="true"></i> Riwayat Balas Bon </h1>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -17,12 +16,15 @@
                 <th>Nama Tersangka</th>
                 <th>File Bon</th>
                 <th>Tanggal Balas</th>
+                <th>Dibalas Kepada</th>
+                <th>Level</th>
                 <th>Keterangan</th>
                 <th>Aksi</th>
               </tr>
               </thead>
               <tbody>
               <?php 
+         
               $no = 1;
               foreach ($data as $key => $value) : ?>
               <tr>
@@ -34,12 +36,14 @@
                   </a> <?= $value->file_pengajuan_bon;?>
                 </td>
                 <td><?= date('d M Y h:i:a', strtotime($value->tanggal_balas_bon)); ?></td>
+                <td><?= $value->username;?></td>
+                <td><?= $value->level;?></td>
                 <td><?= $value->keterangan;?></td>
                 <td>
                   <a href="<?php echo base_url('lapas/hapus_bon_balas/'.$value->id_bon_balasan);?>" onclick="return confirm('Mau Hapus riwayat balas bon ?')"  class="btn btn-danger btn-xs"> 
                     <i class="fa fa-trash" aria-hidden="true"></i> Hapus
                   </a>
-                  <a href="<?php echo base_url('lapas/form_balas/'.$value->id_bon_balasan);?>" class="btn btn-warning btn-xs"> 
+                  <a href="<?php echo base_url('lapas/edit/'.base64_encode($value->id_bon_balasan));?>" class="btn btn-warning btn-xs"> 
                     <i class="fa fa-edit" aria-hidden="true"></i> Edit
                   </a>
                 </td>   

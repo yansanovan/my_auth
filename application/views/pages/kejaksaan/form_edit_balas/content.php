@@ -7,37 +7,35 @@
           <div class="col-md-12">
             <?= $this->session->flashdata('berhasil');?>
             <h1 align="center"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit Surat Balasan</h1><br>
-            <a href="<?= base_url('kejaksaan/riwayat_balas');?>" class="btn btn-success btn-xs">
+            <a href="<?= base_url('kejaksaan/riwayat_balas');?>" class="btn btn-warning btn-xs">
               <i class="fa fa-long-arrow-left" aria-hidden="true"></i> Kembali
             </a><br><br>
             <table  width="450px">
               <tbody>
                 <tr>
-                    <td><i class="fa fa-user-o" aria-hidden="true"></i><strong> Nama Tersangka</strong></td>
-                    <td width="10px">:</td>
-                    <td width="250px"><?= $data->nama_tersangka?></td>
+                  <td> <i class="fa fa-address-card-o" aria-hidden="true"></i><strong> Nama Tersangka</strong></td>
+                  <td width="10px">:</td>
+                  <td width="250px"><?= $data->nama_tersangka?></td>
                 </tr>
                 <tr>
-                    <td> <i class="fa fa-file-text-o" aria-hidden="true"></i> <strong> Pasal </strong></td>
-                    <td width="10px">:</td>
-                    <td width="250px"><?= $data->pasal?></td>
+                  <td> <i class="fa fa-folder-open-o" aria-hidden="true"></i><strong> Pasal </strong></td>
+                  <td width="10px">:</td>
+                  <td width="250px"><?= $data->pasal?></td>
                 </tr>
-
                 <tr>
-                    <td> <i class="fa fa-list-ol" aria-hidden="true"></i><strong> No Sprindik </strong></td>
-                    <td width="20px">:</td>
-                    <td width="250px"><?= $data->no_sprindik?></td>
-                </tr>
-            
+                  <td><i class="fa fa-newspaper-o" aria-hidden="true"></i><strong> No Sprindik </strong></td>
+                  <td width="20px">:</td>
+                  <td width="250px"><?= $data->no_sprindik?></td>
+                </tr>  
               </tbody>
             </table>
-            <br><br>
+            <br>
             <table class="table table-bordered">
               <thead>
-                <tr>
-                  <th class="col-sm-4">Nama File</th>
-                  <th class="col-sm-4">File Lama</th>
-                  <th class="col-sm-4">Form Edit </th>
+                <tr bgcolor="#8e8d8d">
+                  <th class="col-sm-4" style="color: white"><i class="fa fa-file-text" aria-hidden="true"></i> Nama File</th>
+                  <th class="col-sm-4" style="color: white"><i class="fa fa-book" aria-hidden="true"></i> File Lama</th>
+                  <th class="col-sm-4" style="color: white"><i class="fa fa-edit" aria-hidden="true"></i> Form Edit</th>
                 </tr>
               </thead>
               

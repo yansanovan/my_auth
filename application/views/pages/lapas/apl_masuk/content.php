@@ -3,8 +3,7 @@
     <div class="col-lg-12">
      <div class="box">
         <div class="box-header">
-          <?= $this->session->flashdata('cek');?>
-          <?= $this->session->flashdata('berhasil');?>
+          <?= $this->session->flashdata('msgbox');?>
           <h1 align="center"><i class="fa fa-inbox" aria-hidden="true"></i> APL Masuk </h1>
         </div>
         <!-- /.box-header -->
@@ -36,16 +35,16 @@
                 <td><?= $value->username;?></td>
                 <td><?= date('d M Y h:i:a', strtotime($value->tanggal_apl)); ?></td>
                 <td>
-                 <!--  <?php 
-                  if ($value->status_balas == 1) { ?> -->
-                    <a href="<?php echo base_url('lapas/form_balas/'.$value->id);?>" class="btn btn-success btn-xs"> 
+                  <?php 
+                  if ($value->status_balas == 1) { ?>
+                    <a href="<?php echo base_url('lapas_apl/form_balas/'.base64_encode($value->id));?>" class="btn btn-success btn-xs"> 
                       <i class="fa fa-lock" aria-hidden="true"></i> Balas
                     </a>
-                  <!-- <?php } else { ?> -->
-                    <a href="<?php echo base_url('lapas/form_balas/'.$value->id);?>" class="btn btn-danger btn-xs"> 
+                    <?php } else { ?> 
+                    <a href="<?php echo base_url('lapas_apl/form_balas/'.base64_encode($value->id));?>" class="btn btn-danger btn-xs"> 
                       <i class="fa fa-unlock" aria-hidden="true"></i> Balas
                     </a>
-                  <!-- <?php } ?> -->
+                  <?php } ?> 
                 </td>   
               </tr>
               <?php endforeach;?> 

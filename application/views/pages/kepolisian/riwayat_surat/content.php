@@ -3,12 +3,9 @@
     <div class="col-xs-12">
       <div class="box">
         <div class="box-header">
-          <?php if(!empty($error)){ echo '<div class="alert alert-danger" role="alert">'.$error.'</div>';}?>
-          <?= $this->session->flashdata('terhapus');?>
-          <?= $this->session->flashdata('berhasil');?>
-          <?= $this->session->flashdata('deskripsi_diganti');?>
-    
-          <h1 align="center"> <i class="fa fa-file-text" aria-hidden="true"></i> Riwayat Surat </h1>
+          <!-- <?php //if(!empty($error)){ echo '<div class="alert alert-danger" role="alert">'.$error.'</div>';}?> -->
+          <?= $this->session->flashdata('msgbox');?>
+          <h1 align="center"> <i class="fa fa-file-text-o" aria-hidden="true"></i> Riwayat Surat </h1>
           <a href="<?php echo base_url('kepolisian/form');?>" class="btn btn-success btn-xs"> 
           <span class="glyphicon glyphicon-edit"></span> Entry Data</a>
         </div>
@@ -20,6 +17,7 @@
               <tr>
                 <th>No</th>
                 <th>Nama Tersangka</th>
+                <th>No Sprindik</th>
                 <th>Diposting Oleh</th>
                 <th>Tanggal Posting</th>
                 <th>Aksi</th>
@@ -36,7 +34,9 @@
                  <td style ="<?= $value->nama_tersangka;?>">
                   <?= $value->nama_tersangka;?>
                 </td>
-
+                <td style ="<?= $value->no_sprindik;?>">
+                  <?= $value->no_sprindik;?>
+                </td>
                 <td style ="<?= $value->username;?>">
                   <?= $value->username;?>
                 </td>

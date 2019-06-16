@@ -13,7 +13,7 @@ class M_bon extends CI_Model
 			$this->db->where('id_bon', $id);		
 			return $this->db->get()->row();
 		}
-		$this->db->select('tbl_balas_bon.*, tbl_bon.nama_tersangka as nama_tersangka, tbl_users.username as username');
+		$this->db->select('tbl_balas_bon.*, tbl_bon.nama_tersangka as nama_tersangka, tbl_bon.keterangan as keterangan, tbl_users.username as username');
 		$this->db->from('tbl_balas_bon');
 		$this->db->join('tbl_bon', 'tbl_bon.id_bon = tbl_balas_bon.id_bon_balasan');
 		$this->db->join('tbl_users', 'tbl_users.id = tbl_balas_bon.id_users_lapas');

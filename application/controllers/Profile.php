@@ -15,20 +15,17 @@ class Profile extends CI_Controller
 	{
 		$session_id	   = $this->session->userdata('id');
 		$data['users'] = $this->m_profile->ambil_users($session_id);
-        $this->template->load('pages/template/template','pages/profile/content', $data);
-	}
-
-	public function ubah_password()
-	{
+		
 		$this->form_validation->set_rules('password_lama','<b>Password Lama</b>', 'required', 
 											array('required' => 'Masukan Password Lama!'));
 		$this->form_validation->set_rules('password_baru','<b>Password Baru</b>', 'required|trim|min_length[8]', 
 											array('required' => 'Masukan Password Baru!'));
-		$this->form_validation->set_error_delimiters('<div class="alert alert-danger"alert-dismissible fade show role="alert">','</div>');
+        $this->form_validation->set_error_delimiters('<p class="validate" style="color:red;"><i class="fa fa-exclamation-circle"></i> ','</p>');
+			
 
 		if ($this->form_validation->run() === FALSE ) 
 		{
-			return $this->index();
+	        $this->template->load('pages/template/template','pages/profile/content', $data);
 		}
 		else
 		{
@@ -45,19 +42,18 @@ class Profile extends CI_Controller
 						$password_baru = $this->input->post('password_baru', TRUE);
 						$this->m_profile->ubah_password($id, $password_baru);
 						$this->session->set_flashdata('password_berhasil_dirubah','<div class="alert alert-success" role="alert"> Password berhasil dirubah!</div>');
-						redirect(base_url('profile/index'));
+						redirect('profile');
 					}
 					else
 					{
-						$this->session->set_flashdata('password_berbeda',
-														'<div class="alert alert-danger" role="alert"> Password lama tidak sama!</div>');
-						redirect(base_url('profile/index'));
+						$this->session->set_flashdata('password_berbeda','<div class="alert alert-danger" role="alert"> Password lama tidak sama!</div>');
+						redirect('profile');
 					}
 				}
 			}
 			else
 			{
-				redirect(base_url('profile/index'));
+				redirect('profile');
 			}
 		}
 	}

@@ -22,7 +22,7 @@
       <!-- small box -->
       <div class="small-box bg-aqua">
         <div class="inner">
-          <h3>Surat : <?= $data1;?></h3>
+          <h3>Total : <?= $data1;?></h3>
 
           <p><?= $title1;?></p>
         </div>

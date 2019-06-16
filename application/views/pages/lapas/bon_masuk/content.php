@@ -3,8 +3,7 @@
     <div class="col-lg-12">
      <div class="box">
         <div class="box-header">
-          <?= $this->session->flashdata('cek');?>
-          <?= $this->session->flashdata('berhasil');?>
+          <?= $this->session->flashdata('msgbox');?>
           <h1 align="center"><i class="fa fa-inbox" aria-hidden="true"></i> Bon Masuk </h1>
         </div>
         <!-- /.box-header -->
@@ -49,7 +48,7 @@
                     if ($value->status_balas == 1) 
                     {
                     ?>
-                      <a href="<?php echo base_url('lapas/form_balas/'.$value->id_bon);?>" class="btn btn-success btn-xs"> 
+                      <a href="<?php echo base_url('lapas/form_balas/'.base64_encode($value->id_bon));?>" class="btn btn-success btn-xs"> 
                         <i class="fa fa-lock" aria-hidden="true"></i> Balas
                       </a>
                     <?php 
@@ -57,7 +56,7 @@
                     else
                     {
                     ?>
-                      <a href="<?php echo base_url('lapas/form_balas/'.$value->id_bon);?>" class="btn btn-danger btn-xs"> 
+                      <a href="<?php echo base_url('lapas/form_balas/'.base64_encode($value->id_bon));?>" class="btn btn-danger btn-xs"> 
                         <i class="fa fa-unlock" aria-hidden="true"></i> Balas
                       </a>
                     <?php  

@@ -20,22 +20,21 @@ if ($action == "edit")
     <div class="col-lg-12">
       <div class="box">
         <div class="box-header"><br>
-          <?php if(!empty($error)){ echo '<div class="alert alert-danger" role="alert">'.$error.'</div>';}?>
-          <?= $this->session->flashdata('berhasil');?>       
+          <?= $this->session->flashdata('msgbox');?>       
           <?= form_open_multipart('apl/proses');?>
           <h1 align="center"><i class="fa fa-pencil-square" aria-hidden="true"></i> Form <?= $page ;?> APL </h1><br>
           <div class="col-md-12">
-            <a href="<?= base_url('apl/riwayat_apl');?>" class="btn btn-success btn-xs"> 
-              <i class="fa fa-history"></i> Riwayat Apl
-            </a><br><br><br>
+            <a href="<?= base_url('apl/riwayat_apl');?>" class="btn btn-warning btn-xs"> 
+              <i class="fa fa-file-text"></i> Riwayat Apl
+            </a><br><br>
             <table class="table table-bordered">
               <thead>
-                <tr>
-                  <th class="col-sm-3">Nama Tersangka</th>
+                 <tr bgcolor="#8e8d8d">
+                  <th class="col-sm-3" style="color: white"><i class="fa fa-file-text" aria-hidden="true"></i> Nama Tersangka</th>
                   <?php if ($action == "edit") {?>
-                  <th class="col-sm-3">File Lama</th>
+                  <th class="col-sm-3" style="color: white"><i class="fa fa-book" aria-hidden="true"></i> File Lama</th>
                   <?php } ?>
-                  <th class="col-sm-3">File APL</th>
+                  <th class="col-sm-3" style="color: white"><i class="fa fa-edit" aria-hidden="true"></i> Form File APL</th>
                 </tr>
               </thead>
               <tbody>
@@ -73,7 +72,7 @@ if ($action == "edit")
               </tbody>
             </table>
             <center>
-              <button class="btn btn-primary btn-sm" name="<?=$action;?>" value="true">Submit</button>
+              <button class="btn btn-primary btn-sm" name="<?=$action;?>" value="true"> <i class="fa fa-paper-plane" aria-hidden="true"></i> Submit</button>
             </center><br><br><br>
           </div>
           <?= form_close();?>

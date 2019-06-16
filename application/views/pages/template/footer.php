@@ -236,7 +236,12 @@ $(function () {
        "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]]
     })
   });
-
+  
+  window.setTimeout(function() {
+      $(".alert").fadeTo(500, 0).slideUp(400, function(){
+          $(this).remove(); 
+      });
+  }, 3000);
 
   window.setTimeout(function() {
       $(".alert").fadeTo(500, 0).slideUp(400, function(){

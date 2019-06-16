@@ -3,27 +3,26 @@
     <div class="col-md-12">
       <div class="box">
         <div class="box-header"><br>
-          <?php if(!empty($error)){ echo '<div class="alert alert-danger" role="alert">'.$error.'</div>';}?>
           <?= $this->session->flashdata('berhasil');?>
           <?= $this->session->flashdata('gagal_simpan');?>            
           <?= form_open_multipart();?>
           <h1 align="center"><i class="fa fa-edit" aria-hidden="true"></i> Form Surat Polisi </h1><br>
           <div class="col-md-12">
             <a href="<?php echo base_url('kepolisian/riwayat_surat');?>" class="btn btn-success btn-xs"> 
-              <i class="fa fa-history"></i> Riwayat Surat
+              <i class="fa fa-file-text-o" aria-hidden="true"></i> Riwayat Surat
             </a><br><br>
             <table class="table table-bordered" >
               <thead>
-                <tr>
-                  <th class="col-sm-5">Nama File</th>
-                  <th class="col-sm-7">Form </th>
+                <tr bgcolor="#8e8d8d">
+                  <th class="col-sm-5" style="color: white"><i class="fa fa-file-text" aria-hidden="true"></i> Nama File</th>
+                  <th class="col-sm-7" style="color: white"><i class="fa fa-edit" aria-hidden="true"></i> Form </th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>Nama Tersangka</td>
                   <td>
-                    <input type="text" name="nama_tersangka" value="<?php echo set_value('nama_tersangka'); ?>" class="form-control" id="exampleInputEmail1" placeholder="nama tersangka">
+                    <input type="text" name="nama_tersangka" value="<?php echo set_value('nama_tersangka'); ?>" class="form-control" placeholder="nama tersangka">
                     <?php echo form_error('nama_tersangka'); ?>
                   </td>
                 </tr>
@@ -31,7 +30,7 @@
                 <tr>
                   <td>Pasal</td>
                   <td> 
-                    <input type="text" name="pasal" value="<?php echo set_value('pasal'); ?>" class="form-control" id="exampleInputEmail1" placeholder="Pasal">
+                    <input type="text" name="pasal" value="<?php echo set_value('pasal'); ?>" class="form-control" placeholder="Pasal">
                     <?php echo form_error('pasal'); ?>
                   </td>
                 </tr>
@@ -39,10 +38,16 @@
                 <tr>
                   <td>No Sprindik</td>
                   <td>
-                    <div class="form-group">
-                      <input type="text" name="no_sprindik" value="<?php echo set_value('no_sprindik'); ?>" class="form-control" id="exampleInputEmail1" placeholder="no sprindik">
-                      <?php echo form_error('no_sprindik'); ?>
-                    </div>
+                    <input type="text" name="no_sprindik" value="<?php echo set_value('no_sprindik'); ?>" class="form-control" placeholder="no sprindik">
+                    <?php echo form_error('no_sprindik'); ?>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>No LP</td>
+                  <td>
+                    <input type="text" name="no_lp" value="<?php echo set_value('no_lp'); ?>" class="form-control" placeholder="No lp">
+                    <?php echo form_error('no_lp'); ?>
                   </td>
                 </tr>
 
@@ -206,11 +211,11 @@
                     <div class="form-group">
                       <label for="exampleInputEmail1">Pelimpahan</label>
                       <div class="input-group">
-                          <input type="text" id="file_path11" class="form-control" placeholder="Pilih Pelimpahan">
-                          <span class="input-group-btn">
-                              <button class="btn btn-success" type="button" id="file_browser11">
-                              <i class="fa fa-search"></i> Browse</button>
-                          </span>
+                        <input type="text" id="file_path11" class="form-control" placeholder="Pilih Pelimpahan">
+                        <span class="input-group-btn">
+                          <button class="btn btn-success" type="button" id="file_browser11">
+                          <i class="fa fa-search"></i> Browse</button>
+                        </span>
                       </div>
                       <input type="file" class="hidden" id="file11" name="pelimpahan" value="<?php echo set_value('pelimpahan');?>">
                       <?php echo form_error('pelimpahan'); ?>
@@ -223,7 +228,7 @@
             </div>
         
             <center>
-              <button class="btn btn-primary">Submit</button>
+              <button class="btn btn-primary"><i class="fa fa-paper-plane" aria-hidden="true"></i> Submit</button>
             </center><br>
           <?= form_close();?>
         </div>

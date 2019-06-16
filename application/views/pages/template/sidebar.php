@@ -30,8 +30,9 @@
           }
           else if ($this->session->userdata('level') =='superadmin') 
           {
-          ?> <b> Superadmin </b>
-          <?php
+          ?> 
+            <img src="<?php echo base_url('asset/img/superadmin.png');?>" class="img-circle" alt="User Image');?>">
+            <?php
           }
           ?>
         </div>
@@ -199,7 +200,7 @@
             </li>
 
             <li>
-              <a href="<?php echo base_url('lapas_apl/riwayat_balas');?>">
+              <a href="<?php echo base_url('lapas_apl/riwayat_balas_apl');?>">
                 <i class="fa fa-clipboard" aria-hidden="true"></i> <span> Riwayat Balas Apl </span>
               </a>
             </li>
@@ -210,18 +211,12 @@
         
         <!-- session superadmin -->
 
-        <?php } else if ($this->session->userdata('level') == 'superadmin') {?>
-        <li>
-            <a href="<?php echo base_url('superadmin');?>">
-              <i class="fa fa-envelope-open-o" aria-hidden="true"></i> Data Users
-            </a>   
-        </li>
-
-        <li>
-            <a href="<?php echo base_url('profile');?>">
-              <i class="fa fa-user"></i> Profile
-            </a>
-        </li>
+        <?php } else if ($this->session->userdata('level') == 'superadmin')  {?>
+           <li <?= $this->uri->segment(1) =='superadmin' ? 'class="active"' : null;?>>
+             <a href="<?php echo base_url('superadmin');?>">
+                <i class="fa fa-users"></i> <span> Superadmin </span>
+              </a>
+          </li>
         <?php } ?>
 
         <!-- menu bon tidak tampil di lapas -->

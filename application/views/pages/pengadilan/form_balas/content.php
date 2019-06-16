@@ -12,9 +12,9 @@
             </a><br><br>
             <table class="table table-bordered">
               <thead>
-                <tr>
-                  <th class="col-sm-5">Nama File</th>
-                  <th class="col-sm-7">Form </th>
+                <tr bgcolor="#8e8d8d">
+                  <th class="col-sm-5" style="color: white"><i class="fa fa-file-text" aria-hidden="true"></i> Nama File</th>
+                  <th class="col-sm-7" style="color: white"><i class="fa fa-edit" aria-hidden="true"></i> Form</th>
                 </tr>
               </thead>
               
@@ -40,6 +40,15 @@
                   <td>
                     <div class="form-group">
                       <p><?= $value->no_sprindik; ?></p>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>No LP</td>
+                  <td>
+                    <div class="form-group">
+                      <p><?= $value->no_lp; ?></p>
                     </div>
                   </td>
                 </tr>

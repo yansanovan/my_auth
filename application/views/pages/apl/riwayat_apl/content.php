@@ -3,8 +3,8 @@
     <div class="col-lg-12">
       <div class="box">
         <div class="box-header">
-          <?= $this->session->flashdata('terhapus');?>
-          <h1 align="center"> Riwayat APL </h1>
+          <?= $this->session->flashdata('msgbox');?>
+          <h1 align="center"><i class="fa fa-file-text-o" aria-hidden="true"></i> Riwayat APL </h1>
           <a href="<?php echo base_url('apl/form_apl');?>" class="btn btn-success btn-xs"> 
             <span class="glyphicon glyphicon-edit"></span> Entry APl 
           </a><br>

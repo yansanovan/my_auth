@@ -15,9 +15,9 @@
 					<div class="col-md-8">
 					<?php echo $this->session->flashdata('password_berhasil_dirubah');?>
 					<?php echo $this->session->flashdata('password_berbeda');?>
-					<?php echo validation_errors(); ?>
+					
 						<?php foreach ($users as $key => $value) { ?>
-							<?php echo form_open('profile/ubah_password');?>
+							<?php echo form_open();?>
 							<div class="form-group row">
 								<div class="col-sm-10">
 									<input type="hidden" name="id" value="<?php echo $value->id;?>" class="form-control" id="inputPassword" placeholder="Password" readonly>
@@ -42,6 +42,7 @@
 								<label for="inputPassword" class="col-sm-3 col-form-label">Password Lama</label>
 								<div class="col-sm-9">
 									<input type="password" name="password_lama" class="form-control" id="inputPassword" placeholder="password lama">
+									<?= form_error('password_lama');?>
 								</div>
 							</div>
 
@@ -49,6 +50,7 @@
 								<label for="inputPassword" class="col-sm-3 col-form-label">Password Baru</label>
 								<div class="col-sm-9">
 									<input type="password" name="password_baru" class="form-control" id="inputPassword" placeholder="password baru">
+									<?= form_error('password_baru');?>
 								</div>
 							</div>
 

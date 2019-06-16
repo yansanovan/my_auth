@@ -14,16 +14,16 @@ class Lupapassword extends CI_Controller
 		cek_coba_logout_pengadilan();
 		cek_coba_logout_lapas();
 		cek_coba_logout_superadmin();
-		$this->load->view('pages/lupapassword/index');
-	}
-	public function lupa_password()
-	{
+	// }
+	// public function lupa_password()
+	// {
 		$this->form_validation->set_rules('email','Email','required|trim|valid_email', array('required' =>'Email tidak boleh kosong!'));
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger" role="alert">','</div>');
 
 		if($this->form_validation->run() === FALSE)
 		{
-			return $this->index();			
+			$this->load->view('pages/lupapassword/index');
+			// return $this->index();			
 		}
 		else
 		{

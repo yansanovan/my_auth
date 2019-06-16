@@ -5,7 +5,7 @@
         <div class="box-header">
           <?= $this->session->flashdata('berhasil');?>
           <?= $this->session->flashdata('cek');?>
-          <h1 align="center"><i class="fa fa-envelope-open"></i> Surat Polisi </h1>
+          <h1 align="center"><i class="fa fa-envelope-open-o"></i> Surat Polisi </h1>
         </div>
         <!-- /.box-header -->
         <div class="box-body">

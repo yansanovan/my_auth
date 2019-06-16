@@ -5,7 +5,7 @@
         <div class="box-header">
           <?= $this->session->flashdata('cek');?>
           <?= $this->session->flashdata('berhasil');?>
-          <h1 align="center"> Riwayat Balas APL </h1>
+          <h1 align="center"> <i class="fa fa-file-text-o" aria-hidden="true"></i> Riwayat Balas APL </h1>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -15,10 +15,9 @@
               <tr>
                 <th>No</th>
                 <th>Nama Tersangka</th>
-                <th>File Bon</th>
-                <th>Username</th>
-                <th>Tanggal Balas</th>
-                <th>Keterangan</th>
+                <th>File APL</th>
+                <th>Dibalas Kepada</th>
+                <th>Tanggal Balas APL</th>
                 <th>Aksi</th>
               </tr>
               </thead>
@@ -30,18 +29,17 @@
                 <td><?= $no++;?></td>
                 <td><?= $value->nama_tersangka;?></td>
                 <td>
-                  <a href="<?= base_url('lapas/unduh/'.$value->file_pengajuan_bon);?>" onclick="return confirm('Mau download ?')" class="btn btn-primary btn-xs">
+                  <a href="<?= base_url('lapas_apl/unduh/'.$value->file_apl_balasan);?>" onclick="return confirm('Mau download ?')" class="btn btn-primary btn-xs">
                     <i class="glyphicon glyphicon-download-alt"></i> 
-                  </a> <?= $value->file_pengajuan_bon;?>
+                  </a> <?= $value->file_apl_balasan;?>
                 </td>
                 <td><?= $value->username;?></td>
-                <td><?= date('d M Y h:i:a', strtotime($value->tanggal_balas_bon)); ?></td>
-                <td><?= $value->keterangan;?></td>
+                <td><?= date('d M Y h:i:a', strtotime($value->tanggal_apl_balasan)); ?></td>
                 <td>
-                  <a href="<?php echo base_url('lapas/form_balas/'.$value->id_bon);?>" class="btn btn-success btn-xs"> 
+                  <a href="<?php echo base_url('lapas/form_balas/'.$value->id_apl);?>" class="btn btn-success btn-xs"> 
                     <i class="fa fa-lock" aria-hidden="true"></i> Hapus
                   </a>
-                  <a href="<?php echo base_url('lapas/form_balas/'.$value->id_bon);?>" class="btn btn-danger btn-xs"> 
+                  <a href="<?php echo base_url('lapas/form_balas/'.$value->id_apl);?>" class="btn btn-danger btn-xs"> 
                     <i class="fa fa-paper-plane" aria-hidden="true"></i> Edit
                   </a>
                 </td>   

@@ -7,11 +7,11 @@
           <?= $this->session->flashdata('terhapus');?>
           <?= $this->session->flashdata('tanggal_berhasil_diubah');?>
           <div class="col-md-12">
-            <h1 align="center"> <i class="fa fa-file-text" aria-hidden="true"></i> Detail Surat Polisi </h1>
+            <h1 align="center"> <i class="fa fa-file-text-o" aria-hidden="true"></i> Detail Surat Polisi </h1>
           <br>
           <?php foreach ($data as $key => $value) { ?>
 
-          <a href="<?= base_url('kejaksaan');?>" class="btn btn-success btn-xs">
+          <a href="<?= base_url('kejaksaan');?>" class="btn btn-warning btn-xs">
              <i class="fa fa-long-arrow-left" aria-hidden="true"></i>  Kembali
           </a>
           <br>
@@ -34,9 +34,9 @@
           <table class="table table-bordered">
            <!-- <table id="example1" class="table table-bordered table-striped"> -->
             <thead>
-              <tr>
-                <th class="col-sm-5">Nama File</th>
-                <th class="col-sm-7">Lampiran</th>
+                <tr bgcolor="#8e8d8d">
+                <th class="col-sm-5" style="color: white"><i class="fa fa-file-text" aria-hidden="true"></i> Nama File</th>
+                <th class="col-sm-7" style="color: white"><i class="fa fa-book" aria-hidden="true"></i> Lampiran</th>
               </tr>
             </thead>
             <tbody>
@@ -56,12 +56,21 @@
               </tr>
 
               <tr>
-                <td>Spdp</td>
+                <td>No LP</td>
+                  <td>
+                    <div class="form-group">
+                      <p><?= $value->no_lp; ?></p>
+                    </div>
+                  </td>
+                </tr>
+              <tr>
+
+              <td>Spdp</td>
                 <td>
                   <div class="form-group">
                       <label for="exampleInputEmail1">Spdp</label>
                       <p>
-                        <a href="<?= base_url('kejaksaan/unduh/'.$value->spdp);?>" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-download-alt"></i> 
+                        <a href="<?= base_url('kejaksaan/unduh/'.$value->spdp);?>" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-download-alt"></i> 
                         </a> <?= $value->spdp ;?></p>
                   </div>
                 </td>
@@ -72,12 +81,12 @@
                 <td>
                    <div class="form-group">
                       <label for="exampleInputEmail1">Ijin Geledah </label>
-                      <p><a href="<?= base_url('kejaksaan/unduh/'.$value->ijin_geledah);?>" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-download-alt"></i> </a> 
+                      <p><a href="<?= base_url('kejaksaan/unduh/'.$value->ijin_geledah);?>" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-download-alt"></i> </a> 
                         <?= $value->ijin_geledah;?></p>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputEmail1">Setuju geledah </label>
-                      <p><a href="<?= base_url('kejaksaan/unduh/'.$value->setuju_geledah);?>" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-download-alt"></i> </a>
+                      <p><a href="<?= base_url('kejaksaan/unduh/'.$value->setuju_geledah);?>" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-download-alt"></i> </a>
                         <?= $value->setuju_geledah;?></p>  
                     </div>
                 </td>
@@ -88,16 +97,16 @@
                 <td>
                   <div class="form-group">
                         <label for="exampleInputEmail1">Khusus</label>
-                        <p><a href="<?= base_url('kejaksaan/unduh/'.$value->khusus);?>" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-download-alt"></i></a>
+                        <p><a href="<?= base_url('kejaksaan/unduh/'.$value->khusus);?>" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-download-alt"></i></a>
                         <?=$value->khusus;?></p>
                       </div>
                       <div class="form-group">
                         <label for="exampleInputEmail1">Biasa</label>
-                        <p><a href="<?= base_url('kejaksaan/unduh/'.$value->biasa);?>" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-download-alt"></i></a> <?= $value->biasa;?></p>
+                        <p><a href="<?= base_url('kejaksaan/unduh/'.$value->biasa);?>" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-download-alt"></i></a> <?= $value->biasa;?></p>
                       </div>
                       <div class="form-group">
                         <label for="exampleInputEmail1">Narkotika</label>
-                        <p><a href="<?= base_url('kejaksaan/unduh/'.$value->narkotika);?>" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-download-alt"></i></a> <?= $value->narkotika;?></p>
+                        <p><a href="<?= base_url('kejaksaan/unduh/'.$value->narkotika);?>" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-download-alt"></i></a> <?= $value->narkotika;?></p>
                       </div>
                 </td>
               </tr>
@@ -107,12 +116,12 @@
                 <td>
                   <div class="form-group">
                       <label for="exampleInputEmail1">Kejaksaan</label>
-                      <p><a href="<?= base_url('kejaksaan/unduh/'.$value->kejaksaan);?>" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-download-alt"></i> </a>
+                      <p><a href="<?= base_url('kejaksaan/unduh/'.$value->kejaksaan);?>" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-download-alt"></i> </a>
                         <?= $value->kejaksaan;?></p>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputEmail1">Pengadilan</label>
-                      <p><a href="<?= base_url('kejaksaan/unduh/'.$value->pengadilan);?>" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-download-alt"></i> </a>
+                      <p><a href="<?= base_url('kejaksaan/unduh/'.$value->pengadilan);?>" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-download-alt"></i> </a>
                         <?= $value->pengadilan;?></p>  
                     </div>
                 </td>
@@ -123,12 +132,12 @@
                 <td>
                   <div class="form-group">
                       <label for="exampleInputEmail1">P-18</label>
-                      <p><a href="<?= base_url('kejaksaan/unduh/'.$value->p_18);?>" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-download-alt"></i> </a>
+                      <p><a href="<?= base_url('kejaksaan/unduh/'.$value->p_18);?>" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-download-alt"></i> </a>
                         <?= $value->p_18;?></p>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputEmail1">P-21</label>
-                      <p><a href="<?= base_url('kejaksaan/unduh/'.$value->p_21);?>" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-download-alt"></i> </a>
+                      <p><a href="<?= base_url('kejaksaan/unduh/'.$value->p_21);?>" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-download-alt"></i> </a>
                         <?= $value->p_21;?></p>  
                     </div>
                 </td>
@@ -139,7 +148,7 @@
                 <td>
                   <div class="form-group">
                       <label for="exampleInputEmail1">Pelimpahan</label>
-                      <p><a href="<?= base_url('kejaksaan/unduh/'.$value->pelimpahan);?>" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-download-alt"></i> </a> 
+                      <p><a href="<?= base_url('kejaksaan/unduh/'.$value->pelimpahan);?>" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-download-alt"></i> </a> 
                         <?= $value->pelimpahan;?></p>  
                   </div>
                 </td>

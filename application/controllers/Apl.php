@@ -16,7 +16,7 @@ class Apl extends CI_Controller
 
 	public function index()
 	{
-		$data['data'] = $this->m_apl->apl();
+		$data['data'] = $this->m_apl->apl_balasan();
         $this->template->load('pages/template/template','pages/apl/apl_balasan/content', $data);
 	}
 
@@ -73,8 +73,8 @@ class Apl extends CI_Controller
 								  'nama_tersangka'			=> $post['nama_tersangka'],
 								  'file_apl'				=> $file_apl['file_name']);
 
-				$this->m_apl->simpan($data);	
-				$this->session->set_flashdata('berhasil', '<div class="alert alert-success" role="alert">Apl berhasil di simpan dan terkirim!</div>');
+				$this->m_apl->simpan($data);
+	            $this->m_pesan->generatePesan('berhasil', 'Apl telah di simpan dan terkirim!');
 				redirect('apl/form_apl');			
 			}
 		}
@@ -108,7 +108,7 @@ class Apl extends CI_Controller
 	      
 				$data = array('nama_tersangka' => $post['nama_tersangka']);
 				$this->m_apl->ubah($data);	
-				$this->session->set_flashdata('berhasil', '<div class="alert alert-success" role="alert">APL berhasil di edit!</div>');
+	            $this->m_pesan->generatePesan('berhasil', 'Apl telah di update!');
 				redirect(base_url('apl/edit/'.base64_encode($post['id_apl'])));
 			}
 		}
@@ -180,10 +180,7 @@ class Apl extends CI_Controller
         $hapus = $this->m_apl->hapus($id);
         if ($hapus = TRUE) 
         {
-            $this->session->set_flashdata('terhapus', '<div class="alert alert-success alert-dismissible">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-			<h4><i class="icon fa fa-warning"></i>Berhasil, File!</h4>APL terhapus!
-		    </div>');
+            $this->m_pesan->generatePesan('berhasil', 'Apl telah di hapus');
             redirect('apl/riwayat_apl');
         }
     }

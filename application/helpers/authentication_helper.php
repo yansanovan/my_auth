@@ -6,19 +6,16 @@
 
 		if($ci->session->userdata('level') !='kejaksaan' AND $ci->session->userdata('status') != 'logged') 
 		{
-
 			$ci->session->set_flashdata('akses_dilarang', '<div class="alert alert-danger" role="alert">Maaf Harus Login dulu</div>');
 			redirect('auth');
 		}
 		else if($ci->session->userdata('level') !='kepolian' AND $ci->session->userdata('status') != 'logged') 
 		{
-
 			$ci->session->set_flashdata('akses_dilarang', '<div class="alert alert-danger" role="alert">Maaf Harus Login dulu</div>');
 			redirect('auth');
 		}
 		else if($ci->session->userdata('level') !='lapas' AND $ci->session->userdata('status') != 'logged') 
 		{
-
 			$ci->session->set_flashdata('akses_dilarang', '<div class="alert alert-danger" role="alert">Maaf Harus Login dulu</div>');
 			redirect('auth');
 		}
@@ -328,6 +325,17 @@
 	}
 
 	function superadmin_cobamasuk_apl()
+	{
+        $ci =& get_instance();
+
+		if ($ci->session->userdata('level') == 'superadmin' AND $ci->session->userdata('status') == 'logged') 
+		{
+			$ci->session->set_flashdata('harus_keluar','<div class="alert alert-danger" role="alert">Harus Logout</div>');
+			redirect(base_url('superadmin'));
+		}
+	}
+
+	function superadmin_cobamasuk_dashboard()
 	{
         $ci =& get_instance();
 

@@ -22,6 +22,7 @@ class Bon extends CI_Controller
 
 	public function form_bon()
 	{
+			
 		$data['page'] = 'Entry';
 		$data['action'] = 'add';
         $this->template->load('pages/template/template','pages/bon/form_bon/content', $data);
@@ -29,7 +30,7 @@ class Bon extends CI_Controller
 
 	public function edit($id)
 	{
-		$data['data'] = $this->m_bon->riwayat_bon($id);
+		$data['data'] = $this->m_bon->riwayat_bon(base64_decode($id));
 		$data['page'] = 'Edit';
 		$data['action'] = 'edit';
         $this->template->load('pages/template/template','pages/bon/form_bon/content', $data);
@@ -51,9 +52,6 @@ class Bon extends CI_Controller
 
 			if ($this->form_validation->run() == FALSE) 
 			{
-				// $data['page'] = 'Entry';
-				// $data['action'] = 'add';
-				// $this->template->load('pages/template/template','pages/bon/form_bon/content', $data);
 				$this->form_bon();
 			}
 			else
@@ -78,8 +76,8 @@ class Bon extends CI_Controller
 								  'keterangan'				=> $post['keterangan']);
 
 				$this->m_bon->simpan($data);	
-				$this->session->set_flashdata('berhasil', '<div class="alert alert-success" role="alert">Bon berhasil di simpan dan terkirim!</div>');
-				redirect(base_url('bon/form_bon'));			
+	            $this->m_pesan->generatePesan('berhasil', 'Bon telah di simpan dan terkirim!');
+				redirect('bon/form_bon');			
 			}
 		}
 		if ($this->input->post('edit')) {
@@ -109,15 +107,14 @@ class Bon extends CI_Controller
 	                {
 						$file_pengajuan_bon = $this->upload->data('file_name');
 	                    $this->db->set('file_pengajuan_bon', $file_pengajuan_bon);
-	                    @unlink('./uploads/bon/'. $post['file_lama']);
+	                    @unlink('./uploads/bon/'. $post['old_bon']);
 	                }
 	            }
 	      
 				$data = array('nama_tersangka' => $post['nama_tersangka'], 'keterangan' => $post['keterangan']);
 				$this->m_bon->ubah($data);	
-				$this->session->set_flashdata('berhasil', '<div class="alert alert-success" role="alert">Bon berhasil di edit!</div>');
-				redirect(base_url('bon/edit/'.$post['id_bon']));			
-	            
+				$this->m_pesan->generatePesan('berhasil', 'Bon telah di update!');
+				redirect(base_url('bon/edit/'.base64_encode($post['id_bon'])));			
 			}
 		}
 	}
@@ -188,7 +185,7 @@ class Bon extends CI_Controller
         $hapus = $this->m_bon->hapus($id);
         if ($hapus = TRUE) 
         {
-            $this->session->set_flashdata('terhapus', '<div class="alert alert-success" role="alert">Bon terhapus</div>');
+			$this->m_pesan->generatePesan('berhasil', 'Bon telah di hapus!');
             redirect('bon/riwayat_bon');
         }
     }

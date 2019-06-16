@@ -47,6 +47,7 @@ class Kepolisian extends CI_Controller
 		$this->form_validation->set_rules('nama_tersangka','Nama tersangka','required', array('required' => 'Nama tersangka tidak Boleh kosong.'));
 		$this->form_validation->set_rules('pasal','Pasal','required', array('required' => 'pasal tidak boleh kosong.'));
 		$this->form_validation->set_rules('no_sprindik','No Sprindik','required', array('required' => 'No Sprindik tidak boleh kosong.'));
+        $this->form_validation->set_rules('no_lp','No LP','required', array('required' => 'No LP tidak boleh kosong.'));
 		$this->form_validation->set_rules('spdp', '', 'callback_spdp');
 		$this->form_validation->set_rules('ijin_geledah', '', 'callback_ijin_geledah');
 		$this->form_validation->set_rules('setuju_geledah', '', 'callback_setuju_geledah');
@@ -129,6 +130,7 @@ class Kepolisian extends CI_Controller
 							  'nama_tersangka'		=> $post['nama_tersangka'],
 							  'pasal'				=> $post['pasal'],
 							  'no_sprindik'			=> $post['no_sprindik'],
+                              'no_lp'               => $post['no_lp'],
 							  'spdp'				=> $spdp['file_name'],
 							  'ijin_geledah'		=> $ijin_geledah['file_name'],
 							  'setuju_geledah'		=> $setuju_geledah['file_name'],
@@ -143,7 +145,7 @@ class Kepolisian extends CI_Controller
 							  'url'					=> $url );
 
 			$this->m_kepolisian->simpan($data);	
-			$this->session->set_flashdata('berhasil', '<div class="alert alert-success" role="alert">Surat berhasil di simpan dan terkirim!</div>');
+            $this->m_pesan->generatePesan('berhasil', 'Surat berhasil di simpan dan terkirim!');
 			redirect(base_url('kepolisian/form'));			
 		}
 	}
@@ -167,7 +169,7 @@ class Kepolisian extends CI_Controller
         $hapus = $this->m_kepolisian->hapus($id);
         if ($hapus = TRUE) 
         {
-            $this->session->set_flashdata('terhapus', '<div class="alert alert-success" role="alert">Surat terhapus</div>');
+            $this->m_pesan->generatePesan('berhasil', 'Surat telah di hapus!');
             redirect(base_url('kepolisian/riwayat_surat'));
         }
     }
@@ -178,6 +180,7 @@ class Kepolisian extends CI_Controller
                                           array('required' => 'Nama tersangka tidak Boleh Kosong!'));
         $this->form_validation->set_rules('pasal','Pasal','required', array('required' => 'pasal tidak boleh kosong!'));
         $this->form_validation->set_rules('no_sprindik','No Sprindik','required', array('required' => 'No Sprindik tidak boleh kosong!'));
+        $this->form_validation->set_rules('no_lp','No LP','required', array('required' => 'No LP tidak boleh kosong.'));
         $this->form_validation->set_rules('spdp', '', 'callback_spdp');
         $this->form_validation->set_rules('ijin_geledah', '', 'callback_ijin_geledah');
         $this->form_validation->set_rules('setuju_geledah', '', 'callback_setuju_geledah');
@@ -340,13 +343,11 @@ class Kepolisian extends CI_Controller
             $this->db->set('nama_tersangka', $post['nama_tersangka']);
             $this->db->set('pasal', $post['pasal']);
             $this->db->set('no_sprindik', $post['no_sprindik']);
+            $this->db->set('no_lp', $post['no_lp']);
             $this->db->where('id_data', $id);
             $this->db->update('tbl_kepolisian', $data);
-            $this->session->set_flashdata('berhasil','<div class="alert alert-success" role="alert">Surat Berhasil di edit</div>');
-
-            $url = base_url('kepolisian/edit/'.$id);
-            redirect($url);          
-            
+            $this->m_pesan->generatePesan('berhasil', 'Surat telah di update!');
+            redirect(current_url());         
         }
     }
 

@@ -6,10 +6,9 @@
           <?php echo form_open_multipart();?>
           <div class="col-md-12">
             <?= $this->session->flashdata('berhasil');?>
-            <?php if(!empty($error)){ echo '<div class="alert alert-danger" role="alert">'.$error.'</div>';}?>
-            <h1 align="center">Edit Surat Balasan</h1><br>
-            <a href="<?= base_url('pengadilan/riwayat_balas');?>" class="btn btn-success btn-xs">
-              <i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali
+            <h1 align="center"><i class="fa fa-edit" aria-hidden="true"></i> Edit Surat Balasan</h1><br>
+            <a href="<?= base_url('pengadilan/riwayat_balas');?>" class="btn btn-warning btn-xs">
+              <i class="fa fa-long-arrow-left" aria-hidden="true"></i>  Kembali
             </a><br><br>
             <table  width="450px">
               <tbody>
@@ -33,10 +32,10 @@
             <br><br>
             <table class="table table-bordered">
               <thead>
-                <tr>
-                  <th class="col-sm-4">Nama File</th>
-                  <th class="col-sm-4">File Lama</th>
-                  <th class="col-sm-4">Form Edit </th>
+                <tr bgcolor="#8e8d8d">
+                  <th class="col-sm-4" style="color: white"><i class="fa fa-file-text" aria-hidden="true"></i> Nama File</th>
+                  <th class="col-sm-4" style="color: white"><i class="fa fa-book" aria-hidden="true"></i> File Lama</th>
+                  <th class="col-sm-4" style="color: white"><i class="fa fa-edit" aria-hidden="true"></i> Form</th>
                 </tr>
               </thead>
               <tr>

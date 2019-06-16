@@ -32,7 +32,7 @@
     <?= $this->session->flashdata('link_reset_password_terkirim');?>
     <?= $this->session->flashdata('tidak_ditemukan');?>
     <?= validation_errors();?>    
-    <?= form_open('lupapassword/lupa_password');?>
+    <?= form_open();?>
       <div class="form-group has-feedback">
         <input type="email"  name="email" class="form-control" placeholder="Email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>

@@ -3,23 +3,20 @@
     <div class="col-xs-12">
       <div class="box">
         <div class="box-header">
-          <?php if(!empty($error)){ echo '<div class="alert alert-danger" role="alert">'.$error.'</div>';}?>
-          <?= $this->session->flashdata('terhapus');?>
-          <?= $this->session->flashdata('berhasil');?>
-          
+          <?= $this->session->flashdata('msgbox');?>
           <h1 align="center"><i class="fa fa-edit" aria-hidden="true"></i> Edit Surat Polisi </h1>
           <div class="col-md-12">
-          <a href="<?php echo base_url('kepolisian/riwayat_surat');?>" class="btn btn-success btn-xs"> 
+          <a href="<?php echo base_url('kepolisian/riwayat_surat');?>" class="btn btn-warning btn-xs"> 
             <i class="fa fa-long-arrow-left" aria-hidden="true"></i> Kembali
           </a>
           <br><br>
           <?= form_open_multipart();?>
           <table class="table table-bordered">
             <thead>
-              <tr>
-                <th class="col-sm-4">Nama File</th>
-                <th class="col-sm-4">File Lama</th>
-                <th class="col-sm-4">Form Edit</th>
+               <tr bgcolor="#8e8d8d">
+                <th class="col-sm-4" style="color: white"><i class="fa fa-file-text" aria-hidden="true"></i> Nama File</th>
+                <th class="col-sm-4" style="color: white"><i class="fa fa-book" aria-hidden="true"></i> File Lama</th>
+                <th class="col-sm-4" style="color: white"><i class="fa fa-edit" aria-hidden="true"></i> Form Edit</th>
               </tr>
             </thead>
             <tbody>
@@ -29,22 +26,18 @@
                 <td>Nama Tersangka</td>
                 <td><?= $value->nama_tersangka ;?></td>
                 <td>
-                    <div class="form-group">
-                      <input type="hidden" name="id_data"  class="form-control">
-                      <input type="text" name="nama_tersangka" value="<?= $value->nama_tersangka;?>" class="form-control">
-                      <?php echo form_error('nama_tersangka'); ?>
-                    </div>
-                  </td>
+                  <input type="hidden" name="id_data"  class="form-control">
+                  <input type="text" name="nama_tersangka" value="<?= $value->nama_tersangka;?>" class="form-control">
+                  <?php echo form_error('nama_tersangka'); ?>
+                </td>
               </tr>
               
               <tr>
                 <td>Pasal</td>
                 <td><?= $value->pasal ;?></td>
                 <td>
-                  <div class="form-group">
-                    <input type="text" name="pasal" value="<?= $value->pasal;?>" class="form-control">
-                    <?php echo form_error('pasal'); ?>
-                  </div>
+                  <input type="text" name="pasal" value="<?= $value->pasal;?>" class="form-control">
+                  <?php echo form_error('pasal'); ?>
                 </td>
               </tr>
 
@@ -52,10 +45,17 @@
                 <td>No Sprindik</td>
                 <td><?= $value->no_sprindik ;?></td>
                 <td>
-                  <div class="form-group">
-                    <input type="text" name="no_sprindik" value="<?= $value->no_sprindik;?>" class="form-control">
-                    <?php echo form_error('no_sprindik'); ?>
-                  </div>
+                  <input type="text" name="no_sprindik" value="<?= $value->no_sprindik;?>" class="form-control">
+                  <?php echo form_error('no_sprindik'); ?>
+                </td>
+              </tr>
+
+               <tr>
+                <td>No LP</td>
+                <td><?= $value->no_lp ;?></td>
+                <td>
+                  <input type="text" name="no_lp" value="<?= $value->no_lp;?>" class="form-control">
+                  <?php echo form_error('no_lp'); ?>
                 </td>
               </tr>
 
@@ -332,7 +332,7 @@
           </table>
           </div>
           <center>
-            <button class="btn btn-primary" name="edit" value="true">Submit</button>
+            <button class="btn btn-primary" name="edit"  value="true"><i class="fa fa-paper-plane" aria-hidden="true"></i> Submit</button>
           </center><br>
           <?php echo form_close();?>
         </div>

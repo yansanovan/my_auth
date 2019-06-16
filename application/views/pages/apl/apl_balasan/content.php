@@ -4,6 +4,7 @@
       <div class="box">
         <div class="box-header">
           <?= $this->session->flashdata('cek');?>
+          <?= $this->session->flashdata('msgbox');?>
           <?= $this->session->flashdata('berhasil');?>
           <h1 align="center"><i class="fa fa-inbox" aria-hidden="true"></i> APL Balasan</h1>
         </div>
@@ -28,13 +29,12 @@
                 <td><?= $no++;?></td>
                 <td><?= $value->nama_tersangka;?></td>
                 <td>
-                  <a href="<?= base_url('bon/unduh/'.$value->file_pengajuan_bon);?>" onclick="return confirm('mau download?')" class="btn btn-primary btn-xs">
+                  <a href="<?= base_url('bon/unduh/'.$value->file_apl_balasan);?>" onclick="return confirm('mau download?')" class="btn btn-primary btn-xs">
                     <i class="glyphicon glyphicon-download-alt"></i> 
-                  </a> <?= $value->file_pengajuan_bon;?>
+                  </a> <?= $value->file_apl_balasan;?>
                 </td>
-                <td><?= date('d M Y h:i:a', strtotime($value->tanggal_balas_bon)); ?></td>
+                <td><?= date('d M Y h:i:a', strtotime($value->tanggal_apl_balasan)); ?></td>
                 <td><?= $value->username;?></td>
-                
               </tr>
               <?php } ?> 
               </tbody>

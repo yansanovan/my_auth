@@ -22,29 +22,26 @@ if ($action == "edit")
     <div class="col-lg-12">
       <div class="box">
         <div class="box-header"><br>
-          <?php if(!empty($error)){ echo '<div class="alert alert-danger" role="alert">'.$error.'</div>';}?>
-          <?= $this->session->flashdata('berhasil');?>
-          <?= $this->session->flashdata('terhapus');?>            
+          <?= $this->session->flashdata('msgbox');?>   
           <?= form_open_multipart('bon/simpan');?>
           <h1 align="center"> <i class="fa fa-pencil-square" aria-hidden="true"></i> Form <?= $page ;?> Bon </h1><br>
           <div class="col-md-12">
-            <a href="<?= base_url('bon/riwayat_bon');?>" class="btn btn-success btn-xs"> 
-              <i class="fa fa-history"></i> Riwayat Bon
-            </a><br><br><br>
+            <a href="<?= base_url('bon/riwayat_bon');?>" class="btn btn-warning btn-xs"> 
+              <i class="fa fa-file-text"></i> Riwayat Bon
+            </a><br><br>
             <table class="table table-bordered">
               <thead>
-                <tr>
-                  <th class="col-sm-3">Nama Tersangka</th>
+                <tr bgcolor="#8e8d8d">
+                  <th class="col-sm-3" style="color: white"><i class="fa fa-file-text" aria-hidden="true"></i> Nama Tersangka</th>
                   <?php if ($action == "edit") {?>
-                  <th class="col-sm-4">File Lama</th>
+                  <th class="col-sm-3" style="color: white"><i class="fa fa-book" aria-hidden="true"></i> File Lama</th>
                   <?php } ?>
-                  <th class="col-sm-3">File Pengajuan</th>
-                  <th class="col-sm-2">Keterangan</th>
+                  <th class="col-sm-3" style="color: white"><i class="fa fa-edit" aria-hidden="true"></i> Form File Pengajuan</th>
+                  <th class="col-sm-3" style="color: white"><i class="fa fa-info-circle" aria-hidden="true"></i> Keterangan</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  
                   <td>
                     <div class="form-group">
                     <input type="hidden" name="id_bon" class="form-control"  value="<?= $id_bon;?>">
@@ -56,6 +53,7 @@ if ($action == "edit")
                   <?php if ($action == "edit") { ?>
                   <td>
                     <div class="form-group">
+                      <input type="hidden" class="form-control" name="old_bon" value="<?= $file_pengajuan_bon;?>">
                       <p class="form-control"><i class="fa fa-file-text-o" aria-hidden="true"></i> <?= $file_pengajuan_bon;?> </p>
                     </div>
                   </td>
@@ -70,8 +68,8 @@ if ($action == "edit")
                               <i class="fa fa-search"></i> Browse</button>
                           </span>
                       </div>
-                      <input type="file" class="hidden" id="file" name="file_pengajuan_bon" value="<?= $file_pengajuan_bon;?>">
-                    <?php echo form_error('file_pengajuan_bon'); ?>
+                      <input type="file" class="hidden" id="file" name="file_pengajuan_bon">
+                      <?php echo form_error('file_pengajuan_bon'); ?>
                     </div>
                   </td>
 
@@ -82,7 +80,6 @@ if ($action == "edit")
                         <option 
                           <?php if( $value->keterangan =='Bon'){echo "selected"; } ?> value="Bon">Bon
                         </option>
-                        
                         <option 
                           <?php if( $value->keterangan =='Ijin Besuk'){echo "selected"; } ?> value="Ijin Besuk">Ijin Besuk</option>
                         <option 
@@ -108,7 +105,7 @@ if ($action == "edit")
               </tbody>
             </table>
             <center>
-              <button class="btn btn-primary btn-sm" name="<?=$action;?>" value="true">Submit</button>
+              <button class="btn btn-primary btn-sm" name="<?=$action;?>" value="true"><i class="fa fa-paper-plane" aria-hidden="true"></i> Submit</button>
             </center><br><br><br>
           </div>
           <?= form_close();?>

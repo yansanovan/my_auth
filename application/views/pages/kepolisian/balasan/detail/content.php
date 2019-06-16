@@ -7,7 +7,7 @@
           <?= $this->session->flashdata('terhapus');?>
           <?= $this->session->flashdata('tanggal_berhasil_diubah');?>
   
-          <h1 align="center"> <i class="fa fa-envelope-open"></i> Detail Surat Balasan </h1>
+          <h1 align="center"> <i class="fa fa-envelope-open-o"></i> Detail Surat Balasan </h1>
           
           <br>
           <div class="col-md-12">
@@ -33,23 +33,22 @@
               <tr>
                   <td ><i class="fa fa-calendar" aria-hidden="true"></i> Tanggal Balas Kejaksaan</td>
                   <td width="10px">:</td>
-                  <td width="100px"> <?=  date('d M Y h:i:a', strtotime($value->tanggal_balas_kj));?></td>
+                  <td width="100px"> <?= $value->tanggal_balas_kj;?></td>
               </tr>
               <tr>
                   <td ><i class="fa fa-calendar" aria-hidden="true"></i> Tanggal Balas Pengadilan</td>
                   <td width="10px">:</td>
-                  <td width="100px"> <?=  date('d M Y h:i:a', strtotime($value->tanggal_balas_pn));?></td>
+                  <td width="100px"> <?= $value->tanggal_balas_pn;?></td>
               </tr>
             </tbody>
           </table>
-          <br><br>
+          <br>
 
           <table class="table table-bordered">
             <thead>
-              <tr>
-                <th class="col-sm-5">Nama File</th>
-                <th class="col-sm-7">Lampiran</th>
-              </tr>
+              <tr bgcolor="#8e8d8d">
+                <th class="col-sm-5" style="color: white"><i class="fa fa-file-text" aria-hidden="true"></i> Nama File</th>
+                <th class="col-sm-7" style="color: white"><i class="fa fa-book" aria-hidden="true"></i> Lampiran</th>
             </thead>
             <tbody>
               <tr>
@@ -65,6 +64,11 @@
               <tr>
                 <td>No Sprindik</td>
                 <td><?= $value->no_sprindik ;?></td>
+              </tr>
+
+              <tr>
+                <td>No LP</td>
+                <td><?= $value->no_lp ;?></td>
               </tr>
 
               <tr>

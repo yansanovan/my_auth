@@ -29,12 +29,9 @@
   <div class="login-box-body">
     <p class="login-box-msg">Silahkan Login</p>
     <?= $this->session->flashdata('flashdata');?>
-    <?= $this->session->flashdata('gagal');?>
-    <?= $this->session->flashdata('akses_dilarang');?>
-    <?= $this->session->flashdata('invalid');?>
-    <?= $this->session->flashdata('blokir');?>
+    <?= $this->session->flashdata('msgbox');?>
     <?= validation_errors();?>    
-    <?= form_open('auth/sign_in');?>
+    <?= form_open();?>
       <div class="form-group has-feedback">
         <input type="email"  name="email"  class="form-control" placeholder="Email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -45,7 +42,7 @@
       </div>
       <div class="row">
         <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Masuk</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat"><i class="fa fa-sign-in" aria-hidden="true"></i> Masuk</button>
         </div>
       </div>
     <?= form_close();?>
