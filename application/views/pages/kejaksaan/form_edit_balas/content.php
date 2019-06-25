@@ -5,7 +5,7 @@
         <div class="box-header"><br>         
           <?php echo form_open_multipart();?>
           <div class="col-md-12">
-            <?= $this->session->flashdata('berhasil');?>
+            <?= $this->session->flashdata('msgbox');?>
             <h1 align="center"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit Surat Balasan</h1><br>
             <a href="<?= base_url('kejaksaan/riwayat_balas');?>" class="btn btn-warning btn-xs">
               <i class="fa fa-long-arrow-left" aria-hidden="true"></i> Kembali
@@ -13,17 +13,17 @@
             <table  width="450px">
               <tbody>
                 <tr>
-                  <td> <i class="fa fa-address-card-o" aria-hidden="true"></i><strong> Nama Tersangka</strong></td>
+                  <td> <i class="fa fa-user-o" aria-hidden="true"></i> Nama Tersangka</td>
                   <td width="10px">:</td>
                   <td width="250px"><?= $data->nama_tersangka?></td>
                 </tr>
                 <tr>
-                  <td> <i class="fa fa-folder-open-o" aria-hidden="true"></i><strong> Pasal </strong></td>
+                  <td> <i class="fa fa-folder-open-o" aria-hidden="true"></i> Pasal </td>
                   <td width="10px">:</td>
                   <td width="250px"><?= $data->pasal?></td>
                 </tr>
                 <tr>
-                  <td><i class="fa fa-newspaper-o" aria-hidden="true"></i><strong> No Sprindik </strong></td>
+                  <td><i class="fa fa-newspaper-o" aria-hidden="true"></i> No Sprindik </td>
                   <td width="20px">:</td>
                   <td width="250px"><?= $data->no_sprindik?></td>
                 </tr>  
@@ -237,13 +237,11 @@
                     </div>
                   </td>
                 </tr>
-
               </tbody>
             </table>
             </div>
-        
             <center>
-              <button name="edit" value="true" class="btn btn-primary">Submit</button>
+              <button name="edit" value="true" class="btn btn-primary"><i class="fa fa-paper-plane"></i> Submit</button>
             </center><br>
           <?= form_close();?>
         </div>

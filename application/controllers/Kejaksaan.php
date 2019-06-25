@@ -11,7 +11,6 @@ class Kejaksaan extends CI_Controller
 		pengadilan_cobamasuk_kejaksaan();
 		lapas_cobamasuk_kejaksaan();
 		superadmin_cobamasuk_kejaksaan();
-		
         $this->load->model('m_kepolisian');
 		$this->load->model('m_kejaksaan');
 		$this->load->model('m_surat');		
@@ -40,7 +39,113 @@ class Kejaksaan extends CI_Controller
         $data['data'] = $this->m_surat->riwayat_balas_kj();
         $this->template->load('pages/template/template','pages/kejaksaan/riwayat_balas/content', $data);
     }
+    public function form_entry()
+    {
+        $this->form_validation->set_rules('nama_tersangka','Nama tersangka','required', array('required' => 'Nama tersangka tidak Boleh kosong.'));
+        $this->form_validation->set_rules('pasal','Pasal','required', array('required' => 'pasal tidak boleh kosong.'));
+        $this->form_validation->set_rules('no_sprindik','No Sprindik','required', array('required' => 'No Sprindik tidak boleh kosong.'));
+        $this->form_validation->set_rules('no_lp','No LP','required', array('required' => 'No LP tidak boleh kosong.'));
+        $this->form_validation->set_rules('spdp', '', 'callback_spdp');
+        $this->form_validation->set_rules('ijin_geledah', '', 'callback_ijin_geledah');
+        $this->form_validation->set_rules('setuju_geledah', '', 'callback_setuju_geledah');
+        $this->form_validation->set_rules('khusus', '', 'callback_khusus');
+        $this->form_validation->set_rules('biasa', '', 'callback_biasa');
+        $this->form_validation->set_rules('narkotika', '', 'callback_narkotika');
+        $this->form_validation->set_rules('kejaksaan', '', 'callback_kejaksaan');
+        $this->form_validation->set_rules('pengadilan', '', 'callback_pengadilan');
+        $this->form_validation->set_rules('p_18', '', 'callback_p_18');
+        $this->form_validation->set_rules('p_21', '', 'callback_p_21');
+        $this->form_validation->set_rules('pelimpahan', '', 'callback_pelimpahan');
 
+        $this->form_validation->set_error_delimiters('<p class="validate" style="color:red;"><i class="fa fa-exclamation-circle"></i> ','</p>');
+        
+        if ($this->form_validation->run() == FALSE) 
+        {
+            $this->template->load('pages/template/template','pages/kejaksaan/form_entry/content');    
+        }
+        else
+        {
+            $config['upload_path']          = './uploads/kepolisian';
+            $config['allowed_types']        = 'pdf|doc|docx';
+            $config['max_size']             = 0;
+            $config['max_width']            = 0;
+            $config['max_height']           = 0;
+
+            $this->load->library('upload', $config);
+    
+            if (!empty($this->upload->do_upload('spdp')))
+            {
+                $spdp = $this->upload->data();
+            }
+            if (!empty($this->upload->do_upload('ijin_geledah'))) 
+            {
+                $ijin_geledah = $this->upload->data(); 
+            }
+            if (!empty($this->upload->do_upload('setuju_geledah'))) 
+            {
+                $setuju_geledah = $this->upload->data(); 
+            }
+            if (!empty($this->upload->do_upload('khusus'))) 
+            {
+                $khusus = $this->upload->data(); 
+            }
+            if (!empty($this->upload->do_upload('biasa')))
+            {
+                $biasa  = $this->upload->data(); 
+            }
+            if (!empty($this->upload->do_upload('biasa')))
+            {
+                $biasa  = $this->upload->data(); 
+            }
+            if (!empty($this->upload->do_upload('narkotika')))
+            {
+                $narkotika  = $this->upload->data(); 
+            }
+            if (!empty($this->upload->do_upload('kejaksaan')))
+            {
+                $kejaksaan  = $this->upload->data(); 
+            }
+            if (!empty($this->upload->do_upload('pengadilan')))
+            {
+                $pengadilan     = $this->upload->data(); 
+            }
+            if (!empty($this->upload->do_upload('p_18')))
+            {
+                $p_18   = $this->upload->data(); 
+            }
+            if (!empty($this->upload->do_upload('p_21')))
+            {
+                $p_21   = $this->upload->data(); 
+            }
+            if (!empty($this->upload->do_upload('pelimpahan')))
+            {
+                $pelimpahan     = $this->upload->data(); 
+            }
+                $post = $this->input->post(NULL, TRUE);
+                $url  = md5(uniqid());
+                $data = array('id_users'            => $this->session->userdata('id'),
+                              'nama_tersangka'      => $post['nama_tersangka'],
+                              'pasal'               => $post['pasal'],
+                              'no_sprindik'         => $post['no_sprindik'],
+                              'no_lp'               => $post['no_lp'],
+                              'spdp'                => $spdp['file_name'],
+                              'ijin_geledah'        => $ijin_geledah['file_name'],
+                              'setuju_geledah'      => $setuju_geledah['file_name'],
+                              'khusus'              => $khusus['file_name'],
+                              'biasa'               => $biasa['file_name'],
+                              'narkotika'           => $narkotika['file_name'], 
+                              'kejaksaan'           => $kejaksaan['file_name'], 
+                              'pengadilan'          => $pengadilan['file_name'], 
+                              'p_18'                => $p_18['file_name'], 
+                              'p_21'                => $p_21['file_name'],  
+                              'pelimpahan'          => $pelimpahan['file_name'],
+                              'url'                 => $url );
+
+            $this->m_kepolisian->simpan($data); 
+            $this->m_pesan->generatePesan('berhasil', 'Surat berhasil di simpan dan terkirim!');
+            redirect(base_url('kepolisian/form'));          
+        }
+    }
 	public function form_balas($id)
 	{
         $this->form_validation->set_rules('spdp', '', 'callback_spdp');
@@ -59,11 +164,7 @@ class Kejaksaan extends CI_Controller
             // cek apakah data berdasarkan id sudah dibalas
             if ($cek_balas->num_rows() > 0) 
             {
-                $this->session->set_flashdata('cek', '<div class="alert alert-warning alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <h4><i class="icon fa fa-warning"></i>Opps, Maaf!</h4>
-                Surat ini Sudah dibalas!
-                </div>');
+                $this->m_pesan->generatePesan('cek', 'Surat ini sudah dibalas!');
                 redirect('kejaksaan');
             }
             else
@@ -139,7 +240,7 @@ class Kejaksaan extends CI_Controller
                                    'tanggal_balas'       => $now);
 
             $this->m_surat->kejaksaan_balas($data, $notification, $id);  
-            $this->session->set_flashdata('berhasil','<div class="alert alert-success" role="alert">Berhasil dibalas</div>');
+            $this->m_pesan->generatePesan('berhasil', 'Surat telah dibalas!');
             redirect(base_url('kejaksaan'));         
         }
 	}
@@ -233,7 +334,7 @@ class Kejaksaan extends CI_Controller
             
             $this->db->where('id_surat_kj', $post['id_surat_kj']);
             $this->db->update('tbl_balas_kejaksaan', array('id_surat_kj' => $post['id_surat_kj']));
-            $this->session->set_flashdata('berhasil','<div class="alert alert-success" role="alert">Surat balasan berhasil di edit!</div>');
+            $this->m_pesan->generatePesan('berhasil', 'Surat balasan telah di update!');
             redirect(current_url());    
         }
     }
@@ -291,7 +392,7 @@ class Kejaksaan extends CI_Controller
             }
             else
             {
-                $this->form_validation->set_message('narkotika', 'file narkotika tidak boleh kosong!');
+                $this->form_validation->set_message('narkotika', 'file narkotika tidak boleh kosong.');
                 return false;
             }
         }
@@ -321,7 +422,7 @@ class Kejaksaan extends CI_Controller
             }
             else
             {
-                $this->form_validation->set_message('kejaksaan', 'file kejaksaan tidak boleh kosong!');
+                $this->form_validation->set_message('kejaksaan', 'file kejaksaan tidak boleh kosong.');
                 return false;
             }
         }
@@ -351,7 +452,7 @@ class Kejaksaan extends CI_Controller
             }
             else
             {
-            	$this->form_validation->set_message('p_18', 'file P-18 tidak boleh kosong!');
+            	$this->form_validation->set_message('p_18', 'file P-18 tidak boleh kosong.');
                 return false;
             }
         }
@@ -381,7 +482,7 @@ class Kejaksaan extends CI_Controller
             }
             else
             {
-            	$this->form_validation->set_message('p_21', 'file P-21 tidak boleh kosong!');
+            	$this->form_validation->set_message('p_21', 'file P-21 tidak boleh kosong.');
                 return false;
             }
         }
@@ -411,7 +512,7 @@ class Kejaksaan extends CI_Controller
             }
             else
             {
-            	$this->form_validation->set_message('pelimpahan', 'file pelimpahan tidak boleh kosong!');
+            	$this->form_validation->set_message('pelimpahan', 'file pelimpahan tidak boleh kosong.');
                 return false;
             }
         }
@@ -442,7 +543,7 @@ class Kejaksaan extends CI_Controller
             }
             else
             {
-                $this->form_validation->set_message('p_17', 'file P-17 tidak boleh kosong!');
+                $this->form_validation->set_message('p_17', 'file P-17 tidak boleh kosong.');
                 return false;
             }
         }
@@ -453,7 +554,7 @@ class Kejaksaan extends CI_Controller
 		$hapus = $this->m_surat->hapus_balasan_kj($id);
 		if ($hapus = TRUE) 
 		{
-			$this->session->set_flashdata('terhapus', '<div class="alert alert-success" role="alert">Jadwal terhapus</div>');
+            $this->m_pesan->generatePesan('berhasil', 'Surat balasan telah dihapus!');
 			redirect(base_url('kejaksaan/riwayat_balas'));
 		}
     }

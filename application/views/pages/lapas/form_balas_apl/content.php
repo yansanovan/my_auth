@@ -11,7 +11,20 @@
             <a href="<?= base_url('lapas_apl');?>" class="btn btn-warning btn-xs"> 
               <i class="fa fa-long-arrow-left" aria-hidden="true"></i> Kembali
             </a><br><br>
-            
+            <table  width="380px">
+              <tbody>
+                <tr>
+                    <td><i class="fa fa-user-o" aria-hidden="true"></i> Balas Kepada</td>
+                    <td width="10px">:</td>
+                    <td width="250px"><?= $data->username;?></td>
+                </tr>
+                <tr>
+                    <td><i class="fa fa-address-book-o" aria-hidden="true"></i> Level </td>
+                    <td width="10px">:</td>
+                    <td width="250px"><?= $data->level;?></td>
+                </tr>
+              </tbody>
+            </table><br>
             <table class="table table-bordered">
               <thead>
                 <tr bgcolor="#8e8d8d">
@@ -22,7 +35,7 @@
               <tbody>
                 <tr>
                   <td>
-                    <input type="hidden" name="id" value="<?= $data->id; ?>"  class="form-control" >
+                    <input type="hidden" name="id_apl" value="<?= $data->id_apl; ?>"  class="form-control" >
                     <input type="hidden" name="id_users_apl" value="<?= $data->id_users_apl; ?>"  class="form-control" >
                     <input type="hidden" name="nama_tersangka" class="form-control" value="<?= $data->nama_tersangka;?>" readonly>
                     <div class="form-group"><p class="form-control"> <?= $data->nama_tersangka;?> </p></div>

@@ -7,8 +7,8 @@
 
           <div class="col-md-12">
             <h1 align="center"><i class="fa fa-pencil-square" aria-hidden="true"></i> Form Balas</h1><br>
-            <a href="<?= base_url('pengadilan');?>" class="btn btn-success btn-xs">
-              <i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali
+            <a href="<?= base_url('pengadilan');?>" class="btn btn-warning btn-xs">
+              <i class="fa fa-long-arrow-left" aria-hidden="true"></i> Kembali
             </a><br><br>
             <table class="table table-bordered">
               <thead>
@@ -134,7 +134,7 @@
             </div>
         
             <center>
-              <button name="submit" class="btn btn-primary">Submit</button>
+              <button name="submit" class="btn btn-primary"><i class="fa fa-paper-plane"></i> Submit</button>
             </center><br>
           <?= form_close();?>
         </div>

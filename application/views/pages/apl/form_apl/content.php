@@ -8,7 +8,7 @@ if ($action == "edit")
 {
   foreach ($data as $key => $value)  
   {
-    $id_apl             = $value->id;
+    $id_apl             = $value->id_apl;
     $nama_tersangka     = $value->nama_tersangka;
     $file_apl           = $value->file_apl;
   }

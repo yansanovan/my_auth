@@ -11,12 +11,13 @@
 <!-- Main content -->
 
 <section class="content">
-    <div class="jumbotron">
-      <center>
-        <h1 class="display-4">Selamat Datang!</h1>
-        <p class="lead">Anda berhasil Login di Aplikasi Terpadu, Terima kasih!</p>
-      </center>
-    </div>
+  <?= $this->session->flashdata('msgbox');?>
+  <div class="jumbotron">
+    <center>
+      <h1 class="display-4">Selamat Datang!</h1>
+      <p class="lead">Di Aplikasi Terpadu, Terima kasih!</p>
+    </center>
+  </div>
   <div class="row">
     <div class="col-lg-3 col-xs-6">
       <!-- small box -->

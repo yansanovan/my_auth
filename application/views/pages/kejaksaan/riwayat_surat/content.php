@@ -3,14 +3,10 @@
     <div class="col-xs-12">
       <div class="box">
         <div class="box-header">
-          <?php if(!empty($error)){ echo '<div class="alert alert-danger" role="alert">'.$error.'</div>';}?>
-          <?= $this->session->flashdata('terhapus');?>
-          <?= $this->session->flashdata('berhasil');?>
-          <?= $this->session->flashdata('deskripsi_diganti');?>
-    
-          <h1 align="center"> Riwayat Surat </h1>
-          <a href="<?php echo base_url('kepolisian/form_entry');?>" class="btn btn-success btn-sm"> 
-          <span class="glyphicon glyphicon-edit"></span> Entry Data</a>
+          <?= $this->session->flashdata('msgbox');?>
+          <h3 align="center"><i class="fa fa-envelope" aria-hidden="true"></i> RIWAYAT SURAT  </h3>
+          <a href="<?php echo base_url('kejaksaan_surat/form_entry');?>" class="btn btn-success btn-xs"> 
+          <span class="glyphicon glyphicon-edit"></span> Entry Surat</a>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -18,11 +14,11 @@
             <table id="example1" class="table table-bordered table-striped">
               <thead>
               <tr>
-                <center><th>No</th></center>
+                <th>No</th>
                 <th>Nama Tersangka</th>
-                <th>Dikirim Oleh</th>
-                <th>Tanggal Posting</th>
-                <th>Detail</th>
+                <th>Nama Jaksa Penuntut Umum</th>
+                <th>P-16</th>
+                <th>Tanggal Penahanan</th>
                 <th>Aksi</th>
               </tr>
               </thead>
@@ -34,26 +30,25 @@
               ?>
               <tr>
                 <td><?= $no++;?></td>
-                 <td style ="<?= $value->nama_tersangka;?>">
+                <td style ="<?= $value->nama_tersangka;?>">
                   <?= $value->nama_tersangka;?>
                 </td>
-
-                <td style ="<?= $value->username;?>">
-                  <?= $value->username;?>
+                <td style ="<?= $value->nama_jpu;?>">
+                  <?= $value->nama_jpu;?>
+                </td>
+                <td style ="<?= $value->p_16;?>">
+                  <?= $value->p_16;?>
                 </td>
                 <td>
-                  <?php echo date('d M Y h:i:a', strtotime($value->tanggal_posting)); ?>
+                 <?= date('d-m-Y', strtotime($value->tanggal_penahanan)); ?>
                 </td>
+                   
                 <td>
-                    <a href="<?php echo base_url('kepolisian/detail/'.$value->url);?>" class="btn btn-info btn-sm"> 
-                      <span class="glyphicon glyphicon-eye-open"></span> Detail
+                    <a href="<?php echo base_url('kejaksaan_surat/detail/'.base64_encode($value->id_surat));?>" class="btn btn-info btn-xs"> <span class="glyphicon glyphicon-eye-open"></span> Detail
                     </a>
-                </td>
-                
-                <td>
-                    <a href="<?php echo base_url('kepolisian/hapus_jadwal/'.$value->id_data.'/'.$value->url);?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin Mau Hapus Jadwal Ini')"> <span class="glyphicon glyphicon-trash"></span> Hapus
+                    <a href="<?php echo base_url('kejaksaan_surat/hapus/'.base64_encode($value->id_surat));?>" class="btn btn-danger btn-xs" onclick="return confirm('Yakin Mau Hapus surat Ini')"> <span class="glyphicon glyphicon-trash"></span> Hapus
                     </a>
-                    <a href="<?php echo base_url('kepolisian/edit/'.$value->id_data);?>" class="btn btn-warning btn-sm"> 
+                    <a href="<?php echo base_url('kejaksaan_surat/edit/'.base64_encode($value->id_surat));?>" class="btn btn-warning btn-xs"> 
                       <span class="glyphicon glyphicon-edit"></span> Edit
                     </a>
                 </td>
@@ -62,16 +57,6 @@
               } 
               ?>
               </tbody>
-              <tfoot>
-              <tr>
-                <th>No</th>
-                <th>Nama Tersangka</th>
-                <th>Dikirim Oleh</th>
-                <th>Tanggal Posting</th>
-                <th>Detail</th>
-                <th>Aksi</th>
-              </tr>
-              </tfoot>
             </table>
           </div>
         </div>

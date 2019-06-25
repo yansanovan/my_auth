@@ -41,11 +41,11 @@
                   <?php
                   if ($value->status_pn == 1){ ?>
                   <span class="label label-success"> 
-                     Valid 
+                     Sudah dibalas 
                   </span>
                   <?php } else { ?>
                   <span class="label label-danger">
-                     Invalid
+                     belum dibalas
                   </span>
                   <?php } ?>
                 </td>

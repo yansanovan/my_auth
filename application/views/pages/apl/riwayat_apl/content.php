@@ -17,6 +17,7 @@
                   <th>No</th>
                   <th>Nama Tersangka</th>
                   <th>File APL</th>
+                  <th>Status Balas</th>
                   <th>Tanggal Permintaan</th>
                   <th>Aksi</th>
                 </tr>
@@ -31,12 +32,18 @@
                       <i class="glyphicon glyphicon-download-alt"></i> 
                     </a> <?= $value->file_apl;?>
                   </td>  
+                  <td><?php if($value->status_balas == 1) {?> 
+                      <span class="label label-success"> Valid</span> 
+                      <?php } else {?>
+                      <span class="label label-danger"> Invalid</span>
+                      <?php } ?>
+                  </td>
                   <td><?= $value->tanggal_apl;?></td>
                   <td>
-                    <a href="<?= base_url('apl/hapus/'.$value->id);?>" class="btn btn-danger btn-xs" onclick="return confirm('Mau hapus Apl ini ?')"> 
+                    <a href="<?= base_url('apl/hapus/'.$value->id_apl);?>" class="btn btn-danger btn-xs" onclick="return confirm('Mau hapus Apl ini ?')"> 
                       <span class="glyphicon glyphicon-trash" ></span> Hapus
                     </a>             
-                    <a href="<?= base_url('apl/edit/'. base64_encode($value->id));?>" class="btn btn-warning btn-xs"> 
+                    <a href="<?= base_url('apl/edit/'. base64_encode($value->id_apl));?>" class="btn btn-warning btn-xs"> 
                       <span class="glyphicon glyphicon-edit" ></span></i>Edit
                     </a>
                   </td>      

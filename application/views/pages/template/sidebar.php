@@ -112,22 +112,38 @@
         <!-- session kejaksaan -->
 
         <?php } else if ($this->session->userdata('level') == 'kejaksaan') { ?>  
-        
-        <li class="treeview <?= $this->uri->segment(1) =='kejaksaan' ? 'active' : null;?>">
+        <li class="treeview <?= $this->uri->segment(1) =='kejaksaan_surat' ? 'active' : null;?>">
           <a href="#">
-            <i class="fa fa-envelope-o" aria-hidden="true"></i> <span> Surat</span>
+            <i class="fa fa-envelope-o" aria-hidden="true"></i> <span> Surat Pengadilan</span>
             <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
           </a>
           <ul class="treeview-menu">
             <li>
-              <a href="<?php echo base_url('kejaksaan');?>"><i class="fa fa-envelope-open-o"></i> <span> Surat Polisi </span></a>
+              <a href="<?php echo base_url('kejaksaan_surat');?>"><i class="fa fa-envelope-open-o"></i> <span> Surat Balasan </span></a>
             </li>
             <li>
-              <a href="<?php echo base_url('kejaksaan/form_entry');?>"><i class="fa fa-edit"></i> <span>Entry Surat</span></a>
+              <a href="<?php echo base_url('kejaksaan_surat/form_entry');?>"><i class="fa fa-edit"></i> <span>Entry Surat</span></a>
+            </li>
+            <li>
+              <a href="<?php echo base_url('kejaksaan_surat/riwayat_surat');?>">
+                <i class="fa fa-file-text-o" aria-hidden="true"></i></i> <span> Riwayat Surat </span>
+              </a>
+            </li>
+          </ul>
+        </li>  
+
+        <li class="treeview <?= $this->uri->segment(1) =='kejaksaan' ? 'active' : null;?>">
+          <a href="#">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i> <span> Surat Polisi</span>
+            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+          </a>
+          <ul class="treeview-menu">
+            <li>
+              <a href="<?php echo base_url('kejaksaan');?>"><i class="fa fa-envelope-open-o"></i> <span> Surat Masuk </span></a>
             </li>
             <li>
               <a href="<?php echo base_url('kejaksaan/riwayat_balas');?>">
-                <i class="fa fa-file-text-o" aria-hidden="true"></i></i> <span> Riwayat Balas Surat Polisi </span>
+                <i class="fa fa-file-text-o" aria-hidden="true"></i></i> <span> Riwayat Balas </span>
               </a>
             </li>
           </ul>
@@ -138,20 +154,35 @@
         <!-- session pengadilan -->
 
         <?php } else if ($this->session->userdata('level') == 'pengadilan') { ?>
-
-
-         <li class="treeview <?= $this->uri->segment(1) =='pengadilan' ? 'active' : null;?>">
+          <li class="treeview <?= $this->uri->segment(1) =='pengadilan_surat' ? 'active' : null;?>">
           <a href="#">
-            <i class="fa fa-envelope-o" aria-hidden="true"></i> <span> Surat</span>
+            <i class="fa fa-envelope-o" aria-hidden="true"></i> <span> Surat Kejaksaan</span>
             <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
           </a>
           <ul class="treeview-menu">
             <li>
-              <a href="<?php echo base_url('pengadilan');?>"><i class="fa fa-envelope-open-o"></i> <span> Surat Polisi </span></a>
+              <a href="<?php echo base_url('pengadilan_surat');?>"><i class="fa fa-envelope-open-o"></i> <span> Surat Masuk </span></a>
+            </li>
+            <li>
+              <a href="<?php echo base_url('pengadilan_surat/riwayat_balas');?>">
+                <i class="fa fa-file-text-o" aria-hidden="true"></i></i> <span> Riwayat Balas  </span>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+         <li class="treeview <?= $this->uri->segment(1) =='pengadilan' ? 'active' : null;?>">
+          <a href="#">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i> <span> Surat Polisi</span>
+            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+          </a>
+          <ul class="treeview-menu">
+            <li>
+              <a href="<?php echo base_url('pengadilan');?>"><i class="fa fa-envelope-open-o"></i> <span> Surat Masuk </span></a>
             </li>
             <li>
               <a href="<?php echo base_url('pengadilan/riwayat_balas');?>">
-                <i class="fa fa-file-text-o" aria-hidden="true"></i></i> <span> Riwayat Balas Surat Polisi </span>
+                <i class="fa fa-file-text-o" aria-hidden="true"></i></i> <span> Riwayat Balas  </span>
               </a>
             </li>
           </ul>

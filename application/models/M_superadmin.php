@@ -12,8 +12,6 @@ class M_superadmin extends CI_Model
 			return $query->row();
 		}
 		$this->db->where('id !=', 5);
-		// $names = array('kepolisian', 'kejaksaan');
-		// $this->db->where_in('username', $names);
 		$query = $this->db->get('tbl_users');
 		
 		return $query->result();

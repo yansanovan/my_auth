@@ -20,8 +20,9 @@ class Auth extends CI_Controller
 		$this->form_validation->set_rules('email', 'Email', 'required',  array('required' => 'Email tidak boleh kosong!'));
 		$this->form_validation->set_rules('password', 'Password', 'required', array('required' => 'Password tidak boleh kosong!'));
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h4><i class="fa fa-times" aria-hidden="true"></i> Opps!</h4>','</div> ');
+								                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+								                        <h4><i class="fa fa-times" aria-hidden="true"></i> Opps!</h4>',
+								                     '</div> ');
 
 		if ($this->form_validation->run() === FALSE) 
 		{
@@ -29,8 +30,8 @@ class Auth extends CI_Controller
 		}
 		else
 		{
-			$email     	= $this->input->post('email', TRUE);
-			$password 	= $this->input->post('password', TRUE);
+			$email     	= htmlspecialchars($this->input->post('email', TRUE));
+			$password 	= htmlspecialchars($this->input->post('password', TRUE));
 			$data 		= $this->m_auth->sign_in($email);
 			
 			if ($data->num_rows() > 0) 
@@ -81,6 +82,7 @@ class Auth extends CI_Controller
 										  );
 							
 							$this->session->set_userdata($data);
+							$this->m_pesan->generatePesan('logged_in', 'Anda Telah Login, Terima kasih!');
 							redirect(base_url('dashboard'));
 							}
 							elseif ($users->level == 'kepolisian') 
@@ -93,7 +95,8 @@ class Auth extends CI_Controller
 											 );
 								
 								$this->session->set_userdata($data);
-								redirect(base_url('dashboard'));
+								$this->m_pesan->generatePesan('logged_in', 'Anda Telah Login, Terima kasih!');
+								redirect('dashboard');
 							}
 							elseif ($users->level == 'pengadilan') 
 							{
@@ -105,7 +108,8 @@ class Auth extends CI_Controller
 											);
 								
 								$this->session->set_userdata($data);
-								redirect(base_url('dashboard'));
+								$this->m_pesan->generatePesan('logged_in', 'Anda Telah Login, Terima kasih!');
+								redirect('dashboard');
 							}
 							elseif ($users->level == 'lapas') 
 							{
@@ -117,19 +121,21 @@ class Auth extends CI_Controller
 											);
 								
 								$this->session->set_userdata($data);
-								redirect(base_url('dashboard'));
+								$this->m_pesan->generatePesan('logged_in', 'Anda Telah Login, Terima kasih!');
+								redirect('dashboard');
 							}	
 							elseif ($users->level == 'superadmin') 
 							{
 								$data = array('id'		 =>  $users->id,
-								'username' =>  $users->username,
+											'username' =>  $users->username,
 											'email'	 =>  $users->email,
 											'level'	 =>  $users->level,
 											'status'	 =>  'logged',
 											);
 								
 								$this->session->set_userdata($data);
-								redirect(base_url('superadmin'));
+								$this->m_pesan->generatePesan('logged_in', 'Anda Telah Login, Terima kasih!');
+								redirect('superadmin');
 							}	
 						}	
 					}
@@ -138,7 +144,6 @@ class Auth extends CI_Controller
 			else
 			{	
 				$this->m_pesan->generatePesan('salah', 'Email / Password Salah!');
-				// $this->session->set_flashdata('invalid','<div class="alert alert-danger" role="alert"> Email / password anda Salah!</div>');
 				redirect('auth');			
 			}
 		}
@@ -146,7 +151,9 @@ class Auth extends CI_Controller
 
 	public function sign_out()
 	{
-		$this->session->sess_destroy();
-		redirect(base_url('auth'));
+		$array_items = array('id','username', 'email','level', 'status');
+		$this->session->unset_userdata($array_items);
+		$this->m_pesan->generatePesan('logout', 'Anda telah logout!');
+		redirect('auth');
 	}
 }

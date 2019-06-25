@@ -1,11 +1,16 @@
-<?php
+<?php<?php
 defined('BASEPATH') OR exit('No direct script access allowed');?>
-
+<?php
+$ci = new CI_Controller();
+$ci =& get_instance();
+$ci->load->helper('url');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <title>404 Page Not Found</title>
+
 <style type="text/css">
 
 ::selection { background-color: #E13300; color: white; }
@@ -56,16 +61,17 @@ p {
 }
 </style>
 </head>
-
-
 <body>
 	<div id="container">
+		<h1 align="center"><b><?php echo $heading; ?></b></h1>
 		<center>
-			<h1><?php echo $heading; ?></h1>
-			<h1>Opps Sorry!</h1>
-			<br>
-			<?php //echo $message; ?>
+
+			<img src="<?= base_url('asset/img/404.png');?>">
+			<?php echo $message;?>
+			<a href="<?= base_url('auth');?>">Back to Home</a>
 		</center>
+		<br>
 	</div>
+
 </body>
 </html>

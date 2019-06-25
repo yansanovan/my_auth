@@ -1,533 +1,167 @@
-<div class="wrapper">
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-  <!-- Main content -->
-    <section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-              <?php if(!empty($error)){ echo '<div class="alert alert-danger" role="alert">'.$error.'</div>';}?>
-              <?= $this->session->flashdata('terhapus');?>
-              <?= $this->session->flashdata('tanggal_berhasil_diubah');?>
-      
-              <h1 align="center"> Detail Data Jadwal Kejaksaan </h1>
-               <table  width="300px">
-             <?php 
-              $no = 1;
-              foreach ($data as $key => $value) 
-              {
-              ?>
-                <tbody>
-                    <tr>
-                        <td>Status Data</td><td>:</td><td><?php if ($value->id_data == NULL || $value->id_users == NULL || $value->deskripsi == NULL || $value->file_pelimpahan_berkas == NULL || $value->file_tahap_I == NULL || $value->file_tahap_II == NULL || $value->file_pelimpahan == NULL || $value->file_penahanan == NULL || $value->file_perpanjang_penahanan == NULL || $value->file_eksekusi_putusan == NULL || $value->tanggal_pelimpahan_berkas == 0000-00-00 || $value->tanggal_tahap_I == 0000-00-00 || $value->tanggal_tahap_II == 0000-00-00 || $value->tanggal_pelimpahan == 0000-00-00 || $value->tanggal_penahanan == 0000-00-00 || $value->tanggal_perpanjang_penahanan == 0000-00-00 || $value->tanggal_eksekusi_putusan == 0000-00-00) 
-                        {
-                        ?>
-                          <h5 style="color: red">Data Tidak Lengkap</h5>
-                        <?php
-                        }
-                        else
-                        {
-                        ?>
-                          <b><h5 style="color: green">Data Komplete</h5></b>
-                        <?php
-                        }
-                        ?>
-                      </td>
-                    </tr>
-                </tbody>
-            </table>
+<section class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <?= $this->session->flashdata('msgbox');?>  
+          <div class="col-md-12">
+          <P>
             <br>
-            <a href="<?php echo base_url('kejaksaan/data_jadwal/'.$value->url);?>" class="btn btn-info btn-sm"> 
-              <span class="glyphicon glyphicon-arrow-left"></span> Kembali
+            <a href="<?= base_url('kejaksaan_surat/riwayat_surat');?>" class="btn btn-warning btn-xs">
+               <i class="fa fa-long-arrow-left" aria-hidden="true"></i>  Kembali
             </a>
+          </P>
+          <nav class="navbar navbar-light" style="background-color:#e3f2fd;">
+            <h3 align="center"><i class="fa fa-envelope" aria-hidden="true"></i> DETAIL RIWAYAT  </h2><br>
+          </nav>
+          <table  width="500px">
+            <tbody>
+              <tr>
+                  <td><i class="fa fa-user-o" aria-hidden="true"></i> Dikirim Oleh</td>
+                  <td width="10px">:</td>
+                  <td width="250px"><?= $data->username;?></td>
+              </tr>
+              <tr>
+                  <td> <i class="fa fa-calendar" aria-hidden="true"></i> Tanggal Penahanan T-7 </td>
+                  <td width="10px">:</td>
+                  <td width="250px"><?= date('d-m-Y', strtotime($data->tanggal_penahanan)); ?></td>
+              </tr>
+              <tr>
+                  <td> <i class="fa fa-calendar" aria-hidden="true"></i> Tanggal Pelimpahan Perkara P-31 </td>
+                  <td width="10px">:</td>
+                  <td width="250px"><?= date('d-m-Y', strtotime($data->tanggal_pelimpahan_p31)); ?></td>
+              </tr>
+              <tr>
+                  <td> <i class="fa fa-calendar" aria-hidden="true"></i> Tanggal Pelimpahan Perkara P-32</td>
+                  <td width="10px">:</td>
+                  <td width="250px"><?= date('d-m-Y', strtotime($data->tanggal_pelimpahan_p32)); ?></td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          <table class="table table-bordered">
+            <thead class="thead-dark">
+              <tr bgcolor="#8e8d8d">
+                <th class="col-sm-5" style="color: white"><i class="fa fa-file-text" aria-hidden="true"></i> Nama File</th>
+                <th class="col-sm-7" style="color: white"><i class="fa fa-book" aria-hidden="true"></i> Lampiran</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Nama Tersangka</td>
+                <td><?= $data->nama_tersangka;?></td>
+              </tr>
+              <tr>
+                <td>Nama Jaksa Penuntut Umum</td>
+                <td><?= $data->nama_jpu;?></td>
+              </tr>
+              <tr>
+                <td>P-16</td>
+                <td><?= $data->p_16;?></td>
+              </tr>
+              <tr>  
+                <td>T-6</td>
+                <td>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">T-6</label>
+                    <p>
+                      <a href="<?= base_url();?>" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-download-alt"></i> </a> <?= $data->t_6;?>
+                    </p>
+                  </div>
+                </td>
+              </tr>
+              <tr>  
+                <td>T-7</td>
+                <td>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">T-7</label>
+                    <p>
+                      <a href="<?= base_url();?>" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-download-alt"></i> </a> <?= $data->t_7;?>
+                    </p>
+                  </div>
+                </td>
+              </tr>
+              <tr>  
+                <td>T-10</td>
+                <td>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">T-10</label>
+                    <p>
+                      <a href="<?= base_url();?>" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-download-alt"></i> </a> <?= $data->t_10;?>
+                    </p>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Surat Dakwaan</td>  
+                <td>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">P-29</label>
+                    <p>
+                      <a href="<?= base_url();?>" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-download-alt"></i> </a> <?= $data->p_29;?>
+                    </p>
+                  </div>
+                </td>
+              </tr>
+              <tr>  
+                <td>P-31</td>
+                <td>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">P-31</label>
+                    <p>
+                      <a href="<?= base_url();?>" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-download-alt"></i> </a> <?= $data->p_31;?>
+                    </p>
+                  </div>
+                </td>
+              </tr>
+              <tr>  
+                <td>P-32</td>
+                <td>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">P-32</label>
+                    <p>
+                      <a href="<?= base_url();?>" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-download-alt"></i> </a> <?= $data->p_32;?>
+                    </p>
+                  </div>
+                </td>
+              </tr>
+              <tr>  
+                <td>Surat Dakwaan</td>  
+                <td>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">P-42</label>
+                    <p>
+                      <a href="<?= base_url();?>" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-download-alt"></i> </a> <?= $data->p_42;?>
+                    </p>
+                  </div>
+                </td>
+              </tr>
+              <tr>  
+                <td>Eksekusi</td>
+                <td>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">P-48</label>
+                    <p>
+                      <a href="<?= base_url();?>" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-download-alt"></i> </a> <?= $data->p_48;?>
+                    </p>
+                  </div>
 
-             <a href="<?= base_url('kejaksaan/uraian_tuntutan/'.$value->url);?>" class="btn btn-success btn-sm">
-                <span class="glyphicon glyphicon-file"></span></i>Uraian Tuntutan
-              </a>
-              <a  href="<?= base_url('kejaksaan/uraian_dakwaan/'.$value->url);?>" class="btn btn-warning btn-sm">
-                <span class="glyphicon glyphicon-file"></span></i>Uraian Dakwaan
-              </a>
-
-            <?php 
-            } 
-            ?>
-
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <div class="table-responsive">
-                <table id="example1" class="table table-bordered table-striped">
-                  <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>Deskripsi Perkara</th>
-                    <th>Nama Berkas</th>
-                    <th>File Berkas</th>
-                    <th>Tanggal Kirim</th>
-                    <th>Dikirim Oleh</th>
-                    <th>Download</th>
-                    <th>Aksi</th>
-                  </tr>
-                  </thead>
-                  <tbody> 
-                  <?php 
-                  $no = 1;
-                  foreach ($data as $key => $value) 
-                  {
-                  ?>
-
-                  <!-- Pelimpahan berkas & file Pelimpahan berkas & tanggal Pelimpahan berkas-->
-                  
-                  <tr>  
-                    <td><?= $no++;?></td>
-                    
-                    <td style ="<?php if($value->deskripsi == null){echo 'background-color:red'; }else{echo ''; }?>">
-                      <?= $value->deskripsi;?>
-                    </td>
-                    
-                    <td style ="<?php if($value->pelimpahan_berkas == null){echo 'background-color:red'; }else{echo ''; }?>">
-                      <?= $value->pelimpahan_berkas;?>
-                    </td>
-                    
-                    <td style ="<?php if($value->file_pelimpahan_berkas == null){echo 'background-color:red'; }else{echo ''; }?>">
-                      <?= $value->file_pelimpahan_berkas;?>
-                    </td>
-                    
-                    <td style ="<?php if($value->tanggal_pelimpahan_berkas == 0000-00-00){echo 'background-color:red'; }else{echo ''; }?>"> 
-                      <?php if($value->tanggal_pelimpahan_berkas == 0000-00-00 || $value->tanggal_pelimpahan_berkas == null)
-                      {
-                        echo '';
-                      }
-                      else
-                      {                         
-                        $tanggal  = strtotime($value->tanggal_pelimpahan_berkas); 
-                        echo $dateformat    = date('d M Y', $tanggal);
-                      }
-                      ?>
-                    </td>
-
-                    <td style ="<?php if($value->username == null){echo 'background-color:red'; }else{echo ''; }?>">
-                      <?= $value->username;?>
-                    </td>
-                    
-                    <td>
-                      <?php 
-                      if($value->file_pelimpahan_berkas == null)
-                      {
-                      ?>
-                          <a href="#" class="btn btn-danger btn-sm" disabled> 
-                            <span class="glyphicon glyphicon-eye-open"></span> Tidak ada file
-                          </a>
-                      <?php
-                      }
-                      else
-                      {
-                      ?>
-                        <a href="<?php echo base_url('kejaksaan/unduh/'.$value->file_pelimpahan_berkas);?>" target="_blank" class="btn btn-success btn-sm"  onclick="return confirm('Mau Download?')"> 
-                          <span class="glyphicon glyphicon-eye-open"></span> Download
-                        </a>
-                      <?php 
-                      }
-                      ?>
-                    </td>
-                    
-                    <td>
-                       <a href="<?php echo base_url('ubah_data_kejaksaan/load_pelimpahan_berkas/'.$value->id_data);?>" class="btn btn-warning btn-sm">
-                          <span class="glyphicon glyphicon-edit"></span> Ubah File / Lengkapi File
-                        </a>  
-                    </td>
-                  
-                  </tr>
-                  
-                  <!-- Tahap I & file Tahap I & tanggal Tahap I-->
-
-                   <tr>
-                    <td><?= $no++;?></td>
-
-                    <td style ="<?php if($value->deskripsi == null){echo 'background-color:red'; }else{echo ''; }?>">
-                      <?= $value->deskripsi;?>
-                    </td>
-
-                    <td style ="<?php if($value->tahap_I == null){echo 'background-color:red'; }else{echo ''; }?>">
-                      <?= $value->tahap_I;?>
-                    </td>
-
-                    <td style ="<?php if($value->file_tahap_I == null){echo 'background-color:red'; }else{echo ''; }?>">
-                      <?= $value->file_tahap_I;?>
-                    </td>
-
-                     <td style ="<?php if($value->tanggal_tahap_I == 0000-00-00){echo 'background-color:red'; }else{echo ''; }?>"> 
-                      <?php if($value->tanggal_tahap_I == 0000-00-00 || $value->tanggal_tahap_I == null)
-                      {
-                        echo '';
-                      }
-                      else
-                      {                         
-                        $tanggal  = strtotime($value->tanggal_tahap_I); 
-                        echo $dateformat    = date('d M Y', $tanggal);
-                      }
-                      ?>
-                    </td>
-
-                    <td style ="<?php if($value->username == null){echo 'background-color:red'; }else{echo ''; }?>">
-                      <?= $value->username;?>
-                    </td>
-
-                    <td>
-                      <?php 
-                      if($value->file_tahap_I == null)
-                      {
-                      ?>
-                          <a href="#" class="btn btn-danger btn-sm" disabled> 
-                            <span class="glyphicon glyphicon-eye-open"></span> Tidak ada file
-                          </a>
-                      <?php
-                      }
-                      else
-                      {
-                      ?>
-                        <a href="<?php echo base_url('kejaksaan/unduh/'.$value->file_tahap_I);?>" target="_blank" class="btn btn-success btn-sm"  onclick="return confirm('Mau Download?')"> 
-                          <span class="glyphicon glyphicon-eye-open"></span> Download
-                        </a>
-                      <?php 
-                      }
-                      ?>
-                    </td>
-
-                    <td>
-                       <a href="<?php echo base_url('ubah_data_kejaksaan/load_tahap_I/'. $value->id_data);?>" class="btn btn-warning btn-sm">
-                          <span class="glyphicon glyphicon-edit"></span> Ubah File / Lengkapi File
-                        </a>  
-                    </td>
-
-                  </tr>
-
-                  <!-- Tahap II & file Tahap II  & tanggal tahap II-->
-
-                  <tr>
-                    <td><?= $no++;?></td>
-
-                    <td style ="<?php if($value->deskripsi == null){echo 'background-color:red'; }else{echo ''; }?>">
-                      <?= $value->deskripsi;?>
-                    </td>
-
-                    <td style ="<?php if($value->tahap_II == null){echo 'background-color:red'; }else{echo ''; }?>">
-                      <?= $value->tahap_II;?>
-                    </td>
-
-                    <td style ="<?php if($value->file_tahap_II == null){echo 'background-color:red'; }else{echo ''; }?>">
-                      <?= $value->file_tahap_II;?>
-                    </td>
-
-                    <td style ="<?php if($value->tanggal_tahap_II == 0000-00-00){echo 'background-color:red'; }else{echo ''; }?>"> 
-                      <?php if($value->tanggal_tahap_II == 0000-00-00 || $value->tanggal_tahap_II == null)
-                      {
-                        echo '';
-                      }
-                      else
-                      {                         
-                        $tanggal  = strtotime($value->tanggal_tahap_II); 
-                        echo $dateformat    = date('d M Y', $tanggal);
-                      }
-                      ?>
-                    </td>
-
-                    <td style ="<?php if($value->username == null){echo 'background-color:red'; }else{echo ''; }?>">
-                      <?= $value->username;?>
-                    </td>
-                    
-                    <td>
-                      <?php 
-                      if($value->file_tahap_II == null)
-                      {
-                      ?>
-                          <a href="#" class="btn btn-danger btn-sm" disabled> 
-                            <span class="glyphicon glyphicon-eye-open"></span> Tidak ada file
-                          </a>
-                      <?php
-                      }
-                      else
-                      {
-                      ?>
-                        <a href="<?php echo base_url('kejaksaan/unduh/'.$value->file_tahap_II);?>" target="_blank" class="btn btn-success btn-sm"  onclick="return confirm('Mau Download?')"> 
-                          <span class="glyphicon glyphicon-eye-open"></span> Download
-                        </a>
-                      <?php 
-                      }
-                      ?>
-                    </td>
-
-                    <td>
-                       <a href="<?php echo base_url('ubah_data_kejaksaan/load_tahap_II/'.$value->id_data);?>" class="btn btn-warning btn-sm">
-                          <span class="glyphicon glyphicon-edit"></span> Ubah File / Lengkapi File
-                        </a>  
-                    </td>
-
-                  </tr>
-
-                  <!-- Pelimpahan & file pelimpahan  & tanggal pelimpahan -->
-
-                  <tr>
-                    
-                    <td><?= $no++;?></td>
-                    <td style ="<?php if($value->deskripsi == null){echo 'background-color:red'; }else{echo ''; }?>">
-                      <?= $value->deskripsi;?>
-                    </td>
-
-                    <td style ="<?php if($value->pelimpahan == null){echo 'background-color:red'; }else{echo ''; }?>">
-                      <?= $value->pelimpahan;?>
-                    </td>
-                    <td style ="<?php if($value->file_pelimpahan == null){echo 'background-color:red'; }else{echo ''; }?>">
-                      <?= $value->file_pelimpahan;?>
-                    </td>
-                    <td style ="<?php if($value->tanggal_pelimpahan == 0000-00-00){echo 'background-color:red'; }else{echo ''; }?>"> 
-                      <?php if($value->tanggal_pelimpahan == 0000-00-00 || $value->tanggal_pelimpahan == null)
-                      {
-                        echo '';
-                      }
-                      else
-                      {                         
-                        $tanggal  = strtotime($value->tanggal_pelimpahan); 
-                        echo $dateformat    = date('d M Y', $tanggal);
-                      }
-                      ?>
-                    </td>
-                    <td style ="<?php if($value->username == null){echo 'background-color:red'; }else{echo ''; }?>">
-                      <?= $value->username;?>
-                    </td>
-                    <td>
-                      <?php 
-                      if($value->file_pelimpahan == null)
-                      {
-                      ?>
-                          <a href="#" class="btn btn-danger btn-sm" disabled> 
-                            <span class="glyphicon glyphicon-eye-open"></span> Tidak ada file
-                          </a>
-                      <?php
-                      }
-                      else
-                      {
-                      ?>
-                        <a href="<?php echo base_url('kejaksaan/unduh/'.$value->file_pelimpahan);?>" target="_blank" class="btn btn-success btn-sm"  onclick="return confirm('Mau Download?')"> 
-                          <span class="glyphicon glyphicon-eye-open"></span> Download
-                        </a>
-                      <?php 
-                      }
-                      ?>
-                    </td>
-
-                    <td>
-                       <a href="<?php echo base_url('ubah_data_kejaksaan/load_pelimpahan/'. $value->id_data);?>" class="btn btn-warning btn-sm">
-                          <span class="glyphicon glyphicon-edit"></span> Ubah File / Lengkapi File
-                        </a>  
-                    </td>
-
-                  </tr>
-                  
-                  <!-- Penahanan  & file penahanan  & tanggal penahanan -->
-
-                  <tr>
-                    <td><?= $no++;?></td>
-
-                    <td style ="<?php if($value->deskripsi == null){echo 'background-color:red'; }else{echo ''; }?>">
-                      <?= $value->deskripsi;?>
-                    </td>
-
-                    <td style ="<?php if($value->penahanan == null){echo 'background-color:red'; }else{echo ''; }?>">
-                      <?= $value->penahanan;?>
-                    </td>
-                    <td style ="<?php if($value->file_penahanan == null){echo 'background-color:red'; }else{echo ''; }?>">
-                      <?= $value->file_penahanan;?>
-                    </td>
-                     <td style ="<?php if($value->tanggal_penahanan == 0000-00-00){echo 'background-color:red'; }else{echo ''; }?>"> 
-                      <?php if($value->tanggal_penahanan == 0000-00-00 || $value->tanggal_penahanan == null)
-                      {
-                        echo '';
-                      }
-                      else
-                      {                         
-                        $tanggal  = strtotime($value->tanggal_penahanan); 
-                        echo $dateformat    = date('d M Y', $tanggal);
-                      }
-                      ?>
-                    </td>
-                    <td style ="<?php if($value->username == null){echo 'background-color:red'; }else{echo ''; }?>">
-                      <?= $value->username;?>
-                    </td>
-                    <td>
-                      <?php 
-                      if($value->file_penahanan == null)
-                      {
-                      ?>
-                          <a href="#" class="btn btn-danger btn-sm" disabled> 
-                            <span class="glyphicon glyphicon-eye-open"></span> Tidak ada file
-                          </a>
-                      <?php
-                      }
-                      else
-                      {
-                      ?>
-                        <a href="<?php echo base_url('kejaksaan/unduh/'.$value->file_penahanan);?>" target="_blank" class="btn btn-success btn-sm"  onclick="return confirm('Mau Download?')"> 
-                          <span class="glyphicon glyphicon-eye-open"></span> Download
-                        </a>
-                      <?php 
-                      }
-                      ?>
-                    </td>
-
-                    <td>
-                       <a href="<?php echo base_url('ubah_data_kejaksaan/load_penahanan/'. $value->id_data);?>" class="btn btn-warning btn-sm">
-                          <span class="glyphicon glyphicon-edit"></span> Ubah File / Lengkapi File
-                        </a>  
-                    </td>                                   
-                  </tr>
-
-                  <!-- Perpanjang Penahanan  & file perpanjang penahanan  & tanggal perpanjang penahanan -->
-
-                  <tr>
-                    <td><?= $no++;?></td>
-
-                    <td style ="<?php if($value->deskripsi == null){echo 'background-color:red'; }else{echo ''; }?>">
-                      <?= $value->deskripsi;?>
-                    </td>
-
-                    <td style ="<?php if($value->perpanjang_penahanan == null){echo 'background-color:red'; }else{echo ''; }?>">
-                      <?= $value->perpanjang_penahanan;?>
-                    </td>
-                    <td style ="<?php if($value->file_perpanjang_penahanan == null){echo 'background-color:red'; }else{echo ''; }?>">
-                      <?= $value->file_perpanjang_penahanan;?>
-                    </td>
-                    <td style ="<?php if($value->tanggal_perpanjang_penahanan == 0000-00-00){echo 'background-color:red'; }else{echo ''; }?>"> 
-                      <?php if($value->tanggal_perpanjang_penahanan == 0000-00-00 || $value->tanggal_perpanjang_penahanan == null)
-                      {
-                        echo '';
-                      }
-                      else
-                      {                         
-                        $tanggal  = strtotime($value->tanggal_perpanjang_penahanan); 
-                        echo $dateformat    = date('d M Y', $tanggal);
-                      }
-                      ?>
-                    </td>
-                    <td style ="<?php if($value->username == null){echo 'background-color:red'; }else{echo ''; }?>">
-                      <?= $value->username;?>
-                    </td>
-                    
-                    <td>
-                      <?php 
-                      if($value->file_perpanjang_penahanan == null)
-                      {
-                      ?>
-                          <a href="#" class="btn btn-danger btn-sm" disabled> 
-                            <span class="glyphicon glyphicon-eye-open"></span> Tidak ada file
-                          </a>
-                      <?php
-                      }
-                      else
-                      {
-                      ?>
-                        <a href="<?php echo base_url('kejaksaan/unduh/'.$value->file_perpanjang_penahanan);?>" target="_blank" class="btn btn-success btn-sm"  onclick="return confirm('Mau Download?')"> 
-                          <span class="glyphicon glyphicon-eye-open"></span> Download
-                        </a>
-                      <?php 
-                      }
-                      ?>               
-                    </td>
-                    
-                    <td>
-                       <a href="<?php echo base_url('ubah_data_kejaksaan/load_perpanjang_penahanan/'.$value->id_data);?>" class="btn btn-warning btn-sm">
-                          <span class="glyphicon glyphicon-edit"></span> Ubah File / Lengkapi File
-                        </a>  
-                    </td> 
-                  </tr>
-
-                  <!-- eksekusi putusan & file eksekusi putusan & tanggal eksekusi putusan-->
-
-                   <tr>
-                    <td><?= $no++;?></td>
-
-                    <td style ="<?php if($value->deskripsi == null){echo 'background-color:red'; }else{echo ''; }?>">
-                      <?= $value->deskripsi;?>
-                    </td>
-
-                    <td style ="<?php if($value->eksekusi_putusan == null){echo 'background-color:red'; }else{echo ''; }?>">
-                      <?= $value->eksekusi_putusan;?>
-                    </td>
-                    <td style ="<?php if($value->file_eksekusi_putusan == null){echo 'background-color:red'; }else{echo ''; }?>">
-                      <?= $value->file_eksekusi_putusan;?>
-                    </td>
-                    <td style ="<?php if($value->tanggal_eksekusi_putusan == 0000-00-00){echo 'background-color:red'; }else{echo ''; }?>"> 
-                      <?php if($value->tanggal_eksekusi_putusan == 0000-00-00 || $value->tanggal_eksekusi_putusan == null)
-                      {
-                        echo '';
-                      }
-                      else
-                      {                         
-                        $tanggal  = strtotime($value->tanggal_eksekusi_putusan); 
-                        echo $dateformat    = date('d M Y', $tanggal);
-                      }
-                      ?>
-                    </td>
-                    <td style ="<?php if($value->username == null){echo 'background-color:red'; }else{echo ''; }?>">
-                      <?= $value->username;?>
-                    </td>
-                    
-                    <td>
-                      <?php 
-                      if($value->file_eksekusi_putusan == null)
-                      {
-                      ?>
-                          <a href="#" class="btn btn-danger btn-sm" disabled> 
-                            <span class="glyphicon glyphicon-eye-open"></span> Tidak ada file
-                          </a>
-                      <?php
-                      }
-                      else
-                      {
-                      ?>
-                        <a href="<?php echo base_url('kejaksaan/unduh/'.$value->file_eksekusi_putusan);?>" target="_blank" class="btn btn-success btn-sm"  onclick="return confirm('Mau Download?')"> 
-                          <span class="glyphicon glyphicon-eye-open"></span> Download
-                        </a>
-                      <?php 
-                      }
-                      ?>               
-                    </td>
-                    
-                    <td>
-                       <a href="<?php echo base_url('ubah_data_kejaksaan/load_eksekusi_putusan/'. $value->id_data);?>" class="btn btn-warning btn-sm">
-                          <span class="glyphicon glyphicon-edit"></span> Ubah File / Lengkapi File
-                        </a>  
-                    </td> 
-                  </tr>
-                  <?php 
-                  } 
-                  ?>
-                  </tbody>
-                  <tfoot>
-                  <tr>
-                    <th>No</th>
-                    <th>Deskripsi Perkara</th>
-                    <th>Nama Berkas</th>
-                    <th>File Berkas</th>
-                    <th>Tanggal Kirim</th>
-                    <th>Dikirim Oleh</th>
-                    <th>Download</th>
-                    <th>Aksi</th>
-
-                  </tr>
-                  </tfoot>
-                </table>
-              </div>
-            </div>
-            <!-- /.box-body -->
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">BA-17</label>
+                    <p>
+                      <a href="<?= base_url();?>" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-download-alt"></i> </a> <?= $data->ba_17;?>
+                    </p>
+                  </div>
+                </td>
+              </tr>            
+            </tbody>
+          </table>
           </div>
         </div>
-        <!-- /.col -->
       </div>
-      <!-- /.row -->
-    </section>
-
+    </div>
   </div>
-</div>
+</section>
+
+
 

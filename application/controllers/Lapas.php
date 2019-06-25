@@ -10,8 +10,7 @@ class Lapas extends CI_Controller
 		kejaksaan_cobamasuk_lapas();
 		kepolisian_cobamasuk_lapas();
 		pengadilan_cobamasuk_lapas();
-		superadmin_cobamasuk_lapas();
-		
+		superadmin_cobamasuk_lapas();		
 		$this->load->model('m_lapas');
 		$this->load->model('m_bon');
         $this->load->model('m_apl');

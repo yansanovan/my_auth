@@ -151,14 +151,11 @@ class M_surat extends CI_Model
 	}
 	public function cek_id($id)
 	{
-			$this->db->select('tbl_kepolisian.*, tbl_users.*');
-			$this->db->from('tbl_kepolisian');
-			$this->db->join('tbl_users', 'tbl_users.id = tbl_kepolisian.id_users');
-			$this->db->where('id_data', $id);
-			return $this->db->get();
-		// $this->db->where('id_data', $id);
-		// $query = $this->db->get('tbl_kepolisian');
-		// return $query;
+		$this->db->select('tbl_kepolisian.*, tbl_users.*');
+		$this->db->from('tbl_kepolisian');
+		$this->db->join('tbl_users', 'tbl_users.id = tbl_kepolisian.id_users');
+		$this->db->where('id_data', $id);
+		return $this->db->get();
 	}
 
 }

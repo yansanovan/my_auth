@@ -68,14 +68,13 @@ class Lapas_apl extends CI_Controller
                 $file_apl_balasan = $this->upload->data();
             }
             $post = $this->input->post(NULL, TRUE);    
-            $data = array( 'id_apl_balasan'      => $post['id'],
-                           'id_users_apl'        => $post['id_users_apl'],
+            $data = array( 'id_apl_balasan'      => $post['id_apl'],
+                           'id_users_pemohon'    => $post['id_users_apl'],
                            'id_users_lapas'      => $this->session->userdata('id'),
                            'file_apl_balasan'    => $file_apl_balasan['file_name']); 
 
             $this->m_apl_balas->balas_apl($data, $id);  
             $this->m_pesan->generatePesan('berhasil', 'APL berhasil dibalas');
-            // $this->session->set_flashdata('berhasil','<div class="alert alert-success" role="alert">APL berhasil dibalas</div>');
             redirect('lapas_apl');         
         }
 	}
@@ -86,16 +85,63 @@ class Lapas_apl extends CI_Controller
         $this->template->load('pages/template/template','pages/lapas/riwayat_balas_apl/content', $data);
     }
 
+    public function edit($id)
+    {
+        $this->form_validation->set_rules('file_apl_balasan', '', 'callback_file_apl_balasan');
+        $this->form_validation->set_error_delimiters('<p class="validate" style="color:red;"><i class="fa fa-exclamation-circle"></i> ','</p>');
+        
+        if ($this->form_validation->run() == FALSE) 
+        {   
+            $value = $this->m_apl_balas->riwayat_balas_apl(base64_decode($id));
 
-    public function hapus_apl_balasan($id)
+            if ($value->num_rows() > 0) 
+            {
+                $data['data'] = $value->row();
+                $data['action'] = "edit";
+                $this->template->load('pages/template/template','pages/lapas/form_edit_apl/content', $data);
+            }   
+            else
+            {
+                redirect(current_url());
+            }
+        }
+        else
+        {
+            $config['upload_path']          = './uploads/lapas/apl';
+            $config['allowed_types']        = 'pdf|doc|docx';
+            $config['max_size']             = 0;
+            $config['max_width']            = 0;
+            $config['max_height']           = 0;
+
+            $this->load->library('upload', $config);
+            $post = $this->input->post(NULL, TRUE);    
+            
+            if (!empty($this->upload->do_upload('file_apl_balasan')))
+            {
+                $file_apl_balasan = $this->upload->data('file_name');
+                $this->db->set('file_apl_balasan', $file_apl_balasan);
+                @unlink('./uploads/lapas/apl/'. $post['old_apl_balasan']);
+            }
+            $data = array( 'id_users_pemohon'    => $post['id_users_pemohon'],
+                           'id_users_lapas'      => $this->session->userdata('id')); 
+            
+            $this->db->where('id_apl_balasan', base64_decode($id));
+            $this->db->update('tbl_balas_apl', $data);
+            $this->m_pesan->generatePesan('berhasil', 'Surat Apl telah di update!');
+            redirect(current_url());    
+        }
+    }
+
+
+    public function hapus($id)
     {   
-        $file = $this->m_apl_balas->apl($id);
+        $file = $this->m_apl_balas->riwayat_balas_apl($id)->row();
         @unlink('./uploads/lapas/apl/'. $file->file_apl_balasan);
 
-        $hapus = $this->m_apl_balas->hapus_apl_balasan($id);
+        $hapus = $this->m_apl_balas->hapus($id);
         if ($hapus = TRUE) 
         {
-            $this->session->set_flashdata('berhasil', '<div class="alert alert-success" role="alert">Bon terhapus</div>');
+            $this->m_pesan->generatePesan('berhasil','APL balasan telah dihapus');
             redirect('lapas_apl/riwayat_balas_apl');
         }
     }
@@ -118,8 +164,15 @@ class Lapas_apl extends CI_Controller
         }
         else
         {
-        	$this->form_validation->set_message('file_apl_balasan', 'file balas APL tidak boleh kosong.');
-            return false;
+            if ($this->input->post('edit')) 
+            {
+                return true;
+            }
+        	else
+            {
+                $this->form_validation->set_message('file_apl_balasan', 'file balas APL tidak boleh kosong.');
+                return false;
+            }
         }
     }
 

@@ -3,14 +3,15 @@
     <div class="col-md-12">
       <div class="box">
         <div class="box-header"><br>
-          <?= $this->session->flashdata('berhasil');?>
-          <?= $this->session->flashdata('gagal_simpan');?>            
+          <?= $this->session->flashdata('msgbox');?>            
           <?= form_open_multipart();?>
-          <h1 align="center"><i class="fa fa-edit" aria-hidden="true"></i> Form Surat Polisi </h1><br>
           <div class="col-md-12">
             <a href="<?php echo base_url('kepolisian/riwayat_surat');?>" class="btn btn-success btn-xs"> 
               <i class="fa fa-file-text-o" aria-hidden="true"></i> Riwayat Surat
             </a><br><br>
+          <nav class="navbar navbar-light" style="background-color:#e3f2fd;">
+            <h3 align="center"><i class="fa fa-envelope" aria-hidden="true"></i> FORM ENTRY SURAT  </h2><br>
+          </nav>
             <table class="table table-bordered" >
               <thead>
                 <tr bgcolor="#8e8d8d">
@@ -22,15 +23,23 @@
                 <tr>
                   <td>Nama Tersangka</td>
                   <td>
-                    <input type="text" name="nama_tersangka" value="<?php echo set_value('nama_tersangka'); ?>" class="form-control" placeholder="nama tersangka">
+                    <div class="input-group date">
+                      <div class="input-group-addon">
+                        <i class="fa fa-user-o"></i>
+                      </div>
+                       <input type="text" name="nama_tersangka" value="<?php echo set_value('nama_tersangka'); ?>" class="form-control" placeholder="nama tersangka">
+                    </div>
                     <?php echo form_error('nama_tersangka'); ?>
                   </td>
                 </tr>
                 
                 <tr>
                   <td>Pasal</td>
-                  <td> 
-                    <input type="text" name="pasal" value="<?php echo set_value('pasal'); ?>" class="form-control" placeholder="Pasal">
+                  <td>
+                    <div class="input-group date">
+                      <div class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                      <input type="text" name="pasal" value="<?php echo set_value('pasal'); ?>" class="form-control" placeholder="Pasal">
+                    </div> 
                     <?php echo form_error('pasal'); ?>
                   </td>
                 </tr>
@@ -38,7 +47,10 @@
                 <tr>
                   <td>No Sprindik</td>
                   <td>
-                    <input type="text" name="no_sprindik" value="<?php echo set_value('no_sprindik'); ?>" class="form-control" placeholder="no sprindik">
+                    <div class="input-group date">
+                      <div class="input-group-addon"><i class="fa fa-sort-numeric-asc" aria-hidden="true"></i></div>
+                      <input type="text" name="no_sprindik" value="<?php echo set_value('no_sprindik'); ?>" class="form-control" placeholder="no sprindik">
+                    </div> 
                     <?php echo form_error('no_sprindik'); ?>
                   </td>
                 </tr>
@@ -46,7 +58,10 @@
                 <tr>
                   <td>No LP</td>
                   <td>
-                    <input type="text" name="no_lp" value="<?php echo set_value('no_lp'); ?>" class="form-control" placeholder="No lp">
+                    <div class="input-group date">
+                      <div class="input-group-addon"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></div>
+                      <input type="text" name="no_lp" value="<?php echo set_value('no_lp'); ?>" class="form-control" placeholder="No lp">
+                    </div> 
                     <?php echo form_error('no_lp'); ?>
                   </td>
                 </tr>
@@ -55,13 +70,15 @@
                   <td>Spdp</td>
                   <td>
                     <div class="form-group">
-                      <label for="file_path">Spdp</label>
+                      <label for="file_path">Spdp (*)</label>
                       <div class="input-group">
-                          <input type="text" id="file_path" class="form-control" placeholder="Pilih file Spdp">
-                          <span class="input-group-btn">
-                              <button class="btn btn-success" type="button" id="file_browser">
-                              <i class="fa fa-search"></i> Browse</button>
-                          </span>
+                        <!-- <div class="input-group-addon"><i class="fa fa-book" aria-hidden="true"></i></div> -->
+                        <input type="text" id="file_path" class="form-control" placeholder="Pilih file Spdp">
+                        <span class="input-group-btn">
+                          <button class="btn btn-success" type="button" id="file_browser">
+                            <i class="fa fa-search"></i> Browse
+                          </button>
+                        </span>
                       </div>
                       <input type="file" class="hidden" id="file" name="spdp" value="<?php echo set_value('spdp'); ?>">
                       <?php echo form_error('spdp'); ?>
@@ -73,20 +90,22 @@
                   <td>Penggeledahan</td>
                   <td>
                     <div class="form-group">
-                      <label for="file_path">ijin geledah</label>
+                      <label for="file_path">ijin geledah (*)</label>
                       <div class="input-group">
-                          <input type="text" id="file_path2" class="form-control" placeholder="Pilih Ijin geledah">
-                          <span class="input-group-btn">
-                              <button class="btn btn-success" type="button" id="file_browser2">
-                              <i class="fa fa-search"></i> Browse</button>
-                          </span>
+                        <!-- <div class="input-group-addon"><i class="fa fa-book" aria-hidden="true"></i></div> -->
+                        <input type="text" id="file_path2" class="form-control" placeholder="Pilih Ijin geledah">
+                        <span class="input-group-btn">
+                          <button class="btn btn-success" type="button" id="file_browser2">
+                            <i class="fa fa-search"></i> Browse
+                          </button>
+                        </span>
                       </div>
                       <input type="file" class="hidden" id="file2" name="ijin_geledah" value="<?php echo set_value('ijin_geledah'); ?>">
                       <?php echo form_error('ijin_geledah'); ?>
                     </div>
 
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Setuju geledah</label>
+                      <label for="exampleInputEmail1">Setuju geledah (*)</label>
                       <div class="input-group">
                           <input type="text" id="file_path3" class="form-control" placeholder="Pilih setuju geledah">
                           <span class="input-group-btn">
@@ -104,7 +123,7 @@
                   <td>Tap Sita</td>
                   <td>
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Khusus</label>
+                      <label for="exampleInputEmail1">Khusus (*)</label>
                       <div class="input-group">
                           <input type="text" id="file_path4" class="form-control" placeholder="Pilih Khusus">
                           <span class="input-group-btn">
@@ -117,7 +136,7 @@
                     </div>
 
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Biasa</label>
+                      <label for="exampleInputEmail1">Biasa (*)</label>
                       <div class="input-group">
                           <input type="text" id="file_path5" class="form-control" placeholder="Pilih Biasa">
                           <span class="input-group-btn">
@@ -130,7 +149,7 @@
                     </div>
 
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Narkotika</label>
+                      <label for="exampleInputEmail1">Narkotika (*)</label>
                       <div class="input-group">
                           <input type="text" id="file_path6" class="form-control" placeholder="Pilih Narkotika">
                           <span class="input-group-btn">
@@ -148,7 +167,7 @@
                   <td>Perpanjangan</td>
                   <td>
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Kejaksaan</label>
+                      <label for="exampleInputEmail1">Kejaksaan (*)</label>
                       <div class="input-group">
                           <input type="text" id="file_path7" class="form-control" placeholder="Pilih Kejaksaan">
                           <span class="input-group-btn">
@@ -161,7 +180,7 @@
                     </div>
 
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Pengadilan</label>
+                      <label for="exampleInputEmail1">Pengadilan (*)</label>
                       <div class="input-group">
                           <input type="text" id="file_path8" class="form-control" placeholder="Pilih Pengadilan">
                           <span class="input-group-btn">
@@ -179,7 +198,7 @@
                   <td>Pengiriman Berkas</td>
                   <td>
                     <div class="form-group">
-                      <label for="exampleInputEmail1">P-18</label>
+                      <label for="exampleInputEmail1">P-18 (*)</label>
                       <div class="input-group">
                           <input type="text" id="file_path9" class="form-control" placeholder="Pilih P-18">
                           <span class="input-group-btn">
@@ -192,7 +211,7 @@
                     </div>
 
                     <div class="form-group">
-                      <label for="exampleInputEmail1">P-21</label>
+                      <label for="exampleInputEmail1">P-21 (*)</label>
                       <div class="input-group">
                           <input type="text" id="file_path10" class="form-control" placeholder="Pilih P-21">
                           <span class="input-group-btn">
@@ -209,7 +228,7 @@
                   <td>Pelimpahan</td>
                   <td>
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Pelimpahan</label>
+                      <label for="exampleInputEmail1">Pelimpahan (*)</label>
                       <div class="input-group">
                         <input type="text" id="file_path11" class="form-control" placeholder="Pilih Pelimpahan">
                         <span class="input-group-btn">

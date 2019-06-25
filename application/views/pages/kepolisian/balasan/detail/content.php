@@ -3,28 +3,21 @@
     <div class="col-xs-12">
       <div class="box">
         <div class="box-header">
-          <?php if(!empty($error)){ echo '<div class="alert alert-danger" role="alert">'.$error.'</div>';}?>
-          <?= $this->session->flashdata('terhapus');?>
-          <?= $this->session->flashdata('tanggal_berhasil_diubah');?>
-  
-          <h1 align="center"> <i class="fa fa-envelope-open-o"></i> Detail Surat Balasan </h1>
-          
-          <br>
+          <h1 align="center"> <i class="fa fa-envelope-open-o"></i> Detail Surat Balasan </h1><br>
           <div class="col-md-12">
-          <a href="<?= base_url('kepolisian');?>" class="btn btn-success btn-xs">
+          <a href="<?= base_url('kepolisian');?>" class="btn btn-warning btn-xs">
             <i class="fa fa-long-arrow-left" aria-hidden="true"></i>  Kembali
           </a>
           <br><br>
           <table  width="350px">
             <tbody>
               <tr>
-                  <td><i class="fa fa-user" aria-hidden="true"></i> Username Kejaksaan</td>
+                  <td><i class="fa fa-user-o" aria-hidden="true"></i> Username Kejaksaan</td>
                   <td width="10px">:</td>
                   <td width="150px"><?php echo @$username_kj->username;?></td>
-
               </tr>
               <tr>
-                  <td ><i class="fa fa-user" aria-hidden="true"></i> Username Pengadilan</td>
+                  <td ><i class="fa fa-user-o" aria-hidden="true"></i> Username Pengadilan</td>
                   <td width="10px">:</td>
                   <td width="100px"> <?php echo @$username_pn->username;?></td>
               </tr>

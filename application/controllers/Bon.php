@@ -58,7 +58,7 @@ class Bon extends CI_Controller
 			{
 				$config['upload_path']          = './uploads/bon';
 				$config['allowed_types']        = 'pdf|doc|docx';
-				$config['max_size']             = 0;
+				$config['max_size']             = 1000;
 				$config['max_width']            = 0;
 				$config['max_height']           = 0;
 
@@ -67,6 +67,11 @@ class Bon extends CI_Controller
 				if (!empty($this->upload->do_upload('file_pengajuan_bon')))
 				{
 					$file_pengajuan_bon = $this->upload->data();
+				}
+				else
+				{						
+		            $this->m_pesan->generatePesan('salah', 'file bon tidak boleh lebih dari 1 MB!');
+					redirect('bon/form_bon');			
 				}
 				
 					$post = $this->input->post(NULL, TRUE);

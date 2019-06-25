@@ -41,6 +41,18 @@
     });
   });
 
+//Date picker
+// $('#datepicker_t7').datepicker({
+//   autoclose: true
+// })
+
+// $('#datepicker_p31').datepicker({
+//   autoclose: true
+// })
+
+// $('#datepicker_p32').datepicker({
+//   autoclose: true
+// })
 
 
 // spdp
@@ -57,8 +69,6 @@ $('#file').change(function(){
 $('#file_path').click(function(){
     $('#file_browser').click();
 });
-
-
 //  ijin geledah 
 $('#file_browser2').click(function(e){
     e.preventDefault();
@@ -253,7 +263,7 @@ $(function () {
       $(".validate").fadeTo(500, 0).slideUp(700, function(){
           $(this).remove(); 
       });
-  }, 3000);
+  }, 5000);
   
 // notification balasan ke polisi jenis surat
 

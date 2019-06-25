@@ -14,6 +14,13 @@ class M_pesan extends CI_Model
                     '.$pesan.'</div>';
         
         } 
+        elseif($type == "salah") 
+        {
+            $str = '<div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="fa fa-times" aria-hidden="true"></i> Opps!</h4>'.$pesan.
+                    '</div> ';
+        }
         elseif($type == "cek") 
         {
             $str = '<div class="alert alert-warning alert-dismissible">
@@ -21,11 +28,28 @@ class M_pesan extends CI_Model
                         <h4><i class="icon fa fa-warning"></i> Opps!</h4>'.$pesan.
                     '</div> ';
         }
-        elseif($type == "salah") 
+        
+        elseif($type == "akses_dilarang") 
         {
-            $str = '<div class="alert alert-danger alert-dismissible">
+            $str = '<div class="alert alert-warning alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h4><i class="fa fa-times" aria-hidden="true"></i> Opps!</h4>'.$pesan.
+                        <h4><i class="icon fa fa-warning"></i> Opps!</h4>'.$pesan.
+                    '</div> ';
+        }
+
+        elseif($type == "logout") 
+        {
+            $str = '<div class="alert alert-info alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Terima Kasih!</h4>'.$pesan.
+                    '</div> ';
+        }
+
+        elseif($type == "logged_in") 
+        {
+            $str = '<div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Terima Kasih!</h4>'.$pesan.
                     '</div> ';
         }
 

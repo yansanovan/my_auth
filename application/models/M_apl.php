@@ -10,14 +10,14 @@ class M_apl extends CI_Model
 		{
 			$this->db->select('*');
 			$this->db->from('tbl_apl');
-			$this->db->where('id', $id);		
+			$this->db->where('id_apl', $id);		
 			return $this->db->get()->row();
 		}
 		// jika login sebagai polisi kejaksaan dan pengadilan tampilkan balasan apl
 		$this->db->select('*');
 		$this->db->from('tbl_apl');
 		if ($this->session->userdata('level') !='lapas') {
-			$this->db->join('tbl_balas_apl', 'tbl_balas_apl.id_apl = tbl_apl.id');	
+			$this->db->join('tbl_balas_apl', 'tbl_balas_apl.id_apl = tbl_apl.id_apl');	
 		}
 		$this->db->join('tbl_users', 'tbl_users.id = tbl_apl.id_users_apl');	
 		return $this->db->get()->result();
@@ -26,10 +26,11 @@ class M_apl extends CI_Model
 
 	public function apl_balasan()
 	{
-		$this->db->select('*');
+		$this->db->select('tbl_balas_apl.*, tbl_apl.nama_tersangka as nama_tersangka, tbl_users.username as username');
 		$this->db->from('tbl_balas_apl');
-		$this->db->join('tbl_apl', 'tbl_apl.id = tbl_balas_apl.id_apl_balasan');
-		$this->db->join('tbl_users', 'tbl_users.id = tbl_apl.id_users_apl');
+		$this->db->join('tbl_apl', 'tbl_apl.id_apl = tbl_balas_apl.id_apl_balasan');
+		$this->db->join('tbl_users', 'tbl_users.id = tbl_balas_apl.id_users_lapas');
+		$this->db->where('id_users_pemohon', $this->session->userdata('id'));		
 		return $this->db->get()->result();
 	}
 
@@ -37,7 +38,7 @@ class M_apl extends CI_Model
 	{
 		if ($id != null) 
 		{
-			$this->db->where('id', $id);
+			$this->db->where('id_apl', $id);
 			return $this->db->get('tbl_apl')->result();
 		}
 		$this->db->where('id_users_apl', $this->session->userdata('id'));
@@ -59,14 +60,14 @@ class M_apl extends CI_Model
 
 	public function ubah($data)
 	{
-		$this->db->where('id', $this->input->post('id_apl'));
+		$this->db->where('id_apl', $this->input->post('id_apl'));
 		$this->db->update('tbl_apl', $data);
 		return true;
 	}
 
 	public function hapus($id)
 	{
-		$this->db->where('id', $id);
+		$this->db->where('id_apl', $id);
 		$this->db->delete('tbl_apl');
 		return true;
 	}

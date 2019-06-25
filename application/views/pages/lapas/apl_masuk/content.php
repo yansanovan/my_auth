@@ -37,11 +37,11 @@
                 <td>
                   <?php 
                   if ($value->status_balas == 1) { ?>
-                    <a href="<?php echo base_url('lapas_apl/form_balas/'.base64_encode($value->id));?>" class="btn btn-success btn-xs"> 
+                    <a href="<?php echo base_url('lapas_apl/form_balas/'.base64_encode($value->id_apl));?>" class="btn btn-success btn-xs"> 
                       <i class="fa fa-lock" aria-hidden="true"></i> Balas
                     </a>
                     <?php } else { ?> 
-                    <a href="<?php echo base_url('lapas_apl/form_balas/'.base64_encode($value->id));?>" class="btn btn-danger btn-xs"> 
+                    <a href="<?php echo base_url('lapas_apl/form_balas/'.base64_encode($value->id_apl));?>" class="btn btn-danger btn-xs"> 
                       <i class="fa fa-unlock" aria-hidden="true"></i> Balas
                     </a>
                   <?php } ?> 

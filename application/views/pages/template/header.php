@@ -8,11 +8,9 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="<?php echo base_url('asset/bower_components/bootstrap/dist/css/bootstrap.min.css');?>">
-
-    <!-- jquery ui-->
+  <!-- jquery ui-->
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  
-  <!-- Ionicons -->
+    <!-- Ionicons -->
   <link rel="stylesheet" href="<?= base_url('asset/bower_components/Ionicons/css/ionicons.min.css');?>">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?php echo base_url('asset/bower_components/font-awesome/css/font-awesome.min.css');?>">
@@ -29,6 +27,9 @@
   <script src="https://cdn.ckeditor.com/4.11.3/standard/ckeditor.js"></script>
   <style type="text/css">
 
+  .breadcrumb-color  {
+   color: black;
+}
    
   .jumbotron{
     color: white;

@@ -3,9 +3,10 @@
     <div class="col-xs-12">
       <div class="box">
         <div class="box-header">
-          <?= $this->session->flashdata('berhasil');?>
-          <?= $this->session->flashdata('cek');?>
-          <h1 align="center"><i class="fa fa-envelope-open-o"></i> Surat Polisi </h1>
+          <?= $this->session->flashdata('msgbox');?>  
+          <nav class="navbar navbar-light" style="background-color:#e3f2fd;">
+            <h3 align="center"><i class="fa fa-envelope" aria-hidden="true"></i>  SURAT POLISI  </h3><br>
+          </nav>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -38,11 +39,11 @@
                 <td>
                 <?php if ($value->status_kj == 1) { ?>
                   <span class="label label-success"> 
-                     Valid
+                     Sudah dibalas
                   </span>
                 <?php } else { ?>
                   <span class="label label-danger"> 
-                    Invalid 
+                    Belum dibalas 
                   </span>
                 <?php
                 }

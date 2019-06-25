@@ -1,27 +1,28 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-    
+
     function cek_coba_loggin()
 	{
         $ci =& get_instance();
+		$ci->load->model('m_pesan');
 
 		if($ci->session->userdata('level') !='kejaksaan' AND $ci->session->userdata('status') != 'logged') 
 		{
-			$ci->session->set_flashdata('akses_dilarang', '<div class="alert alert-danger" role="alert">Maaf Harus Login dulu</div>');
+			$ci->m_pesan->generatePesan('akses_dilarang', 'Maaf harus login!');
 			redirect('auth');
 		}
-		else if($ci->session->userdata('level') !='kepolian' AND $ci->session->userdata('status') != 'logged') 
+		else if($ci->session->userdata('level') !='kepolisian' AND $ci->session->userdata('status') != 'logged') 
 		{
-			$ci->session->set_flashdata('akses_dilarang', '<div class="alert alert-danger" role="alert">Maaf Harus Login dulu</div>');
+			$ci->m_pesan->generatePesan('akses_dilarang', 'Maaf harus login!');
 			redirect('auth');
 		}
 		else if($ci->session->userdata('level') !='lapas' AND $ci->session->userdata('status') != 'logged') 
 		{
-			$ci->session->set_flashdata('akses_dilarang', '<div class="alert alert-danger" role="alert">Maaf Harus Login dulu</div>');
+			$ci->m_pesan->generatePesan('akses_dilarang', 'Maaf harus login!');
 			redirect('auth');
 		}
 		else if($ci->session->userdata('level') !='superadmin' AND $ci->session->userdata('status') != 'logged') 
 		{
-			$ci->session->set_flashdata('akses_dilarang', '<div class="alert alert-danger" role="alert">Maaf Harus Login dulu</div>');
+			$ci->m_pesan->generatePesan('akses_dilarang', 'Maaf harus login!');
 			redirect('auth');
 		}
 	}

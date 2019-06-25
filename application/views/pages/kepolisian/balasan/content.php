@@ -36,7 +36,7 @@
                         <?php } else {?> <span class="label label-success">Valid </span> <?php } ?> 
                     </td>
                     <td>
-                        <a href="<?php echo base_url('kepolisian/detail_balas/'.$value['id_data']);?>" class="btn btn-info btn-xs"> 
+                        <a href="<?php echo base_url('kepolisian/detail_balas/'.base64_encode($value['id_data']));?>" class="btn btn-info btn-xs"> 
                           <span class="glyphicon glyphicon-eye-open"></span> Detail
                         </a>
                     </td>

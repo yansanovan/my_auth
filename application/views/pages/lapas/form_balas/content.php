@@ -11,7 +11,6 @@
             <a href="<?= base_url('lapas');?>" class="btn btn-warning btn-xs"> 
               <i class="fa fa-long-arrow-left" aria-hidden="true"></i> Kembali
             </a><br><br>
-
             <table  width="380px">
               <tbody>
                 <tr>

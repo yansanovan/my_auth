@@ -1,29 +1,28 @@
 <section class="content">
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-lg-12">
       <div class="box">
-        <div class="box-header">
-          <?php if(!empty($error)){ echo '<div class="alert alert-danger" role="alert">'.$error.'</div>';}?>
-          <?= $this->session->flashdata('terhapus');?>
-          <?= $this->session->flashdata('tanggal_berhasil_diubah');?>
-  
-          <h1 align="center"> <i class="fa fa-file-text-o" aria-hidden="true"></i> Detail Surat Polisi </h1>
-          <br>
+        <div class="box-header"><br>
           <div class="col-md-12">
-          <a href="<?= base_url('kejaksaan');?>" class="btn btn-warning btn-xs">
-             <i class="fa fa-long-arrow-left" aria-hidden="true"></i>  Kembali
-          </a>
-          <br><br>
+          <?= $this->session->flashdata('msgbox');?>
+          <p>
+            <a href="<?= base_url('kejaksaan');?>" class="btn btn-warning btn-xs">
+               <i class="fa fa-long-arrow-left" aria-hidden="true"></i>  Kembali
+            </a><br>
+          </p>
+          <nav class="navbar navbar-light" style="background-color:#e3f2fd;">
+            <h3 align="center"><i class="fa fa-envelope" aria-hidden="true"></i> DETAIL SURAT  </h3><br>
+          </nav>
           <?php foreach ($data as $key => $value) { ?>
           <table  width="450px">
             <tbody>
               <tr>
-                  <td><i class="fa fa-user-o" aria-hidden="true"></i><strong> Dikirim Oleh</strong></td>
+                  <td><i class="fa fa-user-o" aria-hidden="true"></i> Dikirim Oleh</td>
                   <td width="10px">:</td>
                   <td width="250px"><?= $value->username?></td>
               </tr>
               <tr>
-                  <td> <i class="fa fa-calendar" aria-hidden="true"></i> <strong> Tanggal Posting </strong></td>
+                  <td> <i class="fa fa-calendar" aria-hidden="true"></i>  Tanggal Posting </td>
                   <td width="10px">:</td>
                   <td width="250px"><?= date('d M Y h:i:a', strtotime($value->tanggal_posting)); ?></td>
               </tr>
@@ -66,7 +65,8 @@
                       <p>
                         <a href="<?= base_url('kejaksaan/unduh/'.$value->spdp);?>" class="btn btn-primary btn-xs">
                           <i class="glyphicon glyphicon-download-alt"></i> 
-                        </a> <?= $value->spdp ;?></p>
+                        </a> <?= $value->spdp ;?>
+                      </p>
                   </div>
                 </td>
               </tr>
