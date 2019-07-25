@@ -3,42 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_kepolisian extends CI_Model 
 {
-	function __construct()
-	{
-		parent::__construct();
-		$this->load->driver('cache', array('adapter' => 'file'));
-	}
-
-	function fetch()
-	{
-		$this->db->select('*');
-		$this->db->from('tbl_kepolisian');
-		$this->db->join('tbl_notification','tbl_notification.id_surat_balasan =  tbl_kepolisian.id_data', 'LEFT');
-		$this->db->join('tbl_users','tbl_users.id = tbl_notification.id_users_pembalas', 'LEFT');
-		$this->db->where("id_polisi", $this->session->userdata('id'));
-		$this->db->limit(3);
-		$this->db->order_by("id_data", "desc");	
-		return $this->db->get();
-	}
-
-	function update_notif()
-	{
-
-		$this->db->where('id_polisi', $this->session->userdata('id'));
-		$this->db->update('tbl_notification', array('notif_balasan' => 1));
-		return true;
-	}
-
-	function fetch_count()
-	{
-		$this->db->select('*');
-		$this->db->from('tbl_notification');
-		$this->db->where("notif_balasan", 0);	
-		$this->db->where(array('id_polisi' => $this->session->userdata('id')));	
-		return $this->db->get()->result();
-	}
-
-	
 	public function tampil($id = NULL)
 	{
 		if ($id != NULL) 

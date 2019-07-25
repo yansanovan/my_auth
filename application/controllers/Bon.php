@@ -52,7 +52,10 @@ class Bon extends CI_Controller
 
 			if ($this->form_validation->run() == FALSE) 
 			{
-				$this->form_bon();
+				// $this->form_bon();
+				$data['page'] = 'Entry';
+				$data['action'] = 'add';
+		        $this->template->load('pages/template/template','pages/bon/form_bon/content', $data);
 			}
 			else
 			{
@@ -175,7 +178,9 @@ class Bon extends CI_Controller
 		    	foreach ($result as $row)
 		     		
 		     	$arr_result[] = array(
-					'label'	=> $row->nama_tersangka
+					'label'	=> $row->nama_tersangka,
+					'pasal'	=> $row->pasal
+
 				);
 		     	echo json_encode($arr_result);	
 		   	}
@@ -193,6 +198,21 @@ class Bon extends CI_Controller
 			$this->m_pesan->generatePesan('berhasil', 'Bon telah di hapus!');
             redirect('bon/riwayat_bon');
         }
+    }
+
+    public function unduh_riwayat()
+    {
+    	$this->load->helper('download');
+		if($this->uri->segment(3))
+		{
+    		$data = 'uploads/bon/'.$this->uri->segment(3); 
+		}
+		else
+		{
+			show_404();
+		}
+	
+		force_download($data, null);
     }
     
   	public function unduh()

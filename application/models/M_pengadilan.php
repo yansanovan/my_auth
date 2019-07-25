@@ -3,38 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_pengadilan extends CI_Model 
 {
-	function __construct()
-	{
-		parent::__construct();
-		$this->load->driver('cache', array('adapter' => 'file'));
-	}
-
-	function fetch()
-	{
-		$this->db->select('*');
-		$this->db->from('tbl_kepolisian');
-		$this->db->limit(5);
-		$this->db->where('status_pn', 0);
-		$this->db->order_by("id_data", "desc");		
-		return $this->db->get();
-	}
-
-	function update_notif()
-	{
-		$notif = 1;
-		$this->db->where('notif_pn', 0);
-		$this->db->update('tbl_kepolisian', array('notif_pn' => $notif));
-		return true;
-	}
-
-	function fetch_2()
-	{
-		$this->db->select('*');
-		$this->db->from('tbl_kepolisian');
-		$this->db->where("notif_pn", 0);			
-		return $this->db->get()->result();
-	}
-
 	public function tampil($id = NULL)
 	{
 		if ($id != NULL) 

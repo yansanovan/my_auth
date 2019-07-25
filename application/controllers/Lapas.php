@@ -203,4 +203,18 @@ class Lapas extends CI_Controller
 		}
 		force_download($data, null);
     }
+
+    public function unduh_riwayat()
+    {
+        $this->load->helper('download');
+        if($this->uri->segment(3))
+        {
+            $data = 'uploads/lapas/bon/'.$this->uri->segment(3); 
+        }
+        else
+        {
+            show_404();
+        }
+        force_download($data, null);
+    }
 }

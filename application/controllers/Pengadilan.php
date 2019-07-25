@@ -40,7 +40,7 @@ class Pengadilan extends CI_Controller
 	public function riwayat_balas()
     {
         $data['data'] = $this->m_surat->riwayat_balas_pn();
-        $this->template->load('pages/template/template','pages/pengadilan/riwayat_balas/content', $data);
+        $this->template->load('pages/template/template','pages/pengadilan/surat_polisi/riwayat_balas/content', $data);
     }
 
 	public function form_balas($id)
@@ -60,11 +60,7 @@ class Pengadilan extends CI_Controller
 
             if ($cek_balas->num_rows() > 0) 
             {
-            $this->session->set_flashdata('cek', '<div class="alert alert-warning alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h4><i class="icon fa fa-warning"></i>Opps, Maaf!</h4>
-            Surat ini Sudah dibalas!
-            </div>');
+                $this->m_pesan->generatePesan('cek','Maaf surat ini sudah dibalas');
                 redirect('pengadilan');
             }
             else
@@ -72,7 +68,7 @@ class Pengadilan extends CI_Controller
                 if ($data->num_rows() > 0) 
                 {
                     $value['value'] = $data->row();
-                    $this->template->load('pages/template/template','pages/pengadilan/form_balas/content', $value);
+                    $this->template->load('pages/template/template','pages/pengadilan/surat_polisi/form_balas/content', $value);
                 }   
                 else
                 {
@@ -132,11 +128,7 @@ class Pengadilan extends CI_Controller
                                    'tanggal_balas'       => $now);
 
             $this->m_surat->pengadilan_balas($data, $notification, $id);  
-            $this->session->set_flashdata('berhasil', '<div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
-            Surat Berhasil Dibalas!
-          </div>');
+            $this->m_pesan->generatePesan('berhasil','Surat telah berhasil dibalas');
             redirect(base_url('pengadilan'));         
         }
     }
@@ -162,7 +154,7 @@ class Pengadilan extends CI_Controller
             else
             {
                 $value['data'] = $this->m_surat->riwayat_balas_pn(base64_decode($id));
-                $this->template->load('pages/template/template','pages/pengadilan/form_edit_balas/content', $value);
+                $this->template->load('pages/template/template','pages/pengadilan/surat_polisi/form_edit_balas/content', $value);
             }
         }
         else
@@ -228,7 +220,7 @@ class Pengadilan extends CI_Controller
             }              
             $this->db->where('id_surat_pn', $post['id_surat_pn']);
             $this->db->update('tbl_balas_pengadilan', array('id_surat_pn' => $post['id_surat_pn']));
-            $this->session->set_flashdata('berhasil','<div class="alert alert-success" role="alert">Surat balasan berhasil di edit!</div>');
+            $this->m_pesan->generatePesan('berhasil','Surat balasan telah di update');
             redirect(current_url());  
         }
     }
@@ -398,7 +390,7 @@ class Pengadilan extends CI_Controller
 
         if ($hapus = TRUE) 
         {
-            $this->session->set_flashdata('terhapus', '<div class="alert alert-success" role="alert">Jadwal terhapus</div>');
+            $this->m_pesan->generatePesan('berhasil','Surat balasan telah dihapus');
             redirect('pengadilan/riwayat_balas');
         }
     }
@@ -450,7 +442,7 @@ class Pengadilan extends CI_Controller
     	$this->load->helper('download');
 		if($this->uri->segment(3))
 		{
-    		$data = 'uploads/pengadilan/'.$this->uri->segment(3); 
+    		$data = 'uploads/kepolisian/'.$this->uri->segment(3); 
     		force_download($file, NULL);
 		}
 		else

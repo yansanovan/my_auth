@@ -8,7 +8,7 @@ class M_profile extends CI_Model
 	{
 		$this->db->where('id', $session_id);
 		$user = $this->db->get('tbl_users');
-		return $user->result();
+		return $user;
 	}
 
 	public function cek_users($email)

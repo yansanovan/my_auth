@@ -455,7 +455,7 @@ $config['csrf_token_name'] = 'csrf_token';
 $config['csrf_cookie_name'] = 'csrf_cookie_name';
 $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = TRUE;
-$config['csrf_exclude_uris'] = array('notifikasi/kepolisian','notifikasi/kejaksaan','notifikasi/pengadilan');
+$config['csrf_exclude_uris'] = array('notifikasi/kepolisian','notifikasi/kejaksaan','notifikasi/pengadilan','notifikasi/lapas', 'notifikasi/bon_balasan','notifikasi/test');
 
 /*
 |--------------------------------------------------------------------------

@@ -37,7 +37,9 @@ class Kepolisian extends CI_Controller
     public function detail_balas($id)
     {
         $data['username_kj']  = $this->m_surat->get_username(base64_decode($id));
+        $data['tanggal_balas_kejaksaan']  = $this->m_surat->get_username(base64_decode($id));
         $data['username_pn']  = $this->m_surat->get_username_pn(base64_decode($id));
+
         $data['data'] = $this->m_surat->get_balasan(base64_decode($id));
         $this->template->load('pages/template/template','pages/kepolisian/balasan/detail/content', $data);
     }

@@ -3,7 +3,9 @@
     <div class="col-xs-12">
       <div class="box">
         <div class="box-header">
-          <h1 align="center"><i class="fa fa-envelope-open-o"></i> Surat Balasan </h1>
+          <nav class="navbar navbar-light" style="background-color:#e3f2fd;">
+            <h3 align="center"><i class="fa fa-envelope" aria-hidden="true"></i> SURAT BALASAN </h3><br>
+          </nav>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -28,12 +30,12 @@
                     <td><?= $value['pasal'];?></td>
                     <td><?= $value['no_sprindik'];?></td>                    
                     <td>
-                        <?php if ($value['status_kj'] == 0) {?><span class="label label-danger">Invalid</span>
-                        <?php } else {?><span class="label label-success">Valid </span> <?php } ?> 
+                        <?php if ($value['status_kj'] == 0) {?><span class="label label-danger">Belum dibalas</span>
+                        <?php } else {?><span class="label label-success">Sudah Dibalas </span> <?php } ?> 
                     </td>
                     <td>
-                        <?php if ($value['status_pn'] == 0) {?><span class="label label-danger"> Invalid</span> 
-                        <?php } else {?> <span class="label label-success">Valid </span> <?php } ?> 
+                        <?php if ($value['status_pn'] == 0) {?><span class="label label-danger"> Belum Dibalas</span> 
+                        <?php } else {?> <span class="label label-success">Sudah dibalas </span> <?php } ?> 
                     </td>
                     <td>
                         <a href="<?php echo base_url('kepolisian/detail_balas/'.base64_encode($value['id_data']));?>" class="btn btn-info btn-xs"> 

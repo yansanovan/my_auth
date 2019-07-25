@@ -22,7 +22,7 @@ class Apl extends CI_Controller
 
 	public function form_apl()
 	{
-		$data['page'] = 'Entry';
+		$data['page'] = 'ENTRY';
 		$data['action'] = 'add';
         $this->template->load('pages/template/template','pages/apl/form_apl/content', $data);
 	}
@@ -36,7 +36,7 @@ class Apl extends CI_Controller
 	public function edit($id)
 	{
 		$data['data'] = $this->m_apl->riwayat_apl(base64_decode($id));
-		$data['page'] = 'Edit';
+		$data['page'] = 'EDIT';
 		$data['action'] = 'edit';
         $this->template->load('pages/template/template','pages/apl/form_apl/content', $data);
 	}

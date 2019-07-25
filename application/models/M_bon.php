@@ -17,7 +17,8 @@ class M_bon extends CI_Model
 		$this->db->from('tbl_balas_bon');
 		$this->db->join('tbl_bon', 'tbl_bon.id_bon = tbl_balas_bon.id_bon_balasan');
 		$this->db->join('tbl_users', 'tbl_users.id = tbl_balas_bon.id_users_lapas');
-		$this->db->where("id_users_pemohon_balasan", $this->session->userdata('id'));		
+		$this->db->where("id_users_pemohon_balasan", $this->session->userdata('id'));
+		$this->db->order_by('id_bon','desc');				
 		return $this->db->get()->result();
 	}
 

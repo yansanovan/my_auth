@@ -346,3 +346,14 @@
 			redirect(base_url('superadmin'));
 		}
 	}
+
+	function superadmin_cobamasuk_notifikasi()
+	{
+        $ci =& get_instance();
+
+		if ($ci->session->userdata('level') == 'superadmin' AND $ci->session->userdata('status') == 'logged') 
+		{
+			// $ci->session->set_flashdata('harus_keluar','<div class="alert alert-danger" role="alert">Harus Logout</div>');
+			redirect('superadmin');
+		}
+	}

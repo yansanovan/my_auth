@@ -27,10 +27,4 @@
   $(document).on('click', '.remove', function(){
     $(this).closest('tr').remove();
   });
-</script>
-
-<script type="text/javascript">
-  document.getElementById("uploadBtn").onchange = function () {
-    document.getElementById("uploadFile").value = this.value;
-};
 </script> -->

@@ -181,12 +181,26 @@ class Lapas_apl extends CI_Controller
     	$this->load->helper('download');
 		if($this->uri->segment(3))
 		{
-    		$data = 'uploads/bon/'.$this->uri->segment(3); 
+    		$data = 'uploads/apl/'.$this->uri->segment(3); 
 		}
 		else
 		{
 			show_404();
 		}
 		force_download($data, null);
+    }
+
+    public function unduh_riwayat()
+    {
+        $this->load->helper('download');
+        if($this->uri->segment(3))
+        {
+            $data = 'uploads/lapas/apl/'.$this->uri->segment(3); 
+        }
+        else
+        {
+            show_404();
+        }
+        force_download($data, null);
     }
 }

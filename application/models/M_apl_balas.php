@@ -23,7 +23,7 @@ class M_apl_balas extends CI_Model
 
 	public function balas_apl($data, $id)
 	{
-		$this->db->set('tanggal_apl_balasan', 'NOW()', FALSE);
+		$this->db->set('tanggal_balas_apl', 'NOW()', FALSE);
 		$balas = $this->db->insert('tbl_balas_apl', $data);
 
 		if ($balas) 

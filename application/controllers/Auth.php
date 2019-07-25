@@ -16,14 +16,11 @@ class Auth extends CI_Controller
 		cek_coba_logout_pengadilan();
 		cek_coba_logout_lapas();
 		cek_coba_logout_superadmin();
-
+		
 		$this->form_validation->set_rules('email', 'Email', 'required',  array('required' => 'Email tidak boleh kosong!'));
 		$this->form_validation->set_rules('password', 'Password', 'required', array('required' => 'Password tidak boleh kosong!'));
-		$this->form_validation->set_error_delimiters('<div class="alert alert-danger alert-dismissible">
-								                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-								                        <h4><i class="fa fa-times" aria-hidden="true"></i> Opps!</h4>',
-								                     '</div> ');
-
+        $this->form_validation->set_error_delimiters('<p class="auth_validate" style="color:red;"><i class="fa fa-exclamation-circle"></i> ','</p>');
+        
 		if ($this->form_validation->run() === FALSE) 
 		{
 			$this->load->view('pages/auth/index');
@@ -45,18 +42,18 @@ class Auth extends CI_Controller
 						$this->db->where('email', $email);
 						$query = $this->db->get();
 						$querycheck = $query->result();					
-						$ip_address = $this->input->ip_address();
-						$dataToInsert = array("ip_address" => $ip_address,  
-											  "login_attemps" => $querycheck[0]->login_attemps+1);
-						$this->db->update('tbl_users',$dataToInsert,array('email' => $email));
 						if($querycheck[0]->login_attemps >= 3)
 						{
-							$this->m_pesan->generatePesan('blokir', 'Maaf Akun Anda Diblokir!');
+							$this->m_pesan->generatePesan('blokir', 'Opps! Maaf Akun Anda Telah Diblokir!');
 							redirect('auth');		
 						}
 						else
 						{
-							$this->m_pesan->generatePesan('salah', 'Email / Password Salah!');
+							$ip_address = $this->input->ip_address();
+							$dataToInsert = array("ip_address" => $ip_address,  
+												  "login_attemps" => $querycheck[0]->login_attemps+1);
+							$this->db->update('tbl_users',$dataToInsert,array('email' => $email));
+							$this->m_pesan->generatePesan('salah', 'Email Atau Password Salah!');
 							redirect('auth');			
 						}
 					}
@@ -104,6 +101,7 @@ class Auth extends CI_Controller
 								'username' =>  $users->username,
 											'email'	 =>  $users->email,
 											'level'	 =>  $users->level,
+											'image'	 =>  $users->image,
 											'status'	 =>  'logged',
 											);
 								

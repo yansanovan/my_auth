@@ -11,14 +11,15 @@ class Kejaksaan_surat extends CI_Controller
 		pengadilan_cobamasuk_kejaksaan();
 		lapas_cobamasuk_kejaksaan();
 		superadmin_cobamasuk_kejaksaan();
-        $this->load->model('m_kejaksaan_surat');      	
+        $this->load->model('m_kejaksaan_surat');    	
 	}
 
 	public function index()
 	{
-        $data['kepolisian'] = $this->m_surat->surat_polisi();
-        $this->template->load('pages/template/template','pages/kejaksaan/surat_polisi/content', $data);
+        $data['data'] = $this->m_kejaksaan_surat->surat_balasan_pengadilan()->result();
+        $this->template->load('pages/template/template','pages/kejaksaan/surat_pengadilan/content', $data);
 	}
+    
 	public function riwayat_surat()
 	{
 		$data['data'] = $this->m_kejaksaan_surat->riwayat_surat();
@@ -27,10 +28,11 @@ class Kejaksaan_surat extends CI_Controller
 
     public function detail($id_surat)
     {
-        $data['data'] = $this->m_kejaksaan_surat->riwayat_surat($id_surat)->row();
-        $this->template->load('pages/template/template','pages/kejaksaan/riwayat_surat/detail/content', $data);
+        $data['data'] = $this->m_kejaksaan_surat->detail_balasan(base64_decode($id_surat))->row();
+        $this->template->load('pages/template/template','pages/kejaksaan/surat_pengadilan/detail/content', $data);
     }
-    public function form_entry()
+
+    public function validate()
     {
         $config = array(
         array(  'field' => 'nama_tersangka',
@@ -87,20 +89,27 @@ class Kejaksaan_surat extends CI_Controller
         array(  'field' => 'tanggal_pelimpahan_p31',
                 'label' => 'Tanggal Penahanan',
                 'rules' => 'required',
-                'errors' => array('required' => 'Tanggal pelimpahan P-31 tidak boleh kosong.')),
+                'errors' => array('required' => 'Tgl P-31 tidak boleh kosong.')),
 
         array(  'field' => 'tanggal_pelimpahan_p32',
                 'label' => 'Tanggal Penahanan',
                 'rules' => 'required',
-                'errors' => array('required' => 'Tanggal pelimpahan P-32 tidak boleh kosong.')),
+                'errors' => array('required' => 'Tgl P-32 tidak boleh kosong.')),
 
         array(  'field' => 'tanggal_penahanan',
                 'label' => 'Tanggal Penahanan',
                 'rules' => 'required',
-                'errors' => array('required' => 'Tanggal Penahanan tidak boleh kosong.'))
+                'errors' => array('required' => 'Tgl Penahanan tidak boleh kosong.'))
         );
+
         $this->form_validation->set_error_delimiters('<p class="validate" style="color:red;"><i class="fa fa-exclamation-circle"></i> ','</p>');
         $this->form_validation->set_rules($config);
+        return true;
+    }
+
+    public function form_entry()
+    {
+        $this->validate();
         
         if ($this->form_validation->run() == FALSE) 
         {
@@ -153,6 +162,7 @@ class Kejaksaan_surat extends CI_Controller
                 $ba_17   = $this->upload->data(); 
             }
                 $post = $this->input->post(NULL, TRUE);
+              
                 $data = array('id_users_kejaksaan'            => $this->session->userdata('id'),
                               'nama_tersangka'      => $post['nama_tersangka'],
                               'nama_jpu'            => $post['nama_jpu'],
@@ -166,96 +176,27 @@ class Kejaksaan_surat extends CI_Controller
                               'p_42'                => $p_42['file_name'], 
                               'p_48'                => $p_48['file_name'], 
                               'ba_17'               => $ba_17['file_name'], 
+                              'tanggal_posting'     => date('Y-m-d'),
                               'tanggal_penahanan'   => $post['tanggal_penahanan'],
                               'tanggal_pelimpahan_p31' => $post['tanggal_pelimpahan_p31'],
                               'tanggal_pelimpahan_p32' => $post['tanggal_pelimpahan_p32']);
 
             $this->m_kejaksaan_surat->simpan($data); 
             $this->m_pesan->generatePesan('berhasil', 'Surat berhasil di simpan dan terkirim!');
-            redirect('Kejaksaan_surat/form_entry');            
+            redirect('kejaksaan_surat/form_entry');            
         }
     }
 
     public function edit()
     {
-        $config = array(
-        array(  'field' => 'nama_tersangka',
-                'label' => 'Nama tersangka',
-                'rules' => 'required',
-                'errors' => array('required' => 'nama tersangka tidak boleh kosong.')),
-        
-        array(  'field' => 'nama_jpu',
-                'label' => 'Nama Jaksa Penuntut Umum',
-                'rules' => 'required',
-                'errors' => array('required' => 'Nama Jaksa Penuntut Umum tidak boleh kosong.')),
-
-        array(  'field' => 'p_16',
-                'label' => 'P-16',
-                'rules' => 'required',
-                'errors' => array('required' => 'P-16 tidak boleh kosong.')),
-        
-        array(  'field' => 't_6',
-                'label' => '',
-                'rules' => 'callback_t_6'),
-        
-        array(  'field' => 't_7',
-                'label' => '',
-                'rules' => 'callback_t_7'),
-        
-        array(  'field' => 't_10',
-                'label' => 'T-10',
-                'rules' => 'callback_t_10'),
-        
-        array(  'field' => 'p_29',
-                'label' => 'P-29',
-                'rules' => 'callback_p_29'),
-        
-        array(  'field' => 'p_31',
-                'label' => '',
-                'rules' => 'callback_p_31'),
-
-        array(  'field' => 'p_32',
-                'label' => '',
-                'rules' => 'callback_p_32'),
-
-        array(  'field' => 'p_42',
-                'label' => '',
-                'rules' => 'callback_p_42'),
-        
-        array(  'field' => 'p_48',
-                'label' => '',
-                'rules' => 'callback_p_48'),
-
-        array(  'field' => 'ba_17',
-                'label' => '',
-                'rules' => 'callback_ba_17'),
-
-        array(  'field' => 'tanggal_pelimpahan_p31',
-                'label' => 'Tanggal Penahanan',
-                'rules' => 'required',
-                'errors' => array('required' => 'Tanggal pelimpahan P-31 tidak boleh kosong.')),
-
-        array(  'field' => 'tanggal_pelimpahan_p32',
-                'label' => 'Tanggal Penahanan',
-                'rules' => 'required',
-                'errors' => array('required' => 'Tanggal pelimpahan P-32 tidak boleh kosong.')),
-
-        array(  'field' => 'tanggal_penahanan',
-                'label' => 'Tanggal Penahanan',
-                'rules' => 'required',
-                'errors' => array('required' => 'Tanggal Penahanan tidak boleh kosong.'))
-        );
-        $this->form_validation->set_error_delimiters('<p class="validate" style="color:red;"><i class="fa fa-exclamation-circle"></i> ','</p>');
-        $this->form_validation->set_rules($config);
-
-        $id_surat = $this->uri->segment(3);
-
+        $this->validate();
+        $id_surat = $this->uri->segment(3); 
         if ($this->form_validation->run() == FALSE) 
         {
             $data = $this->m_kejaksaan_surat->riwayat_surat($id_surat);
             if($data->num_rows() == 0)
             {
-                redirect(current_url());
+                redirect('kejaksaan_surat/riwayat_surat');
             }
             else
             {
@@ -266,78 +207,7 @@ class Kejaksaan_surat extends CI_Controller
         }
         else
         {
-            $config['upload_path']          = './uploads/kejaksaan';
-            $config['allowed_types']        = 'pdf|doc|docx|rtf';
-            $config['max_size']             = 0;
-            $config['max_width']            = 0;
-            $config['max_height']           = 0;
-
-            $this->load->library('upload', $config);
-            $post = $this->input->post(NULL, TRUE);
-            
-            if (!empty($this->upload->do_upload('t_7')))
-            {
-                $t_7 = $this->upload->data('file_name');
-                $this->db->set('t_7', $t_7);
-                @unlink('./uploads/kejaksaan/'. $post['old_t_7']);
-            }
-            if (!empty($this->upload->do_upload('t_6')))
-            {
-                $t_6 = $this->upload->data('file_name');
-                $this->db->set('t_6', $t_6);
-                @unlink('./uploads/kejaksaan/'. $post['old_t_6']);
-            }
-            if (!empty($this->upload->do_upload('t_10')))
-            {
-                $t_10 = $this->upload->data('file_name');
-                $this->db->set('t_10', $t_10);
-                @unlink('./uploads/kejaksaan/'. $post['old_t_10']);
-            }
-            if (!empty($this->upload->do_upload('p_29')))
-            {
-                $p_29 = $this->upload->data('file_name');
-                $this->db->set('p_29', $p_29);
-                @unlink('./uploads/kejaksaan/'. $post['old_p_29']);
-            }
-            if (!empty($this->upload->do_upload('p_31')))
-            {
-                $p_31 = $this->upload->data('file_name');
-                $this->db->set('p_31', $p_31);
-                @unlink('./uploads/kejaksaan/'. $post['old_p_31']);
-            }
-            if (!empty($this->upload->do_upload('p_32')))
-            {
-                $p_32 = $this->upload->data('file_name');
-                $this->db->set('p_32', $p_32);
-                @unlink('./uploads/kejaksaan/'. $post['old_p_32']);
-            }
-            if (!empty($this->upload->do_upload('p_42')))
-            {
-                $p_42 = $this->upload->data('file_name');
-                $this->db->set('p_42', $p_42);
-                @unlink('./uploads/kejaksaan/'. $post['old_p_42']);
-            }
-            if (!empty($this->upload->do_upload('p_48')))
-            {
-                $p_48 = $this->upload->data('file_name');
-                $this->db->set('p_48', $p_48);
-                @unlink('./uploads/kejaksaan/'. $post['old_p_48']);
-            }
-            if (!empty($this->upload->do_upload('ba_17')))
-            {
-                $ba_17 = $this->upload->data('file_name');
-                $this->db->set('ba_17', $ba_17);
-                @unlink('./uploads/kejaksaan/'. $post['old_ba_17']);
-            }
-            $data = array('nama_tersangka'      => $post['nama_tersangka'],
-                          'nama_jpu'            => $post['nama_jpu'],
-                          'p_16'                => $post['p_16'], 
-                          'tanggal_penahanan'   => $post['tanggal_penahanan'],
-                          'tanggal_pelimpahan_p31' => $post['tanggal_pelimpahan_p31'],
-                          'tanggal_pelimpahan_p32' => $post['tanggal_pelimpahan_p32']);
-            $this->db->where('id_surat', base64_decode($id_surat));
-            $this->db->update('tbl_kejaksaan', $data);
-            // $this->m_kejaksaan_surat->edit($id_surat, $data); 
+            $this->m_kejaksaan_surat->edit($id_surat);
             $this->m_pesan->generatePesan('berhasil', 'Surat berhasil di simpan dan terkirim!');
             redirect(current_url());            
         }
@@ -355,7 +225,7 @@ class Kejaksaan_surat extends CI_Controller
             }
             else
             {
-                $this->form_validation->set_message('t_6', 'Pilih file spdp hanya word atau pdf.');
+                $this->form_validation->set_message('t_6', 'Pilih file T-6 hanya word atau pdf.');
                 return false;
             }
         }
@@ -384,7 +254,7 @@ class Kejaksaan_surat extends CI_Controller
             }
             else
             {
-                $this->form_validation->set_message('t_7', 'Pilih file spdp hanya word atau pdf.');
+                $this->form_validation->set_message('t_7', 'Pilih file T-7 hanya word atau pdf.');
                 return false;
             }
         }
@@ -414,7 +284,7 @@ class Kejaksaan_surat extends CI_Controller
             }
             else
             {
-                $this->form_validation->set_message('t_10', 'Pilih file spdp hanya word atau pdf.');
+                $this->form_validation->set_message('t_10', 'Pilih file T-10 hanya word atau pdf.');
                 return false;
             }
         }
@@ -444,7 +314,7 @@ class Kejaksaan_surat extends CI_Controller
             }
             else
             {
-                $this->form_validation->set_message('p_29', 'Pilih file spdp hanya word atau pdf.');
+                $this->form_validation->set_message('p_29', 'Pilih file P-29 hanya word atau pdf.');
                 return false;
             }
         }
@@ -646,6 +516,21 @@ class Kejaksaan_surat extends CI_Controller
 		}
 	
 		force_download($data, null);
+    }
+
+    public function download()
+    {
+        $this->load->helper('download');
+        if($this->uri->segment(3))
+        {
+            $data = 'uploads/pengadilan/'.$this->uri->segment(3); 
+        }
+        else
+        {
+            show_404();
+        }
+    
+        force_download($data, null);
     }
 }
 

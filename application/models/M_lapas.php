@@ -83,4 +83,5 @@ class M_lapas extends CI_Model
 		return true;
 	}
 
+
 }

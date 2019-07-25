@@ -104,7 +104,6 @@ Class Superadmin extends CI_Controller
 		{
 			$id = $this->input->post('id');
 			return $this->edit($id);
-
 		}
 		else
 		{
