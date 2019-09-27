@@ -16,9 +16,8 @@
 							        <th>No</th>
 							        <th>Nama Tersangka</th>
 							        <th>Nama Jaksa Penuntut Umum</th>
-							        <th>Status Balas</th>
-							        <th>Tgl Balas</th>
-							        <th>Tgl Penahanan</th>
+							        <th>Tgl DiBalas</th>
+							        <!-- <th>Tgl Penahanan</th> -->
 							        <th>Aksi</th>
 							    </tr>
 							</thead>
@@ -29,22 +28,15 @@
 								<td><?= $value->nama_tersangka;?></td>
 								<td><?= $value->nama_jpu;?></td>
 								<td>
-									<?php if ($value->status_balas == 1): ?>
-								  		<span class="label label-success"> Sudah dibalas </span>
-									<?php else : ?>
-										<span class="label label-danger"> Belum dibalas</span>
-									<?php endif; ?>
-								</td>
-								<td>
 	              					<i class="fa fa-calendar" aria-hidden="true"></i>
 									<?= date('d-m-Y',(strtotime($value->tanggal_balas)));?>
 								</td>
-								<td>
+<!-- 								<td>
 	              					<i class="fa fa-calendar" aria-hidden="true"></i>
-									<?php $tanggal = date('d-m-Y',(strtotime($value->tanggal_penahanan)));
-									echo date('d-m-Y',(strtotime($value->tanggal_penahanan)));
+									<?php $tanggal //= date('d-m-Y',(strtotime($value->tanggal_penahanan)));
+									//echo date('d-m-Y',(strtotime($value->tanggal_penahanan)));
 									?>
-								</td>
+								</td> -->
                 				<td>
 				                 	<a href="<?= base_url('kejaksaan_surat/detail/'.base64_encode($value->id_surat));?>" class="btn btn-info btn-xs">
 				                 		<span class="glyphicon glyphicon-eye-open"></span> Detail

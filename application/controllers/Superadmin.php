@@ -8,12 +8,9 @@ Class Superadmin extends CI_Controller
 	{
 		parent::__construct();
 		cek_coba_loggin();
-		kepolisian_cobamasuk_superadmin();
-		kejaksaan_cobamasuk_superadmin();
-		pengadilan_cobamasuk_superadmin();
-		lapas_cobamasuk_superadmin();
-		$this->load->model('m_superadmin');
-		$this->load->model('m_hashed');
+		if ($this->session->userdata('level') !='superadmin') {
+			redirect('dashboard');
+		}
 	}
 	public function index()
 	{
@@ -58,7 +55,7 @@ Class Superadmin extends CI_Controller
 	public function edit($id)
 	{
 
-		$cek_id = $this->m_superadmin->cek_id($id);
+		$cek_id = $this->m_superadmin->cek_id(base64_decode($id));
 
 		if ($cek_id->num_rows() == 0) 
 		{
@@ -66,7 +63,7 @@ Class Superadmin extends CI_Controller
 		}
 		else
 		{
-			$data['data'] = $this->m_superadmin->tampil_users($id);
+			$data['data'] = $this->m_superadmin->tampil_users(base64_decode($id));
 			$this->load->view('pages/superadmin/kelola_users/ubah_users/index', $data);
 		}
 	}
@@ -112,13 +109,15 @@ Class Superadmin extends CI_Controller
 			$email 			= $this->input->post('email');
 			$password 		= $this->input->post('password');
 			$level 			= $this->input->post('level');
+			$status_block 			= $this->input->post('status_block');
 
 
 			if (!$password) 
 			{
 				$data = array('username' => $username,
 							  'email' 	 => $email,
-							  'level'	 => $level);
+							  'level'	 => $level, 
+							  'login_attemps'	 => $status_block);
 				$this->m_superadmin->update($id, $data);
 				$this->session->set_flashdata('updated', '<div class="alert alert-success" role="alert">Users berhasil di update</div>');
 				redirect('superadmin');
@@ -127,7 +126,8 @@ Class Superadmin extends CI_Controller
 			{
 				$data = array('username' => $username,
 							  'password' => $this->m_hashed->hash_string_password($password),
-							  'level'	 => $level);
+							  'level'	 => $level,
+							  'login_attemps'	 => $status_block);
 				$this->m_superadmin->update($id, $data);
 				$this->session->set_flashdata('updated', '<div class="alert alert-success" role="alert">Users berhasil di update</div>');
 				redirect('superadmin');
@@ -137,8 +137,10 @@ Class Superadmin extends CI_Controller
 				$data = array('username' => $username,
 							  'email' 	 => $email,
 							  'password' => $this->m_hashed->hash_string_password($password),
-							  'level'	 => $level);
-				$this->m_superadmin->update($id, $data);
+							  'level'	 => $level,
+							  'login_attemps'	 => $status_block);
+							  
+				$this->m_superadmin->update(base64_decode($id), $data);
 				$this->session->set_flashdata('updated', '<div class="alert alert-success" role="alert">Users berhasil di update</div>');
 				redirect('superadmin');
 			}

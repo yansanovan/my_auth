@@ -7,13 +7,9 @@ class Lapas extends CI_Controller
 	{
 		parent::__construct();
 		cek_coba_loggin();
-		kejaksaan_cobamasuk_lapas();
-		kepolisian_cobamasuk_lapas();
-		pengadilan_cobamasuk_lapas();
-		superadmin_cobamasuk_lapas();		
-		$this->load->model('m_lapas');
-		$this->load->model('m_bon');
-        $this->load->model('m_apl');
+		kepolisian_coba_masuk();
+		kejaksaan_coba_masuk();
+        superadmin_coba_masuk();
 	}
 	public function index()
 	{
@@ -189,6 +185,30 @@ class Lapas extends CI_Controller
             return false;
         }
     }
+    public function surat_polisi()
+    {
+        $data['kepolisian'] = $this->m_surat->surat_polisi();
+        $this->template->load('pages/template/template','pages/lapas/surat_polisi/content', $data);
+    }
+
+    public function detail_surat_polisi($url)
+    {
+        $data['data']   = $this->m_surat->surat_polisi(base64_decode($url));    
+        $this->template->load('pages/template/template','pages/lapas/surat_polisi/detail/content', $data);
+    }
+
+
+    public function surat_kejaksaan()
+    {
+        $data['data'] = $this->m_pengadilan_surat->surat_kejaksaan();
+        $this->template->load('pages/template/template','pages/lapas/surat_kejaksaan/content', $data);
+    }
+
+    public function detail_surat_kejaksaan($id_surat)
+    {
+        $data['data'] = $this->m_pengadilan_surat->surat_kejaksaan(base64_decode($id_surat))->row();
+        $this->template->load('pages/template/template','pages/lapas/surat_kejaksaan/detail/content', $data);
+    }
 
     public function unduh()
     {
@@ -215,6 +235,37 @@ class Lapas extends CI_Controller
         {
             show_404();
         }
+        force_download($data, null);
+    }
+
+    public function unduh_surat_polisi()
+    {
+        $this->load->helper('download');
+        if($this->uri->segment(3))
+        {
+            $data = 'uploads/kepolisian/'.$this->uri->segment(3); 
+        }
+        else
+        {
+            show_404();
+        }
+    
+        force_download($data, null);
+    }
+
+    public function unduh_surat_kejaksaan()
+    {
+        $this->load->helper('download');
+        if($this->uri->segment(3))
+        {
+            $data = 'uploads/kejaksaan/'.$this->uri->segment(3); 
+            force_download($file, NULL);
+        }
+        else
+        {
+            show_404();
+        }
+    
         force_download($data, null);
     }
 }

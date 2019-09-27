@@ -28,6 +28,11 @@
 				                    				<td width="10px">:</td>
 				                    				<td width="250px"><?= $value->level;?></td>
 				                  				</tr>
+				                  				<tr>
+				                  					<td> <i class="fa fa-calendar" aria-hidden="true"></i>  Tanggal Balas  </td>
+													<td width="10px">:</td>
+													<td width="250px"><?= date('d-m-Y'); ?></td>
+												</tr>
 				                			</tbody>
 				              			</table><br>
 				            			<table class="table table-bordered">

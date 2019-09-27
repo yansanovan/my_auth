@@ -30,7 +30,21 @@
 				<div class="icon">
 					<i class="ion ion-ios-pricetag-outline"></i>
 				</div>
-				<a href="#" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
+				<a href="<?= base_url('lapas');?>" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
+			</div>
+		</div>
+
+		<div class="col-lg-3 col-xs-6">
+			<!-- small box -->
+			<div class="small-box bg-green">
+				<div class="inner">
+					<h3>Total : <?= $total_bon_dibalas;?></h3>
+					<p><?= $bon_dibalas;?></p>
+				</div>
+				<div class="icon">
+					<i class="ion ion-pie-graph"></i>
+				</div>
+				<a href="<?= base_url('lapas/riwayat_balas_bon');?>" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
 			</div>
 		</div>
 		<!-- ./col -->
@@ -44,7 +58,50 @@
 				<div class="icon">
 					<i class="ion ion-pie-graph"></i>
 				</div>
-				<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+				<a href="<?= base_url('lapas_apl');?>" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
+			</div>
+		</div>
+
+		<div class="col-lg-3 col-xs-6">
+			<!-- small box -->
+			<div class="small-box bg-blue">
+				<div class="inner">
+					<h3>Total : <?= $total_apl_dibalas;?></h3>
+					<p><?= $apl_balasan;?></p>
+				</div>
+				<div class="icon">
+					<i class="ion ion-pie-graph"></i>
+				</div>
+				<a href="<?= base_url('lapas_apl/riwayat_balas_apl');?>" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
+			</div>
+		</div>
+
+		<div class="col-lg-3 col-xs-6">
+			<!-- small box -->
+			<div class="small-box bg-purple">
+				<div class="inner">
+					<h3>Total : <?= $surat_masuk_polisi;?></h3>
+
+					<p><?= $surat_polisi;?></p>
+				</div>
+				<div class="icon">
+					<i class="ion ion-stats-bars"></i>
+				</div>
+				<a href="<?= base_url('kejaksaan');?>" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
+			</div>
+		</div>
+
+		<div class="col-lg-3 col-xs-6">
+			<!-- small box -->
+			<div class="small-box " id="warna">
+				<div class="inner">
+					<h3>Total : <?= $surat_masuk_kejaksaan;?></h3>
+					<p><?= $surat_kejaksaan;?></p>
+				</div>
+				<div class="icon">
+					<i class="ion ion-ios-pricetag-outline"></i>
+				</div>
+					<a href="<?= base_url('bon');?>" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
 			</div>
 		</div>
 	</div>

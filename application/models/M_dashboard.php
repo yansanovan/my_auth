@@ -17,7 +17,10 @@ class M_dashboard extends CI_Model
 	public function count_tbl_kejaksaan()
 	{
 		$this->db->select('*');
-		$this->db->from('tbl_kejaksaan');	
+		$this->db->from('tbl_kejaksaan');
+		if ($this->session->userdata('level') =='kejaksaan') {
+		$this->db->where('id_users_kejaksaan',$this->session->userdata('id'));	
+		}		
 		return $this->db->get()->result();
 	}
 
@@ -46,7 +49,7 @@ class M_dashboard extends CI_Model
 		}
 		else
 		{
-			$this->db->where('id_users_kejaksaan',$this->session->userdata('id'));	
+			$this->db->where('id_users_kejaksaan_balas',$this->session->userdata('id'));	
 		}
 		return $this->db->get()->result();
 	}
@@ -82,6 +85,14 @@ class M_dashboard extends CI_Model
 
 	public function count_balas_bon()
 	{
+		if ($this->session->userdata('level') == 'lapas') 
+		{
+			$this->db->select('*');
+			$this->db->from('tbl_balas_bon');
+			$this->db->where('id_users_lapas',$this->session->userdata('id'));	
+			return $this->db->get()->result();
+		}
+
 		$this->db->select('*');
 		$this->db->from('tbl_balas_bon');
 		$this->db->where('id_users_pemohon_balasan',$this->session->userdata('id'));	
@@ -97,6 +108,20 @@ class M_dashboard extends CI_Model
 		$this->db->select('*');
 		$this->db->from('tbl_apl');
 		$this->db->where('id_users_apl',$this->session->userdata('id'));	
+		return $this->db->get()->result();
+	}
+	public function count_balas_apl()
+	{
+		if ($this->session->userdata('level') =='lapas') {
+			$this->db->select('*');
+			$this->db->from('tbl_balas_apl');
+			$this->db->where('id_users_lapas', $this->session->userdata('id'));	
+			return $this->db->get()->result();
+		}
+
+		$this->db->select('*');
+		$this->db->from('tbl_balas_apl');
+		$this->db->where('id_users_pemohon', $this->session->userdata('id'));	
 		return $this->db->get()->result();
 	}
 }

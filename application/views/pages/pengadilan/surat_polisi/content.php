@@ -15,9 +15,11 @@
 			             		<tr>
 					                <th>No</th>
 					                <th>Nama Tersangka</th>
+					                <th>Pasal</th>
+					                <th>No Sprindik</th>
 					                <th>Dikirim Oleh</th>
 					                <th>Status Balas</th>
-					                <th>Tanggal Posting</th>
+					                <th>Tanggal Dikirim</th>
 					                <th>Detail</th>
 					                <th>Aksi</th>
 			              		</tr>
@@ -29,6 +31,8 @@
 								<tr>
 									<td><?= $no++;?></td>
 								 	<td><?= $value->nama_tersangka;?></td>
+								 	<td><?= $value->pasal;?></td>
+								 	<td><?= $value->no_sprindik;?></td>
 									<td><?= $value->username;?></td>
 									<td>
 									  	<?php

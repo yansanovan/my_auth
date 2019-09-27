@@ -58,6 +58,23 @@
 								</div>
 							</div>
 
+							<div class="form-group">
+								<label for="exampleInputEmail1">Blokir</label>
+								<div class="form-group">
+									<select class="form-control" name="status_block">
+										<option 
+											<?php if( $data->login_attemps < 4){echo "selected"; } ?> value="0">
+											<span class="label label-success"> Active </span>
+										</option>
+										<option 
+											<?php if( $data->login_attemps >= 4){echo "selected"; } ?> value="4">
+											<span class="label label-success"> Deactive </span>
+										</option>
+									</select>
+									<br>
+								</div>
+							</div>
+
 						</div>
 
 						<div class="col-md-12">

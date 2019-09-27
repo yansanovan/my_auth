@@ -1,25 +1,110 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Kepolisian extends CI_Controller
+class Kepolisian extends MY_Validate
 {
+    private $max_size =  1000000; //format byte
+    
 	function __construct()
 	{
 		parent::__construct();
 		cek_coba_loggin();
-		kejaksaan_cobamasuk_kepolisian();
-		pengadilan_cobamasuk_kepolisian();
-		lapas_cobamasuk_kepolisian();
-		superadmin_cobamasuk_kepolisian();
-		
-		$this->load->model('m_kepolisian');
-		$this->load->model('m_surat');
-		$this->load->helper('date');
+		kejaksaan_coba_masuk();
+        pengadilan_coba_masuk();
+        lapas_coba_masuk();
+        superadmin_coba_masuk();
+        $this->load->helper('date');
 	}
 	public function index()
 	{	
 		$data['data']  = $this->m_surat->get_balasan();
         $this->template->load('pages/template/template','pages/kepolisian/balasan/content', $data);
+    }
+
+    public function file_check1($str)
+    {
+        $allowed_mime_type_arr = array('image/gif','image/jpeg','image/png','image/jpg');
+        $mime = get_mime_by_extension($_FILES['file']['name']);
+        if($_FILES['file']['name'])
+        {
+            if(in_array($mime, $allowed_mime_type_arr))
+            {
+                if($_FILES['file']['size'] > $this->max_size) {
+                    $this->form_validation->set_message('file_check1', 'This file exceeds max size 1MB.');
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }   
+            }
+            else
+            {
+                $this->form_validation->set_message('file_check1', 'Select only jpg/png');
+                return FALSE;
+            }
+        }
+        else
+        {               
+            $this->form_validation->set_message('file_check1', 'The File  field is required');
+            return FALSE;
+        }
+    }
+
+
+    public function create()
+    {
+        $this->form_validation->set_rules('nama_tersangka', 'Nama tersangka', 'required');
+        $this->form_validation->set_rules('file', 'File', 'callback_file_check1','trim|xss_clean');
+
+        if ($this->form_validation->run() === FALSE)
+        {
+            $result = array('nama_tersangka' => form_error('nama_tersangka'), 
+                           'file' => form_error('file'),
+                           'hash' => $this->security->get_csrf_hash()      
+                        );     
+            $this->output->set_content_type('application/json')->set_output(json_encode($result));
+        }
+        else
+        {
+            $config['upload_path']="./assets";
+            $config['allowed_types']='gif|jpg|png';
+            $config['encrypt_name'] = TRUE;
+            $this->load->library('upload',$config);
+
+            $result = array('hash' => $this->security->get_csrf_hash());       
+            $post   = $this->input->post(NULL, TRUE);          
+
+            if($this->upload->do_upload('file'))
+            {
+                $data = array('upload_data' => $this->upload->data('file_name'));
+                $result = array('success' => 'Data has been inserted', 
+                                'newToken' => $this->security->get_csrf_hash());
+            }
+            else
+            {
+                $result = $this->upload->display_errors();
+            }
+            $insert = array('nama_tersangka' => $post['nama_tersangka'], 
+                            'file' => $data['upload_data']);
+            $this->db->set('date', 'NOW()', FALSE);
+            $this->db->insert('tbl_police', $insert);
+
+            $token = bin2hex(openssl_random_pseudo_bytes(32));
+            $notification = array('id_users' => $this->session->userdata('id'), 
+                                  'type'     =>'spdp',
+                                  'message'  => $post['nama_tersangka'],
+                                  'url'      => $token, 
+                                  'status'   => 1);
+            $this->db->insert('notification', $notification);  
+            $this->output->set_content_type('application/json')->set_output(json_encode($result));
+        }
+    }
+
+    public function history()
+    {   
+        $data['data'] = $this->db->get('tbl_police')->result(); 
+        $this->template->load('pages/template/template','pages/kepolisian/history/content', $data);
     }
 
 	public function riwayat_surat()
@@ -144,7 +229,7 @@ class Kepolisian extends CI_Controller
 							  'p_18'				=> $p_18['file_name'], 
 							  'p_21'				=> $p_21['file_name'],  
 							  'pelimpahan'			=> $pelimpahan['file_name'],
-							  'url'					=> $url );
+							  'url'					=> $url);
 
 			$this->m_kepolisian->simpan($data);	
             $this->m_pesan->generatePesan('berhasil', 'Surat berhasil di simpan dan terkirim!');
@@ -198,14 +283,14 @@ class Kepolisian extends CI_Controller
 
         if ($this->form_validation->run() == FALSE) 
         {
-            $cek = $this->m_kepolisian->cek_id($id);
+            $cek = $this->m_kepolisian->cek_id(base64_decode($id));
             if ($cek->num_rows() == 0) 
             {
                 show_404();
             }
             else
             {
-                $data['data'] = $this->m_kepolisian->cek_id($id)->result();
+                $data['data'] = $this->m_kepolisian->cek_id(base64_decode($id))->result();
                 $this->template->load('pages/template/template','pages/kepolisian/edit/content', $data);
             }
         }
@@ -346,342 +431,10 @@ class Kepolisian extends CI_Controller
             $this->db->set('pasal', $post['pasal']);
             $this->db->set('no_sprindik', $post['no_sprindik']);
             $this->db->set('no_lp', $post['no_lp']);
-            $this->db->where('id_data', $id);
+            $this->db->where('id_data', base64_decode($id));
             $this->db->update('tbl_kepolisian', $data);
             $this->m_pesan->generatePesan('berhasil', 'Surat telah di update!');
             redirect(current_url());         
-        }
-    }
-
-    // callback save file
-	public function spdp($str)
-	{
-        $allowed_mime_type_arr = array('application/pdf', 'application/msword');
-        $mime = get_mime_by_extension($_FILES['spdp']['name']);
-        if($_FILES['spdp']['name'])
-        {
-            if(in_array($mime, $allowed_mime_type_arr))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('spdp', 'Pilih file spdp hanya word atau pdf.');
-                return false;
-            }
-        }
-        else
-        {
-            if ($this->input->post('edit')) 
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('spdp', 'file SPDP tidak boleh kosong.');
-                return false;
-            }
-        }
-    }
-
-	public function ijin_geledah($str)
-	{
-        $allowed_mime_type_arr = array('application/pdf','application/msword');
-        $mime = get_mime_by_extension($_FILES['ijin_geledah']['name']);
-        if($_FILES['ijin_geledah']['name'])
-        {
-            if(in_array($mime, $allowed_mime_type_arr))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('ijin_geledah', 'Pilih file ijin geledah hanya word atau pdf.');
-                return false;
-            }
-        }
-        else
-        {
-            if ($this->input->post('edit')) 
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('ijin_geledah', 'file ijin geledah tidak boleh kosong.');
-                return false;
-            }
-        }
-    }
-
-	public function setuju_geledah($str)
-	{
-        $allowed_mime_type_arr = array('application/pdf','application/msword');
-        $mime = get_mime_by_extension($_FILES['setuju_geledah']['name']);
-        if($_FILES['setuju_geledah']['name'])
-        {
-            if(in_array($mime, $allowed_mime_type_arr))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('setuju_geledah', 'Pilih file setuju geledah hanya word atau pdf.');
-                return false;
-            }
-        }
-        else
-        {
-            if ($this->input->post('edit')) 
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('setuju_geledah', 'file Setuju geledah tidak boleh kosong.');
-                return false;
-            }
-        }
-
-    }
-
-    public function khusus($str)
-	{
-        $allowed_mime_type_arr = array('application/pdf','application/msword');
-        $mime = get_mime_by_extension($_FILES['khusus']['name']);
-        if($_FILES['khusus']['name'])
-        {
-            if(in_array($mime, $allowed_mime_type_arr))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('khusus', 'Pilih file khusus hanya word atau pdf.');
-                return false;
-            }
-        }
-        else
-        {
-            if ($this->input->post('edit')) 
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('khusus', 'file khusus tidak boleh kosong.');
-                return false;
-            }
-        }
-    }
-
-    public function biasa($str)
-	{
-        $allowed_mime_type_arr = array('application/pdf','application/msword');
-        $mime = get_mime_by_extension($_FILES['biasa']['name']);
-        if($_FILES['biasa']['name'])
-        {
-            if(in_array($mime, $allowed_mime_type_arr))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('biasa', 'Pilih biasa hanya word atau pdf.');
-                return false;
-            }
-        }
-        else
-        {
-            if ($this->input->post('edit')) 
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('biasa', 'file biasa tidak boleh kosong.');
-                return false;
-            }
-        }
-    }
-
-    public function narkotika($str)
-	{
-        $allowed_mime_type_arr = array('application/pdf','application/msword');
-        $mime = get_mime_by_extension($_FILES['narkotika']['name']);
-        if($_FILES['narkotika']['name'])
-        {
-            if(in_array($mime, $allowed_mime_type_arr))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('narkotika', 'Pilih narkotika hanya word atau pdf.');
-                return false;
-            }
-        }
-        else
-        {
-            if ($this->input->post('edit')) 
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('narkotika', 'file narkotika tidak boleh kosong.');
-                return false;
-            }
-        }
-    }
-
-    public function kejaksaan($str)
-	{
-        $allowed_mime_type_arr = array('application/pdf','application/msword');
-        $mime = get_mime_by_extension($_FILES['kejaksaan']['name']);
-        if($_FILES['kejaksaan']['name'])
-        {
-            if(in_array($mime, $allowed_mime_type_arr))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('kejaksaan', 'Pilih kejaksaan hanya word atau pdf.');
-                return false;
-            }
-        }
-        else
-        {
-            if ($this->input->post('edit')) 
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('kejaksaan', 'file kejaksaan tidak boleh kosong.');
-                return false;
-            }
-        }
-    }
-
-    public function pengadilan($str)
-	{
-        $allowed_mime_type_arr = array('application/pdf','application/msword');
-        $mime = get_mime_by_extension($_FILES['pengadilan']['name']);
-        if($_FILES['pengadilan']['name'])
-        {
-            if(in_array($mime, $allowed_mime_type_arr))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('pengadilan', 'Pilih pengadilan hanya word atau pdf.');
-                return false;
-            }
-        }
-        else
-        {
-            if ($this->input->post('edit')) 
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('pengadilan', 'file pengadilan tidak boleh kosong.');
-                return false;
-            }
-        }
-    }
-
-    public function p_18($str)
-	{
-        $allowed_mime_type_arr = array('application/pdf','application/msword');
-        $mime = get_mime_by_extension($_FILES['p_18']['name']);
-        if($_FILES['p_18']['name'])
-        {
-            if(in_array($mime, $allowed_mime_type_arr))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('p_18', 'Pilih P-18 hanya word atau pdf.');
-                return false;
-            }
-        }
-        else
-        {
-            if ($this->input->post('edit')) 
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('p_18', 'file P-18 tidak boleh kosong.');
-                return false;
-            }
-        }
-    }
-
-    public function p_21($str)
-	{
-        $allowed_mime_type_arr = array('application/pdf','application/msword');
-        $mime = get_mime_by_extension($_FILES['p_21']['name']);
-        if($_FILES['p_21']['name'])
-        {
-            if(in_array($mime, $allowed_mime_type_arr))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('p_21', 'Pilih P-21 hanya word atau pdf.');
-                return false;
-            }
-        }
-        else
-        {
-            if ($this->input->post('edit')) 
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('p_21', 'file P-21 tidak boleh kosong.');
-                return false;
-            }
-        }
-    }
-
-    public function pelimpahan($str)
-	{
-        $allowed_mime_type_arr = array('application/pdf','application/msword');
-        $mime = get_mime_by_extension($_FILES['pelimpahan']['name']);
-        if($_FILES['pelimpahan']['name'])
-        {
-            if(in_array($mime, $allowed_mime_type_arr))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('pelimpahan', 'Pilih pelimpahan hanya word atau pdf.');
-                return false;
-            }
-        }
-        else
-        {
-            if ($this->input->post('edit')) 
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('pelimpahan', 'file pelimpahan tidak boleh kosong.');
-                return false;
-            }
         }
     }
   

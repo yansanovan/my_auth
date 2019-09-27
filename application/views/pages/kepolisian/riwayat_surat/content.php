@@ -41,7 +41,7 @@
 									<a href="<?= base_url('kepolisian/hapus/'.$value->id_data);?>" class="btn btn-danger btn-xs" onclick="return confirm('Yakin Mau Hapus Jadwal Ini')"> 
 										<span class="glyphicon glyphicon-trash"></span> Hapus
 									</a>
-									<a href="<?= base_url('kepolisian/edit/'.$value->id_data);?>" class="btn btn-warning btn-xs"> 
+									<a href="<?= base_url('kepolisian/edit/'. base64_encode($value->id_data));?>" class="btn btn-warning btn-xs"> 
 										<span class="glyphicon glyphicon-edit"></span> Edit
 									</a>
 								</td>

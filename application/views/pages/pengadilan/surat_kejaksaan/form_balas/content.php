@@ -30,6 +30,11 @@
 								                    <td width="10px">:</td>
 								                    <td width="250px"><?= $value->level; ?></td>
 								                </tr>
+								                <tr>
+									                <td> <i class="fa fa-calendar" aria-hidden="true"></i>  Tanggal Balas  </td>
+													<td width="10px">:</td>
+													<td width="250px"><?= date('d-m-Y'); ?></td>
+												</tr>
 					              			</tbody>
 				            			</table>
 		            					<br>
@@ -48,33 +53,11 @@
 													</td>
 												</tr>
 												<tr>
-													<td>Nama Jaksa Penuntut Umum</td>
+													<td>Nama Jaksa Penuntut Umum (P-16 A)</td>
 													<td>
 														<p><?= $value->nama_jpu;?></p>
 													</td>
 												</tr>
-												<tr>
-													<td>P-16A</td>
-													<td> 
-														<p><?= $value->p_16;?></p>
-													</td>
-												</tr>
-								                <tr>
-								                	<td>T-7</td>
-							                  		<td>
-								                        <label for="exampleInputEmail1">T-7 <small style="color:red">*</small></label> 
-							                          	<div class="input-group">
-						                            		<input type="hidden" name="id_surat_balas" value="<?= $value->id_surat;?>">
-						                            		<input type="hidden" name="id_users_kejaksaan" value="<?= $value->id_users_kejaksaan;?>">
-						                            		<input type="text" id="file_path" class="form-control" placeholder="Pilih T-7">
-						                              		<span class="input-group-btn">
-							                                	<button class="btn btn-success" type="button" id="file_browser"><i class="fa fa-upload"></i> </button>
-							                            	</span>
-							                          	</div>
-							                          	<input type="file" class="hidden" id="file" name="t_7" value="<?= set_value('t_7');?>">
-								                        <?= form_error('t_7'); ?>
-							                  		</td>
-								                </tr>
 							                	<tr>
 								                  	<td>T-6</td>
 								                  	<td>
@@ -92,6 +75,22 @@
 								                    	</div>
 								                  	</td>
 							                	</tr>
+								                <tr>
+								                	<td>T-7</td>
+							                  		<td>
+								                        <label for="exampleInputEmail1">T-7 <small style="color:red">*</small></label> 
+							                          	<div class="input-group">
+						                            		<input type="hidden" name="id_surat_balas" value="<?= $value->id_surat;?>">
+						                            		<input type="hidden" name="id_users_kejaksaan" value="<?= $value->id_users_kejaksaan;?>">
+						                            		<input type="text" id="file_path" class="form-control" placeholder="Pilih T-7">
+						                              		<span class="input-group-btn">
+							                                	<button class="btn btn-success" type="button" id="file_browser"><i class="fa fa-upload"></i> </button>
+							                            	</span>
+							                          	</div>
+							                          	<input type="file" class="hidden" id="file" name="t_7" value="<?= set_value('t_7');?>">
+								                        <?= form_error('t_7'); ?>
+							                  		</td>
+								                </tr>
 							                	<tr>
 							                  		<td>T-10</td>
 							                  		<td>

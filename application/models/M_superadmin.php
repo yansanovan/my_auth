@@ -13,7 +13,6 @@ class M_superadmin extends CI_Model
 		}
 		$this->db->where('id !=', 5);
 		$query = $this->db->get('tbl_users');
-		
 		return $query->result();
 	}
 

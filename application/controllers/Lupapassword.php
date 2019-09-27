@@ -4,27 +4,23 @@ class Lupapassword extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('m_lupapassword');
-		$this->load->model('m_hashed');
+
 	}
 	public function index()
 	{
-		cek_coba_logout_kejaksaan();
-		cek_coba_logout_kepolisian();
-		cek_coba_logout_pengadilan();
-		cek_coba_logout_lapas();
+		coba_logout();
 		cek_coba_logout_superadmin();
 	
 		$this->form_validation->set_rules('email','Email','required|trim|valid_email', array('required' =>'Email tidak boleh kosong!'));
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger" role="alert">','</div>');
 
 		if($this->form_validation->run() === FALSE)
-		{
-			$this->load->view('pages/lupapassword/index');		
+		{			
+			$this->load->view('pages/lupapassword/index');	
 		}
 		else
 		{
-			$email = $this->input->post('email', TRUE);
+			$email = htmlspecialchars($this->input->post('email', TRUE));
 			$token = bin2hex(openssl_random_pseudo_bytes(32));
 			if($this->m_lupapassword->kirim_token($token, $email)) 
 			{
@@ -82,7 +78,7 @@ class Lupapassword extends CI_Controller
 		}
 		else
 		{
-			if ($this->input->post('ganti_password', TRUE)) 
+			if (htmlspecialchars($this->input->post('ganti_password', TRUE))) 
 			{
 				$this->m_lupapassword->ganti_password_baru($token);
 			}

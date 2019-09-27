@@ -18,7 +18,7 @@
                         </div>
                     	<div class="panel-body">
 							<?php foreach ($data as $key => $value) :?>
-							<table  width="450px">
+							<table  width="400px">
 								<tbody>
 									<tr>
 										<td><i class="fa fa-user-o" aria-hidden="true"></i> Dikirim Oleh</td>
@@ -167,6 +167,4 @@
 		</div>
 	</div>
 </section>
-
-
 

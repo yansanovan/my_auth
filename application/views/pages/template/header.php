@@ -3,6 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<!-- <?php// $this->output->set_header('X-FRAME-OPTIONS: DENY');?> -->
 	<title>Dashboard</title>
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -34,7 +36,7 @@
 
 	.warna_apl_dibalas{
 		background-color: rgb(100, 49, 117);
-		pointer-events: none;
+		/*pointer-events: none;*/
 		color:white;
 	}
 	.apl_pn{
@@ -80,7 +82,7 @@
 <header class="main-header">
 	<a href="" class="logo">
 		<span class="logo-mini"><b>A</b>LT</span>
-		<span class="logo-lg"><b><i class="fa fa-envelope"></i> APLIKASI SURAT</b> </span>
+		<span class="logo-lg"><b><i class="fa fa-envelope"></i> APPS</b> </span>
 	</a>
 	<nav class="navbar navbar-static-top">
 		<a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
@@ -88,78 +90,28 @@
 		</a>
 
 		<div class="navbar-custom-menu">
-			<ul class="nav navbar-nav">
-				<?php if ($this->session->userdata("level") == "kepolisian") {?>
-				<li class="dropdown notifications-menu">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<i class="fa fa-envelope-o"></i><span class="label label-danger count"></span> 
-					</a>
-					<ul class="dropdown-menu" id="notifikasi"></ul>
-				</li>
-				<?php } ?>
+			<ul class="nav navbar-nav">		
 				
-				<?php  if ($this->session->userdata("level") == "kejaksaan"){ ?>
-				 <li class="dropdown notifications-menu">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<i class="fa fa-envelope-o"></i><span class="label label-danger count"></span> 
-					</a>
-					<ul class="dropdown-menu" id="kepolisian_kj"></ul>
-				</li>
-
 				<li class="dropdown notifications-menu">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<i class="fa fa-bullhorn"></i><span class="label label-danger hitung_surat_kj_dibalas_pn"></span> 
+
+					<a href="#" class="notify" data-toggle="dropdown">
+						<?php if ($this->session->userdata('level') =='kepolisian') { ?>
+							<i class="fa fa-bell-o"></i><span class="label label-danger count_police"></span> 
+						<?php } else if ($this->session->userdata('level') =='kejaksaan') { ?>
+							<i class="fa fa-bell-o"></i><span class="label label-danger count_judiciary"></span> 
+						<?php }?> 
 					</a>
-					<ul class="dropdown-menu" id="surat_kj_dibalas_pn"></ul>
+					<?php if ($this->session->userdata('level') =='kepolisian'  ) { ?>
+						<ul class="dropdown-menu" id="notify_to_police"></ul>
+					<?php } ?> 
+					<?php if ($this->session->userdata('level') =='kejaksaan'  ) { ?>
+						<ul class="dropdown-menu" id="notify_to_judicary"></ul>
+					<?php } ?>
 				</li>
-				<?php } ?>
 
-				<?php if ($this->session->userdata("level") == "pengadilan") { ?>
-					<li class="dropdown notifications-menu">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<i class="fa fa-envelope-o"></i><span class="label label-danger count"></span> 
-						</a>
-						<ul class="dropdown-menu" id="kepolisian_pn"></ul>
-					</li>
-
-					<li class="dropdown notifications-menu">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<i class="fa fa-flag-o"></i><span class="label label-danger"></span> 
-						</a>
-						<ul class="dropdown-menu"></ul>
-					</li> 
-				<?php } ?>
-
-				<?php  if ($this->session->userdata("level") == "kejaksaan" OR $this->session->userdata("level") == "kepolisian" OR $this->session->userdata("level") == "pengadilan"){ ?>
-						<li class="dropdown notifications-menu">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<i class="fa fa-bell-o"></i><span class="label label-danger count_bon"></span> 
-							</a>
-							<ul class="dropdown-menu" id="bon_balasan"></ul>
-						</li> 
-				<?php } ?>
-
-				<?php  if ($this->session->userdata("level") == "lapas"){ ?>
-				 <li class="dropdown notifications-menu">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						Bon <i class="fa fa-bell-o"></i><span class="label label-danger count"></span> 
-					</a>
-					<!-- <input type="hidden" name="csrf" id="csrf_token"> -->
-					<ul class="dropdown-menu" id="bon_masuk"></ul>
-				</li>
-				<?php } ?>
-				<li class="dropdown notifications-menu">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<i class="fa fa-flag-o"></i><span class="label label-danger"></span> 
-					</a>
-					<ul class="dropdown-menu" id="apl">
-						hahaha
-					</ul>
-				</li>
 				<li class="dropdown user user-menu">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<?php
-							$this->db->where('id', $this->session->userdata('id'));
+					<a href="#" class="profile" data-toggle="dropdown">
+						<?php $this->db->where('id', $this->session->userdata('id'));
 							$image = $this->db->get('tbl_users')->row();
 						?>
 						<img src="<?= base_url('asset/img/'.$image->image)?>" class="user-image" alt="User Image">
@@ -190,4 +142,3 @@
 		</div>
 	</nav>
 </header>
-

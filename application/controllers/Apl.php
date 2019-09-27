@@ -7,11 +7,7 @@ class Apl extends CI_Controller
 	{
 		parent::__construct();
 		cek_coba_loggin();
-		superadmin_cobamasuk_apl();
-		$this->load->helper('file');
-		$this->load->model('m_apl');
-		$this->load->model('m_surat');
-		$this->load->helper('date');
+		superadmin_coba_masuk();
 	}
 
 	public function index()

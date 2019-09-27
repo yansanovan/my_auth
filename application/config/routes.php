@@ -50,12 +50,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'auth';
-// $route['profile'] = 'profile/upload';
-// $route['profile'] = 'profile/change_password';
-// $route['profile'] = 'profile/upload';
-
-
-// $route['kejaksaan/(:any)'] = 'kejaksaan/balas';
-
+$route['surat/surat_polisi'] = 'lapas/surat_polisi';
+$route['surat/surat_kejaksaan'] = 'lapas/surat_kejaksaan';
+$route['surat/detail_polisi/(:any)'] = 'lapas/detail_surat_polisi/$1';
+$route['surat/detail_kejaksaan/(:any)'] = 'lapas/detail_surat_kejaksaan/$1';
+$route['unduh/unduh_surat_polisi/(:any)'] = 'lapas/unduh_surat_polisi/$1';
+$route['unduh/unduh_surat_kejaksaan/(:any)'] = 'lapas/unduh_surat_kejaksaan/$1';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

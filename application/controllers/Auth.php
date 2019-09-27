@@ -6,24 +6,18 @@ class Auth extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('m_auth');
-		$this->load->model('m_hashed');
 	}
 	public function index()
 	{		
-		cek_coba_logout_kejaksaan();
-		cek_coba_logout_kepolisian();
-		cek_coba_logout_pengadilan();
-		cek_coba_logout_lapas();
+		coba_logout();
 		cek_coba_logout_superadmin();
-		
 		$this->form_validation->set_rules('email', 'Email', 'required',  array('required' => 'Email tidak boleh kosong!'));
 		$this->form_validation->set_rules('password', 'Password', 'required', array('required' => 'Password tidak boleh kosong!'));
         $this->form_validation->set_error_delimiters('<p class="auth_validate" style="color:red;"><i class="fa fa-exclamation-circle"></i> ','</p>');
         
 		if ($this->form_validation->run() === FALSE) 
 		{
-			$this->load->view('pages/auth/index');
+			$this->load->view('pages/auth/index');	
 		}
 		else
 		{
@@ -37,12 +31,8 @@ class Auth extends CI_Controller
 				{
 					if (!$this->m_hashed->hash_verify_password($password, $users->password)) 
 					{
-						$this->db->select('*');
-						$this->db->from('tbl_users');
-						$this->db->where('email', $email);
-						$query = $this->db->get();
-						$querycheck = $query->result();					
-						if($querycheck[0]->login_attemps >= 3)
+						$querycheck = $this->db->get_where('tbl_users', array('email' => $email))->result();				
+						if($querycheck[0]->login_attemps >= 4)
 						{
 							$this->m_pesan->generatePesan('blokir', 'Opps! Maaf Akun Anda Telah Diblokir!');
 							redirect('auth');		
@@ -52,14 +42,14 @@ class Auth extends CI_Controller
 							$ip_address = $this->input->ip_address();
 							$dataToInsert = array("ip_address" => $ip_address,  
 												  "login_attemps" => $querycheck[0]->login_attemps+1);
-							$this->db->update('tbl_users',$dataToInsert,array('email' => $email));
+							$this->db->update('tbl_users', $dataToInsert, array('email' => $email));
 							$this->m_pesan->generatePesan('salah', 'Email Atau Password Salah!');
 							redirect('auth');			
 						}
 					}
 					else
 					{
-						if($users->login_attemps >= 3){
+						if($users->login_attemps >= 4){
 							$this->m_pesan->generatePesan('blokir', 'Maaf Akun anda Terblokir!');
 							redirect('auth');
 						}
@@ -153,5 +143,10 @@ class Auth extends CI_Controller
 		$this->session->unset_userdata($array_items);
 		$this->m_pesan->generatePesan('logout', 'Anda telah logout!');
 		redirect('auth');
+	}
+
+	public function blocked()
+	{
+		$this->load->view('pages/auth/block/index');
 	}
 }

@@ -1,22 +1,16 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Pengadilan extends CI_Controller 
+class Pengadilan extends MY_Validate 
 {
 	function __construct()
 	{
 		parent::__construct();
 		cek_coba_loggin();
-		kepolisian_cobamasuk_pengadilan();
-		kejaksaan_cobamasuk_pengadilan();
-		lapas_cobamasuk_pengadilan();
-		superadmin_cobamasuk_pengadilan();
-		$this->load->helper('file');
-		$this->load->model('m_kepolisian');
-		$this->load->model('m_pengadilan');
-		$this->load->model('m_surat');
-		// $this->output->enable_profiler(TRUE);
-		
+        kepolisian_coba_masuk();
+		kejaksaan_coba_masuk();
+        lapas_coba_masuk();
+        superadmin_coba_masuk();
 	}
 
 	public function index()
@@ -222,157 +216,6 @@ class Pengadilan extends CI_Controller
             $this->db->update('tbl_balas_pengadilan', array('id_surat_pn' => $post['id_surat_pn']));
             $this->m_pesan->generatePesan('berhasil','Surat balasan telah di update');
             redirect(current_url());  
-        }
-    }
-    
-    public function ijin_geledah($str)
-    {
-        $allowed_mime_type_arr = array('application/pdf', 'application/msword');
-        $mime = get_mime_by_extension($_FILES['ijin_geledah']['name']);
-        if($_FILES['ijin_geledah']['name'])
-        {
-            if(in_array($mime, $allowed_mime_type_arr))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('ijin_geledah', 'Pilih file ijin geledah hanya word atau pdf.');
-                return false;
-            }
-        }
-        else
-        {
-            if($this->input->post('edit'))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('ijin_geledah', 'file ijin geledah tidak boleh kosong.');
-                return false;
-            }
-        }
-    }
-
-    public function setuju_geledah($str)
-    {
-        $allowed_mime_type_arr = array('application/pdf', 'application/msword');
-        $mime = get_mime_by_extension($_FILES['setuju_geledah']['name']);
-        if($_FILES['setuju_geledah']['name'])
-        {
-            if(in_array($mime, $allowed_mime_type_arr))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('setuju_geledah', 'Pilih file setuju geledah hanya word atau pdf.');
-                return false;
-            }
-        }
-        else
-        {
-            if($this->input->post('edit'))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('setuju_geledah', 'file setuju geledah tidak boleh kosong.');
-                return false;
-            }
-        }
-    }
-    
-    public function khusus($str)
-	{
-        $allowed_mime_type_arr = array('application/pdf','application/msword');
-        $mime = get_mime_by_extension($_FILES['khusus']['name']);
-        if($_FILES['khusus']['name'])
-        {
-            if(in_array($mime, $allowed_mime_type_arr))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('khusus', 'Pilih khusus hanya word atau pdf.');
-                return false;
-            }
-        }
-        else
-        {
-            if($this->input->post('edit'))
-            {
-                return true;
-            }
-            else
-            {
-
-                $this->form_validation->set_message('khusus', 'file khusus tidak boleh kosong.');
-                return false;
-            }
-        }
-    }
-
-    public function biasa($str)
-	{
-        $allowed_mime_type_arr = array('application/pdf','application/msword');
-        $mime = get_mime_by_extension($_FILES['biasa']['name']);
-        if($_FILES['biasa']['name'])
-        {
-            if(in_array($mime, $allowed_mime_type_arr))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('biasa', 'Pilih biasa hanya word atau pdf.');
-                return false;
-            }
-        }
-        else
-        {
-            if($this->input->post('edit'))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('biasa', 'file biasa tidak boleh kosong.');
-                return false;
-            }
-        }
-    }
-
-    public function pengadilan($str)
-    {
-        $allowed_mime_type_arr = array('application/pdf', 'application/msword');
-        $mime = get_mime_by_extension($_FILES['pengadilan']['name']);
-        if($_FILES['pengadilan']['name'])
-        {
-            if(in_array($mime, $allowed_mime_type_arr))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('pengadilan', 'Pilih file pengadilan hanya word atau pdf.');
-                return false;
-            }
-        }
-        else
-        {
-            if($this->input->post('edit'))
-            {
-                return true;
-            }
-            else
-            {
-                $this->form_validation->set_message('pengadilan', 'file pengadilan tidak boleh kosong.');
-                return false;
-            }
         }
     }
 

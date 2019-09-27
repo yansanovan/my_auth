@@ -23,16 +23,33 @@ if ($action == "edit")
                     <?= form_open_multipart('apl/proses');?>
                         <div class="col-md-12">
                             <?= $this->session->flashdata('msgbox');?>       
-                            <div class="panel panel-info" style="color:#e3f2fd;">
-                                <div class="panel-heading">
+                            <!-- <div class="panel panel-info" style="color:#e3f2fd;"> -->
+                                <nav class="navbar navbar-light" style="background-color:#e3f2fd;">
+                                    <h3 align="center"> <i class="fa fa-pencil-square" aria-hidden="true"></i> FORM <?= strtoupper($page) ;?> APL </h3><br>
+                                </nav>
+                                <!-- <div class="panel-heading">
                                     <h3 align="center" style="color: black">
                                         <i class="fa fa-envelope" aria-hidden="true"></i> <?=$page;?> APL
                                     </h3><br>
-                                </div>
-                                <div class="panel-body">
+                                </div> -->
+<!--                                 <div class="panel-body"> -->
                                     <a href="<?= base_url('apl/riwayat_apl');?>" class="btn btn-warning btn-xs"> 
                                         <i class="fa fa-envelope"></i> Riwayat Apl
                                     </a><br><br>
+                                     <table  width="400px">
+                                        <tbody>
+                                            <tr>
+                                                <td> <i class="fa fa-suitcase" aria-hidden="true"></i> Permintaan Apl Ke</td>
+                                                <td width="10px">:</td>
+                                                <td width="250px" id="pasal"> Lapas </td>
+                                            </tr>
+                                            <tr>
+                                                <td> <i class="fa fa-calendar" aria-hidden="true"></i>  Tanggal Permintaan  </td>
+                                                <td width="10px">:</td>
+                                                <td width="250px"><?= date('d-m-Y'); ?></td>
+                                            </tr>
+                                        </tbody>
+                                    </table><br>
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr bgcolor="#8e8d8d">
@@ -89,10 +106,10 @@ if ($action == "edit")
                                         <button class="btn btn-primary btn-sm" name="<?=$action;?>" value="true"> 
                                             <i class="fa fa-paper-plane" aria-hidden="true"></i> Submit
                                         </button>
-                                    </center>
+                                    </center><br><br><br>
                                 </div>
-                            </div>
-                        </div>
+                            <!-- </div> -->
+                        <!-- </div> -->
                     <?= form_close();?>
                 </div>
             </div>

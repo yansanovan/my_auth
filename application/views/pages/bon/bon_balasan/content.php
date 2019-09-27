@@ -16,7 +16,7 @@
 							<tr>
 								<center><th>No</th></center>
 								<th>Nama Tersangka</th>
-								<th>File Pengajuan</th>
+								<th>File Bon Balasan</th>
 								<th>Keterangan</th>
 								<th>Tanggal Balas</th>
 								<th>User Lapas</th>

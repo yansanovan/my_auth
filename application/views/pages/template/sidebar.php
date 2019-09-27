@@ -31,7 +31,7 @@
 					else if ($this->session->userdata('level') =='superadmin') 
 					{
 					?> 
-						<img src="<?php echo base_url('asset/img/superadmin.png');?>" class="img-circle" alt="User Image');?>">
+						<img src="<?php echo base_url('asset/img/iconsuperadmin.png');?>" class="img-circle" alt="User Image');?>">
 						<?php
 					}
 					?>
@@ -89,21 +89,21 @@
 				
 				<li class="treeview <?= $this->uri->segment(1) =='kepolisian' ? 'active' : null;?>">
 					<a href="#">
-						<i class="fa fa-envelope-o" aria-hidden="true"></i> <span> Surat</span>
+						<i class="fa fa-envelope-o" aria-hidden="true"></i> <span> Form</span>
 						<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
 					</a>
 					<ul class="treeview-menu">
+						<!-- <li>
+							<a href="<?php //echo base_url('kepolisian');?>"><i class="fa fa-envelope-open-o"></i> <span> Surat Balasan </span></a>
+						</li> -->
 						<li>
-							<a href="<?php echo base_url('kepolisian');?>"><i class="fa fa-envelope-open-o"></i> <span> Surat Balasan </span></a>
+							<a href="<?php echo base_url('kepolisian/form');?>"><i class="fa fa-edit"></i> <span> Entry </span></a>
 						</li>
-						<li>
-							<a href="<?php echo base_url('kepolisian/form');?>"><i class="fa fa-edit"></i> <span> Entry Surat </span></a>
-						</li>
-						<li>
-							<a href="<?php echo base_url('kepolisian/riwayat_surat');?>">
+		<!-- 				<li>
+							<a href="<?php //echo base_url('kepolisian/riwayat_surat');?>">
 								<i class="fa fa-file-text-o" aria-hidden="true"></i></i> <span> Riwayat Surat </span>
 							</a>
-						</li>
+						</li> -->
 					</ul>
 				</li>
  
@@ -112,8 +112,12 @@
 				<!-- session kejaksaan -->
 
 				<?php } else if ($this->session->userdata('level') == 'kejaksaan') { ?>  
-
-			 <li class="treeview <?= $this->uri->segment(1) =='kejaksaan' ? 'active' : null;?>">
+				<li <?= $this->uri->segment(1) =='inbox' ? 'class="active"' : null;?>>
+					 <a href="<?php echo base_url('inbox');?>">
+						<i class="fa fa-envelope-o"></i> <span> Inbox </span>
+					</a>
+				</li>
+			 	<li class="treeview <?= $this->uri->segment(1) =='kejaksaan' ? 'active' : null;?>">
 					<a href="#">
 						<i class="fa fa-envelope-o" aria-hidden="true"></i> <span> Surat Polisi</span>
 						<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
@@ -194,7 +198,27 @@
 				<!-- session lapas -->
 
 				<?php } else if ($this->session->userdata('level') == 'lapas') { ?>
-				
+				 
+				 <li class="treeview <?= $this->uri->segment(1) =='surat' ? 'active' : null;?>">
+					<a href="#">
+						<i class="fa fa-envelope-o"></i> <span>Surat</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li>
+							<a href="<?php echo base_url('surat/surat_polisi');?>">
+								<i class="fa fa-envelope-open-o" aria-hidden="true"></i> <span> Surat Polisi </span>
+							</a>
+						</li>
+						<li>
+							<a href="<?php echo base_url('surat/surat_kejaksaan');?>">
+								<i class="fa fa-envelope-open-o" aria-hidden="true"></i> <span> Surat Kejaksaan </span>
+							</a>
+						</li>
+					</ul>
+				</li>				
 
 				 <li class="treeview <?= $this->uri->segment(1) =='lapas' ? 'active' : null;?>">
 					<a href="#">

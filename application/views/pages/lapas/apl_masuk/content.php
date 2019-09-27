@@ -17,6 +17,7 @@
 								<th>Nama Tersangka</th>
 								<th>File Pengajuan APL</th>
 								<th>User Pemohon</th>
+								<th>Status Balas</th>
 								<th>Tanggal Posting</th>
 								<th>Aksi</th>
 							</tr>
@@ -34,6 +35,10 @@
 									</a> <?= $value->file_apl;?>
 								</td>
 								<td><?= $value->username;?></td>
+								<td>
+									<?php if ($value->status_balas == 0) :?><span class="label label-danger">Belum dibalas</span>
+									<?php  else :?><span class="label label-success">Sudah dibalas </span> <?php endif; ?>
+								</td>
 								<td>
 									<i class="fa fa-calendar" aria-hidden="true"></i> <?= date('d-m-Y', strtotime($value->tanggal_apl)); ?>
 								</td>

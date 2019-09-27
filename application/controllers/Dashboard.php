@@ -7,9 +7,7 @@ class Dashboard extends CI_Controller
 	{
 		parent::__construct();
 		cek_coba_loggin();
-		superadmin_cobamasuk_dashboard();
-		$this->load->model('m_dashboard');	
-		$this->load->model('m_bon');	
+		superadmin_coba_masuk();
 	}
 
 	public function index()
@@ -25,7 +23,7 @@ class Dashboard extends CI_Controller
 			$data['apl']   	= count($this->m_dashboard->apl());
 
 			$data['apl_dibalas'] = 'Apl Dibalas LP ';
-			$data['total_apl_dibalas']   = count($this->m_dashboard->apl());
+			$data['total_apl_dibalas']   = count($this->m_dashboard->count_balas_apl());
 
 			$data['surat'] = 'Surat Dikirim';
 			$data['surat_masuk_polisi'] 	= count($this->m_dashboard->count_tbl_polisi());
@@ -52,7 +50,7 @@ class Dashboard extends CI_Controller
 
 			// APL Balasan LP
 			$data['apl_dibalas'] = 'Apl Dibalas LP ';
-			$data['total_apl_dibalas']   = count($this->m_dashboard->apl());
+			$data['total_apl_dibalas']   = count($this->m_dashboard->count_balas_apl());
 			
 			// Surat Masuk Dari Polisi
 			$data['surat_polisi'] = 'Surat Masuk Polisi';
@@ -82,7 +80,7 @@ class Dashboard extends CI_Controller
 			$data['apl']   	= count($this->m_dashboard->apl());
 
 			$data['apl_balasan'] = 'Apl Dibalas LP ';
-			$data['apl_balasan_lapas']   = count($this->m_dashboard->apl());
+			$data['apl_balasan_lapas']   = count($this->m_dashboard->count_balas_apl());
 
 			$data['surat_polisi'] = 'Surat Masuk Polisi';
 			$data['surat_masuk_polisi'] 	= count($this->m_dashboard->count_tbl_polisi());
@@ -99,9 +97,22 @@ class Dashboard extends CI_Controller
 
 		if ($this->session->userdata('level') == 'lapas') {
 			$data['title_bon'] = 'Bon Masuk';
-			$data['title_apl'] = 'APL Masuk';
+			$data['title_apl'] = 'Apl Masuk';
+
 			$data['bon'] 	= count($this->m_dashboard->bon());	
 			$data['apl'] 	= count($this->m_dashboard->apl());
+
+			$data['surat_polisi'] = 'Surat Polisi';
+			$data['surat_masuk_polisi'] 	= count($this->m_dashboard->count_tbl_polisi());
+
+			$data['surat_kejaksaan'] = 'Surat Kejaksaan';
+			$data['surat_masuk_kejaksaan'] 	= count($this->m_dashboard->count_tbl_kejaksaan());
+
+			$data['bon_dibalas'] = 'Bon Dibalas ';
+			$data['total_bon_dibalas']   = count($this->m_dashboard->count_balas_bon());
+
+			$data['apl_balasan'] = 'Apl Dibalas';
+			$data['total_apl_dibalas']   = count($this->m_dashboard->count_balas_apl());
 		}
 		$this->template->load('pages/template/template','pages/dashboard', $data);
 	}

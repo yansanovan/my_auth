@@ -21,20 +21,20 @@
                                     <table  width="450px">
                                         <tbody>
                                             <tr>
-                                                <td> <i class="fa fa-user-o" aria-hidden="true"></i> Nama Tersangka</td>
+                                                <td> <i class="fa fa-user-o" aria-hidden="true"></i> Dibalas Kepada</td>
                                                 <td width="10px">:</td>
-                                                <td width="250px"><?= $data->nama_tersangka?></td>
+                                                <td width="250px"><?= $data->username?></td>
                                             </tr>
                                             <tr>
-                                                <td> <i class="fa fa-file-text-o" aria-hidden="true"></i> Pasal </td>
+                                                <td> <i class="fa fa-calendar" aria-hidden="true"></i> Tanggal Balas </td>
                                                 <td width="10px">:</td>
-                                                <td width="250px"><?= $data->pasal?></td>
+                                                <td width="250px"><?= date('d-m-Y', strtotime($data->tanggal_balas_kj));?></td>
                                             </tr>
-                                            <tr>
+        <!--                                     <tr>
                                                 <td><i class="fa fa-file-text" aria-hidden="true"></i> No Sprindik </td>
                                                 <td width="20px">:</td>
                                                 <td width="250px"><?= $data->no_sprindik?></td>
-                                            </tr>  
+                                            </tr>   -->
                                         </tbody>
                                     </table>
                                     <br>
@@ -42,11 +42,44 @@
                                         <thead>
                                             <tr bgcolor="#8e8d8d">
                                                 <th class="col-sm-4" style="color: white"><i class="fa fa-file-text" ></i> Nama File</th>
-                                                <th class="col-sm-4" style="color: white"><i class="fa fa-book" ></i> File Lama</th>
-                                                <th class="col-sm-4" style="color: white"><i class="fa fa-edit" ></i> Form Edit</th>
+               <!--                                  <th class="col-sm-4" style="color: white"><i class="fa fa-book" ></i> File Lama</th> -->
+                                                <th class="col-sm-8" colspan="2" style="color: white"><i class="fa fa-edit" ></i> Form Edit</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+
+                                            <tr>
+                                                <td>Nama Tersangka</td>
+                                                <td colspan="2">
+                                                    <div class="form-group">
+                                                        <input type="text"  class="form-control" value="<?= $data->nama_tersangka;?>">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Pasal</td>
+                                                <td colspan="2">
+                                                    <div class="form-group">
+                                                        <input type="text"  class="form-control" value="<?= $data->pasal;?>">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>No Sprindik</td>
+                                                <td colspan="2">
+                                                    <div class="form-group">
+                                                        <input type="text"  class="form-control" value="<?= $data->no_sprindik;?>">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>No LP</td>
+                                                <td colspan="2">
+                                                    <div class="form-group">
+                                                        <input type="text"  class="form-control" value="<?= $data->no_lp;?>">
+                                                    </div>
+                                                </td>
+                                            </tr>
                                             <tr>
                                                 <td>Spdp</td>
                                                 <td>

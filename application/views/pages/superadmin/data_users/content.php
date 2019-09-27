@@ -33,6 +33,7 @@
                     <th>Username</th>
                     <th>Email</th>
                     <th>Level</th>
+                    <th>Status</th>
                     <th>Aksi</th>
                   </tr>
                   </thead>
@@ -47,6 +48,13 @@
                   	<td><?= $value->username;?></td>
                   	<td><?= $value->email;?></td>
                   	<td><?= $value->level;?></td>
+                    <td>
+                      <?php if($value->login_attemps >= 4) { ?>
+                        <span class="label label-danger"> Deactive</span>
+                      <?php }else {?>
+                        <span class="label label-success"> Active </span>
+                      <?php } ?>
+                    </td>
                   	<td>
                       <div class="btn-group" role="group" aria-label="...">
                         <div class="btn-group" role="group">
@@ -59,7 +67,7 @@
                               <a href="<?php echo base_url('superadmin/hapus/'. $value->id);?>" onclick="return confirm('Yakin Mau Hapus users ini?')">Hapus Users</a>
                             </li>
 
-                            <li><a href="<?php echo base_url('superadmin/edit/'.$value->id);?>">Ubah Users</a></li>
+                            <li><a href="<?php echo base_url('superadmin/edit/'.base64_encode($value->id));?>">Ubah Users</a></li>
                           </ul>
                         </div>
                       </div>
@@ -75,6 +83,7 @@
                     <th>Username</th>
                     <th>Email</th>
                     <th>Level</th>
+                    <th>Status</th>
                     <th>Aksi</th>
                   </tr>
                   </tfoot>

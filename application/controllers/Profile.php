@@ -7,8 +7,6 @@ class Profile extends CI_Controller
 	{
 		parent::__construct();
 		cek_coba_loggin();	
-		$this->load->model('m_hashed');
-		$this->load->model('m_profile');
 	}
 
 	public function index()
@@ -77,7 +75,7 @@ class Profile extends CI_Controller
             if($this->form_validation->run() == TRUE)
             {
                 $config['upload_path']   = './asset/img/';
-                $config['allowed_types'] = 'gif|jpg|png|pdf';
+                $config['allowed_types'] = 'gif|jpg|png';
                 $config['max_size']      = 1024;
                 $this->load->library('upload', $config);
                 if($this->upload->do_upload('file'))
@@ -98,7 +96,7 @@ class Profile extends CI_Controller
                 }
                 else
                 {
-                    $data['error_msg'] = 'Gambar Terlalu besar';
+                    $data['error_msg'] = $this->upload->display_errors();
                 }
             }
         }

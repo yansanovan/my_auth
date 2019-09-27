@@ -24,10 +24,10 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-user-o" aria-hidden="true"></i>
                                     </div>
-                                    <input type="text" name="nama_tersangka" id="nama_tersangka" value="<?= set_value('nama_tersangka'); ?>" class="form-control ui-autocomplete-input" placeholder="Nama Tersangka" value="<?= set_value('nama_tersangka'); ?>" autocomplete="off">
+                                    <input type="text" name="nama_tersangka" id="nama_tersangka" class="form-control ui-autocomplete-input" placeholder="Nama Tersangka"   value="<?= set_value('nama_tersangka'); ?>"  autocomplete="off">
                                 </div>
                                 <?= form_error('nama_tersangka'); ?><br>
-                                <label for="exampleInputEmail1">Nama Jaksa Penuntut Umum <small style="color: red">*</small></label>
+                                <label for="exampleInputEmail1">Nama Jaksa Penuntut Umum (P-16 A)<small style="color: red">*</small></label>
                                 <div class="input-group date">
                                     <div class="input-group-addon">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -36,17 +36,6 @@
                                 </div>
                                 <?= form_error('nama_jpu'); ?>
                                 <br>
-                                <label for="exampleInputEmail1">P-16 <small style="color: red">*</small></label>
-                                <div class="input-group date">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-pencil-square" aria-hidden="true"></i>
-                                    </div>
-                                    <input type="text" name="p_16" value="<?= set_value('p_16'); ?>" class="form-control" placeholder="P-16">
-                                </div>
-                                <?= form_error('p_16'); ?>
-                                
-                                <br>
-
                                 <label for="file_path">T-6 <small style="color: red">*</small></label>
                                 <div class="input-group">
                                     <input type="text" id="file_path2" class="form-control" placeholder="Pilih file T-6">
@@ -69,7 +58,7 @@
                                         <input type="date" name="tanggal_penahanan" class="form-control pull-right"  value="<?=set_value('tanggal_penahanan'); ?>" placeholder="Tanggal Penahanan">
                                     </div>
                                     <?= form_error('tanggal_penahanan'); ?>
-                                </div>
+                                    </div>
                                     
                                     <div class="col-md-6">
                                         <label for="exampleInputEmail1">T-7 <small style="color: red">*</small></label> 
@@ -84,34 +73,38 @@
                                     </div>
                                 </div>
                                 <br>
-
-                                <label for="file_path">T-10 <small style="color: red">*</small></label>
-                                <div class="input-group">
-                                    <input type="text" id="file_path3" class="form-control" placeholder="Pilih file T-10">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-success" type="button" id="file_browser3">
-                                            <i class="fa fa-upload"></i> 
-                                        </button>
-                                    </span>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="file_path">T-10 <small style="color: red">*</small></label>
+                                        <div class="input-group">
+                                            <input type="text" id="file_path3" class="form-control" placeholder="Pilih file T-10">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-success" type="button" id="file_browser3">
+                                                    <i class="fa fa-upload"></i> 
+                                                </button>
+                                            </span>
+                                        </div>
+                                        <input type="file" class="hidden" id="file3" name="t_10" value="<?= set_value('t_10'); ?>">
+                                        <?= form_error('t_10'); ?>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="exampleInputEmail1">P-29 <small style="color: red">*</small></label>
+                                        <div class="input-group">
+                                            <input type="text" id="file_path4" class="form-control" placeholder="Pilih Kejaksaan">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-success" type="button" id="file_browser4">
+                                                    <i class="fa fa-upload"></i> 
+                                                </button>
+                                            </span>
+                                        </div>
+                                        <input type="file" class="hidden" id="file4" name="p_29" value="<?= set_value('p_29');?>">
+                                        <?= form_error('p_29'); ?>       
+                                        <br>
+                                    </div>
                                 </div>
-
-                                <input type="file" class="hidden" id="file3" name="t_10" value="<?= set_value('t_10'); ?>">
-                                <?= form_error('t_10'); ?>
                             </div>
 
                             <div class="col-md-6">
-                                <label for="exampleInputEmail1">P-29 <small style="color: red">*</small></label>
-                                <div class="input-group">
-                                    <input type="text" id="file_path4" class="form-control" placeholder="Pilih Kejaksaan">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-success" type="button" id="file_browser4">
-                                            <i class="fa fa-upload"></i> 
-                                        </button>
-                                    </span>
-                                </div>
-                                <input type="file" class="hidden" id="file4" name="p_29" value="<?= set_value('p_29');?>">
-                                <?= form_error('p_29'); ?>       
-                                <br>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label>Tanggal Pelimpahan Perkara <small style="color: red">*</small></label>

@@ -30,13 +30,15 @@ if ($action == "edit")
                     </nav>
                         <a href="<?= base_url('bon/riwayat_bon');?>" class="btn btn-warning btn-xs"> 
                             <i class="fa fa-file-text"></i> Riwayat Bon
-                        </a><br><br>
+                        </a>
+                        
+                        <br><br>
                          <table  width="400px">
                             <tbody>
                                 <tr>
-                                    <td> <i class="fa fa-university" aria-hidden="true"></i>  Pasal  </td>
+                                    <td> <i class="fa fa-university" aria-hidden="true"></i>  Permintaan Bon Ke</td>
                                     <td width="10px">:</td>
-                                    <td width="250px" id="pasal"> </td>
+                                    <td width="250px" id="pasal"> Lapas </td>
                                 </tr>
                                 <tr>
                                     <td> <i class="fa fa-calendar" aria-hidden="true"></i>  Tanggal Permintaan  </td>
@@ -121,7 +123,7 @@ if ($action == "edit")
                             </tbody>
                         </table>
                         <center>
-                            <button class="btn btn-primary btn-sm" name="<?=$action;?>" value="true"><i class="fa fa-paper-plane" aria-hidden="true"></i> Submit</button>
+                            <button class="btn btn-primary btn-sm"  name="<?=$action;?>" value="true"><i class="fa fa-paper-plane" aria-hidden="true"></i> Submit</button>
                         </center><br><br><br>
                     </div>
                     <?= form_close();?>

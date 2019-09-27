@@ -7,7 +7,7 @@ class Bon extends CI_Controller
 	{
 		parent::__construct();
 		cek_coba_loggin();
-		superadmin_cobamasuk_bon();
+		superadmin_coba_masuk();
 		
 		$this->load->model('m_bon');
 		$this->load->model('m_surat');
@@ -22,7 +22,6 @@ class Bon extends CI_Controller
 
 	public function form_bon()
 	{
-			
 		$data['page'] = 'Entry';
 		$data['action'] = 'add';
         $this->template->load('pages/template/template','pages/bon/form_bon/content', $data);
@@ -52,7 +51,6 @@ class Bon extends CI_Controller
 
 			if ($this->form_validation->run() == FALSE) 
 			{
-				// $this->form_bon();
 				$data['page'] = 'Entry';
 				$data['action'] = 'add';
 		        $this->template->load('pages/template/template','pages/bon/form_bon/content', $data);
@@ -60,10 +58,8 @@ class Bon extends CI_Controller
 			else
 			{
 				$config['upload_path']          = './uploads/bon';
-				$config['allowed_types']        = 'pdf|doc|docx';
+				$config['allowed_types']        = 'jpg|pdf|doc|docx';
 				$config['max_size']             = 1000;
-				$config['max_width']            = 0;
-				$config['max_height']           = 0;
 
 				$this->load->library('upload', $config);
 		
@@ -72,7 +68,8 @@ class Bon extends CI_Controller
 					$file_pengajuan_bon = $this->upload->data();
 				}
 				else
-				{						
+				{	
+									
 		            $this->m_pesan->generatePesan('salah', 'file bon tidak boleh lebih dari 1 MB!');
 					redirect('bon/form_bon');			
 				}
@@ -100,7 +97,7 @@ class Bon extends CI_Controller
 			else
 			{
 				$config['upload_path']          = './uploads/bon';
-				$config['allowed_types']        = 'pdf|doc|docx';
+				$config['allowed_types']        = 'pdf|doc|docx|jpg';
 				$config['max_size']             = 0;
 				$config['max_width']            = 0;
 				$config['max_height']           = 0;
@@ -149,7 +146,7 @@ class Bon extends CI_Controller
         }
         else if ($this->input->post('add')) 
         {
-	        $allowed_mime_type_arr = array('application/pdf', 'application/msword');
+	        $allowed_mime_type_arr = array('application/pdf', 'application/msword','image/gif','image/jpeg','image/png','image/jpg');
 	        $mime = get_mime_by_extension($_FILES['file_pengajuan_bon']['name']);
 	        if($_FILES['file_pengajuan_bon']['name'])
 	        {
@@ -229,5 +226,4 @@ class Bon extends CI_Controller
 	
 		force_download($data, null);
     }
-
 }

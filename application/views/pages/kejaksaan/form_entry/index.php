@@ -39,7 +39,6 @@
                                     </div>
                                 <?= form_error('nama_jpu'); ?>
                                 <br>
-
                                 <label for="exampleInputEmail1">P-16 (<small style="color: red">*</small>)</label>
                                 <div class="input-group date">
                                     <div class="input-group-addon">
@@ -48,7 +47,6 @@
                                     <input type="text" name="p_16" value="<?= set_value('p_16'); ?>" class="form-control" placeholder="P-16">
                                 </div>
                                 <?= form_error('p_16'); ?>
-                                
                                 <br>
                                 <label for="file_path">T-6 (<small style="color: red">*</small>)</label>
                                 <div class="input-group">

@@ -7,13 +7,9 @@ class Lapas_apl extends CI_Controller
 	{
 		parent::__construct();
 		cek_coba_loggin();
-		kejaksaan_cobamasuk_lapas();
-		kepolisian_cobamasuk_lapas();
-		pengadilan_cobamasuk_lapas();
-		superadmin_cobamasuk_lapas();
-		
-		$this->load->model('m_bon');
-        $this->load->model('m_apl_balas');
+		kepolisian_coba_masuk();
+		kejaksaan_coba_masuk();
+        superadmin_coba_masuk();
 	}
 	public function index()
 	{

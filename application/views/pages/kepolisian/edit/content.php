@@ -21,16 +21,16 @@
 									<thead>
 										 <tr bgcolor="#8e8d8d">
 											<th class="col-sm-4" style="color: white"><i class="fa fa-file-text" aria-hidden="true"></i> Nama File</th>
-											<th class="col-sm-4" style="color: white"><i class="fa fa-book" aria-hidden="true"></i> File Lama</th>
-											<th class="col-sm-4" style="color: white"><i class="fa fa-edit" aria-hidden="true"></i> Form Edit</th>
+											<th class="col-sm-8" colspan="2" style="color: white"><i class="fa fa-book" aria-hidden="true"></i> Form Edit</th>
+											<!-- <th class="col-sm-4" style="color: white"><i class="fa fa-edit" aria-hidden="true"></i> Form Edit</th> -->
 										</tr>
 									</thead>
 									<tbody>
 									<?php foreach ($data as $key => $value) { ?>
 										<tr>
 											<td>Nama Tersangka</td>
-											<td><?= $value->nama_tersangka ;?></td>
-											<td>
+											<!-- <td><?= $value->nama_tersangka ;?></td> -->
+											<td colspan="2">
 												<input type="hidden" name="id_data"  class="form-control">
 												<input type="text" name="nama_tersangka" value="<?= $value->nama_tersangka;?>" class="form-control">
 												<?php echo form_error('nama_tersangka'); ?>
@@ -39,8 +39,10 @@
 										
 										<tr>
 											<td>Pasal</td>
-											<td><?= $value->pasal ;?></td>
-											<td>
+											<!-- <td><?= $value->pasal ;?></td> -->
+											<!-- <td> -->
+											<td colspan="2">
+
 												<input type="text" name="pasal" value="<?= $value->pasal;?>" class="form-control">
 												<?php echo form_error('pasal'); ?>
 											</td>
@@ -48,8 +50,10 @@
 
 										<tr>
 											<td>No Sprindik</td>
-											<td><?= $value->no_sprindik ;?></td>
-											<td>
+											<!-- <td><?= $value->no_sprindik ;?></td> -->
+											<!-- <td> -->
+											<td colspan="2">
+
 												<input type="text" name="no_sprindik" value="<?= $value->no_sprindik;?>" class="form-control">
 												<?php echo form_error('no_sprindik'); ?>
 											</td>
@@ -57,8 +61,10 @@
 
 										 <tr>
 											<td>No LP</td>
-											<td><?= $value->no_lp ;?></td>
-											<td>
+											<!-- <td><?= $value->no_lp ;?></td> -->
+											<!-- <td> -->
+											<td colspan="2">
+
 												<input type="text" name="no_lp" value="<?= $value->no_lp;?>" class="form-control">
 												<?php echo form_error('no_lp'); ?>
 											</td>

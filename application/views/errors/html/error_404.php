@@ -1,4 +1,4 @@
-<?php<?php
+<?php
 defined('BASEPATH') OR exit('No direct script access allowed');?>
 <?php
 $ci = new CI_Controller();

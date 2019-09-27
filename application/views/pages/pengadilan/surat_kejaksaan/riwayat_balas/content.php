@@ -16,9 +16,8 @@
 							        <th>No</th>
 							        <th>Nama Tersangka</th>
 							        <th>Nama Jaksa Penuntut Umum</th>
-							        <th>P-16</th>
 							        <th>Dibalas Kepada</th>
-							        <th>Tanggal Penahanan</th>
+							        <th>Tanggal Dibalas</th>
 							        <th>Aksi</th>
 							    </tr>
 							</thead>
@@ -28,13 +27,11 @@
 									<td><?= $no++;?></td>
 									<td><?= $value->nama_tersangka;?></td>
 									<td><?= $value->nama_jpu;?></td>
-									<td><?= $value->p_16;?></td>
 									<td><?= $value->username; ?> (<?= $value->level ?>)</td>
 									<td>
 		              					<i class="fa fa-calendar" aria-hidden="true"></i>
-										<?php $tanggal = date('d-m-Y',(strtotime($value->tanggal_penahanan)));
-										echo date('d-m-Y',(strtotime($value->tanggal_penahanan)));
-										?>
+										<?php $tanggal = date('d-m-Y',(strtotime($value->tanggal_balas)));
+										echo $tanggal;?>
 									</td>
 	                				<td>
 	                    				<a href="<?= base_url('pengadilan_surat/hapus/'.base64_encode($value->id_surat));?>" class="btn btn-danger btn-xs" onclick="return confirm('Yakin Mau Hapus')">

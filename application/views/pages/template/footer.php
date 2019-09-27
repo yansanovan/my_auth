@@ -1,5 +1,3 @@
-
-
 	<footer class="main-footer">
 		<div class="pull-right hidden-xs">
 			<b>Version</b> 2.4.0
@@ -28,7 +26,137 @@
 <script src="<?php echo base_url('asset/bower_components/datatables.net/js/jquery.dataTables.min.js');?>"></script>
 <!-- Datatables -->
 <script src="<?php echo base_url('asset/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js');?>"></script>
+<!-- sweeat alert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+<script src="https://js.pusher.com/5.0/pusher.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		notification();
+		// notification_police();
+		function notification()
+		{
+			$.ajax({
+				url:"<?php echo base_url(); ?>notifikasi/get_notify",
+			});
+			// security csrf load to form crud 
+			Pusher.logToConsole = true;
+
+			var pusher = new Pusher('30c7051b6b50d432b7b9', {
+			  cluster: 'ap1',
+			  forceTLS: true
+			});
+
+			var channel = pusher.subscribe('aplikasi_terpadu');
+			channel.bind('aplikasi_terpadu', function(data) {
+				$('#notify_to_judicary').html(data.notification);
+			 	$('.count_judiciary').html(data.count_notification);
+
+			 	// notification for police
+			 	$('#notify_to_police').html(data.notification_police);
+			 	$('.count_police').html(data.count_notification_police);
+			  // alert(JSON.stringify(data.message));
+			});
+		}
+		
+		// function notification_police()
+		// {
+		// 	$.ajax({
+		// 		url:"<?php //echo base_url(); ?>notifikasi/notification_police",
+		// 	});
+		// 	// security csrf load to form crud 
+		// 	Pusher.logToConsole = true;
+
+		// 	var pusher = new Pusher('30c7051b6b50d432b7b9', {
+		// 	  cluster: 'ap1',
+		// 	  forceTLS: true
+		// 	});
+
+		// 	var channel = pusher.subscribe('police');
+		// 	channel.bind('police', function(data) {
+	 // 			$('#notify_to_police').html(data.notification_police);
+		// 	 	$('.count_police').html(data.count_notification_police);
+		// 	  // alert(JSON.stringify(data.message));
+		// 	});
+		// }
+		// create data
+		$('#submit').submit(function(e){
+			e.preventDefault();
+			$.ajax({
+				url:'<?php echo base_url("kepolisian/create");?>',
+				type:"post",
+				data:new FormData(this), 
+				processData:false,
+				contentType:false,
+				cache:false,
+				async:false,
+				success: function(data) 
+				{
+					$('input[name="csrf_token"]').val(data.hash);
+
+					if(data.success){   
+						notification();
+						// notification_police();
+						$('input[name="csrf_token"]').val(data.newToken);
+						swal("Yes! ", data.success , "success");
+						$("#nama_tersangka").html('');   
+						$("#file").html(''); 
+						$('.has_nama_tsk').removeClass('has-error').removeClass('has-success');
+						$('.has_file').removeClass('has-error').removeClass('has-success');
+						$('#submit')[0].reset();
+					}
+					else
+					{
+						var msg = new Array();
+						if (data.nama_tersangka !='') 
+						{
+							$('.has_nama_tsk').addClass('has-error').removeClass('has-success');
+							$("#nama_tersangka").html(data.nama_tersangka);  
+						}
+						else
+						{
+							msg = 'Good!';
+							$('.has_nama_tsk').addClass('has-error')
+							.removeClass('has-error')
+							.addClass('has-success');
+							$('#nama_tersangka').html('<i class="fa fa-check"></i>' + msg);
+						}
+						if (data.file !='') 
+						{
+							$('.has_file').addClass('has-error').removeClass('has-success');
+							$("#file").html(data.file);  
+						}
+						else
+						{
+							msg = 'Good!';
+							$('.has_file').addClass('has-error')
+							.removeClass('has-error')
+							.addClass('has-success');
+							$('#file').html('<i class="fa fa-check"></i>' + msg);
+						}
+					}
+				}
+			});
+		});
+	}); 
+
+	// onclick close modal remove validation when create new data
+	$(document).on('click', '#close', function(){  
+		$("#nama_tersangka").html('');   
+		$("#file").html(''); 
+		$('.has_nama_tsk').removeClass('has-error').removeClass('has-success');
+		$('.has_file').removeClass('has-error').removeClass('has-success');
+		$('#submit')[0].reset();
+	});
+
+	$(document).on('click', '#reset', function(){  
+		$("#nama_tersangka").html('');   
+		$("#file").html(''); 
+		$('.has_nama_tsk').removeClass('has-error').removeClass('has-success');
+		$('.has_file').removeClass('has-error').removeClass('has-success');
+		// $('#submit')[0].reset();
+	});
+</script>
 <script type="text/javascript">
 
  $(document).ready(function(){
@@ -36,8 +164,8 @@
 				source: "<?php echo site_url('bon/get_autocomplete');?>",
 				select: function(event, ui) 
 				{
-						$('[name="nama_tersangka"]').val(ui.item.label);
-						$('#pasal').html(ui.item.pasal);
+					$('[name="nama_tersangka"]').val(ui.item.label);
+					// $('#pasal').html(ui.item.pasal);
 				}    
 		});
 	});
@@ -253,192 +381,7 @@ $(function () {
 			});
 	}, 5000);
 	
-// notification balasan ke polisi jenis surat
 
-$(document).ready(function(){
-load_notification_balasan();
-function load_notification_balasan(view = '')
-{
-	$.ajax({
-	 url:"<?php echo site_url('notifikasi/kepolisian');?>",
-	 method:"POST",
-	 data:{view:view},
-	 dataType:"json",
-	 success:function(data){
-		$('#notifikasi').html(data.notification);
-			if(data.unseen_notification > 0){
-			 $('.count').html(data.unseen_notification);
-			}
-	 }
-	});
-}
- 
- $(document).on('click', '.dropdown-toggle', function(){
-	$('.count').html('');
-	load_notification_balasan('yes');
- });
- 
- // setInterval(function(){ 
- //  load_notification_balasan(); 
- // }, 5000);
- 
-});
-
-
-
-// notification di kejaksaan
-
-$(document).ready(function(){
-load_unseen_notification_kejaksaaan();
-function load_unseen_notification_kejaksaaan(view = '')
-{
-	$.ajax({
-	 url:"<?php echo site_url('notifikasi/kejaksaan');?>",
-	 method:"POST",
-	 data:{view:view},
-	 dataType:"json",
-	 success:function(data){
-		$('#kepolisian_kj').html(data.notification);
-			if(data.unseen_notification > 0){
-			 $('.count').html(data.unseen_notification);
-			}
-	 }
-	});
-}
- 
- $(document).on('click', '.dropdown-toggle', function(){
-	$('.count').html('');
-	load_unseen_notification_kejaksaaan('yes');
- });
- 
- // setInterval(function(){ 
- //  load_unseen_notification();
-
- // }, 5000);
- 
-});
-
-
-// notification di kejaksaan
-
-$(document).ready(function(){
-load_surat_kj_dibalas_pn();
-function load_surat_kj_dibalas_pn(view = '')
-{
-	$.ajax({
-	 url:"<?php echo site_url('notifikasi/test');?>",
-	 method:"POST",
-	 data:{view:view},
-	 dataType:"json",
-	 success:function(data){
-		$('#surat_kj_dibalas_pn').html(data.notification);
-			if(data.unseen_notification > 0){
-			 $('.hitung_surat_kj_dibalas_pn').html(data.unseen_notification);
-			}
-	 }
-	});
-}
- 
- $(document).on('click', '.dropdown-toggle', function(){
-	$('.hitung_surat_kj_dibalas_pn').html('');
-	load_surat_kj_dibalas_pn('yes');
- });
- 
- // setInterval(function(){ 
- //  load_unseen_notification();
-
- // }, 5000);
- 
-});
-
-//  surat polisi notif di pengadilan
-$(document).ready(function(){
-function load_unseen_notification_pn(view = '')
-{
-	$.ajax({
-	 url:"<?php echo site_url('notifikasi/pengadilan');?>",
-	 method:"POST",
-	 data:{view:view},
-	 dataType:"json",
-	 success:function(data){
-		$('#kepolisian_pn').html(data.notification);
-			if(data.unseen_notification > 0){
-			 $('.count').html(data.unseen_notification);
-			}
-	 }
-	});
-}
- 
- load_unseen_notification_pn();
-
- $(document).on('click', '.dropdown-toggle', function(){
-	$('.count').html('');
-	load_unseen_notification_pn('yes');
- });
- 
-// setInterval(function(){ 
-//  load_unseen_notification_pn();
-
-//  }, 3000);
-});
-
-
-// notification di kejaksaan
-
-$(document).ready(function(){
-load_bon();
-function load_bon(view = '')
-{
-	var csrfName = '<?php echo $this->security->get_csrf_token_name(); ?>',
-		csrfHash = '<?php echo $this->security->get_csrf_hash(); ?>';
-	$.ajax({
-	 url:"<?php echo site_url('notifikasi/lapas');?>",
-	 method:"POST",
-	 data:{[csrfName]: csrfHash, view:view},
-	 dataType:"json",
-	 success:function(data){
-		$('#bon_masuk').html(data.notification);
-			 var csrfname = data.csrfName;
-			 var token     = data.csrfHash;
-			 $('#csrf_token').html(token);
-			if(data.unseen_notification > 0){
-			 $('.count').html(data.unseen_notification);
-			}
-	 }
-	});
-}
- 
- $(document).on('click', '.dropdown-toggle', function(){
-	$('.count').html('');
-	load_bon('yes');
- });
- 
-});
-
-
-$(document).ready(function(){
-	load_bon_balasan();
-	function load_bon_balasan(view = '')
-	{
-		$.ajax({
-			url:"<?php echo site_url('notifikasi/bon_balasan');?>",
-			method:"POST",
-			data:{view:view},
-			dataType:"json",
-			success:function(data){
-			$('#bon_balasan').html(data.notification);
-			if(data.unseen_notification > 0)
-			{
-				$('.count_bon').html(data.unseen_notification);
-			}
-		}
-	});
-	}
-	$(document).on('click', '.dropdown-toggle', function(){
-		$('.count_bon').html('');
-		load_bon_balasan('yes');
-	});
-});
 </script>  
 
 </body>

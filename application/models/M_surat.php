@@ -69,6 +69,7 @@ class M_surat extends CI_Model
 		{
 			$this->db->select('*');
 			$this->db->from('tbl_balas_kejaksaan');
+			$this->db->join('tbl_users','tbl_users.id = tbl_balas_kejaksaan.id_polisi_kj');
 			$this->db->join('tbl_kepolisian','tbl_kepolisian.id_data = tbl_balas_kejaksaan.id_surat_kj');
 			$this->db->where("id_surat_kj", $id);		
 			return $this->db->get()->row();

@@ -5,7 +5,7 @@
                 <div class="box-header">
                     <div class="col-md-12"><br>
                         <P> 
-                            <a href="<?= base_url('kejaksaan');?>" class="btn btn-warning btn-xs">
+                            <a href="<?= base_url('pengadilan');?>" class="btn btn-warning btn-xs">
                                <i class="fa fa-long-arrow-left" aria-hidden="true"></i>  Kembali
                             </a>
                             <div class="panel panel-info">

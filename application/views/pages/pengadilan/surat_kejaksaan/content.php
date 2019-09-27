@@ -17,9 +17,9 @@
 							        <th>Nama Tersangka</th>
 							        <th>Nama Jaksa Penuntut Umum</th>
 							        <th>Status Balas</th>
-							        <th>Tgl Penahanan</th>
-							        <th>Jatuh Tempo</th>
-							        <th>Masa Penahanan</th>
+					                <th>Tanggal Dikirim</th>
+							        <th>Tgl Mulai Penahanan</th>
+							        <th>Tgl Habis Masa Penahanan</th>
 							        <th>Aksi</th>
 							    </tr>
 							</thead>
@@ -38,27 +38,35 @@
 								</td>
 								<td>
 	              					<i class="fa fa-calendar" aria-hidden="true"></i>
+									<?php echo $tanggal = date('d-m-Y',(strtotime($value->tanggal_posting)));?>
+								</td>
+								<td>
+	              					<i class="fa fa-calendar" aria-hidden="true"></i>
 									<?php $tanggal = date('d-m-Y',(strtotime($value->tanggal_penahanan)));
 									echo date('d-m-Y',(strtotime($value->tanggal_penahanan)));
 									?>
 								</td>
 								<td>
 	              					<i class="fa fa-calendar" aria-hidden="true"></i>
+
 									<?php date_default_timezone_set('Asia/Jakarta');
 							    	echo date('d-m-Y',(strtotime($value->tgl_jatuh_tempo)));
 							    	?>
-								</td>
-								<td>
-									<?php date_default_timezone_set('Asia/Jakarta');
-
+									<?php 
 									$tgl_posting    = new DateTime($value->tanggal_posting);
 								 	$tgl_penahanan  = new DateTime($value->tanggal_penahanan);
 									$difference 	= $tgl_posting->diff($tgl_penahanan);
 									if ($value->selisih <= 10) { ?>
-								  	<span class="label label-warning"> <?php echo 'Masa Penahanan sisa '. ($value->selisih - $difference->days); ?></span> 
+								  		<span class="label label-warning"> <?php echo 'Masa Penahanan sisa '. ($value->selisih); ?></span> 
 									<?php 
-									}else{?>
-								  		<span class="label label-success"> <?= $value->selisih - $difference->days  . ' Hari' ?></span> 
+									}else if ($value->selisih <= 5) { ?>
+								  		<span class="label label-danger"> <?php echo 'Harus diperpanjang';?></span> 
+									<?php 
+									}else if ($value->selisih <= 0) { ?>
+								  		<span class="label label-danger"> <?php echo 'Masa penahanan sudah habis';?></span> 
+									<?php 
+									}else { ?>
+								  		<span class="label label-success"> <?= $value->selisih . ' Hari' ?></span> 
 									<?php } ?>
  							    
 								</td>

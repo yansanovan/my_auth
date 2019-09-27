@@ -7,9 +7,9 @@
 					<?= form_open_multipart();?>
 					<div class="panel panel-info">
 						<div class="panel-heading">
-								<h3 align="center" style="color: black">
-										<i class="fa fa-envelope" aria-hidden="true"></i> EDIT APL
-								</h3><br>
+							<h3 align="center" style="color: black">
+									<i class="fa fa-envelope" aria-hidden="true"></i> EDIT APL
+							</h3><br>
 						</div>
 					<div class="panel-body">
 						<div class="col-md-12">
@@ -31,7 +31,7 @@
 										<tr>
 											<td><i class="fa fa-calendar" aria-hidden="true"></i> Tanggal dibalas </td>
 											<td width="10px">:</td>
-											<td width="250px"><?= $data->tanggal_balas_apl;?></td>
+											<td width="250px"><?= date('d-m-Y', strtotime($data->tanggal_balas_apl));?></td>
 										</tr>
 									</tbody>
 								</table><br>

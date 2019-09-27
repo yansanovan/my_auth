@@ -16,7 +16,7 @@
 				            	<table  width="500px">
 		              			<tbody>
 		                			<tr>
-		                    			<td><i class="fa fa-user" aria-hidden="true"></i> Balas Kepada</td>
+		                    			<td><i class="fa fa-user-o" aria-hidden="true"></i> DiBalas Kepada</td>
 		                    			<td width="10px">:</td>
 		                    			<td width="250px"><?= $value->username;?></td>
 		                			</tr>
@@ -26,19 +26,9 @@
 					                    <td width="250px"><?= $value->level; ?></td>
 					                </tr>
 		                			<tr>
-		                    			<td><i class="fa fa-user-o" aria-hidden="true"></i> Nama Tersangka</td>
-		                    			<td width="10px">:</td>
-		                    			<td width="250px"><?= $value->nama_tersangka;?></td>
-		                			</tr>
-		                			<tr>
-		                    			<td><i class="fa fa-user-o" aria-hidden="true"></i> Nama Jaksa Penuntut Umum</td>
-		                    			<td width="10px">:</td>
-		                    			<td width="250px"><?= $value->nama_jpu;?></td>
-		                			</tr>
-		                			<tr>
 		                    			<td><i class="fa fa-calendar" aria-hidden="true"></i> Tanggal Penahanan</td>
 		                    			<td width="10px">:</td>
-		                    			<td width="250px"><?= $value->tanggal_penahanan;?></td>
+		                    			<td width="250px"><?= date('d-m-y', strtotime($value->tanggal_penahanan));?></td>
 		                			</tr>
 		              			</tbody>
 	            			</table>
@@ -47,11 +37,27 @@
 		              			<thead>
 		                			<tr bgcolor="#8e8d8d">
 					                	<th class="col-sm-4" style="color: white"><i class="fa fa-file-text" aria-hidden="true"></i> Nama File</th>
-					                	<th class="col-sm-4" style="color: white"><i class="fa fa-book" aria-hidden="true"></i> File Lama</th>
-					                	<th class="col-sm-4" style="color: white"><i class="fa fa-edit" aria-hidden="true"></i> Form Edit </th>
+					                	<!-- <th class="col-sm-4" style="color: white"><i class="fa fa-book" aria-hidden="true"></i> File Lama</th> -->
+					                	<th class="col-sm-8" colspan="2" style="color: white"><i class="fa fa-edit" aria-hidden="true"></i> Form Edit </th>
 					                </tr>
 					            </thead>
 				              	<tbody>
+				              		<tr>
+					                  	<td>Nama tersangka</td>
+										<td colspan="2">
+					                    	<div class="form-group">
+					                      		<?= $value->nama_tersangka;?>
+					                    	</div>
+					                  	</td>
+				                	</tr>
+				                	<tr>
+					                  	<td>Nama Jaksa Penuntut Umum (P-16 A)</td>
+										<td colspan="2">
+					                    	<div class="form-group">
+					                      		<?= $value->nama_jpu;?>
+					                    	</div>
+					                  	</td>
+				                	</tr>
 				                	<tr>
 					                  	<td>T-6</td>
 										<td>

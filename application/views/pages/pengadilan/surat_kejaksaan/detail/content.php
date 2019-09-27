@@ -25,15 +25,24 @@
 			                    			<td> <i class="fa fa-calendar" aria-hidden="true"></i> Tanggal Penahanan T-7 </td>
 			                    			<td width="10px">:</td>
 						                    <td width="250px">
-        										<?php date_default_timezone_set('Asia/Jakarta');
+												<?php date_default_timezone_set('Asia/Jakarta');
+										    	echo date('d-m-Y',(strtotime($data->tgl_jatuh_tempo)));
+										    	?>
+												<?php 
 												$tgl_posting    = new DateTime($data->tanggal_posting);
 											 	$tgl_penahanan  = new DateTime($data->tanggal_penahanan);
 												$difference 	= $tgl_posting->diff($tgl_penahanan);
 												if ($data->selisih <= 10) { ?>
-											  	<span class="label label-warning"> <?php echo 'Masa Penahanan sisa '. ($data->selisih - $difference->days); ?></span> 
+											  		<span class="label label-warning"> <?php echo 'Masa Penahanan sisa '. ($data->selisih); ?></span> 
 												<?php 
-												}else{?>
-											  		<span class="label label-success"> <?= $data->selisih .' Hari' ?></span> 
+												}else if ($data->selisih <= 5) { ?>
+											  		<span class="label label-danger"> <?php echo 'Harus diperpanjang';?></span> 
+												<?php 
+												}else if ($data->selisih <= 0) { ?>
+											  		<span class="label label-danger"> <?php echo 'Masa penahanan sudah habis';?></span> 
+												<?php 
+												}else { ?>
+											  		<span class="label label-success"> <?= $data->selisih . ' Hari' ?></span> 
 												<?php } ?>
 											</td>
 						                </tr>
@@ -62,13 +71,9 @@
 			                					<td><?= $data->nama_tersangka;?></td>
 			              					</tr>
 								            <tr>
-								                <td>Nama Jaksa Penuntut Umum</td>
+								                <td>Nama Jaksa Penuntut Umum (P-16A)</td>
 								                <td><?= $data->nama_jpu;?></td>
 								            </tr>
-			              					<tr>
-			                					<td>P-16</td>
-			                					<td><?= $data->p_16;?></td>
-			              					</tr>
 			              					<tr>  
 			                					<td>T-6</td>
 			                					<td>

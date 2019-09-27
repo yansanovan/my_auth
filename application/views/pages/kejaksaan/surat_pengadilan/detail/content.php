@@ -19,17 +19,22 @@
 			                			<tr>
 			                    			<td><i class="fa fa-user-o" aria-hidden="true"></i> Dibalas Oleh</td>
 			                    			<td width="10px">:</td>
-			                    			<td width="250px"><?= $data->username;?></td>
+			                    			<td width="250px"><?= $data->username ;?> (Pengadilan)</td>
 			                			</tr>
 			                			<tr>
-			                    			<td> <i class="fa fa-calendar" aria-hidden="true"></i> Tanggal Balas </td>
+			                    			<td> <i class="fa fa-calendar" aria-hidden="true"></i> Tanggal dibalas </td>
 			                    			<td width="10px">:</td>
 						                    <td width="250px"><?= date('d-m-Y', strtotime($data->tanggal_balas)); ?></td>
 						                </tr>
 			                			<tr>
 			                    			<td> <i class="fa fa-calendar" aria-hidden="true"></i> Tanggal Penahanan T-7 </td>
 			                    			<td width="10px">:</td>
-						                    <td width="250px"><?= date('d-m-Y', strtotime($data->tanggal_penahanan)); ?></td>
+						                    <td width="250px">
+				              					<i class="fa fa-calendar" aria-hidden="true"></i>
+
+																 							    
+												<?= date('d-m-Y', strtotime($data->tanggal_penahanan)); ?>
+											</td>
 						                </tr>
 						                <tr>
 						                    <td> <i class="fa fa-calendar" aria-hidden="true"></i> Tanggal Pelimpahan Perkara P-31 </td>
@@ -56,13 +61,9 @@
 		                					<td><?= $data->nama_tersangka;?></td>
 		              					</tr>
 							            <tr>
-							                <td>Nama Jaksa Penuntut Umum</td>
+							                <td>Nama Jaksa Penuntut Umum (P-16 A)</td>
 							                <td><?= $data->nama_jpu;?></td>
 							            </tr>
-		              					<tr>
-		                					<td>P-16</td>
-		                					<td><?= $data->p_16;?></td>
-		              					</tr>
 		              					<tr>  
 		                					<td>T-6</td>
 		                					<td>
@@ -142,7 +143,7 @@
 											</td>
 										</tr>
 		              					<tr>  
-		                					<td>Surat Dakwaan</td>  
+		                					<td>Surat Tuntutan</td>  
 		                					<td>
 		                  						<div class="form-group">
 													<label for="exampleInputEmail1">P-42</label>

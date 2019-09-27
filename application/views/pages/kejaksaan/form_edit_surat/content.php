@@ -26,7 +26,6 @@
                                         <td width="250px"> <?= $tgl_posting  = date('d-m-Y', strtotime($data->tanggal_posting));?></td>
                                     </tr>
 									<tr>
-
 									    <td> <i class="fa fa-calendar" aria-hidden="true"></i> Tanggal Penahanan T-7 </td>
 									    <td width="10px">:</td>
 									    <td width="250px">
@@ -69,19 +68,11 @@
                       				</td>
                     			</tr>
                      			<tr>
-    								<td>Nama Jaksa Penuntut Umum</td>
+    								<td>Nama Jaksa Penuntut Umum (P-16A)</td>
     								<!-- <td><?= $data->nama_jpu;?></td> -->
     								<td>
                         				<input type="text" name="nama_jpu"  class="form-control" placeholder="Nama Jaksa Penuntut Umum" value="<?= $data->nama_jpu;?>">
                         				<?= form_error('nama_jpu'); ?>
-                      				</td>
-                    			</tr>
-                    			<tr>
-                      				<td>P-16</td>
-                      				<!-- <td><?= $data->p_16;?></td> -->
-                      				<td> 
-                        				<input type="text" name="p_16" class="form-control" placeholder="P-16" value="<?= $data->p_16;?>">
-                        				<?= form_error('p_16'); ?>
                       				</td>
                     			</tr>
                                 <tr>
@@ -122,12 +113,12 @@
                                     <td>
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label for="file_path">File Lama T-6 </label>
+                                                <label for="file_path">File Lama T-7 </label>
                                                 <div class="form-group">
                                                     <!-- <p class="form-control"> -->
                                                     <a href="<?= base_url();?>" class="btn btn-primary btn-xs">
                                                         <i class="glyphicon glyphicon-download-alt"></i> 
-                                                    </a>  <?= $data->t_6;?>
+                                                    </a>  <?= $data->t_7;?>
                                                     <!-- </p> -->
                                                 </div>
                                             </div>
