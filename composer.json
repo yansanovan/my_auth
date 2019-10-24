@@ -12,7 +12,8 @@
 	},
 	"require": {
 		"php": ">=5.3.7",
-		"pusher/pusher-php-server": "^4.0"
+		"pusher/pusher-php-server": "^4.0",
+		"dompdf/dompdf": "^0.8.3"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"

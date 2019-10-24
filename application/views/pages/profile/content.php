@@ -1,7 +1,13 @@
+<section class="content-header">
+    <h1> <i class="fa fa-user" aria-hidden="true"></i> PROFILE</h1>
+	<ol class="breadcrumb">
+    	<li><a href="#"><i class="fa fa-dashboard"></i> Profile</a></li>
+  	</ol>
+</section>
 <section class="content">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="box">
+			<div class="box box-primary">
 				<div class="box-header">
 					<div class="col-md-4">
 						<div class="panel panel-primary">
@@ -31,7 +37,6 @@
 														<b>Level</b> <a class="pull-right"><?= $users->level;?></a>
 													</li>
 												</ul>
-
 												<div class="input-group">
 													<input type="text"  id="file_path9" class="form-control" placeholder="Pilih Foto Profile">
 													<span class="input-group-btn">
@@ -56,12 +61,19 @@
 								<div class="panel-heading">CHANGE PASSWORD</div>
 									<div class="panel-body">
 										<?= $this->session->flashdata('msgbox');?>
-					                    <?= form_open_multipart('profile/change_password');?>
+					                    <?= form_open_multipart('change_password');?>
 										<input type="hidden" name="email" value="<?php echo $users->email;?>" class="form-control"placeholder="email" readonly>
-									
 										<div class="form-group row">
 											<div class="col-sm-10">
 												<input type="hidden" name="id" value="<?php echo $users->id;?>" class="form-control" id="inputPassword" placeholder="Password" readonly>
+											</div>
+										</div>
+
+										<div class="form-group row">
+											<label for="inputPassword" class="col-sm-3 col-form-label"><i class="fa fa-user"></i>  Username</label>
+											<div class="col-sm-9">
+												<input type="text" name="username" class="form-control" id="inputPassword" value="<?= $users->username;?>">
+												<?= form_error('username');?>
 											</div>
 										</div>
 

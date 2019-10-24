@@ -3,10 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Kejaksaan extends MY_Validate
 {
+    private $max_size =  1000000; //format byte
+
 	function __construct()
 	{
 		parent::__construct();
-		cek_coba_loggin();
+		check_is_logged();
         kepolisian_coba_masuk();
         pengadilan_coba_masuk();
         lapas_coba_masuk();
@@ -18,6 +20,109 @@ class Kejaksaan extends MY_Validate
         $data['kepolisian'] = $this->m_surat->surat_polisi();
         $this->template->load('pages/template/template','pages/kejaksaan/surat_polisi/content', $data);
 	}
+
+    public function file_reply_spdp($str)
+    {
+        $allowed_mime_type_arr = array('image/gif','image/jpeg','image/png','image/jpg');
+        $mime = get_mime_by_extension($_FILES['file_reply_spdp']['name']);
+        if($_FILES['file_reply_spdp']['name'])
+        {
+            if(in_array($mime, $allowed_mime_type_arr))
+            {
+                if($_FILES['file_reply_spdp']['size'] > $this->max_size) {
+                    $this->form_validation->set_message('file_reply_spdp', 'This file exceeds max size 1MB.');
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }   
+            }
+            else
+            {
+                $this->form_validation->set_message('file_reply_spdp', 'Select only jpg/png');
+                return FALSE;
+            }
+        }
+        else
+        {               
+            $this->form_validation->set_message('file_reply_spdp', 'The File  field is required');
+            return FALSE;
+        }
+    }
+
+    public function create_reply_spdp()
+    {
+        $this->form_validation->set_rules('reply_spdp', 'Reply Spdp', 'required');
+        $this->form_validation->set_rules('file_reply_spdp', 'File', 'callback_file_reply_spdp','trim|xss_clean');
+
+        if ($this->form_validation->run() === FALSE)
+        {
+            $result = array('reply_spdp' => form_error('reply_spdp'), 
+                           'file_reply_spdp' => form_error('file_reply_spdp'),
+                           'hash' => $this->security->get_csrf_hash()      
+                        );     
+            $this->output->set_content_type('application/json')->set_output(json_encode($result));
+        }
+        else
+        {
+            $config['upload_path']="./assets/reply_Spdp";
+            $config['allowed_types']='gif|jpg|png';
+            $config['encrypt_name'] = TRUE;
+            $this->load->library('upload',$config);
+
+            $result = array('hash' => $this->security->get_csrf_hash());       
+            $post   = $this->input->post(NULL, TRUE);          
+
+            if($this->upload->do_upload('file_reply_spdp'))
+            {
+                $data = array('upload_data' => $this->upload->data('file_name'));
+                $result = array('success' => 'Data has been inserted', 
+                                'newToken' => $this->security->get_csrf_hash());
+            }
+            else
+            {
+               $result = array('file_reply_spdp' => 'Opps, Something error');
+            }
+            $url = bin2hex(openssl_random_pseudo_bytes(32));
+            $insert = array('id_spdp' =>  $post['id_spdp'],
+                            'id_police' => $post['id_police'],
+                            'id_judicary' =>  $this->session->userdata('id'),
+                            'message' => $post['reply_spdp'], 
+                            'file' => $data['upload_data'], 
+                            'url_notification' => $url, 
+                            'status_read' => 'unread');
+            $this->db->set('date', 'NOW()', FALSE);
+            $this->db->insert('tbl_reply_spdp', $insert);
+
+            $update =  array('status_reply' => '1');
+            $this->db->where('id',  $post['id_spdp']);
+            $this->db->update('tbl_police', $update);
+
+            // insert notification
+            $notification = array('id_users' => $this->session->userdata('id'),
+                                  'type'     => 'reply spdp',
+                                  'message'  => $post['reply_spdp'],
+                                  'url'      => $url, 
+                                  'status'   => 'unread');
+            $this->db->insert('notification', $notification);  
+
+            $this->load->view('vendor/autoload.php');
+            $options = array(
+                'cluster' => 'ap1',
+                'useTLS' => true
+                );
+                $pusher = new Pusher\Pusher(
+                '30c7051b6b50d432b7b9',
+                'a7448f51e726240fe5df',
+                '779476',
+                $options
+            );
+            $data['message'] = 'success_police';
+            $pusher->trigger('my-channel', 'my-event', $data);
+            $this->output->set_content_type('application/json')->set_output(json_encode($result));
+        }
+    }
 
 	public function riwayat_surat()
 	{

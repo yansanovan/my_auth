@@ -137,7 +137,7 @@ $config['subclass_prefix'] = 'MY_';
 | Note: This will NOT disable or override the CodeIgniter-specific
 |	autoloading (application/config/autoload.php)
 */
-$config['composer_autoload'] = FALSE;
+$config['composer_autoload'] = 'asset/vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -435,7 +435,7 @@ $config['standardize_newlines'] = FALSE;
 |          for backwards compatibility purposes!
 |
 */
-$config['global_xss_filtering'] = TRUE;
+$config['global_xss_filtering'] = FALSE;
 
 /*
 |--------------------------------------------------------------------------
@@ -451,12 +451,12 @@ $config['global_xss_filtering'] = TRUE;
 | 'csrf_regenerate' = Regenerate token on every submission
 | 'csrf_exclude_uris' = Array of URIs which ignore CSRF checks
 */
-$config['csrf_protection'] = FALSE;
+$config['csrf_protection'] = TRUE;
 $config['csrf_token_name'] = 'csrf_token';
 $config['csrf_cookie_name'] = 'csrf_cookie';
 $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = TRUE;
-$config['csrf_exclude_uris'] = array('notifikasi/kepolisian','notifikasi/kejaksaan','notifikasi/pengadilan','notifikasi/surat_pengadilan','notifikasi/lapas', 'notifikasi/bon_balasan','notifikasi/surat_balasan_pengadilan_ke_kejaksaan','notifikasi/apl','notifikasi/apl_balasan');
+$config['csrf_exclude_uris'] = array('notification/police','notification/judicary', 'kepolisian/get_data', 'kepolisian/get_replied', 'inbox/get_data','kepolisian/delete_history', 'inbox/get_data');
 
 /*
 |--------------------------------------------------------------------------

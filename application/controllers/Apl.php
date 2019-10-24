@@ -6,7 +6,7 @@ class Apl extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-		cek_coba_loggin();
+		check_is_logged();
 		superadmin_coba_masuk();
 	}
 

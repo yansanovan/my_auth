@@ -6,7 +6,7 @@ class Dashboard extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-		cek_coba_loggin();
+		check_is_logged();
 		superadmin_coba_masuk();
 	}
 
@@ -33,6 +33,7 @@ class Dashboard extends CI_Controller
 
 			$data['surat_balasan_pengadilan'] = 'Surat Balasan Dari Pengadilan';
 			$data['surat_balasan_dari_pengadilan'] 	= count($this->m_dashboard->data_pengadilan());
+			$this->template->load('pages/template/template','pages/dashboard/kepolisian/content', $data);
 		}
 
 		if ($this->session->userdata('level') == 'kejaksaan') {
@@ -67,6 +68,7 @@ class Dashboard extends CI_Controller
 			// Surat Balasan Dari Pengadilan
 			$data['surat_balasan_pengadilan'] = 'Surat Balasan Dari Pengadilan';
 			$data['surat_balasan_masuk_pengadilan'] 	= count($this->m_dashboard->tbl_balas_surat_kejaksaan());
+			$this->template->load('pages/template/template','pages/dashboard/kejaksaan/content', $data);
 		}
 
 		if ($this->session->userdata('level') == 'pengadilan') {
@@ -93,6 +95,8 @@ class Dashboard extends CI_Controller
 
 			$data['surat_balasan_ke_kejaksaan'] = 'Surat Balasan Ke Kejaksaan';
 			$data['surat_kejaksaan_dibalas'] 	= count($this->m_dashboard->tbl_balas_surat_kejaksaan());	
+			$this->template->load('pages/template/template','pages/dashboard/pengadilan/content', $data);
+
 		}
 
 		if ($this->session->userdata('level') == 'lapas') {
@@ -113,7 +117,7 @@ class Dashboard extends CI_Controller
 
 			$data['apl_balasan'] = 'Apl Dibalas';
 			$data['total_apl_dibalas']   = count($this->m_dashboard->count_balas_apl());
+			$this->template->load('pages/template/template','pages/dashboard/lapas/content', $data);
 		}
-		$this->template->load('pages/template/template','pages/dashboard', $data);
 	}
 }

@@ -11,19 +11,40 @@ class M_profile extends CI_Model
 		return $user;
 	}
 
-	public function cek_users($email)
+	public function check_users($email)
 	{
 		$this->db->where('email', $email);
 		$query = $this->db->get('tbl_users');
 		return $query;
 	}
 
-	public function ubah_password($id, $password_baru)
+	public function change_password($post, $password)
 	{
-		$this->load->model('m_hashed');
-		$hash_password = $this->m_hashed->hash_string_password($password_baru);
-		$this->db->where('id', $id);
-		$this->db->update('tbl_users', array('password' => $hash_password));
+		$param['username'] = $post['username']; 
+		if (!empty($post['password_baru'])) {
+			$check = password_verify($post['password_lama'], $password->password);
+			if ($check) 
+			{
+				$param['password'] =  password_hash($post['password_baru'], PASSWORD_BCRYPT, ['cost' =>11]);
+			}
+			else
+			{
+				$this->m_pesan->generatePesan('salah', 'Password lama tidak sama!');
+				redirect('profile');
+			}
+		}
+		$this->db->where('id', $post['id']);
+		$this->db->update('tbl_users', $param);
 		return true;
 	}
+
+	function check_is_unique($id = '', $username) 
+	{
+        $this->db->where('username', $username);
+        if($id) 
+        {
+            $this->db->where_not_in('id', $id);
+        }
+        return $this->db->get('tbl_users')->num_rows();
+    }
 }

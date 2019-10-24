@@ -67,7 +67,7 @@
                               <a href="<?php echo base_url('superadmin/hapus/'. $value->id);?>" onclick="return confirm('Yakin Mau Hapus users ini?')">Hapus Users</a>
                             </li>
 
-                            <li><a href="<?php echo base_url('superadmin/edit/'.base64_encode($value->id));?>">Ubah Users</a></li>
+                            <li><a href="<?php echo base_url('superadmin/edit/'.$value->id);?>">Ubah Users</a></li>
                           </ul>
                         </div>
                       </div>

@@ -114,12 +114,12 @@ class Auth extends CI_Controller
 							}	
 							elseif ($users->level == 'superadmin') 
 							{
-								$data = array('id'		 =>  $users->id,
-											'username' =>  $users->username,
-											'email'	 =>  $users->email,
-											'level'	 =>  $users->level,
-											'status'	 =>  'logged',
-											);
+								$data = array('id'	   =>  $users->id,
+												'username' =>  $users->username,
+												'email'	   =>  $users->email,
+												'level'	   =>  $users->level,
+												'status'   =>  'logged',
+												);
 								
 								$this->session->set_userdata($data);
 								$this->m_pesan->generatePesan('logged_in', 'Anda Telah Login, Terima kasih!');

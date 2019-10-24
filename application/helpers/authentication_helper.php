@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-    function cek_coba_loggin()
+    function check_is_logged()
 	{
         $ci =& get_instance();
 		$ci->load->model('m_pesan');

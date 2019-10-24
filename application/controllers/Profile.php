@@ -6,54 +6,72 @@ class Profile extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-		cek_coba_loggin();	
+		check_is_logged();	
 	}
 
 	public function index()
 	{
 		$session_id	   = $this->session->userdata('id');
 		$data['users'] = $this->m_profile->ambil_users($session_id)->row();
-
         $this->template->load('pages/template/template','pages/profile/content', $data);
+	}
 
+	public function check_user() 
+	{        
+		$username = $this->input->post('username');
+	    if($this->input->post('id'))
+	    {
+	        $id = $this->input->post('id');
+	    }
+	    else
+	    {
+	        $id = '';
+	    }
+	    $result = $this->m_profile->check_is_unique($id, $username);
+	    if($result == 0)
+	    {
+	        return true;
+	    }
+	    else 
+	    {
+	        $this->form_validation->set_message('check_user', 'Upps! Username already taken, choose other!');
+	        return false;
+	    }
 	}
 
 	public function change_password()
 	{
-		$session_id	   = $this->session->userdata('id');
-		$data['users'] = $this->m_profile->ambil_users($session_id)->row();
+		$data['users'] = $this->m_profile->ambil_users($this->session->userdata('id'))->row();
+		$post 	  = $this->input->post(NULL, TRUE);
 		
-		$this->form_validation->set_rules('password_lama','<b>Password Lama</b>', 'required', array('required' => 'Masukan Password Lama!'));
-		$this->form_validation->set_rules('password_baru','<b>Password Baru</b>', 'required|trim|min_length[8]', array('required' => 'Masukan Password Baru!'));
-		$this->form_validation->set_rules('password_confirm','<b>password_confirm</b>', 'required|trim|matches[password_baru]|min_length[8]', array('required' => 'Confirm Password Tidak boleh kosong!'));
-
+		$this->form_validation->set_rules('username', 'username', 'required|callback_check_user');
+		if ($post['password_lama']) {
+			$this->form_validation->set_rules('password_baru','<b>Password Baru</b>', 'required|trim|min_length[8]');
+			$this->form_validation->set_rules('password_confirm','<b>password_confirm</b>', 'required|trim|matches[password_baru]|min_length[8]');
+		}
+		if ($post['password_baru']) 
+		{
+			$this->form_validation->set_rules('password_lama','Password Lama', 'required');
+			$this->form_validation->set_rules('password_baru','<b>Password Baru</b>', 'required|trim|min_length[8]');
+		}
+		if ($post['password_confirm']) 
+		{
+			$this->form_validation->set_rules('password_confirm','<b>password_confirm</b>', 'required|trim|matches[password_baru]|min_length[8]');
+		}
         $this->form_validation->set_error_delimiters('<p class="validate" style="color:red;"><i class="fa fa-exclamation-circle"></i> ','</p>');
-			
-
 		if ($this->form_validation->run() === FALSE ) 
 		{
 	        $this->template->load('pages/template/template','pages/profile/content', $data);
 		}
 		else
 		{
-			$post 	  = $this->input->post(NULL, TRUE);
-			$userdata = $this->m_profile->cek_users($post['email']);
-			if ($userdata->num_rows() > 0) 
+			$users = $this->m_profile->check_users($post['email']);
+			if ($users->num_rows() > 0) 
 			{
-				foreach($userdata->result() as $value) 
-				{
-					if ($this->m_hashed->hash_verify_password($post['password_lama'], $value->password))
-					{
-						$this->m_profile->ubah_password($post['id'], $post['password_baru']);
-						$this->m_pesan->generatePesan('berhasil', 'Password telah di update!');
-						redirect('profile');
-					}
-					else
-					{
-						$this->m_pesan->generatePesan('salah', 'Password lama tidak sama!');
-						redirect('profile');
-					}
-				}
+				$password = $users->row();
+				$this->m_profile->change_password($post, $password);
+				$this->m_pesan->generatePesan('berhasil', 'Profile telah di update!');
+				redirect('profile');
 			}
 			else
 			{
@@ -101,7 +119,6 @@ class Profile extends CI_Controller
             }
         }
         
-		
 		$data['users'] = $this->m_profile->ambil_users($session_id)->row();
         $this->template->load('pages/template/template','pages/profile/content', $data);
     }

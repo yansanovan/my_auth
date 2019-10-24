@@ -6,7 +6,7 @@ class Pengadilan_surat extends MY_Controller
 	function __construct()
 	{
 		parent::__construct();
-		cek_coba_loggin();
+		check_is_logged();
         kepolisian_coba_masuk();
 		kejaksaan_coba_masuk();
         lapas_coba_masuk();

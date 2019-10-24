@@ -11,14 +11,14 @@
 			            <div class="margin" align="center">
 			                <div class="btn-group" style="margin-right: 10px;">
 			                  	<button type="button" class="btn btn-app bg-blue" style="width: 320px; height: 100px" data-toggle="dropdown">
-				                	<span class="badge bg-yellow count_judiciary" style="font-size: 14px;"></span>
+				                	<span class="badge bg-yellow count_spdp" style="font-size: 14px;"></span>
 					               	<i class="fa fa-edit fa-4"></i> <h4>SPDP</h4>
 			                  	</button>
 			                  	<ul class="dropdown-menu">
 									<li>
 										<a href="<?= base_url('inbox/spdp_inbox');?>">
 											<i class="fa fa-envelope-open-o"></i> SPDP Masuk 
-											<span class="label label-warning count_judiciary"></span>
+											<span class="label label-warning count_spdp"></span>
 										</a> 
 									</li>
 									 <li>
@@ -29,34 +29,37 @@
 
 			                <div class="btn-group" style="margin-right: 10px">
 			                  	<button type="button" class="btn btn-app bg-green" style="width: 320px;  height: 100px;" data-toggle="dropdown">
-				                	<span class="badge bg-yellow" style="font-size: 14px;">300</span>
+				                	<span class="badge bg-yellow count_perpanjangan_penahanan" style="font-size: 14px;"></span>
 					            	<i class="fa fa-exchange"></i> <h4>Perpanjangan Penahanan</h4>
 			                  	</button>
-								<ul class="dropdown-menu" role="menu">
-									<li><a href="#">Action</a></li>
-									<li><a href="#">Another action</a></li>
-									<li><a href="#">Something else here</a></li>
-									<li class="divider"></li>
-									<li><a href="#">Separated link</a></li>
-								</ul>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="<?= base_url('inbox/perpanjangan_penahanan_inbox');?>">
+											<i class="fa fa-envelope-open-o"></i> Perpanjangan Penahanan Masuk
+											<span class="label label-warning count_perpanjangan_penahanan"></span>
+										</a> 
+									</li>
+									 <li>
+				                    	<a href="<?= base_url('inbox/spdp_inbox');?>"><i class="fa fa-history"></i>  History Perpanjangan Penahanan</a>
+				                    </li>
+			                  	</ul>
 			                </div>
 
 			                <div class="btn-group" style="margin-right: 10px;">
 								<button type="button" class="btn btn-app bg-red" style="width: 320px; height: 100px;" data-toggle="dropdown">
-								   <span class="badge bg-yellow count_police"  style="font-size: 14px;"></span> 
+								   <span class="badge bg-yellow count_pengiriman_berkas_perkara"  style="font-size: 14px;"></span> 
 								   <i class="fa fa-send"></i> <h4>Pengiriman Berkas Perkara</h4>
 								</button>
-			                  	<ul class="dropdown-menu" id="notifikasi" role="menu">
-				                    <li>
-				                    	<a href="#" data-toggle="modal" data-target="#exampleModal">
-				                    	<i class="fa fa-edit"></i>  Input SPDP</a>
-				                    </li>
+								<ul class="dropdown-menu">
 									<li>
-										<a href="#"   data-toggle="dropdown" class="polisi">
-											<i class="fa fa-envelope-open-o"></i> SPDP Masuk 
-											<span class="label label-warning count"></span>
+										<a href="<?= base_url('inbox/spdp_inbox');?>">
+											<i class="fa fa-envelope-open-o"></i> Pengiriman Berkas Perkara Masuk
+											<span class="label label-warning count_pengiriman_berkas_perkara"></span>
 										</a> 
 									</li>
+									 <li>
+				                    	<a href="<?= base_url('inbox/spdp_inbox');?>"><i class="fa fa-history"></i>  History Pengiriman Berkas Perkara</a>
+				                    </li>
 			                  	</ul>
 			                </div>
 

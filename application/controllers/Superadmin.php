@@ -3,12 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 Class Superadmin extends CI_Controller
 {
-
 	function __construct()
 	{
 		parent::__construct();
-		cek_coba_loggin();
-		if ($this->session->userdata('level') !='superadmin') {
+		check_is_logged();
+		if ($this->session->userdata('level') !='superadmin') 
+		{
 			redirect('dashboard');
 		}
 	}
@@ -54,16 +54,14 @@ Class Superadmin extends CI_Controller
 
 	public function edit($id)
 	{
-
-		$cek_id = $this->m_superadmin->cek_id(base64_decode($id));
-
+		$cek_id = $this->m_superadmin->cek_id($id);
 		if ($cek_id->num_rows() == 0) 
 		{
 			show_404();
 		}
 		else
 		{
-			$data['data'] = $this->m_superadmin->tampil_users(base64_decode($id));
+			$data['data'] = $this->m_superadmin->tampil_users($id);
 			$this->load->view('pages/superadmin/kelola_users/ubah_users/index', $data);
 		}
 	}
@@ -140,7 +138,7 @@ Class Superadmin extends CI_Controller
 							  'level'	 => $level,
 							  'login_attemps'	 => $status_block);
 							  
-				$this->m_superadmin->update(base64_decode($id), $data);
+				$this->m_superadmin->update($id, $data);
 				$this->session->set_flashdata('updated', '<div class="alert alert-success" role="alert">Users berhasil di update</div>');
 				redirect('superadmin');
 			}

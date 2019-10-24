@@ -137,4 +137,4 @@ $autoload['model'] = array('m_apl','m_apl_balas','m_auth',
 						   'm_kejaksaan','m_kejaksaan_surat',
 						   'm_kepolisian','m_lapas','m_lupapassword',
 						   'm_notifikasi','m_pengadilan','m_pengadilan_surat',
-						   'm_pesan','m_profile','m_superadmin', 'm_surat');
+						   'm_pesan','m_profile','m_superadmin', 'm_surat', 'M_history_spdp');

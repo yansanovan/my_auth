@@ -39,7 +39,7 @@
 							</table>
 							<br>
 							<table class="table table-bordered">
-								<thead class="thead-dark">
+								<thead>
 									<tr bgcolor="#8e8d8d">
 										<th class="col-sm-5" style="color: white"><i class="fa fa-file-text" aria-hidden="true"></i> Nama File</th>
 										<th class="col-sm-7" style="color: white"><i class="fa fa-book" aria-hidden="true"></i> Lampiran</th>

@@ -2,15 +2,12 @@
 		<div class="pull-right hidden-xs">
 			<b>Version</b> 2.4.0
 		</div>
-		<strong>Copyright &copy; 2019 <a href="https://adminlte.io">Aplikasi terpadu</a>.</strong> All rights
+		<strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights
 		reserved.
 	</footer>
-	
 </div>
-
 <!-- jQuery 3 -->
-<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
-	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="crossorigin="anonymous"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url('asset/bower_components/bootstrap/dist/js/bootstrap.min.js');?>"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -18,7 +15,7 @@
 	crossorigin="anonymous"></script>
 <!-- FastClick -->
 <script src="<?php echo base_url('asset/bower_components/fastclick/lib/fastclick.js');?>"></script>
-
+<!-- assets admin -->
 <script src="<?php echo base_url('asset/dist/js/adminlte.min.js');?>"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url('asset/dist/js/demo.js');?>"></script> 
@@ -28,58 +25,197 @@
 <script src="<?php echo base_url('asset/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js');?>"></script>
 <!-- sweeat alert -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+<!-- fancy box -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<!-- pusher -->
 <script src="https://js.pusher.com/5.0/pusher.min.js"></script>
+
 <script type="text/javascript">
-	$(document).ready(function() {
-		notification();
-		// notification_police();
-		function notification()
+    $(document).ready(function() {
+		//tiny mce 
+    	<?php $this->load->view('pages/template/tinymce/tinymce.js');?>
+
+	    show_notification();
+		show_notification_police();
+
+	    var table1;
+	    var table2;
+	    var table3;
+
+        table1 = $('#table1').DataTable({ 
+ 
+            "processing": true, 
+            "serverSide": true, 
+            "order": [], 
+            "lengthMenu": [[5, 10, 25, 50], [5, 10, 25, 50]],
+            "ajax": {
+                "url": "<?php echo site_url('kepolisian/get_data')?>",
+                "type": "POST",
+                 "data": function ( data ) {
+	                data.nama_tersangka = $('#nama_tersangka').val();
+	            }
+            },  
+            "columnDefs": [
+            { 
+                "targets": [ 0 ], 
+                "orderable": false, 
+            },
+            ],
+        });
+
+        $('#btn-filter').click(function(){ //button filter event click
+			table1.ajax.reload(null,false); //just reload table
+		});
+		$('#btn-reset').click(function(){ //button reset event click
+		    $('#form-filter')[0].reset();
+		    table1.ajax.reload(null,false);  //just reload table
+		});
+        table2 = $('#table2').DataTable({ 
+            "processing": true, 
+            "serverSide": true, 
+            "order": [], 
+            "lengthMenu": [[5, 10, 25, 50], [5, 10, 25, 50]],
+            "ajax": {
+                "url": "<?php echo site_url('inbox/get_data')?>",
+                "type": "POST",
+            },  
+            "columnDefs": [
+            { 
+                "targets": [ 0 ], 
+                "orderable": false, 
+            },
+            ],
+        });
+
+        table3 = $('#tbl_replied_spdp').DataTable({ 
+            "processing": true, 
+            "serverSide": true, 
+            "order": [], 
+            "lengthMenu": [[5, 10, 25, 50], [5, 10, 25, 50]],
+			  // now write your ajax script 
+            "ajax": {
+                "url": "<?php echo site_url('kepolisian/get_replied')?>",
+	            "dataType": "json",
+                "type": "POST",    
+            },  
+            "columnDefs": [
+            { 
+                "targets": [ 0 ], 
+                "orderable": false, 
+            },
+            ], 
+        });
+
+        function reload_table()
 		{
-			$.ajax({
-				url:"<?php echo base_url(); ?>notifikasi/get_notify",
-			});
-			// security csrf load to form crud 
-			Pusher.logToConsole = true;
-
-			var pusher = new Pusher('30c7051b6b50d432b7b9', {
-			  cluster: 'ap1',
-			  forceTLS: true
-			});
-
-			var channel = pusher.subscribe('aplikasi_terpadu');
-			channel.bind('aplikasi_terpadu', function(data) {
-				$('#notify_to_judicary').html(data.notification);
-			 	$('.count_judiciary').html(data.count_notification);
-
-			 	// notification for police
-			 	$('#notify_to_police').html(data.notification_police);
-			 	$('.count_police').html(data.count_notification_police);
-			  // alert(JSON.stringify(data.message));
-			});
+		    table1.ajax.reload(null,false); //reload datatable ajax 
+		    table2.ajax.reload(null,false); //reload datatable ajax 
+		    table3.ajax.reload(null,false); //reload datatable ajax 
 		}
-		
-		// function notification_police()
-		// {
-		// 	$.ajax({
-		// 		url:"<?php //echo base_url(); ?>notifikasi/notification_police",
-		// 	});
-		// 	// security csrf load to form crud 
-		// 	Pusher.logToConsole = true;
 
-		// 	var pusher = new Pusher('30c7051b6b50d432b7b9', {
-		// 	  cluster: 'ap1',
-		// 	  forceTLS: true
-		// 	});
+		Pusher.logToConsole = true;
 
-		// 	var channel = pusher.subscribe('police');
-		// 	channel.bind('police', function(data) {
-	 // 			$('#notify_to_police').html(data.notification_police);
-		// 	 	$('.count_police').html(data.count_notification_police);
-		// 	  // alert(JSON.stringify(data.message));
-		// 	});
-		// }
-		// create data
+		var pusher = new Pusher('30c7051b6b50d432b7b9', {
+		  cluster: 'ap1',
+		  forceTLS: true
+		});
+		var channel = pusher.subscribe('my-channel');
+		channel.bind('my-event', function(data) {
+			if (data.message == 'success') 
+			{
+				show_notification();
+				reload_table();
+			}
+			if (data.message == 'success_police') 
+			{
+				show_notification_police();
+			}
+			if (data.message == 'deleted_spdp') 
+			{
+				reload_table();
+			}
+		});
+
+		function show_notification_police(read = ''){
+            $.ajax({
+                url   : '<?= site_url("notification/police");?>',
+                type  : 'POST',
+                async : true,
+                data  : {read:read},
+                dataType : 'json',
+                success : function(response){
+            		var notification ='';
+	               	var arr = response.data;
+                    $.each(arr, function (index, value) {
+                    	if (value.type == value.type)
+                    	{
+                    		var url ="<?php echo base_url(); ?>kepolisian/replied/"
+                    	}
+                    	   
+						  notification += '<li>'+
+					                    '<ul class="menu">'+
+					                      '<li>'+
+					                        '<a href="'+url+'">'+
+					                          '<i class="fa fa-bell-o"></i>'+ 
+					                          	'<strong>'+value.type+'</strong><br>'+
+					                            '<small>Message : '+value.message+'</small><br />'+
+					                            '<small>Reply By : Judicary</small><br />'+
+					                            '<small>Date sent : '+value.create_at+'</small><br />'+ 
+					                        '</a>'+
+					                      '</li>'+
+					                    '</ul>'+
+					                  '</li>';
+					});                
+					$('#notify_to_police').html(notification);
+					$('.count_police').html(response.count);
+                }
+            });
+        } 
+
+        $(document).on('click', '.read_notification_police', function(){
+			 $('.count_police').html('');
+			 show_notification_police('read');
+		});
+
+		function show_notification(read = '')
+		{
+            $.ajax({
+                url   : '<?php echo site_url("notification/judicary");?>',
+                type  : 'POST',
+                async : true,
+                data  : {read:read},
+                dataType : 'json',
+                success : function(response){
+                    var notification = '';
+                    var i;
+                    var arr = response.data;
+                    $.each(arr, function (index, value) {
+						  notification += '<li>'+
+					                    '<ul class="menu">'+
+					                      '<li>'+
+					                        '<a href="#">'+
+					                          '<i class="fa fa-bell-o"></i>'+ 
+					                          	'<strong>'+value.type+'</strong><br>'+
+					                            '<small><i class="fa fa-time"></i>Message : '+value.message+'</small><br />'+
+					                            '<small><i class="fa fa-time"></i>Send By : Police</small><br />'+
+					                            '<small>Date sent : '+value.create_at+'</small><br />'+
+					                        '</a>'+
+					                      '</li>'+
+					                    '</ul>'+
+					                  '</li>';
+					});
+					$('#notify_to_judicary').html(notification);
+					$('.count_judiciary').html(response.count);
+                }
+            });
+        } 
+
+		$(document).on('click', '.read_notification_judicary', function(){
+			 $('.count_judiciary').html('');
+			 show_notification('read');
+		});
+
+		// create spdp
 		$('#submit').submit(function(e){
 			e.preventDefault();
 			$.ajax({
@@ -94,14 +230,15 @@
 				{
 					$('input[name="csrf_token"]').val(data.hash);
 
-					if(data.success){   
-						notification();
-						// notification_police();
+					if(data.success)
+					{   
 						$('input[name="csrf_token"]').val(data.newToken);
 						swal("Yes! ", data.success , "success");
 						$("#nama_tersangka").html('');   
 						$("#file").html(''); 
+						$("#rujukan").html('');  
 						$('.has_nama_tsk').removeClass('has-error').removeClass('has-success');
+						$('.has_rujukan').removeClass('has-error').removeClass('has-success');
 						$('.has_file').removeClass('has-error').removeClass('has-success');
 						$('#submit')[0].reset();
 					}
@@ -121,6 +258,34 @@
 							.addClass('has-success');
 							$('#nama_tersangka').html('<i class="fa fa-check"></i>' + msg);
 						}
+
+						if (data.no_pol !='') 
+						{
+							$('.has_no_pol').addClass('has-error').removeClass('has-success');
+							$("#no_pol").html(data.no_pol);  
+						}
+						else
+						{
+							msg = 'Good!';
+							$('.has_no_pol').addClass('has-error')
+							.removeClass('has-error')
+							.addClass('has-success');
+							$('#no_pol').html('<i class="fa fa-check"></i>' + msg);
+						}
+
+						if (data.rujukan !='') 
+						{
+							$('.has_rujukan').addClass('has-error').removeClass('has-success');
+							$("#rujukan").html(data.rujukan);  
+						}
+						else
+						{
+							msg = 'Good!';
+							$('.has_rujukan').addClass('has-error')
+							.removeClass('has-error')
+							.addClass('has-success');
+							$('#rujukan').html('<i class="fa fa-check"></i>' + msg);
+						}
 						if (data.file !='') 
 						{
 							$('.has_file').addClass('has-error').removeClass('has-success');
@@ -138,13 +303,172 @@
 				}
 			});
 		});
+
+		$(document).on('click', '.removed', function(){  
+			 var id = $(this).attr("id");  
+
+			 swal({
+				title: "Are you sure?",
+				text: "Your data and file will be removed!",
+				icon: "warning",
+				buttons: true,
+				dangerMode: true,
+			})
+			.then((willDelete) => {
+				if (willDelete) {
+				$.ajax({  
+						url:'<?php echo base_url("kepolisian/delete_history");?>', 
+						method:"POST",  
+						data:{id:id},  
+						success:function(data)  
+						{  
+							swal("Yes! ", "Data has been deleted" , "success");
+							reload_table();
+						}  
+					});  
+				} 
+			});
+		});  
+
+		$(document).on('click','#check_status', function()
+	    {
+	        var status_reply = $(this).data('status_reply');
+	    	if (status_reply == 1) 
+	    	{
+				swal("Opps! ", "Sorry, Data has been replied!" , "warning");
+	    	}
+	    });
+		$(document).on('click','.reply_spdp', function()
+	    {
+	        var id         	   = $(this).data('id');
+	        var id_police      = $(this).data('id_police');
+	        $('#modal_reply [name="id_spdp"]').val(id);
+	        $('#modal_reply [name="id_police"]').val(id_police);	  
+	    });
+		// create reply spdp
+		$('#submit_reply_spdp').submit(function(e){
+			e.preventDefault();		
+			$.ajax({
+				url:'<?php echo base_url("kejaksaan/create_reply_Spdp");?>',
+				type:"post",
+				data:new FormData(this),
+				processData:false,
+				contentType:false,
+				cache:false,
+				async:false,
+				success: function(data) 
+				{
+					$('input[name="csrf_token"]').val(data.hash);
+					if(data.success)
+					{   
+						$('input[name="csrf_token"]').val(data.newToken);
+						swal("Yes! ", data.success , "success");
+						$("#reply_spdp").html('');   
+						$("#file_reply_spdp").html(''); 
+						$('.has_reply_spdp').removeClass('has-error').removeClass('has-success');
+						$('.has_file_reply_spdp').removeClass('has-error').removeClass('has-success');
+						$('#submit_reply_spdp')[0].reset();
+						reload_table();
+					}
+					else
+					{
+						var msg = new Array();
+						if (data.reply_spdp !='') 
+						{
+							$('.has_reply_spdp').addClass('has-error').removeClass('has-success');
+							$("#reply_spdp").html(data.reply_spdp);  
+						}
+						else
+						{
+							msg = 'Good!';
+							$('.has_reply_spdp').addClass('has-error')
+							.removeClass('has-error')
+							.addClass('has-success');
+							$('#reply_spdp').html('<i class="fa fa-check"></i>' + msg);
+						}
+						if (data.file_reply_spdp !='') 
+						{
+							$('.has_file_reply_spdp').addClass('has-error').removeClass('has-success');
+							$("#file_reply_spdp").html(data.file_reply_spdp);  
+						}
+						else
+						{
+							msg = 'Good!';
+							$('.has_file_reply_spdp').addClass('has-error')
+							.removeClass('has-error')
+							.addClass('has-success');
+							$('#file_reply_spdp').html('<i class="fa fa-check"></i>' + msg);
+						}
+					}
+				}
+			});
+		}); 
+
+		$('#submit_perpanjangan_penahanan').submit(function(e){
+			e.preventDefault();
+			$.ajax({
+				url:'<?php echo base_url("kepolisian/create_perpanjangan_penahanan");?>',
+				type:"post",
+				data:new FormData(this), 
+				processData:false,
+				contentType:false,
+				cache:false,
+				async:false,
+				success: function(data) 
+				{
+					$('input[name="csrf_token"]').val(data.hash);
+					if(data.success)
+					{   
+						$('input[name="csrf_token"]').val(data.newToken);
+						swal("Yes! ", data.success , "success");
+						$("#perpanjangan_penahanan").html('');   
+						$("#file_perpanjangan_penahanan").html(''); 
+						$('.has_perpanjangan_penahanan').removeClass('has-error').removeClass('has-success');
+						$('.has_file_perpanjangan_penahanan').removeClass('has-error').removeClass('has-success');
+						$('#submit_perpanjangan_penahanan')[0].reset();
+					}
+					else
+					{
+						var msg = new Array();
+						if (data.perpanjangan_penahanan !='') 
+						{
+							$('.has_perpanjangan_penahanan').addClass('has-error').removeClass('has-success');
+							$("#perpanjangan_penahanan").html(data.perpanjangan_penahanan);  
+						}
+						else
+						{
+							msg = 'Good!';
+							$('.has_perpanjangan_penahanan').addClass('has-error')
+							.removeClass('has-error')
+							.addClass('has-success');
+							$('#perpanjangan_penahanan').html('<i class="fa fa-check"></i>' + msg);
+						}
+						if (data.file_perpanjangan_penahanan !='') 
+						{
+							$('.has_file_perpanjangan_penahanan').addClass('has-error').removeClass('has-success');
+							$("#file_perpanjangan_penahanan").html(data.file_perpanjangan_penahanan);  
+						}
+						else
+						{
+							msg = 'Good!';
+							$('.has_file_perpanjangan_penahanan').addClass('has-error')
+							.removeClass('has-error')
+							.addClass('has-success');
+							$('#file_perpanjangan_penahanan').html('<i class="fa fa-check"></i>' + msg);
+						}
+					}
+				}
+			});
+		});
 	}); 
 
 	// onclick close modal remove validation when create new data
 	$(document).on('click', '#close', function(){  
 		$("#nama_tersangka").html('');   
-		$("#file").html(''); 
+		$("#file").html('');
+		$("#rujukan").html('');  
 		$('.has_nama_tsk').removeClass('has-error').removeClass('has-success');
+		$('.has_rujukan').removeClass('has-error').removeClass('has-success');
 		$('.has_file').removeClass('has-error').removeClass('has-success');
 		$('#submit')[0].reset();
 	});
@@ -154,19 +478,17 @@
 		$("#file").html(''); 
 		$('.has_nama_tsk').removeClass('has-error').removeClass('has-success');
 		$('.has_file').removeClass('has-error').removeClass('has-success');
-		// $('#submit')[0].reset();
 	});
 </script>
 <script type="text/javascript">
 
  $(document).ready(function(){
 		$('#nama_tersangka').autocomplete({
-				source: "<?php echo site_url('bon/get_autocomplete');?>",
-				select: function(event, ui) 
-				{
-					$('[name="nama_tersangka"]').val(ui.item.label);
-					// $('#pasal').html(ui.item.pasal);
-				}    
+			source: "<?php echo site_url('bon/get_autocomplete');?>",
+			select: function(event, ui) 
+			{
+				$('[name="nama_tersangka"]').val(ui.item.label);
+			}    
 		});
 	});
 
@@ -380,9 +702,6 @@ $(function () {
 					$(this).remove(); 
 			});
 	}, 5000);
-	
-
 </script>  
-
 </body>
 </html>
