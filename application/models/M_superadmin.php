@@ -32,7 +32,7 @@ class M_superadmin extends CI_Model
 		return $query;
 	}
 
-	public function simpan($data)
+	public function store($data)
 	{
 		$this->db->insert('tbl_users', $data);
 		return true;

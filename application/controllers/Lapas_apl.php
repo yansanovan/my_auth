@@ -6,10 +6,7 @@ class Lapas_apl extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-		check_is_logged();
-		kepolisian_coba_masuk();
-		kejaksaan_coba_masuk();
-        superadmin_coba_masuk();
+		check_session_lapas();
 	}
 	public function index()
 	{

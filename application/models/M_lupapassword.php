@@ -7,8 +7,7 @@ class M_lupapassword extends CI_Model
 	public function kirim_token($token, $email)
 	{
 		$this->db->where('email', $email);
-		$data  = array('token' => $token);
-	    $this->db->update('tbl_users', $data);
+	    $this->db->update('tbl_users', array('token' => $token, 'time' => NOW()));
 		if ($this->db->affected_rows() > 0) 
 		{
 			return true;
@@ -25,18 +24,12 @@ class M_lupapassword extends CI_Model
 		return $query;
 	}
 
-	public function ganti_password_baru($token)
+	public function change_password($token)
 	{
 		$status = true;
-		$pesan  = '<div class="alert alert-success"alert-dismissible fade show role="alert">password baru berhasil dirubah</div>';
-		$this->form_validation->set_rules('password_baru', 'Password','trim|required|min_length[8]', 
-											array('required' => 'Password baru tidak boleh kosong!', 
-												  'min_length' => 'Panjang password harus 8 karakter atau lebih!'));
-		$this->form_validation->set_rules('konfirmasi_password_baru', 'Konfirmasi Password Baru', 'trim|required|matches[password_baru]', array('required' => 'Konfirmasi password baru tidak boleh kosong!', 
-					 'matches' => 'Konfirmasi password tidak sama!'));
-
-		$this->form_validation->set_error_delimiters('<div class="alert alert-danger"alert-dismissible fade show role="alert">','</div>');
-
+		$pesan  = 'Success!, Password has been changed';
+		$this->form_validation->set_rules('new_password', 'Password','trim|required|min_length[8]');
+		$this->form_validation->set_rules('confirm_new_password', 'Confirm New Password ', 'trim|required|matches[new_password]');
 
 		if ($this->form_validation->run() === FALSE) 
 		{
@@ -45,18 +38,13 @@ class M_lupapassword extends CI_Model
 		}
 		if ($status) 
 		{
-			$this->load->model('m_hashed');
-			$password_baru 		= $this->input->post('password_baru');
-			$password_baru_hash = $this->m_hashed->hash_string_password($password_baru);
+			$password = password_hash($this->input->post('new_password'), PASSWORD_DEFAULT);
 			$this->db->where('token', $token);
-			$this->db->update('tbl_users', array('password' => $password_baru_hash,
-												 'token'   => null));
-
-			$this->session->set_flashdata('flashdata', $pesan);
-
+			$this->db->update('tbl_users', array('password' => $password, 'token'   => null));
+			$this->m_pesan->generatePesan('berhasil', $pesan);
 			redirect('auth');
 		}
 
-		return $this->session->set_flashdata('flashdata', $pesan);
+		return	$this->m_pesan->generatePesan('salah', $pesan);
 	}
 }

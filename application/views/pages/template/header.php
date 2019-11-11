@@ -26,11 +26,14 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   	<!-- fancy box css -->
   	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-
+	<!-- css stle -->
 	<style type="text/css">
-
 		textarea#mentions {
 		  height: 350px;
+		}
+
+		#panel_height {
+		  height: 450px;
 		}
 
 		div.card,
@@ -75,8 +78,15 @@
 		  float: left;
 		}
 
-
-
+	.spdp .badge {
+	  position: absolute;
+	  top: -8px;
+	  right: -8px;
+	  padding: 5px 10px;
+	  border-radius: 50%;
+	  background: rgb(242, 171, 48);
+	  color: white;
+	}
 
 	#warna{
 		background-color: rgb(130, 125, 122);
@@ -97,12 +107,6 @@
 	.breadcrumb-color  {
 	 color: black;
 	}
-	 
-	/*.jumbotron{
-		color: white;
-		background-color:rgb(71, 163, 254);
-	}*/
-
 	.jumbotron{
 		color: black;
 		background-color:white;
@@ -113,15 +117,15 @@
 		margin: 10px;
 	}
 	.fileUpload input.upload {
-			position: absolute;
-			top: 0;
-			right: 0;
-			margin: 0;
-			padding: 0;
-			font-size: 20px;
-			cursor: pointer;
-			opacity: 0;
-			filter: alpha(opacity=0);
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin: 0;
+		padding: 0;
+		font-size: 20px;
+		cursor: pointer;
+		opacity: 0;
+		filter: alpha(opacity=0);
 	}
 	</style>
 </head>
@@ -131,7 +135,7 @@
 <header class="main-header">
 	<a href="" class="logo">
 		<span class="logo-mini"><b>A</b>LT</span>
-		<span class="logo-lg"><b><img src="<?php echo base_url('asset/img/apps.png');?>" width="30px"> APPS CJS</b> </span>
+		<span class="logo-lg"><b><img src="<?= base_url('asset/img/apps.png');?>" width="30px"> APPS CJS</b> </span>
 	</a>
 	<nav class="navbar navbar-static-top">
 		<a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
@@ -140,25 +144,22 @@
 		<div class="navbar-custom-menu">
 			<ul class="nav navbar-nav">		
 				<li class="dropdown notifications-menu">
-					<?php if ($this->session->userdata('level') == 'kepolisian') { ?>
+					<?php if ($this->session->userdata('level') == 'kepolisian') : ?>
 						<a href="#" class="read_notification_police" data-toggle="dropdown">
-							Notification <i class="fa fa-bell-o"></i><span class="label label-danger count_police"></span> 
+							Notification <i class="fa fa-bell-o"></i>  <span class="label label-danger count_police"></span> 
 						</a>
 						<ul class="dropdown-menu" id="notify_to_police"></ul>
-					<?php } ?>
-					<?php if ($this->session->userdata('level') == 'kejaksaan') { ?>
+					<?php endif; ?>
+					<?php if ($this->session->userdata('level') == 'kejaksaan') : ?>
 						<a href="#" class="read_notification_judicary" data-toggle="dropdown">
-							Notification <i class="fa fa-bell-o"></i><span class="label label-danger count_judiciary"></span> 
+							Notification <i class="fa fa-bell-o"></i>  <span class="label label-danger count_judiciary"></span> 
 						</a>
 						<ul class="dropdown-menu" id="notify_to_judicary"></ul>
-					<?php }?> 
+					<?php endif;?> 
 				</li>
-
 				<li class="dropdown user user-menu" >
 					<a href="#" class="profile" data-toggle="dropdown">
-						<?php $this->db->where('id', $this->session->userdata('id'));
-							$data = $this->db->get('tbl_users')->row();
-						?>
+						<?php $data = $this->db->get_where('tbl_users', array('id'=> $this->session->userdata('id')))->row();?>
 						<img src="<?= base_url('asset/img/'.$data->image)?>" class="user-image" alt="User Image">
 						<span class="hidden-xs"><?= $data->username;?></span>
 					</a>

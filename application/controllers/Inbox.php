@@ -5,11 +5,7 @@ class Inbox extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-		check_is_logged();
-        kepolisian_coba_masuk();
-        pengadilan_coba_masuk();
-        lapas_coba_masuk();
-        superadmin_coba_masuk();        
+		check_session_prosecutor();
 	}
 	public function index()
 	{

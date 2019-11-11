@@ -214,10 +214,12 @@
 	    success(div);
 	  });
 	};
-
 	tinymce.init({
 	  selector: '.editor',   // change this value according to your HTML
 	  plugins: 'print preview powerpaste casechange importcss tinydrive searchreplace autolink autosave save directionality advcode visualblocks visualchars fullscreen image link media mediaembed template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists checklist wordcount tinymcespellchecker a11ychecker imagetools textpattern noneditable help formatpainter permanentpen pageembed charmap tinycomments mentions quickbars linkchecker emoticons',
+	   table_default_attributes: {
+	    border: '0'
+	  },
 	  imagetools_cors_hosts: ['picsum.photos'],
 	  tinydrive_token_provider: function (success, failure) {
 	    success({ token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqb2huZG9lIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.Ks_BdfH4CWilyzLNk8S2gDARFhuxIauLa8PwhdEQhEo' });

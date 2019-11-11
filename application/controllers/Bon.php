@@ -6,7 +6,7 @@ class Bon extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-		check_is_logged();
+		check_logged();
 		superadmin_coba_masuk();
 		
 		$this->load->model('m_bon');

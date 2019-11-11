@@ -2,8 +2,8 @@
 		<div class="pull-right hidden-xs">
 			<b>Version</b> 2.4.0
 		</div>
-		<strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights
-		reserved.
+		<strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE </a>.</strong> All rights
+		reserved. <?php echo $this->benchmark->elapsed_time();?>
 	</footer>
 </div>
 <!-- jQuery 3 -->
@@ -30,13 +30,13 @@
 <!-- pusher -->
 <script src="https://js.pusher.com/5.0/pusher.min.js"></script>
 
+
 <script type="text/javascript">
     $(document).ready(function() {
 		//tiny mce 
     	<?php $this->load->view('pages/template/tinymce/tinymce.js');?>
 
 	    show_notification();
-		show_notification_police();
 
 	    var table1;
 	    var table2;
@@ -49,7 +49,7 @@
             "order": [], 
             "lengthMenu": [[5, 10, 25, 50], [5, 10, 25, 50]],
             "ajax": {
-                "url": "<?php echo site_url('kepolisian/get_data')?>",
+                "url": "<?php echo site_url('police/spdp')?>",
                 "type": "POST",
                  "data": function ( data ) {
 	                data.nama_tersangka = $('#nama_tersangka').val();
@@ -94,7 +94,7 @@
             "lengthMenu": [[5, 10, 25, 50], [5, 10, 25, 50]],
 			  // now write your ajax script 
             "ajax": {
-                "url": "<?php echo site_url('kepolisian/get_replied')?>",
+                "url": "<?php echo site_url('spdp_replied')?>",
 	            "dataType": "json",
                 "type": "POST",    
             },  
@@ -121,7 +121,7 @@
 		});
 		var channel = pusher.subscribe('my-channel');
 		channel.bind('my-event', function(data) {
-			if (data.message == 'success') 
+			if (data.message == 'success' || data.message == 'deleted_spdp') 
 			{
 				show_notification();
 				reload_table();
@@ -130,13 +130,13 @@
 			{
 				show_notification_police();
 			}
-			if (data.message == 'deleted_spdp') 
-			{
-				reload_table();
-			}
 		});
 
-		function show_notification_police(read = ''){
+		<?php 
+		if ($this->session->userdata('level') == 'kepolisian' AND $this->session->userdata('status') == 'logged' ) {?>
+		show_notification_police();
+		function show_notification_police(read = '')
+		{
             $.ajax({
                 url   : '<?= site_url("notification/police");?>',
                 type  : 'POST',
@@ -144,38 +144,43 @@
                 data  : {read:read},
                 dataType : 'json',
                 success : function(response){
-            		var notification ='';
+            	  	var notification ='';
 	               	var arr = response.data;
-                    $.each(arr, function (index, value) {
-                    	if (value.type == value.type)
+                    $.each(arr, function (index, value)
+                    {
+                    	if (value.type == 'reply spdp') 
                     	{
-                    		var url ="<?php echo base_url(); ?>kepolisian/replied/"
+                    		var url = "<?= site_url()?>kepolisian/replied"
                     	}
-                    	   
-						  notification += '<li>'+
-					                    '<ul class="menu">'+
-					                      '<li>'+
-					                        '<a href="'+url+'">'+
-					                          '<i class="fa fa-bell-o"></i>'+ 
-					                          	'<strong>'+value.type+'</strong><br>'+
-					                            '<small>Message : '+value.message+'</small><br />'+
-					                            '<small>Reply By : Judicary</small><br />'+
-					                            '<small>Date sent : '+value.create_at+'</small><br />'+ 
-					                        '</a>'+
-					                      '</li>'+
-					                    '</ul>'+
-					                  '</li>';
+                    	else
+                    	{
+                    		var url = "<?= site_url()?>dashboard"
+                    	}
+						notification += '<li>'+
+						                    '<ul class="menu">'+
+						                      	'<li>'+
+						                        	'<a href="'+url+'">'+
+							                          	'<i class="fa fa-bell-o"></i>'+ 
+							                          	'<strong>'+value.type+'</strong><br>'+
+							                            '<small>Message : '+value.message+'</small><br />'+
+							                            '<small>Reply By : Judicary</small><br />'+
+							                            '<small>Date sent : '+value.create_at+'</small><br />'+ 
+						                        	'</a>'+
+						                      	'</li>'+
+						                    '</ul>'+
+					                  	'</li>';
 					});                
 					$('#notify_to_police').html(notification);
 					$('.count_police').html(response.count);
                 }
             });
         } 
-
         $(document).on('click', '.read_notification_police', function(){
 			 $('.count_police').html('');
 			 show_notification_police('read');
 		});
+		<?php }?>
+
 
 		function show_notification(read = '')
 		{
@@ -189,20 +194,33 @@
                     var notification = '';
                     var i;
                     var arr = response.data;
-                    $.each(arr, function (index, value) {
-						  notification += '<li>'+
-					                    '<ul class="menu">'+
-					                      '<li>'+
-					                        '<a href="#">'+
-					                          '<i class="fa fa-bell-o"></i>'+ 
-					                          	'<strong>'+value.type+'</strong><br>'+
-					                            '<small><i class="fa fa-time"></i>Message : '+value.message+'</small><br />'+
-					                            '<small><i class="fa fa-time"></i>Send By : Police</small><br />'+
-					                            '<small>Date sent : '+value.create_at+'</small><br />'+
-					                        '</a>'+
-					                      '</li>'+
-					                    '</ul>'+
-					                  '</li>';
+                    $.each(arr, function (index, value) 
+                    {
+                    	if (value.type == 'spdp') 
+                    	{
+                    		var url = "<?= site_url()?>inbox/spdp_inbox"
+                    	}
+                    	else if (value.type == 'perpanjangan penahanan') 
+                    	{
+                    		var url = "<?= site_url()?>inbox/spdp_inbox"
+                    	}
+                    	else
+                    	{
+                    		var url = "<?= site_url()?>dashboard"
+                    	}
+						notification += '<li>'+
+						                    '<ul class="menu">'+
+						                      	'<li>'+
+							                        '<a href="'+url+'">'+
+							                          	'<i class="fa fa-bell-o"></i>'+ 
+							                          	'<strong>'+value.type+'</strong><br>'+
+							                            '<small><i class="fa fa-time"></i>Message : '+value.message+'</small><br />'+
+							                            '<small><i class="fa fa-time"></i>Send By : Police</small><br />'+
+							                            '<small>Date sent : '+value.create_at+'</small><br />'+
+							                        '</a>'+
+						                      	'</li>'+
+					                    	'</ul>'+
+					                  	'</li>';
 					});
 					$('#notify_to_judicary').html(notification);
 					$('.count_judiciary').html(response.count);
@@ -211,15 +229,15 @@
         } 
 
 		$(document).on('click', '.read_notification_judicary', function(){
-			 $('.count_judiciary').html('');
-			 show_notification('read');
+			$('.count_judiciary').html('');
+			show_notification('read');
 		});
 
 		// create spdp
 		$('#submit').submit(function(e){
 			e.preventDefault();
 			$.ajax({
-				url:'<?php echo base_url("kepolisian/create");?>',
+				url:'<?= base_url("create_spdp");?>',
 				type:"post",
 				data:new FormData(this), 
 				processData:false,
@@ -236,8 +254,10 @@
 						swal("Yes! ", data.success , "success");
 						$("#nama_tersangka").html('');   
 						$("#file").html(''); 
-						$("#rujukan").html('');  
+						$("#rujukan").html('');
+						$("#no_pol").html('');    
 						$('.has_nama_tsk').removeClass('has-error').removeClass('has-success');
+						$('.has_no_pol').removeClass('has-error').removeClass('has-success');
 						$('.has_rujukan').removeClass('has-error').removeClass('has-success');
 						$('.has_file').removeClass('has-error').removeClass('has-success');
 						$('#submit')[0].reset();
@@ -306,7 +326,6 @@
 
 		$(document).on('click', '.removed', function(){  
 			 var id = $(this).attr("id");  
-
 			 swal({
 				title: "Are you sure?",
 				text: "Your data and file will be removed!",
@@ -317,13 +336,12 @@
 			.then((willDelete) => {
 				if (willDelete) {
 				$.ajax({  
-						url:'<?php echo base_url("kepolisian/delete_history");?>', 
+						url:'<?php echo base_url("delete_spdp");?>', 
 						method:"POST",  
 						data:{id:id},  
 						success:function(data)  
 						{  
 							swal("Yes! ", "Data has been deleted" , "success");
-							reload_table();
 						}  
 					});  
 				} 
@@ -466,7 +484,9 @@
 	$(document).on('click', '#close', function(){  
 		$("#nama_tersangka").html('');   
 		$("#file").html('');
-		$("#rujukan").html('');  
+		$("#no_pol").html('');
+		$("#rujukan").html('');
+		$('.has_no_pol').removeClass('has-error').removeClass('has-success');
 		$('.has_nama_tsk').removeClass('has-error').removeClass('has-success');
 		$('.has_rujukan').removeClass('has-error').removeClass('has-success');
 		$('.has_file').removeClass('has-error').removeClass('has-success');
@@ -705,3 +725,79 @@ $(function () {
 </script>  
 </body>
 </html>
+
+     <!-- Script -->
+     <script type="text/javascript">
+     $(document).ready(function(){
+
+        // Check all
+        $("#checkall").change(function(){
+
+           var checked = $(this).is(':checked');
+           if(checked)
+           {
+              	$(".checkbox").each(function(){
+                	$(this).prop("checked",true);
+              	});
+           }else
+           {
+              	$(".checkbox").each(function(){
+                	$(this).prop("checked",false);
+              	});
+           }
+        });
+
+        // Changing state of CheckAll checkbox 
+        $(".checkbox").click(function(){
+            if($(".checkbox").length == $(".checkbox:checked").length) 
+            {
+               $("#checkall").prop("checked", true);
+            } 
+            else 
+            {
+               $("#checkall").prop("checked",false);
+            }
+        });
+
+        // Delete button clicked
+        $('#delete').click(function(){
+
+           // Confirm alert
+           var deleteConfirm = confirm("Are you sure?");
+           if (deleteConfirm == true) {
+
+              // Get userid from checked checkboxes
+              var users_arr = [];
+              $(".checkbox:checked").each(function(){
+                  var userid = $(this).val();
+
+                  users_arr.push(userid);
+              });
+
+              // Array length
+              var length = users_arr.length;
+
+              if(length > 0){
+
+                 // AJAX request
+                 $.ajax({
+                    url: '<?= base_url() ?>index.php/users/deleteUser',
+                    type: 'post',
+                    data: {user_ids: users_arr},
+                    success: function(response){
+
+                       // Remove <tr>
+                       $(".checkbox:checked").each(function(){
+                           var userid = $(this).val();
+
+                           $('#tr_'+userid).remove();
+                       });
+                    }
+                 });
+              }
+           } 
+
+        });
+
+      });
+      </script>

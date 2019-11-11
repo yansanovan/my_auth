@@ -1,17 +1,26 @@
+<section class="content-header">
+    <h1> <i class="fa fa-inbox" aria-hidden="true"></i> Inbox SPDP</h1>
+	<ol class="breadcrumb">
+    	<li><a href="#"><i class="fa fa-dashboard"></i> Inbox Spdp</a></li>
+  	</ol>
+</section>
 <section class="content">
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="box">
 				<div class="box-header">
 					<?= $this->session->flashdata('msgbox');?>
-					<a href="<?php echo base_url('inbox');?>" class="btn btn-success btn-xs"  style="float:right;"> 
-						<i class="fa fa-undo" aria-hidden="true"></i> Back
-					</a><br><br>
-
-					<nav class="navbar navbar-light" style="background-color:#8e8d8d;">
-						<h3 style="color: white; text-align: center;"><i class="fa fa-envelope" aria-hidden="true"></i>  SPDP </h3>
-						<br>
-					</nav>
+					<div class="well">
+						<div class="form-group">
+							<div class="row">
+								<div class="col-lg-3">
+									<a href="<?php echo base_url('inbox');?>" class="btn btn-success btn-md"> 
+										<i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Back
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 
 				<!-- /.box-header -->
@@ -24,12 +33,10 @@
 									<th>Nama Tersangka</th>
 									<th>File</th>
 									<th>Date & Time</th>
-									<!-- <th>Status</th> -->
 									<th>Action</th>
 								</tr>
-								</thead>
-							<tbody> 
-							</tbody>
+							</thead>
+							<tbody></tbody>
 						</table>
 					</div>
 				</div>

@@ -2,21 +2,26 @@
  
 class M_replied_spdp extends CI_Model 
 {
-    var $table = 'tbl_reply_spdp'; //nama tabel dari database
-    var $column_order = array(null, 'message','username'); //field yang ada di table user
+    var $table = 'tbl_reply_spdp'; //table name database
+    var $column_order = array(null, 'message','username'); //field on table users
     var $column_search = array('message','username'); //field yang diizin untuk pencarian 
     var $order = array('id_reply' => 'asc'); // default order 
 
     private function _get_datatables_query()
     {
-        if($this->input->post('nama_tersangka'))
-        {
-            $this->db->like('nama_tersangka', $this->input->post('nama_tersangka'));
-        }
+
         $this->db->select('tbl_reply_spdp.*, tbl_reply_spdp.file as file_reply, tbl_users.*, tbl_police.nama_tersangka');
         $this->db->from($this->table);
         $this->db->join('tbl_police','tbl_police.id = tbl_reply_spdp.id_spdp');
         $this->db->join('tbl_users','tbl_users.id = tbl_reply_spdp.id_judicary');
+        if($this->input->post('nama_tersangka'))
+        {
+            $this->db->like('nama_tersangka', $this->input->post('nama_tersangka'));
+        }
+        if($this->input->post('message'))
+        {
+            $this->db->like('message', $this->input->post('message'));
+        }
  
         $i = 0;
      
@@ -33,7 +38,6 @@ class M_replied_spdp extends CI_Model
                 {
                     $this->db->or_like($item, $this->input->post('search')['value']);
                 }
- 
                 if(count($this->column_search) - 1 == $i) 
                     $this->db->group_end(); 
             }

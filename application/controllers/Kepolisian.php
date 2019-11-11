@@ -8,13 +8,7 @@ class Kepolisian extends MY_Validate
 	function __construct()
 	{
 		parent::__construct();
-		check_is_logged();
-		kejaksaan_coba_masuk();
-        pengadilan_coba_masuk();
-        lapas_coba_masuk();
-        superadmin_coba_masuk();
-        $this->load->helper('date');
-        $this->load->model('police/spdp/m_spdp');
+        check_session_police();
 	}
 	public function index()
 	{	
@@ -24,7 +18,7 @@ class Kepolisian extends MY_Validate
 
     public function form()
     {
-         // $this->output->cache(5); 
+        $this->output->enable_profiler(TRUE);
         $this->template->load('pages/template/template','pages/kepolisian/form/content');      
     }
 
@@ -64,7 +58,7 @@ class Kepolisian extends MY_Validate
         $this->form_validation->set_rules('nama_tersangka', 'Nama tersangka', 'required');
         $this->form_validation->set_rules('no_pol', 'No Pol', 'required');
         $this->form_validation->set_rules('rujukan', 'Rujukan', 'required');
-        $this->form_validation->set_rules('file', 'File', 'callback_file_check1','trim|xss_clean');
+        $this->form_validation->set_rules('file', 'File', 'callback_file_check1|trim|xss_clean');
 
         if ($this->form_validation->run() === FALSE)
         {
@@ -101,7 +95,7 @@ class Kepolisian extends MY_Validate
             $insert = array('id_police' => $this->session->userdata('id'), 
                             'nama_tersangka' => $post['nama_tersangka'],
                             'no_pol' => $post['no_pol'],
-                            'rujukan' => $this->input->post('rujukan'),
+                            'rujukan' => $_POST['rujukan'],
                             'file' => $data['upload_data'],
                             'url'  => $url);
             $notification = array('id_users' => $this->session->userdata('id'), 
@@ -109,7 +103,6 @@ class Kepolisian extends MY_Validate
                                   'message'  => $post['nama_tersangka'],
                                   'url'      => $url, 
                                   'status'   => 'unread');
-
             $this->m_spdp->create($insert, $notification);
             $this->output->set_content_type('application/json')->set_output(json_encode($result));
         }
@@ -231,6 +224,7 @@ class Kepolisian extends MY_Validate
         {
             $no++;
             $row = array();
+            $row[] = '<td align="center"><input type="checkbox" class="checkbox" name="delete" value="'.$field->id.'"></td>';
             $row[] = $no;
             $row[] = $field->nama_tersangka;
             $row[] = character_limiter($field->rujukan, 20);
@@ -252,7 +246,7 @@ class Kepolisian extends MY_Validate
             "recordsFiltered" => $this->M_history_spdp->count_filtered(),
             "data" => $data,
         );
-        //output dalam format JSON
+        //output format JSON
         echo json_encode($output);
     }
 

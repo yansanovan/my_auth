@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Admin | Log in</title>
+	<title>Admin | Login</title>
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<!-- Bootstrap 3.3.7 -->
@@ -16,7 +16,6 @@
 	<link rel="stylesheet" href="<?= base_url('asset/dist/css/AdminLTE.min.css');?>">
 	<!-- iCheck -->
 	<link rel="stylesheet" href="<?= base_url('asset/plugins/iCheck/square/blue.css');?>">
-
 	<!-- Google Font -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
@@ -25,14 +24,12 @@
 	<div class="login-logo">
 		<a href=""><b>Form </b>Login</a>
 	</div>
-	<!-- /.login-logo -->
 	<div class="login-box-body">
-		<p class="login-box-msg">Silahkan Login</p>
-		<?= $this->session->flashdata('flashdata');?>
+		<p class="login-box-msg">Entry Your E-mail & Password</p>
 		<?= $this->session->flashdata('msgbox');?>
 		<?= form_open();?>
 			<div class="form-group has-feedback">
-				<input type="email"  name="email"  class="form-control" placeholder="Email">
+				<input type="email"  name="email" value="<?= set_value('email');?>" class="form-control" placeholder="Email">
 				<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
 				<?= form_error('email');?>
 			</div>
@@ -43,12 +40,11 @@
 			</div>
 			<div class="row">
 				<div class="col-xs-4">
-					<button type="submit" class="btn btn-primary btn-block btn-flat"><i class="fa fa-sign-in" aria-hidden="true"></i> Masuk</button>
+					<button type="submit" class="btn btn-primary btn-block btn-flat"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</button>
 				</div>
 			</div>
 		<?= form_close();?>
-		<br>
-		<i class="fa fa-key"></i><a href="<?= base_url('lupapassword');?> "> Lupa Password</a><br>
+		<br><i class="fa fa-key"></i><a href="<?= base_url('forgot');?> "> Forgot Password</a><br>
 	</div>
 </div>
 

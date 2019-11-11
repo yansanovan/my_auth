@@ -89,7 +89,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url', 'form','file', 'security','authentication','date');
+$autoload['helper'] = array('url', 'form','file', 'security','authentication','date', 'captcha');
 
 /*
 | -------------------------------------------------------------------
@@ -136,5 +136,5 @@ $autoload['model'] = array('m_apl','m_apl_balas','m_auth',
 						   'm_bon','m_dashboard','m_hashed',
 						   'm_kejaksaan','m_kejaksaan_surat',
 						   'm_kepolisian','m_lapas','m_lupapassword',
-						   'm_notifikasi','m_pengadilan','m_pengadilan_surat',
-						   'm_pesan','m_profile','m_superadmin', 'm_surat', 'M_history_spdp');
+						   'm_notification','m_pengadilan','m_pengadilan_surat',
+						   'm_pesan','m_profile','m_superadmin', 'm_surat', 'M_history_spdp', 'police/spdp/m_spdp');

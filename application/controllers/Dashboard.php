@@ -6,8 +6,14 @@ class Dashboard extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-		check_is_logged();
-		superadmin_coba_masuk();
+		if ($this->session->userdata('status') != 'logged') 
+		{
+			redirect('auth');
+		}
+		if ($this->session->userdata('level') == 'superadmin') 
+		{
+			redirect('superadmin');
+		}
 	}
 
 	public function index()

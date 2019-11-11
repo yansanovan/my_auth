@@ -1,4 +1,4 @@
-<div class="content-wrapper badan">
+<div class="content-wrapper contents">
 	<?= $contents ;?>
 </div>
 

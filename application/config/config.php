@@ -435,7 +435,7 @@ $config['standardize_newlines'] = FALSE;
 |          for backwards compatibility purposes!
 |
 */
-$config['global_xss_filtering'] = FALSE;
+$config['global_xss_filtering'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------
@@ -456,7 +456,7 @@ $config['csrf_token_name'] = 'csrf_token';
 $config['csrf_cookie_name'] = 'csrf_cookie';
 $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = TRUE;
-$config['csrf_exclude_uris'] = array('notification/police','notification/judicary', 'kepolisian/get_data', 'kepolisian/get_replied', 'inbox/get_data','kepolisian/delete_history', 'inbox/get_data');
+$config['csrf_exclude_uris'] = array('notification/police','notification/judicary', 'kepolisian/get_data', 'kepolisian/get_replied', 'inbox/get_data','kepolisian/delete_history', 'inbox/get_data', 'police/spdp', 'spdp_replied', 'delete_spdp');
 
 /*
 |--------------------------------------------------------------------------

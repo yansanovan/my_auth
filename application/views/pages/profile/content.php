@@ -10,7 +10,7 @@
 			<div class="box box-primary">
 				<div class="box-header">
 					<div class="col-md-4">
-						<div class="panel panel-primary">
+						<div class="panel panel-primary" id="panel_height">
 							<div class="panel-heading">PROFILE</div>
 								<div class="panel-body">
 									<?php  
@@ -38,7 +38,7 @@
 													</li>
 												</ul>
 												<div class="input-group">
-													<input type="text"  id="file_path9" class="form-control" placeholder="Pilih Foto Profile">
+													<input type="text"  id="file_path9" class="form-control" placeholder="Choose Image">
 													<span class="input-group-btn">
 														<button class="btn btn-default" type="button" id="file_browser9">
 															<i class="fa fa-upload"></i> 
@@ -57,7 +57,7 @@
 							</div>
 						</div>
 						<div class="col-md-8">
-							<div class="panel panel-primary">
+							<div class="panel panel-primary" id="panel_height">
 								<div class="panel-heading">CHANGE PASSWORD</div>
 									<div class="panel-body">
 										<?= $this->session->flashdata('msgbox');?>
@@ -78,17 +78,17 @@
 										</div>
 
 										<div class="form-group row">
-											<label for="inputPassword" class="col-sm-3 col-form-label"><i class="fa fa-lock"></i>  Password Lama</label>
+											<label for="inputPassword" class="col-sm-3 col-form-label"><i class="fa fa-lock"></i> Old Password</label>
 											<div class="col-sm-9">
-												<input type="password" name="password_lama" class="form-control" id="inputPassword" placeholder="password lama">
+												<input type="password" name="password_lama" class="form-control" id="inputPassword" placeholder="Old Password">
 												<?= form_error('password_lama');?>
 											</div>
 										</div>
 
 										<div class="form-group row">
-											<label for="inputPassword" class="col-sm-3 col-form-label"><i class="fa fa-lock"></i>  Password Baru</label>
+											<label for="inputPassword" class="col-sm-3 col-form-label"><i class="fa fa-lock"></i>  New Password</label>
 											<div class="col-sm-9">
-												<input type="password" name="password_baru" class="form-control" id="inputPassword" placeholder="password baru">
+												<input type="password" name="password_baru" class="form-control" id="inputPassword" placeholder="New Password">
 												<?= form_error('password_baru');?>
 											</div>
 										</div>
@@ -96,7 +96,7 @@
 										<div class="form-group row">
 											<label for="inputPassword" class="col-sm-3 col-form-label"><i class="fa fa-lock"></i>  Confirm Password </label>
 											<div class="col-sm-9">
-												<input type="password" name="password_confirm" class="form-control" id="inputPassword" placeholder="password confirm">
+												<input type="password" name="password_confirm" class="form-control" id="inputPassword" placeholder="Confirm  Password">
 												<?= form_error('password_confirm');?>
 											</div>
 										</div>
@@ -105,7 +105,9 @@
 											<div class="col-sm-3">
 											</div>
 											<div class="col-sm-9">
-												 <button class="btn btn-primary" value="true"><i class="fa fa-paper-plane" aria-hidden="true"></i> Submit</button>
+												<button class="btn btn-primary btn-block" value="true">
+												 	<i class="fa fa-paper-plane" aria-hidden="true"></i> Submit
+												</button>
 											</div>
 										</div>
 									<?php echo form_close();?>

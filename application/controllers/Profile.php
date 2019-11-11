@@ -6,7 +6,11 @@ class Profile extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-		check_is_logged();	
+		if(!$this->session->userdata('status'))
+		{
+            $this->m_pesan->generatePesan('access_denied', 'denied!');
+			redirect('auth');
+		}
 	}
 
 	public function index()
@@ -15,7 +19,7 @@ class Profile extends CI_Controller
 		$data['users'] = $this->m_profile->ambil_users($session_id)->row();
         $this->template->load('pages/template/template','pages/profile/content', $data);
 	}
-
+	
 	public function check_user() 
 	{        
 		$username = $this->input->post('username');
@@ -70,7 +74,7 @@ class Profile extends CI_Controller
 			{
 				$password = $users->row();
 				$this->m_profile->change_password($post, $password);
-				$this->m_pesan->generatePesan('berhasil', 'Profile telah di update!');
+				$this->m_pesan->generatePesan('berhasil', 'Profile has been updated!');
 				redirect('profile');
 			}
 			else
@@ -99,7 +103,6 @@ class Profile extends CI_Controller
                 if($this->upload->do_upload('file'))
                 {
 					$value = $this->m_profile->ambil_users($session_id)->row();
-
                 	$old_image = $value->image;
                 	if ($old_image != 'default.jpg') 
                 	{
@@ -135,13 +138,13 @@ class Profile extends CI_Controller
             }
             else
             {
-                $this->form_validation->set_message('file_check', 'Pilih hanya gif/jpg/png file.');
+                $this->form_validation->set_message('file_check', 'Please choose Only gif/jpg/png file.');
                 return false;
             }
         }
         else
         {
-            $this->form_validation->set_message('file_check', 'Silahkan Pilih gambar.');
+            $this->form_validation->set_message('file_check', 'The Image is required.');
             return false;
         }
     }

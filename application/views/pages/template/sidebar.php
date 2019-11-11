@@ -76,42 +76,43 @@
 	 <ul class="sidebar-menu" data-widget="tree">
 			<li class="header">MAIN NAVIGATION</li>
 
-			<!-- session polisi -->
-			<?php if ($this->session->userdata('level') != 'superadmin') {?>
+<!-- 			<?php if ($this->session->userdata('level') != 'superadmin') {?>
 				<li <?= $this->uri->segment(1) =='dashboard' ? 'class="active"' : null;?>>
 					<a href="<?php echo base_url('dashboard');?>">
 						<i class="fa fa-dashboard"></i> <span> Dashboard </span>
 					</a>
 				</li>
-			<?php } ?>
-
+			<?php } ?> -->
+			<!-- session polisi -->
 			<?php if ($this->session->userdata('level') == 'kepolisian') {?>
-			
-			<li class="treeview <?= $this->uri->segment(1) =='kepolisian' ? 'active' : null;?>">
+			<li <?= $this->uri->segment(2) =='dashboard' ? 'class="active"' : null;?>>
+				<a href="<?= site_url('police/dashboard');?>">
+					<i class="fa fa-dashboard"></i> <span> Dashboard </span>
+				</a>
+			</li>
+
+			<li class="treeview <?= $this->uri->segment(2) =='form' ? 'active' : null;?>">
 				<a href="#">
-					<i class="fa fa-envelope-o" aria-hidden="true"></i> <span> Form</span>
+					<i class="fa fa-envelope-o" aria-hidden="true"></i> <span> Master Data</span>
 					<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
 				</a>
 				<ul class="treeview-menu">
-					<!-- <li>
-						<a href="<?php //echo base_url('kepolisian');?>"><i class="fa fa-envelope-open-o"></i> <span> Surat Balasan </span></a>
-					</li> -->
 					<li>
-						<a href="<?php echo base_url('kepolisian/form');?>"><i class="fa fa-edit"></i> <span> Entry </span></a>
+						<a href="<?= site_url('police/form');?>"><i class="fa fa-edit"></i> <span> Form Entry </span></a>
 					</li>
-	<!-- 				<li>
-						<a href="<?php //echo base_url('kepolisian/riwayat_surat');?>">
-							<i class="fa fa-file-text-o" aria-hidden="true"></i></i> <span> Riwayat Surat </span>
-						</a>
-					</li> -->
 				</ul>
 			</li>
 
 			<!-- akhir session polisi -->
 
 			<!-- session kejaksaan -->
-
 			<?php } else if ($this->session->userdata('level') == 'kejaksaan') { ?>  
+			<!-- session polisi -->
+			<li <?= $this->uri->segment(2) =='dashboard' ? 'class="active"' : null;?>>
+				<a href="<?= site_url('prosecutor/dashboard');?>">
+					<i class="fa fa-dashboard"></i> <span> Dashboard </span>
+				</a>
+			</li>
 			<li <?= $this->uri->segment(1) =='inbox' ? 'class="active"' : null;?>>
 				 <a href="<?php echo base_url('inbox');?>">
 					<i class="fa fa-envelope-o"></i> <span> Inbox </span>
@@ -270,7 +271,7 @@
 			<?php } else if ($this->session->userdata('level') == 'superadmin')  {?>
 				 <li <?= $this->uri->segment(1) =='superadmin' ? 'class="active"' : null;?>>
 					 <a href="<?php echo base_url('superadmin');?>">
-							<i class="fa fa-users"></i> <span> Superadmin </span>
+							<i class="fa fa-dashboard"></i> <span> Superadmin </span>
 						</a>
 				</li>
 			<?php } ?>
@@ -335,17 +336,16 @@
 			<?php } ?>
 
 			<li <?= $this->uri->segment(1) =='profile' ? 'class="active"' : null;?>>
-				 <a href="<?php echo base_url('profile');?>">
-						<i class="fa fa-user"></i> <span> Profile </span>
-					</a>
-			</li>
-			<!-- akhir session superadmin -->
-			<li>
-				<a href="<?php echo base_url('auth/sign_out');?>" onclick="return confirm('Mau Logout?')">
-					<i class="fa fa-sign-out"></i> <span> Logout </span>
+				<a href="<?php echo base_url('profile');?>">
+					<i class="fa fa-user"></i> <span> Profile </span>
 				</a>
 			</li>
 
+			<li>
+				<a href="<?php echo base_url('auth/sign_out');?>" onclick="return confirm('Logout?')">
+					<i class="fa fa-sign-out"></i> <span> Logout </span>
+				</a>
+			</li>
 		</ul>
 	</section>
 </aside>

@@ -276,7 +276,67 @@ class MY_Controller extends CI_Controller
 
 class MY_Validate extends CI_Controller 
 {
+    private $max_size =  1000000; //format byte
+
+    public function file_check1($str)
+    {
+        $allowed_mime_type_arr = array('image/gif','image/jpeg','image/png','image/jpg');
+        $mime = get_mime_by_extension($this->security->sanitize_filename($_FILES['file']['name']));
+        if($_FILES['file']['name'])
+        {
+            if(in_array($mime, $allowed_mime_type_arr))
+            {
+                if($_FILES['file']['size'] > $this->max_size) {
+                    $this->form_validation->set_message('file_check1', 'This file exceeds max size 1MB.');
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }   
+            }
+            else
+            {
+                $this->form_validation->set_message('file_check1', 'Select only jpg/png');
+                return FALSE;
+            }
+        }
+        else
+        {               
+            $this->form_validation->set_message('file_check1', 'The File  field is required');
+            return FALSE;
+        }
+    }
        // callback save file
+    public function file_check_perpanjangan_penahanan($str)
+    {
+        $allowed_mime_type_arr = array('image/gif','image/jpeg','image/png','image/jpg');
+        $mime = get_mime_by_extension($_FILES['file_perpanjangan_penahanan']['name']);
+        if($_FILES['file_perpanjangan_penahanan']['name'])
+        {
+            if(in_array($mime, $allowed_mime_type_arr))
+            {
+                if($_FILES['file_perpanjangan_penahanan']['size'] > $this->max_size) {
+                    $this->form_validation->set_message('file_check_perpanjangan_penahanan', 'This file exceeds max size 1MB.');
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }   
+            }
+            else
+            {
+                $this->form_validation->set_message('file_check_perpanjangan_penahanan', 'Select only jpg/png');
+                return FALSE;
+            }
+        }
+        else
+        {               
+            $this->form_validation->set_message('file_check_perpanjangan_penahanan', 'The File  field is required');
+            return FALSE;
+        }
+    }
     public function spdp($str)
     {
         $allowed_mime_type_arr = array('application/pdf', 'application/msword');

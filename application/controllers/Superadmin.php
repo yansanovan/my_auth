@@ -6,50 +6,43 @@ Class Superadmin extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-		check_is_logged();
-		if ($this->session->userdata('level') !='superadmin') 
-		{
-			redirect('dashboard');
-		}
+		check_session_superadmin();
 	}
 	public function index()
 	{
 		$data['data'] = $this->m_superadmin->tampil_users();
-		$this->load->view('pages/superadmin/data_users/index', $data);	
+		$this->load->view('pages/superadmin/users/index', $data);	
 	}
 
-	public function tambah_users()
+	public function create()
 	{
-		$this->load->view('pages/superadmin/kelola_users/tambah_users/index');	
+		$this->load->view('pages/superadmin/manage/add/index');	
 	}
 
-	public function simpan()
+	public function store()
 	{
 		$this->form_validation->set_rules('username','username', 'required');
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[tbl_users.email]');
 		$this->form_validation->set_rules('password','Password', 'required');
-		$this->form_validation->set_error_delimiters('<div class="alert alert-danger"alert-dismissible fade show role="alert">','</div>');
+		$this->form_validation->set_rules('level','level', 'required');
+        $this->form_validation->set_error_delimiters('<p class="auth_validate" style="color:red;"><i class="fa fa-exclamation-circle"></i> ','</p>');
 		
 		if ($this->form_validation->run() === FALSE) 
 		{
-			$this->tambah_users();
+			$this->create();
 		}
 		else
 		{
-			$username	= $this->input->post('username');
-			$email 		= $this->input->post('email');
-			$password 	= $this->input->post('password');
-			$level 		= $this->input->post('level');
-
-			$data = array('username' => $username,
-						  'email' => $email,
-						  'password' => $this->m_hashed->hash_string_password($password),
-						  'level'	 => $level);
-			$this->m_superadmin->simpan($data);
-			$this->session->set_flashdata('berhasil', '<div class="alert alert-success" role="alert">Users di simpan</div>');
-			redirect('superadmin/tambah_users');
+			$post	= $this->input->post(NULL, TRUE);
+			$data = array('username' => $post['username'],
+						  'email' 	 => $post['email'],
+						  'password' => password_hash($post['password'], PASSWORD_BCRYPT),
+						  'level'	 => $post['level'],
+						  'image'    => 'default.jpg');
+			$this->m_superadmin->store($data);
+			$this->m_pesan->generatePesan('berhasil', 'Success!, User has been created');
+			redirect('superadmin/create');
 		}	
-
 	}
 
 	public function edit($id)
@@ -62,13 +55,13 @@ Class Superadmin extends CI_Controller
 		else
 		{
 			$data['data'] = $this->m_superadmin->tampil_users($id);
-			$this->load->view('pages/superadmin/kelola_users/ubah_users/index', $data);
+			$this->load->view('pages/superadmin/manage/edit/index', $data);
 		}
 	}
-	public function hapus($id)
+	public function delete($id)
 	{
 		$this->m_superadmin->hapus($id);
-		$this->session->set_flashdata('terhapus', '<div class="alert alert-success" role="alert">Users terhapus</div>');
+		$this->m_pesan->generatePesan('berhasil', 'Success!, Data has been deleted');
 		redirect('superadmin');
 	}
 
@@ -82,65 +75,58 @@ Class Superadmin extends CI_Controller
 	    if($result == 0)
 	        $response = true;
 	    else {
-	        $this->form_validation->set_message('check_user_email', 'Upps! Email ada yang sama, harus unik!');
+	        $this->form_validation->set_message('check_user_email', 'Upps! Email must be unique!');
 	        $response = false;
 	    }
 	    return $response;
 	}
 	public function update()
 	{
-
 		$this->form_validation->set_rules('username','username', 'required');
 		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|callback_check_user_email');
-		// $this->form_validation->set_rules('password','Password','required');
-		$this->form_validation->set_error_delimiters('<div class="alert alert-danger"alert-dismissible fade show role="alert">','</div>');
+        $this->form_validation->set_error_delimiters('<p class="auth_validate" style="color:red;"><i class="fa fa-exclamation-circle"></i> ','</p>');
+		
+		$post = $this->input->post(NULL, TRUE);
 		
 		if ($this->form_validation->run() === FALSE) 
 		{
-			$id = $this->input->post('id');
-			return $this->edit($id);
+			return $this->edit($post['id']);
 		}
 		else
 		{
-			$id 			= $this->input->post('id');
-			$username		= $this->input->post('username');
-			$email 			= $this->input->post('email');
-			$password 		= $this->input->post('password');
-			$level 			= $this->input->post('level');
-			$status_block 			= $this->input->post('status_block');
-
-
-			if (!$password) 
+			if (!$post['password']) 
 			{
-				$data = array('username' => $username,
-							  'email' 	 => $email,
-							  'level'	 => $level, 
-							  'login_attemps'	 => $status_block);
-				$this->m_superadmin->update($id, $data);
-				$this->session->set_flashdata('updated', '<div class="alert alert-success" role="alert">Users berhasil di update</div>');
-				redirect('superadmin');
+				$data = array('username' => $post['username'],
+							  'email' 	 => $post['email'],
+							  'level'	 => $post['level'], 
+							  'login_attemps'	 => $post['status_block']);
+				$this->m_superadmin->update($post['id'], $data);
+				$this->m_pesan->generatePesan('berhasil', 'Success!, User has been updated');
+				redirect('superadmin/edit/'.$post['id']);
+
 			}
-			elseif (!$email) 
+			elseif (!$post['email']) 
 			{
-				$data = array('username' => $username,
-							  'password' => $this->m_hashed->hash_string_password($password),
-							  'level'	 => $level,
-							  'login_attemps'	 => $status_block);
-				$this->m_superadmin->update($id, $data);
-				$this->session->set_flashdata('updated', '<div class="alert alert-success" role="alert">Users berhasil di update</div>');
-				redirect('superadmin');
+				$data = array('username' => $post['username'],
+							  'password' => $this->m_hashed->hash_string_password($post['password']),
+							  'level'	 => $post['level'],
+							  'login_attemps'	 => $post['status_block']);
+				$this->m_superadmin->update($post['id'], $data);
+				$this->m_pesan->generatePesan('berhasil', 'Success!, User has been updated');
+				redirect('superadmin/edit/'.$post['id']);
+
 			}
 			else
 			{
-				$data = array('username' => $username,
-							  'email' 	 => $email,
-							  'password' => $this->m_hashed->hash_string_password($password),
-							  'level'	 => $level,
-							  'login_attemps'	 => $status_block);
+				$data = array('username' => $post['username'],
+							  'email' 	 => $post['email'],
+							  'password' => $this->m_hashed->hash_string_password($post['password']),
+							  'level'	 => $post['level'],
+							  'login_attemps'	 => $post['status_block']);
 							  
-				$this->m_superadmin->update($id, $data);
-				$this->session->set_flashdata('updated', '<div class="alert alert-success" role="alert">Users berhasil di update</div>');
-				redirect('superadmin');
+				$this->m_superadmin->update($post['id'], $data);
+				$this->m_pesan->generatePesan('berhasil', 'Success!, User has been updated');
+				redirect('superadmin/edit/'.$post['id']);
 			}
 		}	
 
@@ -157,9 +143,6 @@ Class Superadmin extends CI_Controller
 	
 		// Backup your entire database and assign it to a variable
 		$backup = $this->dbutil->backup($config);
-		// $save = FCPATH.'backup/database/backup-database-'.date("ymdHis").'-db.zip';
-		// $save = 'backup-database-'.date("ymdHis").'-db.zip';
-
 		// Load the file helper and write the file to your server
 		$this->load->helper('download');
 		// $success = write_file($save, $backup);
@@ -167,8 +150,8 @@ Class Superadmin extends CI_Controller
 
 		if ($success) 
 		{
-			redirect(base_url('superadmin'));
-			$this->session->set_flashdata('Backup_db', '<div class="alert alert-success" role="alert">Database berhasil di backup</div>');
+			$this->m_pesan->generatePesan('berhasil', 'Success!, Database has been Backup');
+			redirect('superadmin');
 		}
 	}
 
@@ -178,11 +161,10 @@ Class Superadmin extends CI_Controller
 		$this->load->library('zip');
 		$this->zip->read_dir(FCPATH, FALSE);
 		$success = $this->zip->download('Files_backup'.$date.'zip');
-		// $success = $this->zip->archive('backup/project/backup-files-'.$date.'.zip');
 		if ($success) 
 		{
-			$this->session->set_flashdata('Bakup_files', '<div class="alert alert-success" role="alert">Files berhasil di backup</div>');
-			redirect(base_url('superadmin'));
+			$this->m_pesan->generatePesan('berhasil', 'Success!, Project has been Backup');
+			redirect('superadmin');
 		}
 	}
 }
