@@ -95,7 +95,7 @@ class Auth
 				{
 					if ($users->active == 1) 
 					{
-						$this->CI->m_message->generateMessage('wrong', 'Your accout deactive!');
+						$this->CI->m_message->generateMessage('wrong', 'Your account deactive!');
 						redirect('login');
 					}
 					else
