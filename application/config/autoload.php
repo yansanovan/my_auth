@@ -58,7 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('database','session', 'form_validation', 'template', 'encryption');
+$autoload['libraries'] = array('database','session', 'form_validation', 'encryption', 'auth');
 
 /*
 | -------------------------------------------------------------------
@@ -89,7 +89,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url', 'form','file', 'security','authentication','date', 'captcha');
+$autoload['helper'] = array('url', 'form','file', 'security','date');
 
 /*
 | -------------------------------------------------------------------
@@ -132,9 +132,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('m_apl','m_apl_balas','m_auth',
-						   'm_bon','m_dashboard','m_hashed',
-						   'm_kejaksaan','m_kejaksaan_surat',
-						   'm_kepolisian','m_lapas','m_lupapassword',
-						   'm_notification','m_pengadilan','m_pengadilan_surat',
-						   'm_pesan','m_profile','m_superadmin', 'm_surat', 'M_history_spdp', 'police/spdp/m_spdp');
+$autoload['model'] = array('m_message');

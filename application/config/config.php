@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/aplikasi_terpadu';
+$config['base_url'] = 'http://localhost/my_auth';
 
 /*
 |--------------------------------------------------------------------------
@@ -137,7 +137,7 @@ $config['subclass_prefix'] = 'MY_';
 | Note: This will NOT disable or override the CodeIgniter-specific
 |	autoloading (application/config/autoload.php)
 */
-$config['composer_autoload'] = 'asset/vendor/autoload.php';
+$config['composer_autoload'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -161,7 +161,7 @@ $config['composer_autoload'] = 'asset/vendor/autoload.php';
 */
 // $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
 
-$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-\=';
+$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-=+';
 
 /*
 |--------------------------------------------------------------------------
@@ -327,7 +327,7 @@ $config['cache_query_string'] = FALSE;
 | https://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = '7eb535af894a4ddc714503502731e6eaefsdfsdppi';
+$config['encryption_key'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -381,7 +381,7 @@ $config['encryption_key'] = '7eb535af894a4ddc714503502731e6eaefsdfsdppi';
 |
 */
 $config['sess_driver'] = 'files';
-$config['sess_cookie_name'] = 'session_code';
+$config['sess_cookie_name'] = 'ci_session';
 $config['sess_expiration'] = 7200;
 $config['sess_save_path'] = NULL;
 $config['sess_match_ip'] = FALSE;
@@ -452,11 +452,11 @@ $config['global_xss_filtering'] = TRUE;
 | 'csrf_exclude_uris' = Array of URIs which ignore CSRF checks
 */
 $config['csrf_protection'] = TRUE;
-$config['csrf_token_name'] = 'csrf_token';
+$config['csrf_token_name'] = 'csrf_test_name';
 $config['csrf_cookie_name'] = 'csrf_cookie';
 $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = TRUE;
-$config['csrf_exclude_uris'] = array('notification/police','notification/judicary', 'kepolisian/get_data', 'kepolisian/get_replied', 'inbox/get_data','kepolisian/delete_history', 'inbox/get_data', 'police/spdp', 'spdp_replied', 'delete_spdp');
+$config['csrf_exclude_uris'] = array();
 
 /*
 |--------------------------------------------------------------------------
@@ -524,17 +524,3 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
-
-
-/*
-|--------------------------------------------------------------------------
-| Maintenance Mode
-|--------------------------------------------------------------------------
-|
-| For whatever reason sometimes a site needs to be taken offline.
-| Set $config['maintenance_mode'] to TRUE if the site has to be offline
-|
-| $config['maintenance_mode'] = TRUE; // site is offline
-| $config['maintenance_mode'] = FALSE; // site is online
-*/
-$config['maintenance_mode'] = FALSE;
