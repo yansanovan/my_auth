@@ -345,7 +345,7 @@ class Auth
 
 					$this->CI->load->library('email', $config);
 					$this->CI->email->set_newline("\r\n");
-					$this->CI->email->from('cjskotabaru@gmail.com', 'Admin');
+					$this->CI->email->from('', 'Admin');
 					$this->CI->email->to( htmlspecialchars($this->CI->input->post('email', TRUE)));
 					$this->CI->email->subject('Admin');
 					$this->CI->email->message('Reset Password');
