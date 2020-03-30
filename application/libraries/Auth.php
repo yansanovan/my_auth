@@ -342,10 +342,11 @@ class Auth
 				if($this->CI->authentication->_forgotten_password_token($token, $this->email)) 
 				{
 					$config = $this->CI->config->item('email_forgotten');
+					$email_from = $this->CI->config->item('email_from');
 
 					$this->CI->load->library('email', $config);
 					$this->CI->email->set_newline("\r\n");
-					$this->CI->email->from('', 'Admin');
+					$this->CI->email->from($email_from, 'Admin');
 					$this->CI->email->to( htmlspecialchars($this->CI->input->post('email', TRUE)));
 					$this->CI->email->subject('Admin');
 					$this->CI->email->message('Reset Password');

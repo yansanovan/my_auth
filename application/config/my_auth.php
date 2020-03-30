@@ -52,6 +52,7 @@ $config['redirect_role'] = array('admin' => 'admin');
 | mailjet
 |
 */ 
+$config['email_from'] = ''; // email your admin
 $config['email_forgotten'] = array('protocol'  => 'smtp', 
 						'smtp_host' => '', 
 						'smtp_port' => '', 
