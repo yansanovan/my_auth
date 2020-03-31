@@ -9,6 +9,7 @@
                     <?= form_input(['type'=>'email', 'name' => 'email', 'value'=> set_value("email"), 'class'=>'form-control', 'placeholder'=>'Email']);?>
                     <?= form_error('email')?>
                 </div>
+                <p><i class="fa fa-sign-in" aria-hidden="true"></i> <a href="<?= base_url('login');?>"> Login </a></p>
                 <button type="submit" class="btn btn-primary btn-block">Submit</button>
             <?= form_close();?>
         </fieldset>
