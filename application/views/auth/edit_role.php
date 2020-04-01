@@ -1,18 +1,19 @@
-<a href="<?= base_url('admin/role');?>" style="margin-bottom: 20px">
-	Back
-</a>
 
-<div>
-	<p>Edit role</p>
-	<?= $this->session->flashdata('msgbox');?>
-	<?= form_open();?>
-	<div>
-		<?= form_label('role', 'role');?>
-		<?= form_input(['type'=>'hidden', 'name' => 'id', 'value'=> $data->id]);?>
-		<?= form_input(['type'=>'text', 'name' => 'role', 'value'=> $data->role, 'placeholder'=>'role']);?>
-		<?= form_error('role')?>
-	</div>
-
-	<button type="submit">Edit</button>
-	<?= form_close();?>
+<div class="col-md-6 col-md-offset-3" style="margin-top: 40px">
+	<a href="<?= base_url('admin/role');?>" style="margin-bottom: 20px" class="btn btn-info btn-md">Back</a>
+    <div class="well bs-component">
+        <?= $this->session->flashdata('msgbox');?>
+        <h4 align="center" style="margin-bottom: 40px">Edit role</h4>
+        <fieldset>
+        	<?= form_open();?>
+	        	<div class="form-group <?= form_error('username') ? 'has-error': null ?>">
+	        		<?= form_label('role', 'role');?>
+	        		<?= form_input(['type'=>'hidden', 'name' => 'id', 'class'=>'form-control', 'value'=> $data->id]);?>
+	        		<?= form_input(['type'=>'text', 'name' => 'role', 'class'=>'form-control', 'value'=> $data->role, 'placeholder'=>'role']);?>
+	        		<?= form_error('role')?>
+	        	</div>
+	        	<button type="submit" class="btn btn-primary btn-md">Edit</button>
+        	<?= form_close();?>
+        </fieldset>
+    </div>
 </div>
