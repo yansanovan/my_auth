@@ -136,7 +136,7 @@ class Admin extends CI_Controller
 
 		if ($this->form_validation->run() == FALSE) 
 		{
-			$this->load->view('auth/role', $data);
+			$this->template->load('layouts/app','auth/role', $data);	
 			return false;
 		}
 		else
@@ -159,7 +159,7 @@ class Admin extends CI_Controller
 
 		if ($this->form_validation->run() == FALSE) 
 		{
-			$this->load->view('auth/edit_role', $data);
+			$this->template->load('layouts/app','auth/edit_role', $data);	
 			return false;
 		}
 		else
