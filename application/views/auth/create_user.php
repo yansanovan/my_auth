@@ -1,9 +1,6 @@
-<li>
-	<a href="<?= base_url('admin');?>" style="margin-bottom: 20px">
-		Back
-	</a>
-</li>
+
 <div class="col-md-6 col-md-offset-3" style="margin-top: 40px">
+	<a href="<?= base_url('admin');?>" style="margin-bottom: 20px" class="btn btn-info btn-md">Back</a>
     <div class="well bs-component">
         <?= $this->session->flashdata('msgbox');?>
         <h4 align="center" style="margin-bottom: 40px">Register new user</h4>
@@ -34,7 +31,7 @@
 	        		<?= form_input(['type'=>'password', 'name' => 'confirm_password', 'class'=> 'form-control', 'autocomplete'=>'off', 'placeholder'=>'confirm password']);?>
 	        		<?= form_error('confirm_password');?>
 	        	</div>
-	        	<button type="submit">Register</button>
+	        	<button type="submit" class="btn btn-primary btn-md">Register</button>
         	<?= form_close();?>
         </fieldset>
     </div>
