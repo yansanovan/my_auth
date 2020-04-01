@@ -33,9 +33,9 @@
 					<td><?= $value->role?></td>
 					<td>
 						<?php if ($value->active == null): ?>
-								<span  class="btn btn-succes btn-xs">Active</span>
+								<span  class="btn btn-success btn-xs">Active</span>
 							<?php else :?>
-								<span  class="btn btn-danger btn-xs">Deactive</span>
+								<span  class="btn btn-warning btn-xs">Deactive</span>
 							<?php endif ?>
 						</td>
 					<td>
