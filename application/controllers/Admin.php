@@ -21,13 +21,13 @@ class Admin extends CI_Controller
 		if ($this->store_user() == true) 
 		{
 			$data['role'] = $this->authentication->get_role();
-			$this->load->view('auth/create_user', $data);
+			$this->template->load('layouts/app','auth/create_user', $data);	
 			return true;	
 		}
 		else
 		{
 			$data['role'] = $this->authentication->get_role();
-			$this->load->view('auth/create_user', $data);
+			$this->template->load('layouts/app','auth/create_user', $data);	
 			return false;
 		}
 	}
