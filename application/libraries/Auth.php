@@ -408,7 +408,7 @@ class Auth
 				{
 					$this->CI->authentication->change_password($token);
 				}
-				$this->CI->load->view('auth/changepassword');
+				$this->CI->template->load('layouts/app','auth/changepassword');	
 			}
 		}
 	}
