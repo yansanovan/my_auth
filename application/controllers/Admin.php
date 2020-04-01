@@ -13,7 +13,7 @@ class Admin extends CI_Controller
 	public function index()
 	{
 		$data['data'] = $this->authentication->get_user();
-		$this->load->view('auth/index', $data);
+		$this->template->load('layouts/app','auth/index', $data);	
 	}
 
 	public function create_user()
