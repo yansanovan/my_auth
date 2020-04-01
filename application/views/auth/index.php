@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 <?= $this->session->flashdata('msgbox');?>
 <section class="content-header">
     <ol class="breadcrumb">
@@ -50,5 +48,3 @@
         </tbody>
     </table>
 </div> 
-
->>>>>>> try2
