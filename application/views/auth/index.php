@@ -41,7 +41,7 @@
 						<?= form_open('admin/delete_user/'.$value->id_users, ['class'=> 'inline']);?>
 							<button type="submit"  class="btn btn-danger btn-xs" onclick="return confirm('are you sure?')">Delete</button>
 						<?= form_close();?>
-						<a href="<?= site_url('admin/edit_user/'.$value->id_users)?>"  class="btn btn-info btn-xs" >Edit</a>
+						<a href="<?= site_url('admin/edit_user/'.$value->id_users)?>" class="btn btn-info btn-xs" >Edit</a>
 					</td>
 				</tr>
 			<?php endforeach ?>
