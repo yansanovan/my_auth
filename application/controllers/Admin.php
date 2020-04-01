@@ -93,7 +93,7 @@ class Admin extends CI_Controller
 
 		if ($this->form_validation->run() == FALSE) 
 		{
-			$this->load->view('auth/edit_user', $data);
+			$this->template->load('layouts/app','auth/edit_user', $data);	
 			return false;
 		}
 		else
