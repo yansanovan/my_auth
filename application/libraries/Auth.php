@@ -327,6 +327,7 @@ class Auth
 
 	public function forgotten_check_email()
 	{
+		
 		$data = $this->CI->authentication->findUser($this->email);
 		if ($data->num_rows() > 0) 
 		{
@@ -341,7 +342,7 @@ class Auth
 
 				if($this->CI->authentication->_forgotten_password_token($token, $this->email)) 
 				{
-					$config = $this->CI->config->item('email_forgotten');
+					$config 	= $this->CI->config->item('email_forgotten');
 					$email_from = $this->CI->config->item('email_from');
 
 					$this->CI->load->library('email', $config);
