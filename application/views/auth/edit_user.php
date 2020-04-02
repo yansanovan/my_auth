@@ -7,18 +7,18 @@
         	<?= form_open();?>
 	        	<div class="form-group <?= form_error('username') ? 'has-error': null ?>">
 	        		<?= form_label('username', 'username');?>
-					<?= form_input(['type'=>'hidden', 'name' => 'id', 'value'=> $data->id_users]);?>
-	        		<?= form_input(['type'=>'text', 'name' => 'username', 'class'=> 'form-control', 'value'=> $data->username, 'placeholder'=>'username']);?>
+					<?= form_input(['type'=>'hidden', 'name' => 'id', 'value'=> htmlspecialchars($data->id_users,ENT_QUOTES,'UTF-8')]);?>
+	        		<?= form_input(['type'=>'text', 'name' => 'username', 'class'=> 'form-control', 'value'=> htmlspecialchars($data->username,ENT_QUOTES,'UTF-8'), 'placeholder'=>'username']);?>
 	        		<?= form_error('username')?>
 	        	</div>
 	        	<div class="form-group <?= form_error('email') ? 'has-error': null ?>">
 	        		<?= form_label('email', 'email');?>
-	        		<?= form_input(['type'=>'email', 'name' => 'email', 'class'=> 'form-control', 'value'=> $data->email, 'placeholder'=>'Email']);?>
+	        		<?= form_input(['type'=>'email', 'name' => 'email', 'class'=> 'form-control', 'value'=> htmlspecialchars($data->email,ENT_QUOTES,'UTF-8'), 'placeholder'=>'Email']);?>
 	        		<?= form_error('email')?>
 	        	</div>
 	        	<div class="form-group <?= form_error('role') ? 'has-error': null ?>">
 	        		<?= form_label('role', 'role');?>
-	        		<?= form_dropdown('role', $role, $data->role_id, 'class="form-control"');?>
+	        		<?= form_dropdown('role', $role, htmlspecialchars($data->role_id,ENT_QUOTES,'UTF-8'), 'class="form-control"');?>
 	        		<?= form_error('role');?>
 	        	</div>
 	        	<div class="form-group <?= form_error('password') ? 'has-error': null ?>">
@@ -35,12 +35,12 @@
 	        		<?= form_label('activation', 'activation');?>
 	        		<div class="radio">
 	        			<label>
-	        				<input type="radio" name="activation" value="" <?php echo ($data->active  == null) ?  "checked" : "" ;?>/> active
+	        				<input type="radio" name="activation" value="" <?php echo (htmlspecialchars($data->active,ENT_QUOTES,'UTF-8')  == null) ?  "checked" : "" ;?>/> active
 	        			</label>
 	        		</div>
 	        		<div class="radio">
 	        			<label>
-	        				<input type="radio" name="activation" value="1" <?php echo ($data->active == 1) ?  "checked" : "" ;?>/> deactive
+	        				<input type="radio" name="activation" value="1" <?php echo (htmlspecialchars($data->active,ENT_QUOTES,'UTF-8') == 1) ?  "checked" : "" ;?>/> deactive
 	        			</label>
 	        		</div>
 	        	</div>

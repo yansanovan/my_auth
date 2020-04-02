@@ -8,8 +8,8 @@
         	<?= form_open();?>
 	        	<div class="form-group <?= form_error('username') ? 'has-error': null ?>">
 	        		<?= form_label('role', 'role');?>
-	        		<?= form_input(['type'=>'hidden', 'name' => 'id', 'class'=>'form-control', 'value'=> $data->id]);?>
-	        		<?= form_input(['type'=>'text', 'name' => 'role', 'class'=>'form-control', 'value'=> $data->role, 'placeholder'=>'role']);?>
+	        		<?= form_input(['type'=>'hidden', 'name' => 'id', 'class'=>'form-control', 'value'=>htmlspecialchars($data->id,ENT_QUOTES,'UTF-8')]);?>
+	        		<?= form_input(['type'=>'text', 'name' => 'role', 'class'=>'form-control', 'value'=>htmlspecialchars($data->role,ENT_QUOTES,'UTF-8'), 'placeholder'=>'role']);?>
 	        		<?= form_error('role')?>
 	        	</div>
 	        	<button type="submit" class="btn btn-primary btn-md">Edit</button>
