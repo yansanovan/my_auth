@@ -151,15 +151,6 @@ class Auth
 		}
 	}
 
-	public function access()
-	{
-		if ($this->CI->session->userdata('logged_in') != true) 
-		{
-			$this->CI->m_message->generateMessage('wrong', 'why you want to go there? you don\'t have access.');
-			redirect('login');
-		}
-	}
-
 	public function users()
 	{
 		if ($this->CI->session->userdata('logged_in') === true) 
@@ -183,6 +174,15 @@ class Auth
 		else
 		{
 			return false;
+		}
+	}
+
+	public function access()
+	{
+		if ($this->CI->session->userdata('logged_in') != true) 
+		{
+			$this->CI->m_message->generateMessage('wrong', 'why you want to go there? you don\'t have access.');
+			redirect('login');
 		}
 	}
 

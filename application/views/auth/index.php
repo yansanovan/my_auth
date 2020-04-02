@@ -27,12 +27,12 @@
 	        <?php $no = 1;
 			foreach ($data->result() as $key => $value) : ?>
 				<tr>
-					<td><?= $no++;?></td>
-					<td><?= $value->username;?></td>
-					<td><?= $value->email;?></td>
-					<td><?= $value->role?></td>
+					<td><?=  htmlspecialchars($no++,ENT_QUOTES,'UTF-8');?></td>
+					<td><?=  htmlspecialchars($value->username,ENT_QUOTES,'UTF-8');?></td>
+					<td><?=  htmlspecialchars($value->email,ENT_QUOTES,'UTF-8');?></td>
+					<td><?=  htmlspecialchars($value->role,ENT_QUOTES,'UTF-8')?></td>
 					<td>
-						<?php if ($value->active == null): ?>
+						<?php if (htmlspecialchars($value->active,ENT_QUOTES,'UTF-8') == null): ?>
 								<span  class="btn btn-success btn-xs">Active</span>
 							<?php else :?>
 								<span  class="btn btn-warning btn-xs">Deactive</span>
@@ -40,11 +40,11 @@
 						</td>
 					<td>
 						<div style="display: inline-block;">
-							<?= form_open('admin/delete_user/'.$value->id_users);?>
+							<?= form_open('admin/delete_user/'. htmlspecialchars($value->id_users,ENT_QUOTES,'UTF-8'));?>
 								<button type="submit"  class="btn btn-danger btn-xs" onclick="return confirm('are you sure?')">Delete</button>
 							<?= form_close();?>
 						</div>
-						<a href="<?= site_url('admin/edit_user/'.$value->id_users)?>" class="btn btn-info btn-xs" >Edit</a>
+						<a href="<?= site_url('admin/edit_user/'. htmlspecialchars($value->id_users,ENT_QUOTES,'UTF-8'))?>" class="btn btn-info btn-xs" >Edit</a>
 					</td>
 				</tr>
 			<?php endforeach ?>
