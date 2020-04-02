@@ -40,15 +40,15 @@
 					<?php foreach ($data as $key => $role) :?>
 						<tr>
 							<td><?= $no++?></td>
-							<td><?= $role['role']?></td>
-							<td><?= $role['created_at']?></td>
+							<td><?=  htmlspecialchars($role['role'], ENT_QUOTES,'UTF-8')?></td>
+							<td><?=  htmlspecialchars($role['created_at'], ENT_QUOTES,'UTF-8')?></td>
 							<td>
 								<div style="display: inline-block;">
-									<?= form_open('admin/delete_role/'.$role['id'], ['class'=> 'inline']);?>
+									<?= form_open('admin/delete_role/'. htmlspecialchars($role['id'], ENT_QUOTES,'UTF-8'), ['class'=> 'inline']);?>
 										<button type="submit" onclick="return confirm('are you sure?')" class="btn btn-danger btn-xs">Delete</button>
 									<?= form_close();?>
 								</div>
-								<a href="<?= site_url('admin/edit_role/'.$role['id'])?>" class="btn btn-warning btn-xs">Edit</a>
+								<a href="<?= site_url('admin/edit_role/'.htmlspecialchars($role['id'], ENT_QUOTES,'UTF-8'))?>" class="btn btn-warning btn-xs">Edit</a>
 							</td>
 						</tr>
 					<?php endforeach ?>
