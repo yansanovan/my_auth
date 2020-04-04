@@ -43,9 +43,6 @@ $config['enable_redirect_role'] = TRUE;
 | array bellow. example : admin is role and home is a controller
 |
 */ 
-
-$config['redirect_role'] = array('admin' => 'admin', 'user' => 'admin');
-
 $config['redirect_role'] = array('admin' => 'admin', 'user'=>'user');
 
 /*
