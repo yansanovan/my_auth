@@ -184,6 +184,8 @@ class Auth
 			$this->CI->m_message->generateMessage('wrong', 'why you want to go there? you don\'t have access.');
 			redirect('login');
 		}
+
+		return $this;
 	}
 
     public function except($method = array())

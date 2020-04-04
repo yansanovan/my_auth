@@ -6,8 +6,7 @@ class Admin extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->auth->access();
-		$this->auth->permission(['admin']);
+		$this->auth->access()->permission(['admin']);
 	}
 
 	public function index()
