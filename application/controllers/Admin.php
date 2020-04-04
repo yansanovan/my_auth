@@ -153,7 +153,7 @@ class Admin extends CI_Controller
 	{
 		$data['data'] = $this->db->get_where('role', ['id'=> $id])->row();
 
-		$this->form_validation->set_rules('role', 'role', 'required|callback_check_role');
+		$this->form_validation->set_rules('role', 'role', 'required|callback_check_role_is_unique');
         $this->form_validation->set_error_delimiters('<strong><span class="help-block auth_validate"><i class="fa fa-times-circle-o"></i>','</span></strong>');
 
 		if ($this->form_validation->run() == FALSE) 
@@ -171,7 +171,7 @@ class Admin extends CI_Controller
 		}	
 	}
 
-	public function check_role($role) 
+	public function check_role_is_unique($role) 
 	{        
 	    if($this->input->post('id'))
 	        $id = $this->input->post('id');
@@ -182,7 +182,7 @@ class Admin extends CI_Controller
 	        $response = true;
 	    else 
 	    {
-	        $this->form_validation->set_message('check_role', 'Upps! Role must be unique!');
+	        $this->form_validation->set_message('check_role_is_unique', 'Upps! Role must be unique!');
 	        $response = false;
 	    }
 	    return $response;
