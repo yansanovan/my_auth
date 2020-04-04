@@ -58,7 +58,7 @@ class Admin extends CI_Controller
 		}	
 	}
 
-	public function check_user_email($email) 
+	public function check_user_email_is_unique($email) 
 	{        
 	    if($this->input->post('id'))
 	        $id = $this->input->post('id');
@@ -69,7 +69,7 @@ class Admin extends CI_Controller
 	        $response = true;
 	    else 
 	    {
-	        $this->form_validation->set_message('check_user_email', 'Upps! Email must be unique!');
+	        $this->form_validation->set_message('check_user_email_is_unique', 'Upps! Email must be unique!');
 	        $response = false;
 	    }
 	    return $response;
@@ -81,7 +81,7 @@ class Admin extends CI_Controller
 		$data['data'] = $this->authentication->findUserById($id)->row();
 
 		$this->form_validation->set_rules('username','username', 'required');
-		$this->form_validation->set_rules('email', 'email', 'required|callback_check_user_email');
+		$this->form_validation->set_rules('email', 'email', 'required|callback_check_user_email_is_unique');
 		$this->form_validation->set_rules('role', 'role', 'required');
 		if ($this->input->post('password')) 
 		{
