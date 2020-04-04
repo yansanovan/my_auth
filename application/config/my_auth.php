@@ -43,7 +43,18 @@ $config['enable_redirect_role'] = TRUE;
 | array bellow. example : admin is role and home is a controller
 |
 */ 
-$config['redirect_role'] = array('admin' => 'admin');
+$config['redirect_role'] = array('admin' => 'admin',
+								 'user'  => 'user');
+
+/*
+| -------------------------------------------------------------------------
+| forgotten password setup
+| -------------------------------------------------------------------------
+| email from is email for admin send forgotten password to user, recommend 
+| mailjet
+|
+*/ 
+$config['email_from'] = ''; // email your admin
 /*
 | -------------------------------------------------------------------------
 | forgotten password setup
@@ -52,7 +63,6 @@ $config['redirect_role'] = array('admin' => 'admin');
 | mailjet
 |
 */ 
-$config['email_from'] = ''; // email your admin
 $config['email_forgotten'] = array('protocol'  => 'smtp', 
 						'smtp_host' => '', 
 						'smtp_port' => '', 
