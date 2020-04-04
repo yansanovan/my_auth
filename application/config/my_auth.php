@@ -45,7 +45,6 @@ $config['enable_redirect_role'] = TRUE;
 */ 
 $config['redirect_role'] = array('admin' => 'admin',
 								 'user'  => 'user');
-
 /*
 | -------------------------------------------------------------------------
 | forgotten password setup
@@ -79,6 +78,6 @@ $config['email_forgotten'] = array('protocol'  => 'smtp',
 | array bellow. example : admin is role and home is a controller
 |
 */ 
-$config['expired_reset'] = 300;
+$config['expired_reset'] = 600;
 
 
