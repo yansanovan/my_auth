@@ -196,7 +196,8 @@ class Auth
             {
                 if ($methods == (is_null($this->CI->uri->segment(2)) ? "index" : $this->CI->uri->segment(2))) 
                 {
-                    return true;
+                    // return true;
+					return $this;
                 }
             }
         }
@@ -215,6 +216,7 @@ class Auth
     			}
     		}
     	}
+    	return $this;
     }
 
 	public function permission($role = array())

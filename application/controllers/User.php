@@ -13,7 +13,6 @@ class User extends CI_Controller
 	{
 		print_r($this->auth->users());
 	}
-
 }
 
 /* End of file user.php */
