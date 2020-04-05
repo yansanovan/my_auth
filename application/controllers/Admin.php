@@ -7,6 +7,7 @@ class Admin extends CI_Controller
 	{
 		parent::__construct();
 		$this->auth->access()->permission(['admin']);
+		$this->load->library('encryption');
 	}
 
 	public function index()
@@ -193,6 +194,21 @@ class Admin extends CI_Controller
 		$this->authentication->delete_role($id);
 		$this->m_message->generateMessage('success', 'Successfully deleted role');
 		redirect('admin/role');
+	}
+
+	public function activation($id)
+	{
+		$this->db->where('id', $id);
+		$this->db->update('users', ['active'=> $this->input->post('active') == "1" ? null : 1]);
+		if ($this->input->post('active') == "") 
+		{
+			$this->m_message->generateMessage('success', 'Users Successfully deactive');
+		}
+		else
+		{
+			$this->m_message->generateMessage('success', 'Users Successfully active');
+		}
+		redirect('admin');
 	}
 }
 
