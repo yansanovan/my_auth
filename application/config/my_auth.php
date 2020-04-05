@@ -44,10 +44,10 @@ $config['enable_redirect_role'] = TRUE;
 |
 */ 
 $config['redirect_role'] = array('admin' => 'admin',
-								 'user'  => 'user');
+								 'users'  => 'user');
 /*
 | -------------------------------------------------------------------------
-| forgotten password setup
+| Email from
 | -------------------------------------------------------------------------
 | email from is email for admin send forgotten password to user, recommend 
 | mailjet

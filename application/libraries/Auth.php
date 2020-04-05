@@ -161,14 +161,14 @@ class Auth
 			$this->CI->db->join('role', 'role.id = users_on_role.role_id', 'left');
 			$this->CI->db->where('users.id', $this->CI->session->userdata('id'));
 			$users = $this->CI->db->get()->row();
-			$data  = array('id' 		=> $users->id,
-						   'username'   => $users->username,
-						   'email' 		=> $users->email,
-						   'last_login' => $users->last_login,
-						   'role' 		=> $users->role,
-						   'image' 		=> $users->image,
-						   'last_login' => $users->last_login
-			);
+			$data  = [ 'id' 		=> $users->id,
+					   'username'   => $users->username,
+					   'email' 		=> $users->email,
+					   'last_login' => $users->last_login,
+					   'role' 		=> $users->role,
+					   'image' 		=> $users->image,
+					   'last_login' => $users->last_login
+					 ];
 			return $data;
 		}
 		else
@@ -196,7 +196,6 @@ class Auth
             {
                 if ($methods == (is_null($this->CI->uri->segment(2)) ? "index" : $this->CI->uri->segment(2))) 
                 {
-                    // return true;
 					return $this;
                 }
             }
@@ -223,6 +222,7 @@ class Auth
 	{
 		$enable_redirect_role = $this->CI->config->item('enable_redirect_role');
 		$redirect_role 		  = $this->CI->config->item('redirect_role');
+
 		if ($this->CI->session->userdata('logged_in') === true) 
 		{
 			if ($enable_redirect_role === TRUE) 
