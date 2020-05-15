@@ -7,7 +7,6 @@ class Admin extends CI_Controller
 	{
 		parent::__construct();
 		$this->auth->access()->permission(['admin']);
-		$this->load->library('encryption');
 	}
 
 	public function index()
