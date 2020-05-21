@@ -11,7 +11,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *	created by Yansa novan
  *	Feature of auth is : 
  *	- login,
+ *	- logout,
  *	- only method, 
+ *	- permission, 
  *	- except method,
  *	- login attemps,  
  *	- forgot password

@@ -12,8 +12,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | -------------------------------------------------------------------------
 | enable_login_attemps 
 | -------------------------------------------------------------------------
-| enable login_attempt is to enable the login attempt, the default is FALSE
-| please set TRUE if you want to enable attempt login
+| enable login_attempts is to enable the login attempts, the default is FALSE
+| please set TRUE if you want to enable attempts login
 |
 */
 $config['enable_login_attemps'] = TRUE;
@@ -21,8 +21,8 @@ $config['enable_login_attemps'] = TRUE;
 | -------------------------------------------------------------------------
 | max_login_attemps 
 | -------------------------------------------------------------------------
-| login attempts default is five, if you want more than 5 please change max 
-| login attempts below 
+| login attempts default is 5, if you want more than 5 please change max 
+| below 
 | 
 */ 
 $config['max_login_attemps'] = 5; 
@@ -40,7 +40,7 @@ $config['enable_redirect_role'] = TRUE;
 | redirect_role
 | -------------------------------------------------------------------------
 | redirect role is redirect based on role users, for example you can change
-| array bellow. example : admin is role and home is a controller
+| array bellow. example : users is role and user is a controller
 |
 */ 
 $config['redirect_role'] = array('admin' => 'admin',
