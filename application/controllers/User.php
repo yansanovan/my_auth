@@ -6,12 +6,13 @@ class User extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->auth->access()->permission(['user']);
+		$this->auth->access()->permission(['users']);
 	}
 
 	public function index()
 	{
-		print_r($this->auth->users());
+		$data['users'] = $this->auth->users();
+		$this->template->load('layouts/app','dashboard', $data);	
 	}
 }
 
