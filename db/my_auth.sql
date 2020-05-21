@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 30 Mar 2020 pada 11.36
+-- Waktu pembuatan: 21 Bulan Mei 2020 pada 16.44
 -- Versi server: 10.1.31-MariaDB
 -- Versi PHP: 7.2.4
 
@@ -39,7 +39,8 @@ CREATE TABLE `role` (
 --
 
 INSERT INTO `role` (`id`, `role`, `created_at`) VALUES
-(1, 'admin', '2020-03-23 19:53:00');
+(1, 'admin', '2020-03-23 19:53:00'),
+(2, 'users', '2020-04-30 09:26:19');
 
 -- --------------------------------------------------------
 
@@ -67,7 +68,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `forgotten_password_token`, `forgotten_password_time`, `active`, `last_login`, `ip_address`, `login_attemps`, `image`, `created_at`) VALUES
-(1, 'admin', 'admin@gmail.com', '$2y$11$TCd2EV0YPzdCZfQj3j7a2.Y/4rYw69CJQfBUojwbto6uPGjC95GqC', NULL, 1584945071, NULL, '2020-03-30 08:27:06', '::1', 2, 'default.jpg', '0000-00-00 00:00:00');
+(1, 'admin', 'admin@gmail.com', '$2y$11$TCd2EV0YPzdCZfQj3j7a2.Y/4rYw69CJQfBUojwbto6uPGjC95GqC', '5f331f79fe4375b8b2281ee419c1ebec5859c984db98e66f13ca6e4250562da7', 1585564905, NULL, '2020-05-21 14:42:54', '::1', 0, 'default.jpg', '2020-03-31 20:00:00'),
+(2, 'users', 'users@gmail.com', '$2y$10$nxd6B2PzKfGnW6k.eeZ4J.1/hCMfuzxySN0Wzb6GJPM1Pfx2Z53/O', NULL, NULL, NULL, '2020-05-21 14:37:16', '', 0, 'default.jpg', '2020-04-30 02:26:49');
 
 -- --------------------------------------------------------
 
@@ -87,7 +89,8 @@ CREATE TABLE `users_on_role` (
 --
 
 INSERT INTO `users_on_role` (`id`, `role_id`, `user_id`, `created_at`) VALUES
-(1, 1, 1, '2020-03-23 19:22:17');
+(1, 1, 1, '2020-03-23 19:22:17'),
+(2, 2, 2, '2020-04-30 09:26:49');
 
 --
 -- Indexes for dumped tables
@@ -119,19 +122,19 @@ ALTER TABLE `users_on_role`
 -- AUTO_INCREMENT untuk tabel `role`
 --
 ALTER TABLE `role`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `users_on_role`
 --
 ALTER TABLE `users_on_role`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
