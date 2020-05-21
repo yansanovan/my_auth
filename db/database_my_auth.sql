@@ -69,6 +69,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `forgotten_password_token`, `forgotten_password_time`, `active`, `last_login`, `ip_address`, `login_attemps`, `image`, `created_at`) VALUES
 (1, 'admin', 'admin@gmail.com', '$2y$11$TCd2EV0YPzdCZfQj3j7a2.Y/4rYw69CJQfBUojwbto6uPGjC95GqC', '5f331f79fe4375b8b2281ee419c1ebec5859c984db98e66f13ca6e4250562da7', 1585564905, NULL, '2020-05-21 14:42:54', '::1', 0, 'default.jpg', '2020-03-31 20:00:00'),
+(2, 'users', 'users@gmail.com', '$2y$10$nxd6B2PzKfGnW6k.eeZ4J.1/hCMfuzxySN0Wzb6GJPM1Pfx2Z53/O', NULL, NULL, NULL, '2020-05-21 14:37:16', '', 0, 'default.jpg', '2020-04-30 02:26:49');
 
 -- --------------------------------------------------------
 
